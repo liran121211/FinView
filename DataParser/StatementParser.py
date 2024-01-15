@@ -117,17 +117,17 @@ class LeumiParser(Parser, ABC):
         raise IndexError("Could not find last row of data.")
 
     def extract_base_data(self) -> pd.DataFrame:
-        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount'])
-        date_of_purchase, business_name, total_amount = 0, 1, 5
+        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount','total_amount', 'payment_type'])
+        date_of_purchase, business_name, charge_amount, payment_type, total_amount = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
         current_df = self.data.iloc[first_idx: last_idx]
 
-        temp_df['date_of_purchase'] = current_df[current_df.columns[date_of_purchase]].apply(
-            lambda x: pd.to_datetime(x, dayfirst=True))
-        temp_df['business_name'] = current_df[current_df.columns[business_name]].apply(
-            lambda x: self.is_string_in_hebrew(x))
-        temp_df['charge_amount'] = current_df[current_df.columns[total_amount]]
+        temp_df['date_of_purchase'] = current_df[current_df.columns[date_of_purchase]].apply(lambda x: pd.to_datetime(x, dayfirst=True))
+        temp_df['business_name'] = current_df[current_df.columns[business_name]].apply(lambda x: self.is_string_in_hebrew(x))
+        temp_df['charge_amount'] = current_df[current_df.columns[charge_amount]]
+        temp_df['total_amount'] = current_df[current_df.columns[total_amount]]
+        temp_df['payment_type'] = current_df[current_df.columns[payment_type]]
 
         return temp_df.iloc[first_idx: last_idx]
 
@@ -142,15 +142,19 @@ class CalOnlineParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount'])
-        for idx, value in self.data.iterrows():
+        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount','total_amount', 'payment_type'])
+        date_of_purchase, business_name, charge_amount, payment_type, total_amount = 0, 1, 3, 4, 2
+
+        for idx, column in self.data.iterrows():
             try:
-                if pd.to_datetime(value.iloc[0], dayfirst=True):
-                    if not pd.isna(value.iloc[0]) and not pd.isnull(value.iloc[0]):
+                if pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True):
+                    if not pd.isna(column.iloc[date_of_purchase]) and not pd.isnull(column.iloc[date_of_purchase]):
                         data = {
-                            'date_of_purchase': pd.to_datetime(value.iloc[0], dayfirst=True),
-                            'business_name': self.is_string_in_hebrew(value.iloc[1]),
-                            'charge_amount': value.iloc[3],
+                            'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True),
+                            'business_name': column.iloc[business_name],
+                            'charge_amount': column.iloc[charge_amount],
+                            'payment_type': column.iloc[payment_type],
+                            'total_amount': column.iloc[total_amount],
                         }
                         info_rows.loc[len(info_rows)] = pd.Series(data)
             except ValueError:
@@ -169,15 +173,19 @@ class MaxParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount'])
-        for idx, value in self.data.iterrows():
+        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount','total_amount', 'payment_type'])
+        date_of_purchase, business_name, charge_amount, payment_type, total_amount = 0, 1, 5, 10, 7
+
+        for idx, column in self.data.iterrows():
             try:
-                if pd.to_datetime(value.iloc[0], dayfirst=True) and not pd.isnull(value.iloc[0]):
-                    if not pd.isna(value.iloc[1]) and not pd.isnull(value.iloc[1]) and not pd.isnull(value.iloc[1]):
+                if pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True):
+                    if not pd.isna(column.iloc[date_of_purchase]) and not pd.isnull(column.iloc[date_of_purchase]):
                         data = {
-                            'date_of_purchase': pd.to_datetime(value.iloc[0], dayfirst=True),
-                            'business_name': self.is_string_in_hebrew(value.iloc[1]),
-                            'charge_amount': value.iloc[5],
+                            'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True),
+                            'business_name': column.iloc[business_name],
+                            'charge_amount': column.iloc[charge_amount],
+                            'payment_type': column.iloc[payment_type],
+                            'total_amount': column.iloc[total_amount],
                         }
                         info_rows.loc[len(info_rows)] = pd.Series(data)
             except ValueError:
