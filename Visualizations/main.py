@@ -34,14 +34,14 @@ lp = MaxParser(r'Files/Input/MAX_AUG.xlsx')
 # print(max_parser.parse())
 
 db_instance = PostgreSQL()
+db_instance.delete_record(table_name='transactions', column_key='sha1_identifier', key= '218e5a14754020387b35e853a15980ce70f78a47')
 
-db_instance.add_record(table_name='transactions', new_data= {
+db_instance.add_record(table_name='transactions', record_data= {
                             'date_of_purchase': '01/01/1980',
                             'business_name': 'סתם עסק',
-                            'charge_amount': 10.0,
-                            'payment_type': 'עסקה רגילה',
-                            'total_amount': 100.0,
-                            'sha1_identifier': '45454545454545'
+                            'charge_amount': 19.0,
+                            'payment_type': 'עסקה ndghkv',
+                            'total_amount': 199.0,
                             })
 
 db_instance.close_connection()
