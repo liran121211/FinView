@@ -1,18 +1,18 @@
 import os
-from typing import Text, Dict
+from typing import Text, Dict, List, Any
 from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser
-from FinCore import PostgreSQL_DB, PROJECT_ROOT
-from RDBMS import SQL_ERROR
+from FinCore import *
 
 
 class Users:
     def __init__(self):
+        self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_user(self, username: Text, password: Text):
+    def add_user(self, username: Text, password: Text) -> int:
         if self.is_primary_key_exist(primary_key=username):
-            return SQL_ERROR
+            return RECORD_EXIST
 
         self.db.add_record(table_name='users',
                            record_data=
@@ -44,14 +44,53 @@ class Users:
 
 class Transactions:
     def __init__(self):
+        self.logger = Logger
         self.db = PostgreSQL_DB
+
+    @staticmethod
+    def num_to_month(month: Text) -> int:
+        if month == 'January':
+            return 1
+
+        if month == 'February':
+            return 2
+
+        if month == 'March':
+            return 3
+
+        if month == 'April':
+            return 4
+
+        if month == 'May':
+            return 5
+
+        if month == 'June':
+            return 6
+
+        if month == 'July':
+            return 7
+
+        if month == 'August':
+            return 8
+
+        if month == 'September':
+            return 9
+
+        if month == 'October':
+            return 10
+
+        if month == 'November':
+            return 11
+
+        if month == 'December':
+            return 12
 
     def add_transaction(self, record_data: Dict, username: Text):
         required_columns = self.db.fetch_columns('transactions')
 
         # validate username existence upon adding.
         if not self.db.is_value_exists(table_name='users', column_name='username', value=username):
-            return SQL_ERROR
+            return RECORD_EXIST
 
         # add username as foreign key ( Many->One).
         required_columns.append('username')
@@ -60,18 +99,19 @@ class Transactions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                return SQL_ERROR
+                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
         record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
-            return SQL_ERROR
+            return RECORD_EXIST
         try:
             self.db.add_record(table_name='transactions', record_data=record_data)
         except InvalidDatetimeFormat as e:
-            print(e)
-            return SQL_ERROR
+            self.logger.exception(e)
+            return SQL_QUERY_FAILED
 
     def modify_transaction(self, record_data: Dict, transaction_id: Text):
         required_columns = self.db.fetch_columns('transactions')
@@ -79,7 +119,8 @@ class Transactions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                return SQL_ERROR
+                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                return SQL_QUERY_FAILED
 
         self.db.modify_record(table_name='transactions',
                               record_data=record_data,
@@ -92,7 +133,8 @@ class Transactions:
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
-            return SQL_ERROR
+            self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
+            return SQL_QUERY_FAILED
 
         self.db.delete_record(table_name='transactions',
                               column_key='sha1_identifier',
@@ -101,6 +143,9 @@ class Transactions:
 
     def is_primary_key_exist(self, primary_key: Text):
         return self.db.is_value_exists(table_name='transactions', column_name='sha1_identifier', value=primary_key)
+
+    def transaction_query(self, sql_query: Text) -> List:
+        return self.db.create_query(sql_query)
 
 
 class Application:
@@ -112,7 +157,7 @@ class Application:
         for root, dirs, files in os.walk(os.path.join(PROJECT_ROOT, os.path.join('Files', 'Input'))):
             for filename in files:
                 if root.split(os.path.sep)[-1] == 'Cal':
-                    cal_data = CalOnlineParser(file_path=os.path.join(root, filename)).extract_base_data()
+                    cal_data = CalOnlineParser(file_path=os.path.join(root, filename)).parse()
 
                     # add records from statements to database
                     for idx, row in cal_data.iterrows():
@@ -126,7 +171,7 @@ class Application:
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'Max':
-                    max_data = MaxParser(file_path=os.path.join(root, filename)).extract_base_data()
+                    max_data = MaxParser(file_path=os.path.join(root, filename)).parse()
 
                     # add records from statements to database
                     for idx, row in max_data.iterrows():
@@ -140,7 +185,7 @@ class Application:
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'Leumi':
-                    leumi_data = LeumiParser(file_path=os.path.join(root, filename)).extract_base_data()
+                    leumi_data = LeumiParser(file_path=os.path.join(root, filename)).parse()
 
                     # add records from statements to database
                     for idx, row in leumi_data.iterrows():
@@ -153,11 +198,67 @@ class Application:
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
+    @property
+    def ask(self):
+        def format_result(result: Any) -> Any:
+            if isinstance(result, (int, float, bool, str)):
+                return result
 
+            if isinstance(result, (list, tuple)):
+                result = result[0]
+                if isinstance(result, (list, tuple)):
+                    return result[0]
+                else:
+                    return result
+
+        def how_much_spent_in_specific_month(selected_month: Text, username: Text):
+            query = f"SELECT SUM(total_amount) AS total_sum " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM transactions" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_purchase) = {Transactions.num_to_month(selected_month)}" \
+                    f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_much_spent_in_specific_year(selected_year: int, username: Text):
+            query = f"SELECT SUM(total_amount) AS total_sum " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM transactions" \
+                    f" WHERE EXTRACT(YEAR FROM date_of_purchase) = {selected_year}" \
+                    f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_much_spent_in_specific_business(business_name: Text, username: Text):
+            query = f"SELECT SUM(total_amount) AS total_sum " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM transactions" \
+                    f" WHERE business_name LIKE '%{business_name}%'" \
+                    f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        return {
+            'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
+            'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
+            'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
+        }
 
 
 app = Application()
 app.load_statements_to_db(current_user='liran')
+print(app.ask['how_much_spent_in_specific_month'](selected_month='August', username='liran'))
+print(app.ask['how_much_spent_in_specific_year'](selected_year=2023, username='liran'))
+print(app.ask['how_much_spent_in_specific_business'](business_name='מקס', username='liran'))
 
 exit(0)
 users_interface = Users()

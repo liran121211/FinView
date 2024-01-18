@@ -1,14 +1,17 @@
+import logging
 import os
 import os.path
-from typing import AnyStr, Any
+from typing import AnyStr
 import pandas as pd
 import requests
 from abc import ABC, abstractmethod
-from DataParser import PROJECT_ROOT
+from DataParser import *
 
 
 class Parser:
     def __init__(self, file_path: AnyStr):
+        self.logger = logging.getLogger(__name__)
+        self.logger.addHandler(FILE_HANDLER)
         self.__file_absolute_path = os.path.join(PROJECT_ROOT, file_path)
         self.__df = pd.read_excel(self.__file_absolute_path, engine='openpyxl')
 
@@ -98,7 +101,7 @@ class LeumiParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):
         super().__init__(file_path)
 
-    def retrieve_first_index(self) -> Any:
+    def retrieve_first_index(self) -> int:
         # Check if the required columns exist in the DataFrame
         required_columns = {'תאריך העסקה', 'שם בית העסק', 'סכום חיוב'}
 
@@ -107,23 +110,28 @@ class LeumiParser(Parser, ABC):
             if len(required_columns & col_values) > 0:
                 return int(str(idx)) + 1
 
-        raise IndexError("Could not find first row of data.")
+        self.logger.exception(f"LeumiParser - Could not retrieve first index from file.")
+        return INVALID_INDEX
 
-    def retrieve_last_index(self, start_idx) -> Any:
+    def retrieve_last_index(self, start_idx) -> int:
         date_of_purchase, business_name, total_amount = 0, 1, 5
         for idx, values in self.data.iloc[start_idx:].iterrows():
             if pd.isna(values[date_of_purchase]) or pd.isna(values[business_name]) or pd.isna(values[total_amount]):
                 return idx
 
-        raise IndexError("Could not find last row of data.")
+        self.logger.exception(f"LeumiParser - Could not retrieve last index from file.")
+        return INVALID_INDEX
 
     def extract_base_data(self) -> pd.DataFrame:
-        temp_df = pd.DataFrame(
-            columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
         current_df = self.data.iloc[first_idx: last_idx]
+
+        # avoid invalid data fetched from selected first/last indexes of xlsx.
+        if first_idx == INVALID_INDEX or last_idx == INVALID_INDEX:
+            return temp_df
 
         for idx, column in current_df.iterrows():
             try:
@@ -158,8 +166,7 @@ class LeumiParser(Parser, ABC):
         return temp_df.iloc[first_idx: last_idx]
 
     def parse(self) -> pd.DataFrame:
-        base_df = self.extract_base_data().reset_index(drop=True)
-        return self.define_missing_category(temp_df=base_df)
+        return self.extract_base_data().reset_index(drop=True)
 
 
 class CalOnlineParser(Parser, ABC):
@@ -168,8 +175,7 @@ class CalOnlineParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(
-            columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
         for idx, column in self.data.iterrows():
@@ -205,8 +211,7 @@ class CalOnlineParser(Parser, ABC):
         return info_rows
 
     def parse(self) -> pd.DataFrame:
-        base_df = self.extract_base_data().reset_index(drop=True)
-        return self.define_missing_category(temp_df=base_df)
+        return self.extract_base_data().reset_index(drop=True)
 
 
 class MaxParser(Parser, ABC):
@@ -215,8 +220,7 @@ class MaxParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(
-            columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 5, 10, 7
 
         for idx, column in self.data.iterrows():
@@ -252,5 +256,4 @@ class MaxParser(Parser, ABC):
         return info_rows
 
     def parse(self) -> pd.DataFrame:
-        base_df = self.extract_base_data().reset_index(drop=True)
-        return self.define_missing_category(temp_df=base_df)
+        return self.extract_base_data().reset_index(drop=True)

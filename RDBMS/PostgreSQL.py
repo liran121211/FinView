@@ -7,7 +7,6 @@ from RDBMS import *
 
 
 class PostgreSQL:
-
     @staticmethod
     def calc_sha1(raw_data: dict):
         result = ""
@@ -27,6 +26,8 @@ class PostgreSQL:
 
     def __init__(self):
         self.connection = None
+        self.logger = logging.getLogger(__name__)
+        self.logger.addHandler(FILE_HANDLER)
         self.__init_connection()
 
     def __init_connection(self):
@@ -41,24 +42,34 @@ class PostgreSQL:
             )
 
             # If the connection is successful, print a success message
-            print("PostgreSQL connection is successful!")
+            self.logger.info(f"Successfully connected to PostgreSQL database - {DATABASE_HOST}:{DATABASE_PORT}")
 
         except OperationalError as e:
-            # If there's an error, print the error message
-            print(f"Error: {e}")
+            self.logger.exception(e)
 
     def close_connection(self):
         if self.connection:
             self.connection.close()
-            print("Connection closing request sent.")
 
             # Check if the connection is closed
-            if self.connection.closed == INACTIVE:
-                print("Connection is closed.")
+            if self.connection.closed == YES:
+                self.logger.info(f"Successfully closed PostgreSQL connection - {DATABASE_HOST}:{DATABASE_PORT}")
             else:
-                print("Connection is not closed.")
+                self.close_connection()
 
-    def add_record(self, table_name: Text, record_data: Dict):
+    def is_postgresql_connected(self):
+        if self.connection is not None:
+            if self.connection.closed == NO:
+                return CONNECTED
+        return NOT_CONNECTED
+
+    def add_record(self, table_name: Text, record_data: Dict) -> None:
+
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on adding new record to PostgreSQL while connection is closed - {record_data.values()}")
+            return
+
         try:
             # Create a cursor to execute SQL commands
             cursor = self.connection.cursor()
@@ -71,14 +82,19 @@ class PostgreSQL:
 
             # Commit the changes to the database
             self.connection.commit()
-
-            print("New row added successfully!")
+            self.logger.info(f"Successfully added a new record to PostgreSQL database - {record_data.values()}")
 
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
-            print(f"Error: {e}")
+            self.logger.exception(e)
 
     def modify_record(self, table_name: Text, record_data: Dict, key: Text, column_key: Text):
+
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on modifying a record in PostgreSQL while connection is closed, Table: {table_name} | Key: {key}")
+            return
+
         try:
             # Create a cursor to execute SQL commands
             cursor = self.connection.cursor()
@@ -91,14 +107,19 @@ class PostgreSQL:
 
             # Commit the changes to the database
             self.connection.commit()
-
-            print("Record updated successfully!")
+            self.logger.info(f"Successfully modified a record in PostgreSQL database, Table: {table_name} | Key: {key}")
 
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
-            print(f"Error: {e}")
+            self.logger.exception(e)
 
     def delete_record(self, table_name: Text, key: Text, column_key: Text):
+
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on deleting a record in PostgreSQL while connection is closed, Table: {table_name} | Key: {key}")
+            return
+
         try:
             # Create a cursor to execute SQL commands
             cursor = self.connection.cursor()
@@ -111,14 +132,19 @@ class PostgreSQL:
 
             # Commit the changes to the database
             self.connection.commit()
-
-            print("Record deleted successfully!")
+            self.logger.info(f"Successfully deleted a record in PostgreSQL database, Table: {table_name} | Key: {key}")
 
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
-            print(f"Error: {e}")
+            self.logger.exception(e)
 
     def fetch_columns(self, table_name: Text) -> List:
+
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on fetch_columns from PostgreSQL while connection is closed, Table: {table_name}")
+            return []
+
         try:
             # Create a cursor to execute SQL commands
             cursor = self.connection.cursor()
@@ -132,12 +158,17 @@ class PostgreSQL:
             # Fetch all column names from the result set
             return [row[0] for row in cursor.fetchall()]
 
-
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
-            print(f"Error: {e}")
+            self.logger.exception(e)
 
     def is_value_exists(self, table_name: Text, column_name: Text, value: Text) -> int:
+
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on searching for value in PostgreSQL while connection is closed, Table: {table_name} | Value: {value}")
+            return VALUE_NOT_EXIST
+
         try:
             # Create a cursor to execute SQL commands
             cursor = self.connection.cursor()
@@ -158,4 +189,29 @@ class PostgreSQL:
 
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
-            print(f"Error: {e}")
+            self.logger.exception(e)
+
+    def create_query(self, sql_query: Text) -> List:
+
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on sending query to PostgreSQL while connection is closed, Query: {sql_query}")
+            return VALUE_NOT_EXIST
+
+        try:
+            # Create a cursor to execute queries
+            with self.connection.cursor() as cursor:
+                # Execute the query
+                cursor.execute(sql_query)
+
+                # Fetch the result if it's a SELECT query
+                result = cursor.fetchall() if cursor.description else None
+
+                # Commit the changes (for non-SELECT queries)
+                self.connection.commit()
+
+                # return result from sql
+                return result
+
+        except Exception as e:
+            self.logger.exception(e)
