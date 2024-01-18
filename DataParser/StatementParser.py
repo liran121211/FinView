@@ -88,6 +88,7 @@ class Parser:
         temp_df.to_excel(os.path.join(PROJECT_ROOT, fr'files\Output\{output_path}'))
 
         return temp_df
+
     @property
     def data(self):
         return self.__df
@@ -117,17 +118,42 @@ class LeumiParser(Parser, ABC):
         raise IndexError("Could not find last row of data.")
 
     def extract_base_data(self) -> pd.DataFrame:
-        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount','total_amount', 'payment_type'])
-        date_of_purchase, business_name, charge_amount, payment_type, total_amount = 0, 1, 2, 3, 5
+        temp_df = pd.DataFrame(
+            columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
         current_df = self.data.iloc[first_idx: last_idx]
 
-        temp_df['date_of_purchase'] = current_df[current_df.columns[date_of_purchase]].apply(lambda x: pd.to_datetime(x, dayfirst=True))
-        temp_df['business_name'] = current_df[current_df.columns[business_name]].apply(lambda x: self.is_string_in_hebrew(x))
-        temp_df['charge_amount'] = current_df[current_df.columns[charge_amount]]
-        temp_df['total_amount'] = current_df[current_df.columns[total_amount]]
-        temp_df['payment_type'] = current_df[current_df.columns[payment_type]]
+        for idx, column in current_df.iterrows():
+            try:
+                if pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_purchase_idx]) or pd.isnull(column.iloc[date_of_purchase_idx]):
+                        continue
+
+                if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
+                    continue
+
+                if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
+                    continue
+
+                if pd.isna(column.iloc[payment_type_idx]) or pd.isnull(column.iloc[payment_type_idx]):
+                    continue
+
+                if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
+                    continue
+
+                data = {
+                    'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True),
+                    'business_name': column.iloc[business_name_idx],
+                    'charge_amount': column.iloc[charge_amount_idx],
+                    'payment_type': column.iloc[payment_type_idx],
+                    'total_amount': column.iloc[total_amount_idx],
+                }
+                temp_df.loc[len(temp_df)] = pd.Series(data)
+
+            except ValueError:
+                continue
 
         return temp_df.iloc[first_idx: last_idx]
 
@@ -142,21 +168,37 @@ class CalOnlineParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount','total_amount', 'payment_type'])
-        date_of_purchase, business_name, charge_amount, payment_type, total_amount = 0, 1, 3, 4, 2
+        info_rows = pd.DataFrame(
+            columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
         for idx, column in self.data.iterrows():
             try:
-                if pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True):
-                    if not pd.isna(column.iloc[date_of_purchase]) and not pd.isnull(column.iloc[date_of_purchase]):
-                        data = {
-                            'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True),
-                            'business_name': column.iloc[business_name],
-                            'charge_amount': column.iloc[charge_amount],
-                            'payment_type': column.iloc[payment_type],
-                            'total_amount': column.iloc[total_amount],
-                        }
-                        info_rows.loc[len(info_rows)] = pd.Series(data)
+                if pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_purchase_idx]) or pd.isnull(column.iloc[date_of_purchase_idx]):
+                        continue
+
+                if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
+                    continue
+
+                if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
+                    continue
+
+                if pd.isna(column.iloc[payment_type_idx]) or pd.isnull(column.iloc[payment_type_idx]):
+                    continue
+
+                if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
+                    continue
+
+                data = {
+                    'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True),
+                    'business_name': column.iloc[business_name_idx],
+                    'charge_amount': column.iloc[charge_amount_idx],
+                    'payment_type': column.iloc[payment_type_idx],
+                    'total_amount': column.iloc[total_amount_idx],
+                }
+                info_rows.loc[len(info_rows)] = pd.Series(data)
+
             except ValueError:
                 continue
 
@@ -173,21 +215,37 @@ class MaxParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount','total_amount', 'payment_type'])
-        date_of_purchase, business_name, charge_amount, payment_type, total_amount = 0, 1, 5, 10, 7
+        info_rows = pd.DataFrame(
+            columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 5, 10, 7
 
         for idx, column in self.data.iterrows():
             try:
-                if pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True):
-                    if not pd.isna(column.iloc[date_of_purchase]) and not pd.isnull(column.iloc[date_of_purchase]):
-                        data = {
-                            'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase], dayfirst=True),
-                            'business_name': column.iloc[business_name],
-                            'charge_amount': column.iloc[charge_amount],
-                            'payment_type': column.iloc[payment_type],
-                            'total_amount': column.iloc[total_amount],
-                        }
-                        info_rows.loc[len(info_rows)] = pd.Series(data)
+                if pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_purchase_idx]) or pd.isnull(column.iloc[date_of_purchase_idx]):
+                        continue
+
+                if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
+                    continue
+
+                if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
+                    continue
+
+                if pd.isna(column.iloc[payment_type_idx]) or pd.isnull(column.iloc[payment_type_idx]):
+                    continue
+
+                if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
+                    continue
+
+                data = {
+                    'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True),
+                    'business_name': column.iloc[business_name_idx],
+                    'charge_amount': column.iloc[charge_amount_idx],
+                    'payment_type': column.iloc[payment_type_idx],
+                    'total_amount': column.iloc[total_amount_idx],
+                }
+                info_rows.loc[len(info_rows)] = pd.Series(data)
+
             except ValueError:
                 continue
 
