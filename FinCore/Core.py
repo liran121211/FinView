@@ -205,10 +205,13 @@ class Application:
                 return result
 
             if isinstance(result, (list, tuple)):
-                result = result[0]
-                if isinstance(result, (list, tuple)):
-                    return result[0]
-                else:
+                if len(result) == 0:
+                    return result
+
+                if len(result) == 1:
+                    return result[SINGLE_LIST][SINGLE_TUPLE]
+
+                if len(result) > 0:
                     return result
 
         def how_much_spent_in_specific_month(selected_month: Text, username: Text):
@@ -240,7 +243,46 @@ class Application:
                     f"FROM (" \
                     f"SELECT total_amount" \
                     f" FROM transactions" \
-                    f" WHERE business_name LIKE '%{business_name}%'" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
+                    f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_by_payment_type(payment_type: Text, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE payment_type = '{payment_type}'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_by_business_name(business_name: Text, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_above_amount(amount: float, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE total_amount >= '{amount}'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_many_records_from_specific_business(business_name: Text, username: Text):
+            query = f"SELECT COUNT(subquery) AS total_transactions " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM transactions" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
 
@@ -251,6 +293,10 @@ class Application:
             'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
+            'which_records_by_payment_type': which_records_by_payment_type,
+            'which_records_by_business_name': which_records_by_business_name,
+            'which_records_above_amount': which_records_above_amount,
+            'how_many_records_from_specific_business': how_many_records_from_specific_business,
         }
 
 
@@ -259,18 +305,7 @@ app.load_statements_to_db(current_user='liran')
 print(app.ask['how_much_spent_in_specific_month'](selected_month='August', username='liran'))
 print(app.ask['how_much_spent_in_specific_year'](selected_year=2023, username='liran'))
 print(app.ask['how_much_spent_in_specific_business'](business_name='מקס', username='liran'))
-
-exit(0)
-users_interface = Users()
-users_interface.add_user('liran', '123456')
-
-transactions_interface = Transactions()
-transactions_interface.add_transaction(
-    record_data={
-        'date_of_purchase': '01/01/1981',
-        'business_name': 'סתם עסק',
-        'charge_amount': 19.0,
-        'payment_type': 'עסקה ndghkv',
-        'total_amount': 199.0,
-    },
-    username='liran')
+print(app.ask['which_records_by_payment_type'](payment_type='הוראת קבע', username='liran'))
+print(app.ask['which_records_by_business_name'](business_name='פז', username='liran'))
+print(app.ask['which_records_above_amount'](amount=300.0, username='liran'))
+print(app.ask['how_many_records_from_specific_business'](business_name='', username='liran'))

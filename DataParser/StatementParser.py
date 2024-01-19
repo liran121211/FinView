@@ -1,10 +1,11 @@
-import logging
-import os
 import os.path
 from typing import AnyStr
 import pandas as pd
 import requests
 from abc import ABC, abstractmethod
+from openpyxl.reader.excel import load_workbook
+from openpyxl.utils.exceptions import InvalidFileException
+
 from DataParser import *
 
 
@@ -12,8 +13,15 @@ class Parser:
     def __init__(self, file_path: AnyStr):
         self.logger = logging.getLogger(__name__)
         self.logger.addHandler(FILE_HANDLER)
+        self.filename = os.path.basename(file_path)
         self.__file_absolute_path = os.path.join(PROJECT_ROOT, file_path)
-        self.__df = pd.read_excel(self.__file_absolute_path, engine='openpyxl')
+
+        # validate xlsx file before init instance
+        if self.is_xlsx_file(self.__file_absolute_path):
+            self.__df = pd.read_excel(self.__file_absolute_path, engine='openpyxl')
+            self.is_valid = True
+        else:
+            self.is_valid = False
 
     @staticmethod
     def is_string_in_hebrew(value):
@@ -54,6 +62,15 @@ class Parser:
                 return []
 
         return []
+
+    @staticmethod
+    def is_xlsx_file(file_path):
+        try:
+            # Try to load the file with openpyxl
+            load_workbook(file_path)
+            return True
+        except InvalidFileException:
+            return False
 
     @abstractmethod
     def parse(self) -> pd.DataFrame:
@@ -123,6 +140,10 @@ class LeumiParser(Parser, ABC):
         return INVALID_INDEX
 
     def extract_base_data(self) -> pd.DataFrame:
+        if not self.is_valid:
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+
         temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
@@ -174,6 +195,10 @@ class CalOnlineParser(Parser, ABC):
         super().__init__(file_path)
 
     def extract_base_data(self) -> pd.DataFrame:
+        if not self.is_valid:
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+
         # Check if the required columns exist in the DataFrame
         info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 3, 4, 2
@@ -219,6 +244,10 @@ class MaxParser(Parser, ABC):
         super().__init__(file_path)
 
     def extract_base_data(self) -> pd.DataFrame:
+        if not self.is_valid:
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+
         # Check if the required columns exist in the DataFrame
         info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 5, 10, 7

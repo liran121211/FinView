@@ -26,8 +26,7 @@ class PostgreSQL:
 
     def __init__(self):
         self.connection = None
-        self.logger = logging.getLogger(__name__)
-        self.logger.addHandler(FILE_HANDLER)
+        self.logger = Logger
         self.__init_connection()
 
     def __init_connection(self):
@@ -82,7 +81,7 @@ class PostgreSQL:
 
             # Commit the changes to the database
             self.connection.commit()
-            self.logger.info(f"Successfully added a new record to PostgreSQL database - {record_data.values()}")
+            self.logger.info(f"Successfully added a new record to PostgreSQL database.")
 
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
