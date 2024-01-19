@@ -163,10 +163,11 @@ class Application:
                     for idx, row in cal_data.iterrows():
                         current_record = {
                             'date_of_purchase': row['date_of_purchase'],
-                            'business_name': row['business_name'],
-                            'charge_amount': row['charge_amount'],
-                            'total_amount': row['total_amount'],
-                            'payment_type': row['payment_type'],
+                            'business_name':    row['business_name'],
+                            'charge_amount':    row['charge_amount'],
+                            'total_amount':     row['total_amount'],
+                            'payment_type':     row['payment_type'],
+                            'payment_provider': row['payment_provider'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -177,10 +178,11 @@ class Application:
                     for idx, row in max_data.iterrows():
                         current_record = {
                             'date_of_purchase': row['date_of_purchase'],
-                            'business_name': row['business_name'],
-                            'charge_amount': row['charge_amount'],
-                            'total_amount': row['total_amount'],
-                            'payment_type': row['payment_type'],
+                            'business_name':    row['business_name'],
+                            'charge_amount':    row['charge_amount'],
+                            'total_amount':     row['total_amount'],
+                            'payment_type':     row['payment_type'],
+                            'payment_provider': row['payment_provider'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -191,10 +193,11 @@ class Application:
                     for idx, row in leumi_data.iterrows():
                         current_record = {
                             'date_of_purchase': row['date_of_purchase'],
-                            'business_name': row['business_name'],
-                            'charge_amount': row['charge_amount'],
-                            'total_amount': row['total_amount'],
-                            'payment_type': row['payment_type'],
+                            'business_name':    row['business_name'],
+                            'charge_amount':    row['charge_amount'],
+                            'total_amount':     row['total_amount'],
+                            'payment_type':     row['payment_type'],
+                            'payment_provider': row['payment_provider'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -277,6 +280,15 @@ class Application:
             result = self.__manage_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
+        def which_records_of_payment_provider(payment_provider: Text, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE transactions.payment_provider ILIKE '%{payment_provider}%'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
         def how_many_records_from_specific_business(business_name: Text, username: Text):
             query = f"SELECT COUNT(subquery) AS total_transactions " \
                     f"FROM (" \
@@ -296,6 +308,7 @@ class Application:
             'which_records_by_payment_type': which_records_by_payment_type,
             'which_records_by_business_name': which_records_by_business_name,
             'which_records_above_amount': which_records_above_amount,
+            'which_records_of_payment_provider': which_records_of_payment_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
         }
 
@@ -309,3 +322,4 @@ print(app.ask['which_records_by_payment_type'](payment_type='הוראת קבע',
 print(app.ask['which_records_by_business_name'](business_name='פז', username='liran'))
 print(app.ask['which_records_above_amount'](amount=300.0, username='liran'))
 print(app.ask['how_many_records_from_specific_business'](business_name='', username='liran'))
+print(app.ask['which_records_of_payment_provider'](payment_provider='cal', username='liran'))

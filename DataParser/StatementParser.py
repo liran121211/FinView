@@ -142,9 +142,9 @@ class LeumiParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
 
-        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
@@ -178,6 +178,7 @@ class LeumiParser(Parser, ABC):
                     'charge_amount': column.iloc[charge_amount_idx],
                     'payment_type': column.iloc[payment_type_idx],
                     'total_amount': column.iloc[total_amount_idx],
+                    'payment_provider': 'Leumi',
                 }
                 temp_df.loc[len(temp_df)] = pd.Series(data)
 
@@ -197,10 +198,10 @@ class CalOnlineParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
         for idx, column in self.data.iterrows():
@@ -227,6 +228,7 @@ class CalOnlineParser(Parser, ABC):
                     'charge_amount': column.iloc[charge_amount_idx],
                     'payment_type': column.iloc[payment_type_idx],
                     'total_amount': column.iloc[total_amount_idx],
+                    'payment_provider': 'Cal Online',
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
@@ -246,10 +248,10 @@ class MaxParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type'])
+        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
         date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 5, 10, 7
 
         for idx, column in self.data.iterrows():
@@ -276,6 +278,7 @@ class MaxParser(Parser, ABC):
                     'charge_amount': column.iloc[charge_amount_idx],
                     'payment_type': column.iloc[payment_type_idx],
                     'total_amount': column.iloc[total_amount_idx],
+                    'payment_provider': 'Max',
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
