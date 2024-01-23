@@ -1,5 +1,7 @@
-import os
 from typing import Text, Dict, List, Any
+
+from django.utils.datetime_safe import date
+from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser
 from FinCore import *
@@ -10,18 +12,26 @@ class Users:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_user(self, username: Text, password: Text) -> int:
-        if self.is_primary_key_exist(primary_key=username):
+    def add_user(self, username: Text, password: Text, first_name: Text, last_name: Text, email:Text) -> int:
+        if self.is_user_exist(username=username):
             return RECORD_EXIST
 
-        self.db.add_record(table_name='users',
+        self.db.add_record(table_name='auth_user',
                            record_data=
                            {
                                'username': username,
-                               'password': password
+                               'password': make_password(password),
+                               'is_superuser': False,
+                               'is_staff': False,
+                               'is_active': True,
+                               'first_name': first_name,
+                               'last_name': last_name,
+                               'email': email,
+                               'date_joined': date.today()
                            })
 
     def modify_user(self, username: Text, password: Text):
+        # TODO: modify specific/more than 1 value by given user id
         self.db.modify_record(table_name='users',
                               record_data=
                               {
@@ -32,14 +42,17 @@ class Users:
                               key=username
                               )
 
-    def delete_user(self, username: Text):
-        self.db.delete_record(table_name='users',
-                              column_key='username',
-                              key=username
+    def delete_user(self, user_id: int):
+        self.db.delete_record(table_name='auth_user',
+                              column_key='id',
+                              key=user_id
                               )
 
-    def is_primary_key_exist(self, primary_key: Text):
-        return self.db.is_value_exists(table_name='users', column_name='username', value=primary_key)
+    def is_primary_key_exist(self, primary_key: int):
+        return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
+
+    def is_user_exist(self, username: Text):
+        return self.db.is_value_exists(table_name='auth_user', column_name='username', value=username)
 
 
 class Transactions:
@@ -311,15 +324,3 @@ class Application:
             'which_records_of_payment_provider': which_records_of_payment_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
         }
-
-
-app = Application()
-app.load_statements_to_db(current_user='liran')
-print(app.ask['how_much_spent_in_specific_month'](selected_month='August', username='liran'))
-print(app.ask['how_much_spent_in_specific_year'](selected_year=2023, username='liran'))
-print(app.ask['how_much_spent_in_specific_business'](business_name='מקס', username='liran'))
-print(app.ask['which_records_by_payment_type'](payment_type='הוראת קבע', username='liran'))
-print(app.ask['which_records_by_business_name'](business_name='פז', username='liran'))
-print(app.ask['which_records_above_amount'](amount=300.0, username='liran'))
-print(app.ask['how_many_records_from_specific_business'](business_name='', username='liran'))
-print(app.ask['which_records_of_payment_provider'](payment_provider='cal', username='liran'))
