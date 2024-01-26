@@ -94,7 +94,7 @@
 
     <!-- Remote CSS Files -->
     <link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" data-tag="font"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"/>
 
     <!-- Local CSS Files -->
@@ -118,11 +118,15 @@
                 <img alt="logo" src="https://presentation-website-assets.teleporthq.io/logos/logo.png" class="home-image"/>
                 <div data-thq="thq-navbar-nav" class="home-desktop-menu">
                     <nav class="home-links">
-                        <span class="home-text">Overview</span>
-                        <span class="home-text01">Transactions</span>
-                        <span class="home-text02">Trends/Analytics</span>
-                        <span class="home-text03">Budgeting</span>
-                        <span class="home-text04">CATEGORY</span>
+                        <span class="home-text04">#לא מוגדר#</span>
+                        <span class="home-text03">תקציב</span>
+                        <span class="home-text02">ניתוח אנליטיקות/טרנדים</span>
+                        <span class="home-text01"> עסקאות</span>
+                        <span class="home-text01">מבט על</span>
+
+
+
+
                     </nav>
                     <div class="home-buttons">
                         <button class="home-login button">Login</button>
@@ -176,12 +180,41 @@
 
             <!-- 2nd Layout (Horizontal) -->
             <div class="home-double-horizontal-layout1">
-                <div id="container" style="width: 25%;">
-                    <canvas id="pie-chart"></canvas>
+
+
+                    <!-- Dashboard Upper -->
+                    <div class="dashboard-container">
+                      <!-- First Section: Headline -->
+                      <div class="dashboard-headline">
+                        <h1>פאנל ניהול</h1>
+                      </div>
+
+                      <!-- Second Section: Categories -->
+                      <div class="home-overview">
+                        <img src="{% static 'images/home_profile_avatar.svg' %}" alt="Avatar Image">
+                        <h2>סקירה כללית</h2>
+                            <ul>
+                            <li>חיוב נוכחי:<div id="current-charge"> ₪729.80-</div></li>
+                            <li>סה"כ חסכונות:<div id="current-savings">₪729.80+</div></li>
+                            <li>חיוב אחרון:<div id="last-charge">₪729.80-</div></li>
+                            </ul>
+
+
+                      </div>
+
+                      <!-- Third Section: Buttons -->
+                      <div class="credit-cards">
+                        <h2>כרטיסים פעילים</h2>
+                        <div class="button-group">
+                          <button>Button 1</button>
+                          <button>Button 2</button>
+                          <button>Button 3</button>
+                          <button>Button 4</button>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                <button type="button" class="button">Button</button>
-                <button type="button" class="button">Button</button>
-            </div>
+
 
             <!-- 2nd Layout (Horizontal) -->
             <div class="home-double-horizontal-layout2">
@@ -189,7 +222,7 @@
                 <table id="transactions-table">
                     <thead>
                     <tr>
-                        <th>Outcome</th>
+                        <th>הכנסות אחרונות</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -202,7 +235,7 @@
                 <table id="income-table">
                     <thead>
                     <tr>
-                        <th>Income</th>
+                        <th>הכנסות אחרונות</th>
                     </tr>
                     </thead>
                     <tbody>
