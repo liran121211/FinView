@@ -23,6 +23,9 @@
     <orderEntry type="library" name="@teleporthq/teleport-custom-scripts" level="application" />
     <orderEntry type="library" name="@teleporthq" level="application" />
     <orderEntry type="library" name="chart.js" level="application" />
+    <orderEntry type="library" name="fusioncharts" level="application" />
+    <orderEntry type="library" name="fusioncharts.theme.fusion" level="application" />
+    <orderEntry type="library" name="chartjs-plugin-datalabels" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

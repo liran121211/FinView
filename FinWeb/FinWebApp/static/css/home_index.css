@@ -216,7 +216,7 @@
   flex-direction: column;
   justify-content: center;
 }
-.home-double-horizional-layout1 {
+.home-double-horizontal-layout1 {
   flex: 0 0 auto;
   width: 100%;
   height: 100px;
@@ -225,6 +225,16 @@
   align-items: center;
   justify-content: center;
 }
+.home-double-horizontal-layout2 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+}
+
 @media(max-width: 767px) {
   .home-navbar-interactive {
     padding-left: var(--dl-space-space-twounits);
@@ -265,4 +275,130 @@
   .home-mobile-menu {
     padding: 16px;
   }
+}
+
+/* ----------------- Transaction Table CSS ----------------- */
+#transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  padding-right: 100px;
+}
+
+#transactions-table th {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  padding-bottom: 10px;
+  text-align: left;
+  color: #4C495A;
+  background-color: initial;
+}
+
+.transaction_description_col {
+  border-bottom: 1px solid #ddd;
+  padding-left: 45px;
+  padding-bottom: 30px;
+  text-align: left;
+  background-image: url('https://i.pinimg.com/564x/06/ae/e9/06aee950c65877ff0c0ecb2e191bab00.jpg');
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-size: 35px;
+}
+
+.transaction_amount_col {
+  border-bottom: 1px solid #ddd;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-bottom: 30px;
+  text-align: left;
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-size: 35px;
+}
+
+.outcome_name {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #4C495A;
+  text-align: left;
+}
+
+.outcome_category {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #C6C6C6;
+  text-align: left;
+}
+
+.outcome_price {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #4C495A;
+  text-align: right;
+}
+
+.outcome_date {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #C6C6C6;
+  text-align: right;
+}
+
+/* ----------------- Transaction Table CSS ----------------- */
+#income-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#income-table th {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  padding-bottom: 10px;
+  text-align: left;
+  color: #4C495A;
+  background-color: initial;
+}
+
+.income_description_col {
+  border-bottom: 1px solid #ddd;
+  padding-left: 45px;
+  padding-bottom: 30px;
+  text-align: left;
+  background-image: url('https://i.pinimg.com/564x/06/ae/e9/06aee950c65877ff0c0ecb2e191bab00.jpg');
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-size: 35px;
+}
+
+.income_amount_col {
+  border-bottom: 1px solid #ddd;
+  padding-left: 45px;
+  padding-bottom: 30px;
+  text-align: right;
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-size: 35px;
+}
+
+.income_name {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #4C495A;
+  text-align: left;
+}
+
+.income_category {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #C6C6C6;
+  text-align: left;
+}
+
+.income_price {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #4C495A;
+  text-align: right;
+}
+
+.income_date {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #C6C6C6;
+  text-align: right;
 }
