@@ -5,6 +5,7 @@ let business_name = 0, business_category = 1, business_price = 2, business_date 
     // Sample data
     const outcome_records = [
         ['Emirates', 'Transport', '- ₪349.99', 'Today'],
+        ['ElAl', 'Transport', '- ₪100.0', 'Yesterday'],
         ['ElAl', 'Transport', '- ₪100.0', 'Yesterday']
     ];
 

@@ -281,7 +281,7 @@
 #transactions-table {
   width: 100%;
   border-collapse: collapse;
-  padding-right: 100px;
+  margin-right: 50px; /* Adjust as needed */
 }
 
 #transactions-table th {
@@ -296,7 +296,7 @@
 .transaction_description_col {
   border-bottom: 1px solid #ddd;
   padding-left: 45px;
-  padding-bottom: 30px;
+  padding-bottom: 18px;
   text-align: left;
   background-image: url('https://i.pinimg.com/564x/06/ae/e9/06aee950c65877ff0c0ecb2e191bab00.jpg');
   background-repeat: no-repeat; /* Do not repeat the background image */
@@ -306,8 +306,6 @@
 .transaction_amount_col {
   border-bottom: 1px solid #ddd;
   padding-left: 45px;
-  padding-right: 45px;
-  padding-bottom: 30px;
   text-align: left;
   background-repeat: no-repeat; /* Do not repeat the background image */
   background-size: 35px;
@@ -345,6 +343,7 @@
 #income-table {
   width: 100%;
   border-collapse: collapse;
+  margin-right: 50px; /* Adjust as needed */
 }
 
 #income-table th {
@@ -359,7 +358,7 @@
 .income_description_col {
   border-bottom: 1px solid #ddd;
   padding-left: 45px;
-  padding-bottom: 30px;
+  padding-bottom: 18px;
   text-align: left;
   background-image: url('https://i.pinimg.com/564x/06/ae/e9/06aee950c65877ff0c0ecb2e191bab00.jpg');
   background-repeat: no-repeat; /* Do not repeat the background image */
@@ -369,7 +368,6 @@
 .income_amount_col {
   border-bottom: 1px solid #ddd;
   padding-left: 45px;
-  padding-bottom: 30px;
   text-align: right;
   background-repeat: no-repeat; /* Do not repeat the background image */
   background-size: 35px;
