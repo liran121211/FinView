@@ -1,3 +1,8 @@
+div {
+    border: 1px solid black; /* You can adjust the border width, style, and color as needed */
+}
+
+
 .home-container {
     width: 100%;
     display: flex;
@@ -249,7 +254,7 @@
 
 .home-double-vertical-layout1 {
     width: 100%;
-    height: 435px;
+    height: 100%;
     display: flex;
     position: relative;
     align-items: flex-start;
@@ -270,12 +275,11 @@
 .home-double-horizontal-layout2 {
     flex: 0 0 auto;
     width: 100%;
-    height: 100px;
+    height: 100%;
     display: flex;
     align-self: flex-start;
     align-items: center;
     justify-content: center;
-    margin-top: 270px;
 }
 
 @media (max-width: 767px) {
@@ -333,7 +337,7 @@
 #transactions-table {
     width: 100%;
     border-collapse: collapse;
-    margin-right: 50px; /* Adjust as needed */
+    margin-right: 30px; /* Adjust as needed */
 }
 
 #transactions-table th {
@@ -395,7 +399,7 @@
 #income-table {
     width: 100%;
     border-collapse: collapse;
-    margin-right: 50px; /* Adjust as needed */
+    margin-right: 20px; /* Adjust as needed */
 }
 
 #income-table th {
@@ -456,7 +460,7 @@
 
 /* ----------------- Dashboard Panel Upper ----------------- */
 .dashboard-container {
-    padding: 450px 20px 20px;
+    padding: 20px 20px 20px;
     direction: rtl;
 }
 
@@ -470,7 +474,8 @@
 .home-overview h2,
 .buttons h2 {
     font-size: 20px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     color: #4C495A;
 }
 
@@ -758,3 +763,40 @@
     top: 20px;
 }
 
+
+.dashboard-separator {
+    position: initial;
+    height: 450px;
+    width: 1px;
+    background-color: #ccc;
+}
+
+.tables-separator {
+    position: initial;
+    margin-right: 20px;
+    margin-left: -10px;
+    width: 3px;
+    height: 170px;
+    background-color: #ccc;
+}
+
+.balance-history{
+    position: initial;
+    height: 100%;
+    width: 100%;
+    margin-right: 5px;
+}
+
+.spent-by-category{
+    position: initial;
+    height: 100%;
+    width: 100%;
+    margin-right: 5px;
+}
+
+.spent_by_credit_card{
+    position: initial;
+    height: 100%;
+    width: 100%;
+    margin-right: 5px;
+}

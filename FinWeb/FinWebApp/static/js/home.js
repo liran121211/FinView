@@ -1,6 +1,6 @@
-/* Outcome Table */
+/* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-let business_name = 0, business_category = 1, business_price = 2, business_date = 3;
+    let business_name = 0, business_category = 1, business_price = 2, business_date = 3;
 
     // Sample data
     const outcome_records = [
@@ -62,9 +62,9 @@ let business_name = 0, business_category = 1, business_price = 2, business_date 
 });
 
 
-/* Income Table */
+/* ----------------------- Income Table -----------------------*/
 document.addEventListener('DOMContentLoaded', function () {
-let payer_name = 0, payer_category = 1, payer_amount = 2, payer_date = 3;
+    let payer_name = 0, payer_category = 1, payer_amount = 2, payer_date = 3;
 
     // Sample data
     const income_records = [
@@ -122,4 +122,130 @@ let payer_name = 0, payer_category = 1, payer_amount = 2, payer_date = 3;
         // Append the row to the table body
         tableBody.appendChild(income_row);
     });
+});
+
+
+/* ----------------------- Balance History ----------------------- */
+const balance_history_data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+        label: "Sample Data",
+        borderColor: "rgb(75, 192, 192)",
+        data: [10, 30, 20, 40, 50, 30, 60],
+        fill: false
+    }]
+};
+
+// Configuration options for the chart
+const balance_history_config = {
+    type: 'line',
+    data: balance_history_data,
+    options: {
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Month'
+                }
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Value'
+                }
+            }
+        }
+    }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("balance-history-graph");
+    // Create the chart with the provided configuration
+    const balance_history_chart = new Chart(canvas, balance_history_config);
+});
+
+
+/* ----------------------- Spent By Category - Doughnut Graph ----------------------- */
+const spent_by_category_data = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+    datasets: [{
+        label: "My First Dataset",
+        data: [30, 10, 20, 15, 25],
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(153, 102, 255)'
+        ]
+    }]
+};
+
+// Configuration options for the doughnut chart
+const spent_by_category_config = {
+    type: 'doughnut',
+    data: spent_by_category_data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+
+        },
+        title: {
+            display: true,
+            text: 'הוצאות על פי קטגוריה'
+        }
+    },
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    const spent_by_category_canvas = document.getElementById('spent_by_category_doughnut_chart');
+    // Create the doughnut chart with the provided configuration
+    const doughnutChart = new Chart(spent_by_category_canvas, spent_by_category_config);
+});
+
+/* ----------------------- Spent By Credit Card - Pie Graph ----------------------- */
+// Dummy data for 5 credit cards
+const spent_by_credit_card_pie_chart_data = {
+    labels: ["Card 1", "Card 2", "Card 3", "Card 4", "Card 5"],
+    datasets: [{
+        label: "Credit Cards",
+        data: [20, 10, 15, 25, 30], // Dummy data representing the balances of each card
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(153, 102, 255)'
+        ]
+    }]
+};
+
+// Configuration options for the pie chart
+const spent_by_credit_card_pie_chart_config = {
+    type: 'pie',
+    data: spent_by_credit_card_pie_chart_data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+        },
+        title: {
+            display: true,
+            text: 'הוצאות לפי כרטיס אשראי'
+        }
+    },
+};
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById('spent_by_credit_card_pie_chart');
+    // Create the pie chart with the provided configuration
+    const pieChart = new Chart(canvas, spent_by_credit_card_pie_chart_config);
 });
