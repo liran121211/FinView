@@ -209,43 +209,82 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ----------------------- Spent By Credit Card - Pie Graph ----------------------- */
-// Dummy data for 5 credit cards
-const spent_by_credit_card_pie_chart_data = {
-    labels: ["Card 1", "Card 2", "Card 3", "Card 4", "Card 5"],
-    datasets: [{
-        label: "Credit Cards",
-        data: [20, 10, 15, 25, 30], // Dummy data representing the balances of each card
-        backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(153, 102, 255)'
-        ]
-    }]
-};
-
-// Configuration options for the pie chart
-const spent_by_credit_card_pie_chart_config = {
-    type: 'pie',
-    data: spent_by_credit_card_pie_chart_data,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'right',
-            },
-        },
-        title: {
-            display: true,
-            text: 'הוצאות לפי כרטיס אשראי'
-        }
-    },
-};
-
-
 document.addEventListener("DOMContentLoaded", function () {
-    const canvas = document.getElementById('spent_by_credit_card_pie_chart');
-    // Create the pie chart with the provided configuration
-    const pieChart = new Chart(canvas, spent_by_credit_card_pie_chart_config);
+    var income_outcome_options_1 = {
+        type: 'doughnut',
+        data: {
+            labels: ["Red", "Orange", "Green"],
+            datasets: [
+                {
+                    label: '# of Votes',
+                    data: [33, 33, 33],
+                    backgroundColor: [
+                        'rgba(231, 76, 60, 1)',
+                        'rgba(255, 164, 46, 1)',
+                        'rgba(46, 204, 113, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 255, 255 ,1)',
+                        'rgba(255, 255, 255 ,1)',
+                        'rgba(255, 255, 255 ,1)'
+                    ],
+                    borderWidth: 5
+                }
+            ]
+        },
+        options: {
+            rotation: Math.PI,
+            circumference: Math.PI,
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: false
+            },
+            cutoutPercentage: 95
+        }
+    }
+
+    var io_doughnut_chart_1 = document.getElementById('income_outcome_doughnut_chart_1').getContext('2d');
+    new Chart(io_doughnut_chart_1, income_outcome_options_1);
+
+    var income_outcome_options_2 = {
+        type: 'doughnut',
+        data: {
+            labels: ["", "Purple", ""],
+            datasets: [
+                {
+                    data: [88.5, 1, 10.5],
+                    backgroundColor: [
+                        "rgba(0,0,0,0)",
+                        "rgba(255,255,255,1)",
+                        "rgba(0,0,0,0)",
+                    ],
+                    borderColor: [
+                        'rgba(0, 0, 0 ,0)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(0, 0, 0 ,0)'
+                    ],
+                    borderWidth: 3
+
+                }]
+        },
+        options: {
+            cutoutPercentage: 95,
+            rotation: Math.PI,
+            circumference: Math.PI,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            }
+        }
+    }
+
+
+    let io_doughnut_chart_2 = document.getElementById('income_outcome_doughnut_chart_2').getContext('2d');
+    new Chart(io_doughnut_chart_2, income_outcome_options_2);
 });
+
+

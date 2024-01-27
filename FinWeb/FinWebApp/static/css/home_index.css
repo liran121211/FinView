@@ -1,7 +1,3 @@
-div {
-    border: 1px solid black; /* You can adjust the border width, style, and color as needed */
-}
-
 
 .home-container {
     width: 100%;
@@ -780,23 +776,41 @@ div {
     background-color: #ccc;
 }
 
-.balance-history{
-    position: initial;
-    height: 100%;
-    width: 100%;
+.balance-history {
     margin-right: 5px;
 }
 
-.spent-by-category{
+.spent-by-category canvas {
     position: initial;
-    height: 100%;
-    width: 100%;
-    margin-right: 5px;
+    width: 100%; /* Set desired width */
+    height: 100%; /* Set desired height */
 }
 
-.spent_by_credit_card{
-    position: initial;
-    height: 100%;
-    width: 100%;
-    margin-right: 5px;
+
+.income_outcome_doughnut {
+    position: relative;
+    width: 450px;
+    height: 280px;
+    margin-right: 350px;
+}
+
+.income_outcome_doughnut canvas {
+    position: absolute;
+}
+
+.half-doughnut-percent {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 80px;
+    padding-bottom: 20px;
+    bottom: 0;
+}
+
+.half-doughnut-title {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 25px;
+    bottom: 0;
 }
