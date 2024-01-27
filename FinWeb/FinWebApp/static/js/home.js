@@ -168,41 +168,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /* ----------------------- Spent By Category - Doughnut Graph ----------------------- */
-const spent_by_category_data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
-    datasets: [{
-        label: "My First Dataset",
-        data: [30, 10, 20, 15, 25],
-        backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(153, 102, 255)'
-        ]
-    }]
-};
-
-// Configuration options for the doughnut chart
-const spent_by_category_config = {
-    type: 'doughnut',
-    data: spent_by_category_data,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-
-        },
-        title: {
-            display: true,
-            text: 'הוצאות על פי קטגוריה'
-        }
-    },
-};
-
 document.addEventListener("DOMContentLoaded", function () {
+    const spent_by_category_data = {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+        datasets: [{
+            label: "My First Dataset",
+            data: [30, 10, 20, 15, 25],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(153, 102, 255)'
+            ]
+        }]
+    };
+
+    // Configuration options for the doughnut chart
+
+    const spent_by_category_config = {
+        type: 'doughnut',
+        data: spent_by_category_data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                },
+            },
+            title: {
+                display: true,
+                text: 'הוצאות על פי קטגוריה',
+                font: {
+                    size: 24,
+                    style: 'italic',
+                    family: 'Helvetica Neue'
+                }
+            }
+        },
+    };
+
+    Chart.defaults.global.legend.position = 'bottom';
     const spent_by_category_canvas = document.getElementById('spent_by_category_doughnut_chart');
     // Create the doughnut chart with the provided configuration
     const doughnutChart = new Chart(spent_by_category_canvas, spent_by_category_config);
