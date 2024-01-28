@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+
     // Configuration options for the doughnut chart
 
     const spent_by_category_config = {
@@ -192,9 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    display: true,
-                },
             },
             title: {
                 display: true,
@@ -208,13 +206,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     };
 
-    Chart.defaults.global.legend.position = 'bottom';
-    const spent_by_category_canvas = document.getElementById('spent_by_category_doughnut_chart');
+    Chart.defaults.global.legend.display = false;
+    const spent_by_category_canvas = document.getElementById('upper-dashboard-doughnut-pie-canvas');
     // Create the doughnut chart with the provided configuration
     const doughnutChart = new Chart(spent_by_category_canvas, spent_by_category_config);
 });
 
-/* ----------------------- Spent By Credit Card - Pie Graph ----------------------- */
+/* ----------------------- Upper Dashboard Doughnut Pie ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
     var income_outcome_options_1 = {
         type: 'doughnut',
@@ -251,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    var io_doughnut_chart_1 = document.getElementById('income_outcome_doughnut_chart_1').getContext('2d');
+    var io_doughnut_chart_1 = document.getElementById('income-outcome-half-doughnut-chart-1').getContext('2d');
     new Chart(io_doughnut_chart_1, income_outcome_options_1);
 
     var income_outcome_options_2 = {
@@ -289,8 +287,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    let io_doughnut_chart_2 = document.getElementById('income_outcome_doughnut_chart_2').getContext('2d');
+    let io_doughnut_chart_2 = document.getElementById('income-outcome-half-doughnut-chart-2').getContext('2d');
     new Chart(io_doughnut_chart_2, income_outcome_options_2);
 });
 
+/* ----------------------- Categories List under Doughnut Pie Chart ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    let category = 0;
 
+    // Sample data
+    const categories = [
+        'טיפוח ובריאות', 'אוכל', 'פנאי ובידור', 'תחבורה','ממשלה ועירייה'
+    ];
+
+
+    // Get the table body
+    const tableBody = document.querySelector('#upper-dashboard-doughnut-pie-table tbody');
+
+    // Clear any existing content
+    tableBody.innerHTML = '';
+
+    // Populate the table with data
+    categories.forEach(item => {
+        const category_row = document.createElement('tr');
+        const category_col = document.createElement('td');
+
+        // Add the class name "outcome_description/outcome_amount" to the new <td> element
+        category_col.classList.add('upper-dashboard-doughnut-pie-table-col');
+
+        // Create div elements for word1 and word2
+        const category_name = document.createElement('div');
+
+        // Set content and styling
+        category_name.textContent = item;
+        category_name.classList.add('upper-dashboard-doughnut-pie-category-name'); // Add the class for styling
+
+
+        // Add word1 and word2 divs to the cell
+        category_col.appendChild(category_name);
+
+        // Append the cell to the row
+        category_row.appendChild(category_col);
+
+        // Append the row to the table body
+        tableBody.appendChild(category_row);
+    });
+});
