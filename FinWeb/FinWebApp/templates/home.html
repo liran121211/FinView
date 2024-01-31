@@ -172,15 +172,30 @@
 
                 <!-- Subscriptions & Direct Debit Tables -->
                 <div class="subscriptions-direct-debit-section">
-                    <table id="subscriptions-direct-debit-table">
+                    <table id="subscriptions-table">
                       <thead>
                         <tr>
+                        <th> </th>
                         <th>מנויים פעילים</th>
                         </tr>
                       </thead>
                       <tbody>
                       </tbody>
                     </table>
+
+                    <div class="tables-separator-horizontal"></div>
+
+                    <table id="direct-debit-table">
+                      <thead>
+                        <tr>
+                        <th> </th>
+                        <th>הוראות קבע פעילות</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+
                 </div>
 
                 <div class="dashboard-separator"></div>
@@ -198,7 +213,7 @@
                 <!-- Quick Overview Doughnut Chart -->
                 <div class = "quick-overview-doughnut-pie-section">
                     <div class="quick-overview-doughnut-pie">
-                        <canvas id="quick-overview-doughnut-pie-canvas" width="400" height="400"></canvas>
+                        <canvas id="quick-overview-doughnut-pie-canvas" width="600" height="600"></canvas>
                     </div>
                 </div>
 
@@ -301,6 +316,7 @@
                 <table id="transactions-table">
                     <thead>
                     <tr>
+                        <th> </th>
                         <th>הוצאות אחרונות</th>
                     </tr>
                     </thead>
@@ -309,12 +325,13 @@
                     <td class="transaction_amount_col"></td>
                     </tbody>
                 </table>
-                <div class="tables-separator"></div>
+                <div class="tables-separator-vertical"></div>
 
                 <!-- Income Table -->
                 <table id="income-table">
                     <thead>
                     <tr>
+                        <th> </th>
                         <th>הכנסות אחרונות</th>
                     </tr>
                     </thead>
@@ -323,7 +340,7 @@
                     <td class="income_amount_col"></td>
                     </tbody>
                 </table>
-                <div class="tables-separator"></div>
+                <div class="tables-separator-vertical"></div>
 
                 <!-- Balance History Chart -->
                 <div class="balance-history">

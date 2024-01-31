@@ -308,11 +308,12 @@ document.addEventListener('DOMContentLoaded', function () {
         ['Emirates', '- ₪349.99'],
         ['Emirates', '- ₪349.99'],
         ['Emirates', '- ₪349.99'],
+        ['Emirates', '- ₪349.99'],
     ];
 
 
     // Get the table body
-    const tableBody = document.querySelector('#subscriptions-direct-debit-table tbody');
+    const tableBody = document.querySelector('#subscriptions-table tbody');
 
     // Clear any existing content
     tableBody.innerHTML = '';
@@ -350,5 +351,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the row to the table body
         tableBody.appendChild(subscription_row);
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    let direct_debit_name = 0, direct_debit_price = 1;
+    // Sample data
+    const direct_debit_records = [
+        ['RyanAir', '- ₪349.99'],
+        ['RyanAir', '- ₪349.99'],
+        ['RyanAir', '- ₪349.99'],
+        ['RyanAir', '- ₪349.99'],
+    ];
+
+
+    // Get the table body
+    const tableBody = document.querySelector('#direct-debit-table tbody');
+
+    // Clear any existing content
+    tableBody.innerHTML = '';
+
+    // Populate the table with data
+    direct_debit_records.forEach(item => {
+        const direct_debit_row = document.createElement('tr');
+        const direct_debit_name_col = document.createElement('td');
+        const direct_debit_price_col = document.createElement('td');
+
+        // Add the class name "outcome_description/outcome_amount" to the new <td> element
+        direct_debit_name_col.classList.add('direct-debit-name-col');
+        direct_debit_price_col.classList.add('direct-debit-price-col');
+
+        // Create div elements for word1 and word2
+        const direct_debit_name_div = document.createElement('div');
+        const direct_debit_price_div = document.createElement('div');
+
+        // Set content and styling
+        direct_debit_name_div.textContent = item[direct_debit_name];
+        direct_debit_name_div.classList.add('direct-debit-name-div'); // Add the class for styling
+
+        direct_debit_price_div.textContent = item[direct_debit_price];
+        direct_debit_price_div.classList.add('direct-debit-price-div'); // Add the class for styling
+
+
+        // Add word1 and word2 divs to the cell
+        direct_debit_name_col.appendChild(direct_debit_name_div);
+
+        direct_debit_price_col.appendChild(direct_debit_price_div);
+
+        // Append the cell to the row
+        direct_debit_row.appendChild(direct_debit_name_col);
+        direct_debit_row.appendChild(direct_debit_price_col);
+
+        // Append the row to the table body
+        tableBody.appendChild(direct_debit_row);
     });
 });

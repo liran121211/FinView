@@ -1,6 +1,4 @@
-div {
-    border: 1px solid black; /* You can adjust the border width, style, and color as needed */
-}
+
 
 .home-container {
     width: 100%;
@@ -769,7 +767,17 @@ div {
     background-color: #ccc;
 }
 
-.tables-separator {
+.tables-separator-horizontal {
+    position: initial;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+}
+
+.tables-separator-vertical {
     position: initial;
     margin-right: 20px;
     margin-left: -10px;
@@ -826,24 +834,36 @@ div {
 
 /* ----------------- Subscription & Direct Debit CSS ----------------- */
 
-#subscriptions-direct-debit-table {
+.subscriptions-direct-debit-section {
+    margin-right: 20px;
+}
+#subscriptions-table {
     width: 100%;
     border-collapse: collapse;
-    margin-right: 20px; /* Adjust as needed */
 }
 
-#subscriptions-direct-debit-table th {
+#subscriptions-table tr:nth-child(even) {
     font-family: 'Gan', sans-serif;
     font-size: 18px;
     padding-bottom: 10px;
     text-align: right;
     color: #4C495A;
-    background-color: initial;
+    background-color: #4BC0C0;
+}
+
+#subscriptions-table th {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: right;
+    color: #4C495A;
+    background-color: #FFFFFF;
 }
 
 .subscription-name-col {
     border-bottom: 1px solid #ddd;
-    padding-left: 45px;
+    padding-bottom: 10px;
+    padding-left: 4px;
     text-align: left;
 }
 
@@ -869,3 +889,60 @@ div {
     text-align: right;
 }
 
+
+#direct-debit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-right: 100px; /* Adjust as needed */
+}
+
+#direct-debit-table tr:nth-child(even) {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: right;
+    color: #4C495A;
+    background-color: #ff6384;
+}
+
+#direct-debit-table th {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: right;
+    color: #4C495A;
+    background-color: #FFFFFF;
+}
+
+.direct-debit-name-col {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    padding-left: 4px;
+    text-align: left;
+}
+
+.direct-debit-price-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: 45px;
+    text-align: right;
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    background-size: 35px;
+}
+
+.direct-debit-name-div {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    color: #4C495A;
+    text-align: left;
+}
+
+.direct-debit-price-div {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    color: #4C495A;
+    text-align: right;
+}
+
+.subscriptions-direct-debit-section {
+    margin-right: 20px;
+}
