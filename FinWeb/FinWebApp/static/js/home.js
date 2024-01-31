@@ -298,3 +298,57 @@ document.addEventListener("DOMContentLoaded", function () {
     let ior_chart_2 = document.getElementById('income-outcome-half-doughnut-chart-2').getContext('2d');
     new Chart(ior_chart_2, ior_options_2);
 });
+
+
+/* ----------------------- Subscription & Direct Debit Table ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    let subscription_name = 0, subscription_price = 1;
+    // Sample data
+    const subscription_records = [
+        ['Emirates', '- ₪349.99'],
+        ['Emirates', '- ₪349.99'],
+        ['Emirates', '- ₪349.99'],
+    ];
+
+
+    // Get the table body
+    const tableBody = document.querySelector('#subscriptions-direct-debit-table tbody');
+
+    // Clear any existing content
+    tableBody.innerHTML = '';
+
+    // Populate the table with data
+    subscription_records.forEach(item => {
+        const subscription_row = document.createElement('tr');
+        const subscription_name_col = document.createElement('td');
+        const subscription_price_col = document.createElement('td');
+
+        // Add the class name "outcome_description/outcome_amount" to the new <td> element
+        subscription_name_col.classList.add('subscription-name-col');
+        subscription_price_col.classList.add('subscription-price-col');
+
+        // Create div elements for word1 and word2
+        const subscription_name_div = document.createElement('div');
+        const subscription_price_div = document.createElement('div');
+
+        // Set content and styling
+        subscription_name_div.textContent = item[subscription_name];
+        subscription_name_div.classList.add('subscription-name-div'); // Add the class for styling
+
+        subscription_price_div.textContent = item[subscription_price];
+        subscription_price_div.classList.add('subscription-price-div'); // Add the class for styling
+
+
+        // Add word1 and word2 divs to the cell
+        subscription_name_col.appendChild(subscription_name_div);
+
+        subscription_price_col.appendChild(subscription_price_div);
+
+        // Append the cell to the row
+        subscription_row.appendChild(subscription_name_col);
+        subscription_row.appendChild(subscription_price_col);
+
+        // Append the row to the table body
+        tableBody.appendChild(subscription_row);
+    });
+});

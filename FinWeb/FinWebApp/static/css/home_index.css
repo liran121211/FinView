@@ -823,3 +823,49 @@ div {
 .quick-overview-doughnut-pie-section {
     margin-right: 20px;
 }
+
+/* ----------------- Subscription & Direct Debit CSS ----------------- */
+
+#subscriptions-direct-debit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-right: 20px; /* Adjust as needed */
+}
+
+#subscriptions-direct-debit-table th {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: right;
+    color: #4C495A;
+    background-color: initial;
+}
+
+.subscription-name-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: 45px;
+    text-align: left;
+}
+
+.subscription-price-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: 45px;
+    text-align: right;
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    background-size: 35px;
+}
+
+.subscription-name-div {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    color: #4C495A;
+    text-align: left;
+}
+
+.subscription-price-div {
+    font-family: 'Gan', sans-serif;
+    font-size: 18px;
+    color: #4C495A;
+    text-align: right;
+}
+

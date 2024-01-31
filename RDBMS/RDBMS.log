@@ -424,3 +424,6 @@ psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands
 2024-01-28 20:28:37,729 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-01-28 22:05:41,756 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-01-31 07:41:28,672 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-01-31 11:29:36,792 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-01-31 11:55:00,141 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-01-31 12:15:03,925 - INFO - Successfully connected to PostgreSQL database - localhost:5432
