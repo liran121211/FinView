@@ -208,9 +208,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    const quick_overview_data_canvas = document.getElementById('quick-overview-doughnut-pie-canvas');
+    const quick_overview_data_canvas_1 = document.getElementById('quick-overview-doughnut-pie-canvas-1');
     // Create the doughnut chart with the provided configuration
-    const _ = new Chart(quick_overview_data_canvas, quick_overview_config);
+    const _1 = new Chart(quick_overview_data_canvas_1, quick_overview_config);
+
+    const quick_overview_data_canvas_2 = document.getElementById('quick-overview-doughnut-pie-canvas-2');
+    // Create the doughnut chart with the provided configuration
+    const _2 = new Chart(quick_overview_data_canvas_2, quick_overview_config);
+
+    const quick_overview_data_canvas_3 = document.getElementById('quick-overview-doughnut-pie-canvas-3');
+    // Create the doughnut chart with the provided configuration
+    const _3 = new Chart(quick_overview_data_canvas_3, quick_overview_config);
 });
 
 /* ----------------------- Income & Outcome Ratio Dashboard Doughnut Pie ----------------------- */
