@@ -163,13 +163,13 @@ const balance_history_config = {
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("balance-history-graph");
     // Create the chart with the provided configuration
-    const balance_history_chart = new Chart(canvas, balance_history_config);
+    const _ = new Chart(canvas, balance_history_config);
 });
 
 
-/* ----------------------- Spent By Category - Doughnut Graph ----------------------- */
+/* ----------------------- Quick Overview Doughnut-Pie - Doughnut Graph ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
-    const spent_by_category_data = {
+    const quick_overview_data = {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
         datasets: [{
             label: "My First Dataset",
@@ -187,34 +187,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Configuration options for the doughnut chart
 
-    const spent_by_category_config = {
-        type: 'doughnut',
-        data: spent_by_category_data,
+    const quick_overview_config = {
+        type: 'outlabeledPie',
+        data: quick_overview_data,
         options: {
-            responsive: true,
+            zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
             plugins: {
-            },
-            title: {
-                display: true,
-                text: 'הוצאות על פי קטגוריה',
-                font: {
-                    size: 24,
-                    style: 'italic',
-                    family: 'Helvetica Neue'
+                legend: false,
+                outlabels: {
+                    text: '%l %p',
+                    color: 'white',
+                    stretch: 45,
+                    font: {
+                        resizable: true,
+                        minSize: 12,
+                        maxSize: 18
+                    }
                 }
             }
-        },
+        }
     };
 
-    Chart.defaults.global.legend.display = false;
-    const spent_by_category_canvas = document.getElementById('upper-dashboard-doughnut-pie-canvas');
+    const quick_overview_data_canvas = document.getElementById('quick-overview-doughnut-pie-canvas');
     // Create the doughnut chart with the provided configuration
-    const doughnutChart = new Chart(spent_by_category_canvas, spent_by_category_config);
+    const _ = new Chart(quick_overview_data_canvas, quick_overview_config);
 });
 
-/* ----------------------- Upper Dashboard Doughnut Pie ----------------------- */
+/* ----------------------- Income & Outcome Ratio Dashboard Doughnut Pie ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
-    var income_outcome_options_1 = {
+    let ior_options_1 = {
         type: 'doughnut',
         data: {
             labels: ["Red", "Orange", "Green"],
@@ -237,6 +238,13 @@ document.addEventListener("DOMContentLoaded", function () {
             ]
         },
         options: {
+            plugins: {
+                legend: false,
+                outlabels: {
+                    display: false,
+                },
+            },
+
             rotation: Math.PI,
             circumference: Math.PI,
             legend: {
@@ -249,10 +257,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    var io_doughnut_chart_1 = document.getElementById('income-outcome-half-doughnut-chart-1').getContext('2d');
-    new Chart(io_doughnut_chart_1, income_outcome_options_1);
+    let ior_chart_1 = document.getElementById('income-outcome-half-doughnut-chart-1').getContext('2d');
+    new Chart(ior_chart_1, ior_options_1);
 
-    var income_outcome_options_2 = {
+    let ior_options_2 = {
         type: 'doughnut',
         data: {
             labels: ["", "Purple", ""],
@@ -287,49 +295,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    let io_doughnut_chart_2 = document.getElementById('income-outcome-half-doughnut-chart-2').getContext('2d');
-    new Chart(io_doughnut_chart_2, income_outcome_options_2);
-});
-
-/* ----------------------- Categories List under Doughnut Pie Chart ----------------------- */
-document.addEventListener('DOMContentLoaded', function () {
-    let category = 0;
-
-    // Sample data
-    const categories = [
-        'טיפוח ובריאות', 'אוכל', 'פנאי ובידור', 'תחבורה','ממשלה ועירייה'
-    ];
-
-
-    // Get the table body
-    const tableBody = document.querySelector('#upper-dashboard-doughnut-pie-table tbody');
-
-    // Clear any existing content
-    tableBody.innerHTML = '';
-
-    // Populate the table with data
-    categories.forEach(item => {
-        const category_row = document.createElement('tr');
-        const category_col = document.createElement('td');
-
-        // Add the class name "outcome_description/outcome_amount" to the new <td> element
-        category_col.classList.add('upper-dashboard-doughnut-pie-table-col');
-
-        // Create div elements for word1 and word2
-        const category_name = document.createElement('div');
-
-        // Set content and styling
-        category_name.textContent = item;
-        category_name.classList.add('upper-dashboard-doughnut-pie-category-name'); // Add the class for styling
-
-
-        // Add word1 and word2 divs to the cell
-        category_col.appendChild(category_name);
-
-        // Append the cell to the row
-        category_row.appendChild(category_col);
-
-        // Append the row to the table body
-        tableBody.appendChild(category_row);
-    });
+    let ior_chart_2 = document.getElementById('income-outcome-half-doughnut-chart-2').getContext('2d');
+    new Chart(ior_chart_2, ior_options_2);
 });

@@ -26,6 +26,11 @@
     <orderEntry type="library" name="fusioncharts" level="application" />
     <orderEntry type="library" name="fusioncharts.theme.fusion" level="application" />
     <orderEntry type="library" name="chartjs-plugin-datalabels" level="application" />
+    <orderEntry type="library" name="chartjs-plugin-labels" level="application" />
+    <orderEntry type="library" name="chartjs-plugin-piechart-outlabels" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery-3.2.1.slim" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

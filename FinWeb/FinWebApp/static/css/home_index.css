@@ -1,4 +1,6 @@
-
+div {
+    border: 1px solid black; /* You can adjust the border width, style, and color as needed */
+}
 
 .home-container {
     width: 100%;
@@ -519,7 +521,6 @@
     color: #4C495A;
 }
 
-
 .card {
     width: 224px;
     height: 140px;
@@ -781,18 +782,13 @@
     margin-right: 5px;
 }
 
-.upper-dashboard-doughnut-pie canvas {
-    position: initial;
-    width: 100%; /* Set desired width */
-    height: 100%; /* Set desired height */
-}
 
+/* ----------------- Income & Outcome Half Doughnut-Pie CSS ----------------- */
 
 .income-outcome-half-doughnut {
     position: relative;
     width: 450px;
     height: 280px;
-
 }
 
 .income-outcome-half-doughnut canvas {
@@ -816,34 +812,14 @@
     bottom: 0;
 }
 
-/* ----------------- Spent By Category Table CSS ----------------- */
-#upper-dashboard-doughnut-pie-table {
-    width: 50%;
-    border-collapse: collapse;
-    margin-left: 30%;
+/* ----------------- Quick OverView Doughnut-Pie CSS ----------------- */
+
+.quick-overview-doughnut-pie canvas {
+    position: initial;
+    width: 100%; /* Set desired width */
+    height: 100%; /* Set desired height */
 }
 
-
-.upper-dashboard-doughnut-pie-table-col {
-    border-bottom: 1px solid #ddd;
-    padding-left: 45px;
-    padding-bottom: 18px;
-    text-align: left;
-    background-position: right;
-    background-image: url('https://i.pinimg.com/564x/06/ae/e9/06aee950c65877ff0c0ecb2e191bab00.jpg');
-    background-repeat: no-repeat; /* Do not repeat the background image */
-    background-size: 20px;
-}
-
-
-.upper-dashboard-doughnut-pie-category-name {
-    font-family: 'Gan', sans-serif;
-    font-size: 13px;
-    color: #C6C6C6;
-    text-align: right;
-    padding-right: 30px;
-}
-
-.upper-dashboard-doughnut-pie-grouped{
+.quick-overview-doughnut-pie-section {
     margin-right: 20px;
 }
