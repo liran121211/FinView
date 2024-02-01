@@ -1,3 +1,4 @@
+
 /* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     let business_name = 0, business_category = 1, business_price = 2, business_date = 3;
