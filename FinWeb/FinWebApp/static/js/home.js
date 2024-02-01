@@ -191,6 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
         type: 'outlabeledPie',
         data: quick_overview_data,
         options: {
+            responsive: false,
             zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
             plugins: {
                 legend: false,
@@ -207,6 +208,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     };
+
+
 
     const quick_overview_data_canvas_1 = document.getElementById('quick-overview-doughnut-pie-canvas-1');
     // Create the doughnut chart with the provided configuration
