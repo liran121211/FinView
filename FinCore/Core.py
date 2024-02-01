@@ -1,5 +1,7 @@
-import os
 from typing import Text, Dict, List, Any
+
+from django.utils.datetime_safe import date
+from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser
 from FinCore import *
@@ -10,18 +12,26 @@ class Users:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_user(self, username: Text, password: Text) -> int:
-        if self.is_primary_key_exist(primary_key=username):
+    def add_user(self, username: Text, password: Text, first_name: Text, last_name: Text, email:Text) -> int:
+        if self.is_user_exist(username=username):
             return RECORD_EXIST
 
-        self.db.add_record(table_name='users',
+        self.db.add_record(table_name='auth_user',
                            record_data=
                            {
                                'username': username,
-                               'password': password
+                               'password': make_password(password),
+                               'is_superuser': False,
+                               'is_staff': False,
+                               'is_active': True,
+                               'first_name': first_name,
+                               'last_name': last_name,
+                               'email': email,
+                               'date_joined': date.today()
                            })
 
     def modify_user(self, username: Text, password: Text):
+        # TODO: modify specific/more than 1 value by given user id
         self.db.modify_record(table_name='users',
                               record_data=
                               {
@@ -32,14 +42,17 @@ class Users:
                               key=username
                               )
 
-    def delete_user(self, username: Text):
-        self.db.delete_record(table_name='users',
-                              column_key='username',
-                              key=username
+    def delete_user(self, user_id: int):
+        self.db.delete_record(table_name='auth_user',
+                              column_key='id',
+                              key=user_id
                               )
 
-    def is_primary_key_exist(self, primary_key: Text):
-        return self.db.is_value_exists(table_name='users', column_name='username', value=primary_key)
+    def is_primary_key_exist(self, primary_key: int):
+        return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
+
+    def is_user_exist(self, username: Text):
+        return self.db.is_value_exists(table_name='auth_user', column_name='username', value=username)
 
 
 class Transactions:
@@ -163,10 +176,11 @@ class Application:
                     for idx, row in cal_data.iterrows():
                         current_record = {
                             'date_of_purchase': row['date_of_purchase'],
-                            'business_name': row['business_name'],
-                            'charge_amount': row['charge_amount'],
-                            'total_amount': row['total_amount'],
-                            'payment_type': row['payment_type'],
+                            'business_name':    row['business_name'],
+                            'charge_amount':    row['charge_amount'],
+                            'total_amount':     row['total_amount'],
+                            'payment_type':     row['payment_type'],
+                            'payment_provider': row['payment_provider'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -177,10 +191,11 @@ class Application:
                     for idx, row in max_data.iterrows():
                         current_record = {
                             'date_of_purchase': row['date_of_purchase'],
-                            'business_name': row['business_name'],
-                            'charge_amount': row['charge_amount'],
-                            'total_amount': row['total_amount'],
-                            'payment_type': row['payment_type'],
+                            'business_name':    row['business_name'],
+                            'charge_amount':    row['charge_amount'],
+                            'total_amount':     row['total_amount'],
+                            'payment_type':     row['payment_type'],
+                            'payment_provider': row['payment_provider'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -191,10 +206,11 @@ class Application:
                     for idx, row in leumi_data.iterrows():
                         current_record = {
                             'date_of_purchase': row['date_of_purchase'],
-                            'business_name': row['business_name'],
-                            'charge_amount': row['charge_amount'],
-                            'total_amount': row['total_amount'],
-                            'payment_type': row['payment_type'],
+                            'business_name':    row['business_name'],
+                            'charge_amount':    row['charge_amount'],
+                            'total_amount':     row['total_amount'],
+                            'payment_type':     row['payment_type'],
+                            'payment_provider': row['payment_provider'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -205,10 +221,13 @@ class Application:
                 return result
 
             if isinstance(result, (list, tuple)):
-                result = result[0]
-                if isinstance(result, (list, tuple)):
-                    return result[0]
-                else:
+                if len(result) == 0:
+                    return result
+
+                if len(result) == 1:
+                    return result[SINGLE_LIST][SINGLE_TUPLE]
+
+                if len(result) > 0:
                     return result
 
         def how_much_spent_in_specific_month(selected_month: Text, username: Text):
@@ -240,7 +259,55 @@ class Application:
                     f"FROM (" \
                     f"SELECT total_amount" \
                     f" FROM transactions" \
-                    f" WHERE business_name LIKE '%{business_name}%'" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
+                    f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_by_payment_type(payment_type: Text, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE payment_type = '{payment_type}'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_by_business_name(business_name: Text, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_above_amount(amount: float, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE total_amount >= '{amount}'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def which_records_of_payment_provider(payment_provider: Text, username: Text):
+            query = f"SELECT * " \
+                    f"FROM transactions" \
+                    f" WHERE transactions.payment_provider ILIKE '%{payment_provider}%'" \
+                    f" AND username='{username}';"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_many_records_from_specific_business(business_name: Text, username: Text):
+            query = f"SELECT COUNT(subquery) AS total_transactions " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM transactions" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
 
@@ -251,26 +318,9 @@ class Application:
             'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
+            'which_records_by_payment_type': which_records_by_payment_type,
+            'which_records_by_business_name': which_records_by_business_name,
+            'which_records_above_amount': which_records_above_amount,
+            'which_records_of_payment_provider': which_records_of_payment_provider,
+            'how_many_records_from_specific_business': how_many_records_from_specific_business,
         }
-
-
-app = Application()
-app.load_statements_to_db(current_user='liran')
-print(app.ask['how_much_spent_in_specific_month'](selected_month='August', username='liran'))
-print(app.ask['how_much_spent_in_specific_year'](selected_year=2023, username='liran'))
-print(app.ask['how_much_spent_in_specific_business'](business_name='מקס', username='liran'))
-
-exit(0)
-users_interface = Users()
-users_interface.add_user('liran', '123456')
-
-transactions_interface = Transactions()
-transactions_interface.add_transaction(
-    record_data={
-        'date_of_purchase': '01/01/1981',
-        'business_name': 'סתם עסק',
-        'charge_amount': 19.0,
-        'payment_type': 'עסקה ndghkv',
-        'total_amount': 199.0,
-    },
-    username='liran')

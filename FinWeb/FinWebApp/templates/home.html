@@ -1,0 +1,407 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Elegant Valuable Ibex</title>
+    <meta property="og:title" content="Elegant Valuable Ibex"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <meta property="twitter:card" content="summary_large_image"/>
+
+    <style data-tag="reset-style-sheet">
+        html {
+            line-height: 1.15;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+        }
+
+        p, li, ul, pre, div, h1, h2, h3, h4, h5, h6, figure, blockquote, figcaption {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            background-color: transparent;
+        }
+
+        button, input, optgroup, select, textarea {
+            font-family: inherit;
+            font-size: 100%;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        button, select {
+            text-transform: none;
+        }
+
+        button, [type="button"], [type="reset"], [type="submit"] {
+            -webkit-appearance: button;
+        }
+
+        button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+            border-style: none;
+            padding: 0;
+        }
+
+        button:-moz-focus, [type="button"]:-moz-focus, [type="reset"]:-moz-focus, [type="submit"]:-moz-focus {
+            outline: 1px dotted ButtonText;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        input {
+            padding: 2px 4px;
+        }
+
+        img {
+            display: block;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+    </style>
+    <style data-tag="default-style-sheet">
+        html {
+            font-family: Inter, serif;
+            font-size: 16px;
+        }
+
+        body {
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            text-transform: none;
+            letter-spacing: normal;
+            line-height: 1.15;
+            color: var(--dl-color-gray-black);
+            background-color: var(--dl-color-gray-white);
+
+        }
+    </style>
+
+    <!-- Remote CSS Files -->
+    <link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"/>
+
+    <!-- Local CSS Files -->
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/home_style.css' %} ">
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/home_index.css' %} ">
+
+    <!-- Local JS Files -->
+    <script src="{% static 'js/home.js' %}"></script>
+
+    <!-- Remote JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+
+</head>
+<body>
+<div>
+    <div class="home-container">
+        <div class="home-container1">
+            <header data-thq="thq-navbar" class="home-navbar-interactive">
+                <img alt="logo" src="https://presentation-website-assets.teleporthq.io/logos/logo.png" class="home-image"/>
+                <div data-thq="thq-navbar-nav" class="home-desktop-menu">
+                    <nav class="home-links">
+                        <span class="home-text04">#לא מוגדר#</span>
+                        <span class="home-text03">תקציב</span>
+                        <span class="home-text02">ניתוח אנליטיקות/טרנדים</span>
+                        <span class="home-text01">עסקאות</span>
+                        <span class="home-text">מבט על</span>
+                    </nav>
+                    <div class="home-buttons">
+                        <button class="home-login button">התחברות</button>
+                        <button class="home-register button">הרשמה</button>
+                    </div>
+                </div>
+                <div data-thq="thq-burger-menu" class="home-burger-menu">
+                    <svg viewBox="0 0 1024 1024" class="home-icon">
+                        <path d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
+                    </svg>
+                </div>
+                <div data-thq="thq-mobile-menu" class="home-mobile-menu">
+                    <div class="home-nav">
+                        <div class="home-top">
+                            <img alt="image" src="https://presentation-website-assets.teleporthq.io/logos/logo.png" class="home-logo"/>
+                            <div data-thq="thq-close-menu" class="home-close-menu">
+                                <svg viewBox="0 0 1024 1024" class="home-icon02">
+                                    <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 950.8571428571428 1024" class="home-icon04">
+                            <path d="M925.714 233.143c-25.143 36.571-56.571 69.143-92.571 95.429 0.571 8 0.571 16 0.571 24 0 244-185.714 525.143-525.143 525.143-104.571 0-201.714-30.286-283.429-82.857 14.857 1.714 29.143 2.286 44.571 2.286 86.286 0 165.714-29.143 229.143-78.857-81.143-1.714-149.143-54.857-172.571-128 11.429 1.714 22.857 2.857 34.857 2.857 16.571 0 33.143-2.286 48.571-6.286-84.571-17.143-148-91.429-148-181.143v-2.286c24.571 13.714 53.143 22.286 83.429 23.429-49.714-33.143-82.286-89.714-82.286-153.714 0-34.286 9.143-65.714 25.143-93.143 90.857 112 227.429 185.143 380.571 193.143-2.857-13.714-4.571-28-4.571-42.286 0-101.714 82.286-184.571 184.571-184.571 53.143 0 101.143 22.286 134.857 58.286 41.714-8 81.714-23.429 117.143-44.571-13.714 42.857-42.857 78.857-81.143 101.714 37.143-4 73.143-14.286 106.286-28.571z"></path>
+                        </svg>
+                        <svg viewBox="0 0 877.7142857142857 1024" class="home-icon06">
+                            <path d="M585.143 512c0-80.571-65.714-146.286-146.286-146.286s-146.286 65.714-146.286 146.286 65.714 146.286 146.286 146.286 146.286-65.714 146.286-146.286zM664 512c0 124.571-100.571 225.143-225.143 225.143s-225.143-100.571-225.143-225.143 100.571-225.143 225.143-225.143 225.143 100.571 225.143 225.143zM725.714 277.714c0 29.143-23.429 52.571-52.571 52.571s-52.571-23.429-52.571-52.571 23.429-52.571 52.571-52.571 52.571 23.429 52.571 52.571zM438.857 152c-64 0-201.143-5.143-258.857 17.714-20 8-34.857 17.714-50.286 33.143s-25.143 30.286-33.143 50.286c-22.857 57.714-17.714 194.857-17.714 258.857s-5.143 201.143 17.714 258.857c8 20 17.714 34.857 33.143 50.286s30.286 25.143 50.286 33.143c57.714 22.857 194.857 17.714 258.857 17.714s201.143 5.143 258.857-17.714c20-8 34.857-17.714 50.286-33.143s25.143-30.286 33.143-50.286c22.857-57.714 17.714-194.857 17.714-258.857s5.143-201.143-17.714-258.857c-8-20-17.714-34.857-33.143-50.286s-30.286-25.143-50.286-33.143c-57.714-22.857-194.857-17.714-258.857-17.714zM877.714 512c0 60.571 0.571 120.571-2.857 181.143-3.429 70.286-19.429 132.571-70.857 184s-113.714 67.429-184 70.857c-60.571 3.429-120.571 2.857-181.143 2.857s-120.571 0.571-181.143-2.857c-70.286-3.429-132.571-19.429-184-70.857s-67.429-113.714-70.857-184c-3.429-60.571-2.857-120.571-2.857-181.143s-0.571-120.571 2.857-181.143c3.429-70.286 19.429-132.571 70.857-184s113.714-67.429 184-70.857c60.571-3.429 120.571-2.857 181.143-2.857s120.571-0.571 181.143 2.857c70.286 3.429 132.571 19.429 184 70.857s67.429 113.714 70.857 184c3.429 60.571 2.857 120.571 2.857 181.143z"></path>
+                        </svg>
+                        <svg viewBox="0 0 602.2582857142856 1024" class="home-icon08">
+                            <path d="M548 6.857v150.857h-89.714c-70.286 0-83.429 33.714-83.429 82.286v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571c0-144.571 88.571-223.429 217.714-223.429 61.714 0 114.857 4.571 130.286 6.857z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <!-- 1st (Vertical) -->
+        <div class="home-double-vertical-layout1">
+            <!-- 2nd Layout (Horizontal) -->
+            <div class="home-double-horizontal-layout1">
+
+                <!-- Subscriptions & Direct Debit Tables -->
+                <div class="subscriptions-direct-debit-section">
+                    <table id="subscriptions-table">
+                      <thead>
+                        <tr>
+                        <th> </th>
+                        <th>מנויים פעילים</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+
+                    <div class="tables-separator-horizontal"></div>
+
+                    <table id="direct-debit-table">
+                      <thead>
+                        <tr>
+                        <th> </th>
+                        <th>הוראות קבע פעילות</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+
+                </div>
+
+                <div class="dashboard-separator"></div>
+
+                <!-- Income & Outcome Ratio Chart -->
+                 <div class="income-outcome-half-doughnut">
+                     <p class="income-outcome-half-doughnut-title">ניצול הכנסות כנגד הוצאות</p>
+                    <canvas id="income-outcome-half-doughnut-chart-1" width="600" height="400"></canvas>
+                     <canvas id="income-outcome-half-doughnut-chart-2" width="600" height="400"></canvas>
+                     <p class="income-outcome-half-doughnut-percent">89%</p>
+                    </div>
+
+                <div class="dashboard-separator"></div>
+
+                <!-- Quick Overview Doughnut Chart -->
+                <div class = "quick-overview-doughnut-pie-section">
+
+                      <div class="carousel-wrapper">
+                        <!-- abstract radio buttons for slides -->
+                        <input id="slide1" type="radio" name="controls" checked="checked" />
+                        <input id="slide2" type="radio" name="controls" />
+                        <input id="slide3" type="radio" name="controls" />
+                        <input id="slide4" type="radio" name="controls" />
+                        <input id="slide5" type="radio" name="controls" />
+
+
+                            <!-- navigation dots -->
+                        <label for="slide1" class="nav-dot"></label>
+                        <label for="slide2" class="nav-dot"></label>
+                        <label for="slide3" class="nav-dot"></label>
+                        <label for="slide4" class="nav-dot"></label>
+                        <label for="slide5" class="nav-dot"></label>
+
+
+                        <!-- arrows -->
+                        <label for="slide1" class="left-arrow"> < </label>
+                        <label for="slide2" class="left-arrow"> < </label>
+                        <label for="slide3" class="left-arrow"> < </label>
+                        <label for="slide4" class="left-arrow"> < </label>
+                        <label for="slide5" class="left-arrow"> < </label>
+
+
+                        <label for="slide1" class="right-arrow"> > </label>
+                        <label for="slide2" class="right-arrow"> > </label>
+                        <label for="slide3" class="right-arrow"> > </label>
+                        <label for="slide4" class="right-arrow"> > </label>
+                        <label for="slide5" class="right-arrow"> > </label>
+
+                        <div class="carousel">
+                          <ul>
+                            <li>
+                              <canvas id="quick-overview-doughnut-pie-canvas-1" width="500" height="500"></canvas>
+                            </li>
+                            <li>
+                              <canvas id="quick-overview-doughnut-pie-canvas-2" width="500" height="500"></canvas>
+                            </li>
+                            <li>
+                              <canvas id="quick-overview-doughnut-pie-canvas-3" width="500" height="500"></canvas>
+                            </li>
+                            <li>
+                              <canvas id="quick-overview-doughnut-pie-canvas" width="500" height="500"></canvas>
+                            </li>
+                            <li>
+                              <canvas id="quick-overview-doughnut-pie-canvas" width="500" height="500"></canvas>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                </div>
+
+                <div class="dashboard-separator"></div>
+
+                    <!-- Dashboard Upper -->
+                    <div class="dashboard-container">
+
+                      <!-- First Section: Headline -->
+                      <div class="dashboard-headline">
+                        <h1>פאנל ניהול</h1>
+                      </div>
+                      <!-- Second Section: Categories -->
+                      <div class="home-overview">
+                        <img src="{% static 'images/home_profile_avatar.svg' %}" alt="Avatar Image">
+                        <h2>סקירה כללית</h2>
+                            <ul>
+                            <li>חיוב נוכחי:<div id="current-charge"> ₪729.80-</div></li>
+                            <li>סה"כ חסכונות:<div id="current-savings">₪729.80+</div></li>
+                            <li>חיוב אחרון:<div id="last-charge">₪729.80-</div></li>
+                            </ul>
+                      </div>
+                      <!-- Third Section: Buttons -->
+                      <div class="credit-cards">
+                        <h2>כרטיסים פעילים</h2>
+                        <div class="cards-group">
+
+                                <!--Credit Card #1 Display -->
+                                <div class="card">
+                                  <div class="card-inner">
+                                    <div class="card-front">
+                                      <div class="card-bg"></div>
+
+                                      <div class="card-glow"></div>
+                                        <!-- Visa Logo SVG  -->
+                                      <svg width="50" height="17" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3973 1.01093L51.5588 5.99054C49.0448 4.56717 43.3231 4.23041 43.3231 6.85138C43.3231 7.89285 44.6177 8.60913 46.178 9.47241C48.5444 10.7817 51.5221 12.4291 51.5221 16.062C51.5221 21.8665 45.4731 24 41.4645 24C37.4558 24 34.8325 22.6901 34.8325 22.6901L35.7065 17.4848C38.1115 19.4688 45.4001 20.032 45.4001 16.8863C45.4001 15.5645 43.9656 14.785 42.3019 13.8811C40.0061 12.6336 37.2742 11.1491 37.2742 7.67563C37.2742 1.30988 44.1978 0 47.1132 0C49.8102 0 52.3973 1.01093 52.3973 1.01093ZM66.6055 23.6006H72L67.2966 0.414276H62.5732C60.3923 0.414276 59.8612 2.14215 59.8612 2.14215L51.0996 23.6006H57.2234L58.4481 20.1566H65.9167L66.6055 23.6006ZM60.1406 15.399L63.2275 6.72235L64.9642 15.399H60.1406ZM14.7942 16.3622L20.3951 0.414917H26.7181L17.371 23.6012H11.2498L6.14551 3.45825C2.83215 1.41281 0 0.807495 0 0.807495L0.108643 0.414917H9.36816C11.9161 0.414917 12.1552 2.50314 12.1552 2.50314L14.1313 12.9281L14.132 12.9294L14.7942 16.3622ZM25.3376 23.6006H31.2126L34.8851 0.414917H29.0095L25.3376 23.6006Z" fill="white"></path>
+                                      </svg>
+
+                                      <div class="card-contactless">
+                                           <!-- Contactless Logo SVG  -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="70">
+                                          <path fill="none" stroke="#f9f9f9" stroke-width="6" stroke-linecap="round" d="m35,3a50,50 0 0,1 0,50M24,8.5a39,39 0 0,1 0,39M13.5,13.55a28.2,28.5
+                                  0 0,1 0,28.5M3,19a18,17 0 0,1 0,18"></path>
+                                        </svg>
+                                      </div>
+
+                                      <div class="card-chip"></div>
+                                      <div class="card-holder">John Doe</div>
+                                      <div class="card-number">1234 5678 9000 1234</div>
+                                      <div class="card-valid">12/24</div>
+                                    </div>
+                                    <div class="card-back">
+                                      <div class="card-signature">John Doe</div>
+                                      <div class="card-seccode">123</div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!--Credit Card #2 Display -->
+                                <div class="card">
+                                  <div class="card-inner">
+                                    <div class="card-front">
+                                      <div class="card-bg"></div>
+
+                                      <div class="card-glow"></div>
+                                        <!-- Visa Logo SVG  -->
+                                      <svg width="50" height="17" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3973 1.01093L51.5588 5.99054C49.0448 4.56717 43.3231 4.23041 43.3231 6.85138C43.3231 7.89285 44.6177 8.60913 46.178 9.47241C48.5444 10.7817 51.5221 12.4291 51.5221 16.062C51.5221 21.8665 45.4731 24 41.4645 24C37.4558 24 34.8325 22.6901 34.8325 22.6901L35.7065 17.4848C38.1115 19.4688 45.4001 20.032 45.4001 16.8863C45.4001 15.5645 43.9656 14.785 42.3019 13.8811C40.0061 12.6336 37.2742 11.1491 37.2742 7.67563C37.2742 1.30988 44.1978 0 47.1132 0C49.8102 0 52.3973 1.01093 52.3973 1.01093ZM66.6055 23.6006H72L67.2966 0.414276H62.5732C60.3923 0.414276 59.8612 2.14215 59.8612 2.14215L51.0996 23.6006H57.2234L58.4481 20.1566H65.9167L66.6055 23.6006ZM60.1406 15.399L63.2275 6.72235L64.9642 15.399H60.1406ZM14.7942 16.3622L20.3951 0.414917H26.7181L17.371 23.6012H11.2498L6.14551 3.45825C2.83215 1.41281 0 0.807495 0 0.807495L0.108643 0.414917H9.36816C11.9161 0.414917 12.1552 2.50314 12.1552 2.50314L14.1313 12.9281L14.132 12.9294L14.7942 16.3622ZM25.3376 23.6006H31.2126L34.8851 0.414917H29.0095L25.3376 23.6006Z" fill="white"></path>
+                                      </svg>
+
+                                      <div class="card-contactless">
+                                           <!-- Contactless Logo SVG  -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="70">
+                                          <path fill="none" stroke="#f9f9f9" stroke-width="6" stroke-linecap="round" d="m35,3a50,50 0 0,1 0,50M24,8.5a39,39 0 0,1 0,39M13.5,13.55a28.2,28.5
+                                  0 0,1 0,28.5M3,19a18,17 0 0,1 0,18"></path>
+                                        </svg>
+                                      </div>
+
+                                      <div class="card-chip"></div>
+                                      <div class="card-holder">John Doe</div>
+                                      <div class="card-number">1234 5678 9000 1234</div>
+                                      <div class="card-valid">12/24</div>
+                                    </div>
+                                    <div class="card-back">
+                                      <div class="card-signature">John Doe</div>
+                                      <div class="card-seccode">123</div>
+                                    </div>
+                                  </div>
+                                </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+            <!-- 2nd Layout (Horizontal) -->
+            <div class="home-double-horizontal-layout2">
+                <!-- Transaction Table -->
+                <table id="transactions-table">
+                    <thead>
+                    <tr>
+                        <th> </th>
+                        <th>הוצאות אחרונות</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="transaction_description_col"></td>
+                    <td class="transaction_amount_col"></td>
+                    </tbody>
+                </table>
+                <div class="tables-separator-vertical"></div>
+
+                <!-- Income Table -->
+                <table id="income-table">
+                    <thead>
+                    <tr>
+                        <th> </th>
+                        <th>הכנסות אחרונות</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="income_description_col"></td>
+                    <td class="income_amount_col"></td>
+                    </tbody>
+                </table>
+                <div class="tables-separator-vertical"></div>
+
+                <!-- Balance History Chart -->
+                <div class="balance-history">
+                    <canvas id="balance-history-graph" width="650" height="280"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Indicate that the script should be executed after the document has been parsed -->
+<script defer="" src="https://unpkg.com/@teleporthq/teleport-custom-scripts"></script>
+</body>
+</html>
