@@ -521,6 +521,13 @@
     color: #4C495A;
 }
 
+.no-cards-title {
+    margin: 7px;
+    color: #4C495A;
+    font-family: 'Gan', sans-serif;
+    font-size: 17px;
+}
+
 .card {
     width: 224px;
     height: 140px;
@@ -712,6 +719,16 @@
     left: -55px;
     width: 50px;
     font-size: 7px;
+}
+
+.card-issuer {
+    position: initial;
+    text-align: left;
+    margin: 12px;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
 }
 
 .card-signature {

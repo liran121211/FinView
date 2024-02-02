@@ -419,3 +419,71 @@ document.addEventListener('DOMContentLoaded', function () {
         tableBody.appendChild(direct_debit_row);
     });
 });
+
+
+/* ----------------------- Credit Cards List ----------------------- */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Get the container element
+    let container = document.querySelector('.cards-group');
+
+    // check if at least 1 card has been found.
+    if (Object.keys(user_cards).length === 0) {
+        let no_cards_title = document.createElement('div');
+        no_cards_title.classList.add('no-cards-title');
+        no_cards_title.innerHTML = `<p> לא נמצאו כרטיסים פעילים :(</p>`;
+        container.appendChild(no_cards_title);
+        return;
+    }
+
+    // Define the number of times you want to duplicate the HTML
+    let numberOfDuplicates = user_cards.card_type.length;  // Change this value as needed
+
+    // Loop to create and insert duplicated HTML
+    for (let i = 0; i < numberOfDuplicates; i++) {
+        // Create a new div element with class "cards-group"
+        let new_card = document.createElement('div');
+        new_card.classList.add('card');
+
+        // Chose Card Type logo
+        let card_type_logo = '';
+        if (user_cards.card_type[i] === 'VISA')
+        {
+            card_type_logo = '<img class="logo" src="static/images/visa_logo.svg" alt="Card Type Logo">';
+        }
+        else
+        {
+            card_type_logo = '<img class="logo" src="static/images/mastercard_logo.svg" alt="NFC Logo">'
+        }
+
+        // Set the HTML content for the "cards-group" div
+        new_card.innerHTML = `
+            <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-bg"></div>
+            
+                        <div class="card-glow"></div>
+                            <!-- Card Type Logo SVG  -->
+                            ${card_type_logo}
+                        <div class="card-contactless">
+                            <!-- Contactless Logo SVG  -->
+                            <img src="static/images/nfc_logo.svg" alt="NFC Logo">
+                        </div>
+                        <div class="card-issuer">${JSON.stringify(user_cards.issuer_name[i]).replace(/^"(.*)"$/, '$1')}</div>
+                        <div class="card-chip"></div>
+                        <div class="card-holder">${JSON.stringify(user_cards.full_name[i]).replace(/^"(.*)"$/, '$1')}</div>
+                        <div class="card-number">${JSON.stringify(user_cards.last_four_digits[i]).replace(/^"(.*)"$/, '$1')} **** **** ****</div>
+                        <div class="card-valid">--/--</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-signature">${JSON.stringify(user_cards.full_name[i]).replace(/^"(.*)"$/, '$1')}</div>
+                        <div class="card-seccode">***</div>
+                    </div>
+                </div>
+               `;
+
+        // Append the "cards-group" div to the container
+        container.appendChild(new_card);
+    }
+});
