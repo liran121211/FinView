@@ -15,7 +15,8 @@ def home_view(request):
         'user_information': retrieve_user_information(logged_in_user),
         'user_cards': retrieve_user_cards(logged_in_user),
         'user_payment_records': retrieve_user_payment_records(logged_in_user),
-        'user_transactions': retrieve_user_transactions(logged_in_user),
+        'user_income':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'transaction_type', 'הכנסה', -5, 0),
+        'user_outcome':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'transaction_type', 'הוצאה', -5, 0),
     })
 
 
@@ -195,3 +196,30 @@ def retrieve_user_transactions(username: Text) -> dict:
 
     return dict_data
 
+
+def slice_dictionary(obj: dict, column: Text, keyword: Text, start_idx: int = 0, end_idx: int = -1) -> dict:
+    temp_dict = dict()
+    matched_indexes = list()
+
+    for k,v in obj.items():
+        if k == column:
+            for i, value in enumerate(v):
+                if value == keyword:
+                    matched_indexes.append(i)
+
+    if not start_idx > len(matched_indexes) or not end_idx > len(matched_indexes):
+        # if end index is not defined.
+        if end_idx == 0:
+            matched_indexes = matched_indexes[start_idx:]
+        else:
+            matched_indexes = matched_indexes[start_idx:end_idx]
+
+    for k,v in obj.items():
+        for i, value in enumerate(v):
+            if i in matched_indexes:
+                if k not in temp_dict.keys():
+                    temp_dict[k] = [value]
+                else:
+                    temp_dict[k].append(value)
+
+    return temp_dict

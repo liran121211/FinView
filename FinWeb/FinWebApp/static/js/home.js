@@ -1,16 +1,6 @@
 
 /* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-    let business_name = 0, business_category = 1, business_price = 2, business_date = 3;
-
-    // Sample data
-    const outcome_records = [
-        ['Emirates', 'Transport', '- ₪349.99', 'Today'],
-        ['ElAl', 'Transport', '- ₪100.0', 'Yesterday'],
-        ['ElAl', 'Transport', '- ₪100.0', 'Yesterday']
-    ];
-
-
     // Get the table body
     const tableBody = document.querySelector('#transactions-table tbody');
 
@@ -18,7 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
     tableBody.innerHTML = '';
 
     // Populate the table with data
-    outcome_records.forEach(item => {
+    let col_name = Object.keys(user_outcome)[0]
+    let numberOfDuplicates = user_outcome[col_name].length;  // Change this value as needed
+    for (let i = 0; i < numberOfDuplicates; i++) {
+        if (user_outcome.transaction_type[i] !== 'הוצאה')
+            continue;
+
         const outcome_row = document.createElement('tr');
         const transaction_description_col = document.createElement('td');
         const transaction_amount_col = document.createElement('td');
@@ -34,16 +29,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const outcome_date = document.createElement('div');
 
         // Set content and styling
-        outcome_name.textContent = item[business_name];
+        outcome_name.textContent = user_outcome.business_name[i];
         outcome_name.classList.add('outcome_name'); // Add the class for styling
 
-        outcome_category.textContent = item[business_category];
+        outcome_category.textContent = user_outcome.category[i];
         outcome_category.classList.add('outcome_category'); // Add the class for styling
 
-        outcome_price.textContent = item[business_price];
+        outcome_price.textContent = '- ₪' + Math.abs(user_outcome.total_amount[i]).toFixed(2).toLocaleString();
         outcome_price.classList.add('outcome_price'); // Add the class for styling
 
-        outcome_date.textContent = item[business_date];
+        outcome_date.textContent = user_outcome.date_of_transaction[i];
         outcome_date.classList.add('outcome_date'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -59,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the row to the table body
         tableBody.appendChild(outcome_row);
-    });
+    }
 });
 
 
@@ -72,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
     tableBody.innerHTML = '';
 
     // Populate the table with data
-    let col_name = Object.keys(user_transactions)[0]
-    let numberOfDuplicates = user_transactions[col_name].length;  // Change this value as needed
+    let col_name = Object.keys(user_income)[0]
+    let numberOfDuplicates = user_income[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_transactions.transaction_type[i] !== 'הכנסה')
+        if (user_income.transaction_type[i] !== 'הכנסה')
             continue;
 
         const income_row = document.createElement('tr');
@@ -93,16 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const income_date = document.createElement('div');
 
         // Set content and styling for word1 and word2
-        income_name.textContent = user_transactions.business_name[i];
+        income_name.textContent = user_income.business_name[i];
         income_name.classList.add('income_name'); // Add the class for styling
 
-        income_category.textContent = user_transactions.category[i];
+        income_category.textContent = user_income.category[i];
         income_category.classList.add('income_category'); // Add the class for styling
 
-        income_amount.textContent = Math.abs(user_transactions.total_amount[i]).toLocaleString();
+        income_amount.textContent = '+ ₪' + Math.abs(user_income.total_amount[i]).toFixed(2).toLocaleString();
         income_amount.classList.add('income_amount'); // Add the class for styling
 
-        income_date.textContent = user_transactions.date_of_transaction[i];
+        income_date.textContent = user_income.date_of_transaction[i];
         income_date.classList.add('income_date'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
