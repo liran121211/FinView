@@ -872,14 +872,13 @@
 
 .subscription-name-col {
     border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    padding-left: 4px;
+    padding: 5px;
     text-align: left;
 }
 
 .subscription-price-col {
     border-bottom: 1px solid #ddd;
-    padding-left: 45px;
+    padding: 5px;
     text-align: right;
     background-repeat: no-repeat; /* Do not repeat the background image */
     background-size: 35px;
@@ -889,14 +888,14 @@
     font-family: 'Gan', sans-serif;
     font-size: 18px;
     color: #4C495A;
-    text-align: left;
+    text-align: right;
 }
 
 .subscription-price-div {
     font-family: 'Gan', sans-serif;
     font-size: 18px;
     color: #4C495A;
-    text-align: right;
+    text-align: left;
 }
 
 
@@ -926,14 +925,13 @@
 
 .direct-debit-name-col {
     border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    padding-left: 4px;
+    padding: 5px;
     text-align: left;
 }
 
 .direct-debit-price-col {
     border-bottom: 1px solid #ddd;
-    padding-left: 45px;
+    padding: 5px;
     text-align: right;
     background-repeat: no-repeat; /* Do not repeat the background image */
     background-size: 35px;
@@ -943,14 +941,14 @@
     font-family: 'Gan', sans-serif;
     font-size: 18px;
     color: #4C495A;
-    text-align: left;
+    text-align: right;
 }
 
 .direct-debit-price-div {
     font-family: 'Gan', sans-serif;
     font-size: 18px;
     color: #4C495A;
-    text-align: right;
+    text-align: left;
 }
 
 .subscriptions-direct-debit-section {

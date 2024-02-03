@@ -29,6 +29,7 @@ class UserInformation(models.Model):
     def __str__(self):
         return self.username
 
+
 class UserCards(models.Model):
     id = models.IntegerField(max_length=6, primary_key=True)
     username = models.CharField(max_length=20, db_column='username')
@@ -43,4 +44,20 @@ class UserCards(models.Model):
         app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
 
     def __str__(self):
-        return self.username
+        return self.id
+
+
+class UserPaymentRecords(models.Model):
+    id = models.IntegerField(max_length=6, primary_key=True)
+    username = models.CharField(max_length=20, db_column='username')
+    payment_type = models.CharField(max_length=20, db_column='payment_type')
+    amount = models.FloatField(max_length=20, db_column='amount')
+    provider_name = models.CharField(max_length=20, db_column='provider_name')
+
+    class Meta:
+        # Specify the table name here
+        db_table = 'user_payment_records'
+        app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
+
+    def __str__(self):
+        return self.id

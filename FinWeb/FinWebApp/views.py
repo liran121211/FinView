@@ -2,7 +2,7 @@ from typing import Text
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from FinWeb.FinWebApp.models import UserInformation, UserCards
+from FinWeb.FinWebApp.models import UserInformation, UserCards, UserPaymentRecords
 
 
 def home_view(request):
@@ -13,7 +13,8 @@ def home_view(request):
 
     return render(request, 'home.html', {
         'user_information': retrieve_user_information(logged_in_user),
-        'user_cards': retrieve_user_cards(logged_in_user)
+        'user_cards': retrieve_user_cards(logged_in_user),
+        'user_payment_records': retrieve_user_payment_records(logged_in_user),
     })
 
 
@@ -86,3 +87,36 @@ def retrieve_user_cards(username: Text) -> dict:
             dict_data['full_name'].append(data.full_name)
 
     return dict_data
+
+
+def retrieve_user_payment_records(username: Text) -> dict:
+    # Retrieve all rows from the table
+    filtered_data = UserPaymentRecords.objects.filter(username=username).all()
+
+    if filtered_data is None:
+        filtered_data = {
+            'payment_type': [],
+            'amount': [],
+            'provider_name': [],
+        }
+        return filtered_data
+
+    dict_data = dict()
+    for data in filtered_data:
+        if dict_data.get('payment_type', None) is None:
+            dict_data['payment_type'] = [data.payment_type]
+        else:
+            dict_data['payment_type'].append(data.payment_type)
+
+        if dict_data.get('amount', None) is None:
+            dict_data['amount'] = [data.amount]
+        else:
+            dict_data['amount'].append(data.amount)
+
+        if dict_data.get('provider_name', None) is None:
+            dict_data['provider_name'] = [data.provider_name]
+        else:
+            dict_data['provider_name'].append(data.provider_name)
+
+    return dict_data
+
