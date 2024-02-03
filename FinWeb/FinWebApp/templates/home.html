@@ -117,6 +117,7 @@
         let user_information = {{ user_information|safe }};
         let user_cards = {{ user_cards|safe }};
         let user_payment_records = {{ user_payment_records|safe }};
+        let user_transactions = {{ user_transactions|safe }};
     </script>
 
 </head>
@@ -286,9 +287,10 @@
                         <img src="{% static 'images/home_profile_avatar.svg' %}" alt="Avatar Image">
                         <h2>סקירה כללית</h2>
                             <ul>
-                            <li>חיוב נוכחי:<div id="current-charge"> ₪{{user_information.current_debit}}-</div></li>
-                            <li>סה"כ חסכונות:<div id="current-savings">₪{{user_information.total_saving}}+</div></li>
-                            <li>חיוב אחרון:<div id="last-charge">₪{{user_information.latest_debit}}-</div></li>
+                                {% load humanize %}
+                            <li>חיוב נוכחי:<div id="current-charge"> ₪{{user_information.current_debit|intcomma}}-</div></li>
+                            <li>סה"כ חסכונות:<div id="current-savings">₪{{user_information.total_saving|intcomma}}+</div></li>
+                            <li>חיוב אחרון:<div id="last-charge">₪{{user_information.latest_debit|intcomma}}-</div></li>
                             </ul>
                       </div>
                       <!-- Third Section: Buttons -->

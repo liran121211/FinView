@@ -456,3 +456,58 @@ psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands
 2024-02-02 11:46:01,691 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-02-02 12:06:59,265 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-02-02 19:42:20,687 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:06:10,737 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:06:14,355 - ERROR - relation "users" does not exist
+LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
+                                    ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 198, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.UndefinedTable: relation "users" does not exist
+LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
+                                    ^
+
+2024-02-03 18:08:35,212 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:08:35,476 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:08:35,513 - ERROR - relation "users" does not exist
+LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
+                                    ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 198, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.UndefinedTable: relation "users" does not exist
+LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
+                                    ^
+
+2024-02-03 18:08:36,278 - ERROR - relation "users" does not exist
+LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
+                                    ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 198, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.UndefinedTable: relation "users" does not exist
+LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
+                                    ^
+
+2024-02-03 18:10:24,272 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:10:24,932 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:10:24,977 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-03 18:11:36,401 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:22:32,481 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:22:42,915 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:22:52,840 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 18:23:35,676 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:05:50,205 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:06:41,654 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:07:17,584 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:07:57,268 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:08:26,692 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:28:28,913 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:30:16,449 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:31:05,513 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:32:49,689 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:35:28,427 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:35:51,143 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:36:29,331 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 21:36:57,121 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-03 22:04:12,443 - INFO - Successfully connected to PostgreSQL database - localhost:5432

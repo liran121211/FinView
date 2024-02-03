@@ -61,3 +61,25 @@ class UserPaymentRecords(models.Model):
 
     def __str__(self):
         return self.id
+
+
+class UserTransactions(models.Model):
+    sha1_identifier = models.CharField(max_length=300, primary_key=True)
+    date_of_transaction = models.DateField(max_length=20, db_column='date_of_transaction')
+    business_name = models.CharField(max_length=20, db_column='business_name')
+    charge_amount = models.FloatField(max_length=20, db_column='charge_amount')
+    payment_type = models.CharField(max_length=20, db_column='payment_type')
+    total_amount = models.FloatField(max_length=20, db_column='total_amount')
+    username = models.CharField(max_length=20, db_column='username')
+    payment_provider = models.CharField(max_length=20, db_column='payment_provider')
+    transaction_type = models.CharField(max_length=20, db_column='transaction_type')
+    category = models.CharField(max_length=20, db_column='category')
+
+    class Meta:
+        # Specify the table name here
+        db_table = 'user_transactions'
+        app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
+
+    def __str__(self):
+        return self.sha1_identifier
+

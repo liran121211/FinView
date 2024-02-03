@@ -2,7 +2,7 @@ from typing import Text
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from FinWeb.FinWebApp.models import UserInformation, UserCards, UserPaymentRecords
+from FinWeb.FinWebApp.models import UserInformation, UserCards, UserPaymentRecords, UserTransactions
 
 
 def home_view(request):
@@ -15,6 +15,7 @@ def home_view(request):
         'user_information': retrieve_user_information(logged_in_user),
         'user_cards': retrieve_user_cards(logged_in_user),
         'user_payment_records': retrieve_user_payment_records(logged_in_user),
+        'user_transactions': retrieve_user_transactions(logged_in_user),
     })
 
 
@@ -117,6 +118,80 @@ def retrieve_user_payment_records(username: Text) -> dict:
             dict_data['provider_name'] = [data.provider_name]
         else:
             dict_data['provider_name'].append(data.provider_name)
+
+    return dict_data
+
+
+def retrieve_user_transactions(username: Text) -> dict:
+    # Retrieve all rows from the table
+    filtered_data = UserTransactions.objects.filter(username=username).all()
+
+    if filtered_data is None:
+        filtered_data = {
+            'sha1_identifier': [],
+            'date_of_transaction': [],
+            'business_name': [],
+            'charge_amount': [],
+            'payment_type': [],
+            'total_amount': [],
+            'username': [],
+            'payment_provider': [],
+            'transaction_type': [],
+            'category': [],
+        }
+        return filtered_data
+
+    dict_data = dict()
+    for data in filtered_data:
+        if dict_data.get('sha1_identifier', None) is None:
+            dict_data['sha1_identifier'] = [data.sha1_identifier]
+        else:
+            dict_data['sha1_identifier'].append(data.sha1_identifier)
+
+        if dict_data.get('date_of_transaction', None) is None:
+            dict_data['date_of_transaction'] = [str(data.date_of_transaction)]
+        else:
+            dict_data['date_of_transaction'].append(str(data.date_of_transaction))
+
+        if dict_data.get('business_name', None) is None:
+            dict_data['business_name'] = [data.business_name]
+        else:
+            dict_data['business_name'].append(data.business_name)
+
+        if dict_data.get('charge_amount', None) is None:
+            dict_data['charge_amount'] = [data.charge_amount]
+        else:
+            dict_data['charge_amount'].append(data.charge_amount)
+
+        if dict_data.get('payment_type', None) is None:
+            dict_data['payment_type'] = [data.payment_type]
+        else:
+            dict_data['payment_type'].append(data.payment_type)
+
+        if dict_data.get('total_amount', None) is None:
+            dict_data['total_amount'] = [data.total_amount]
+        else:
+            dict_data['total_amount'].append(data.total_amount)
+
+        if dict_data.get('username', None) is None:
+            dict_data['username'] = [data.username]
+        else:
+            dict_data['username'].append(data.username)
+
+        if dict_data.get('payment_provider', None) is None:
+            dict_data['payment_provider'] = [data.payment_provider]
+        else:
+            dict_data['payment_provider'].append(data.payment_provider)
+
+        if dict_data.get('transaction_type', None) is None:
+            dict_data['transaction_type'] = [data.transaction_type]
+        else:
+            dict_data['transaction_type'].append(data.transaction_type)
+
+        if dict_data.get('category', None) is None:
+            dict_data['category'] = [data.category]
+        else:
+            dict_data['category'].append(data.category)
 
     return dict_data
 

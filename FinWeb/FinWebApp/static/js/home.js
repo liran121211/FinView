@@ -65,15 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- Income Table -----------------------*/
 document.addEventListener('DOMContentLoaded', function () {
-    let payer_name = 0, payer_category = 1, payer_amount = 2, payer_date = 3;
-
-    // Sample data
-    const income_records = [
-        ['Elbit Systems LTD', 'Salary', '- ₪16,234', 'Today'],
-        ['BIT', 'Money Transfer & Receive', '- ₪100.0', 'Yesterday']
-    ];
-
-
     // Get the table body
     const tableBody = document.querySelector('#income-table tbody');
 
@@ -81,7 +72,12 @@ document.addEventListener('DOMContentLoaded', function () {
     tableBody.innerHTML = '';
 
     // Populate the table with data
-    income_records.forEach(item => {
+    let col_name = Object.keys(user_transactions)[0]
+    let numberOfDuplicates = user_transactions[col_name].length;  // Change this value as needed
+    for (let i = 0; i < numberOfDuplicates; i++) {
+        if (user_transactions.transaction_type[i] !== 'הכנסה')
+            continue;
+
         const income_row = document.createElement('tr');
         const income_description_col = document.createElement('td');
         const income_amount_col = document.createElement('td');
@@ -97,16 +93,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const income_date = document.createElement('div');
 
         // Set content and styling for word1 and word2
-        income_name.textContent = item[payer_name];
+        income_name.textContent = user_transactions.business_name[i];
         income_name.classList.add('income_name'); // Add the class for styling
 
-        income_category.textContent = item[payer_category];
+        income_category.textContent = user_transactions.category[i];
         income_category.classList.add('income_category'); // Add the class for styling
 
-        income_amount.textContent = item[payer_amount];
+        income_amount.textContent = Math.abs(user_transactions.total_amount[i]).toLocaleString();
         income_amount.classList.add('income_amount'); // Add the class for styling
 
-        income_date.textContent = item[payer_date];
+        income_date.textContent = user_transactions.date_of_transaction[i];
         income_date.classList.add('income_date'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -122,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the row to the table body
         tableBody.appendChild(income_row);
-    });
+    }
 });
 
 
@@ -341,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const subscription_name_div = document.createElement('div');
 
         // Set content and styling
-        subscription_price_div.textContent = user_payment_records.amount[i].toFixed(2);
+        subscription_price_div.textContent = '- ₪' + user_payment_records.amount[i].toFixed(2).toLocaleString();
         subscription_price_div.classList.add('subscription-price-div'); // Add the class for styling
 
         subscription_name_div.textContent = user_payment_records.provider_name[i];
@@ -391,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Set content and styling
-        direct_debit_price_div.textContent = user_payment_records.amount[i].toFixed(2);
+        direct_debit_price_div.textContent = '- ₪' + user_payment_records.amount[i].toFixed(2).toLocaleString();
         direct_debit_price_div.classList.add('direct-debit-price-div'); // Add the class for styling
 
         direct_debit_name_div.textContent = user_payment_records.provider_name[i];
@@ -478,21 +474,3 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(new_card);
     }
 });
-
-
-// Function to recursively count the number of rows in the object
-function countRows(obj) {
-    let count = 0;
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            // If the value is an object or array, recursively count its rows
-            if (typeof obj[key] === 'object' && obj[key] !== null) {
-                count += countRows(obj[key]);
-            } else {
-                // If the value is not an object or array, it represents a row
-                count++;
-            }
-        }
-    }
-    return count;
-}

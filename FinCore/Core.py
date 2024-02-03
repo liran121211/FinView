@@ -102,7 +102,7 @@ class Transactions:
         required_columns = self.db.fetch_columns('transactions')
 
         # validate username existence upon adding.
-        if not self.db.is_value_exists(table_name='users', column_name='username', value=username):
+        if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
             return RECORD_EXIST
 
         # add username as foreign key ( Many->One).
@@ -234,7 +234,7 @@ class Application:
             query = f"SELECT SUM(total_amount) AS total_sum " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM transactions" \
+                    f" FROM user_transactions" \
                     f" WHERE EXTRACT(MONTH FROM date_of_purchase) = {Transactions.num_to_month(selected_month)}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -246,7 +246,7 @@ class Application:
             query = f"SELECT SUM(total_amount) AS total_sum " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM transactions" \
+                    f" FROM user_transactions" \
                     f" WHERE EXTRACT(YEAR FROM date_of_purchase) = {selected_year}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -258,7 +258,7 @@ class Application:
             query = f"SELECT SUM(total_amount) AS total_sum " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM transactions" \
+                    f" FROM user_transactions" \
                     f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -268,7 +268,7 @@ class Application:
 
         def which_records_by_payment_type(payment_type: Text, username: Text):
             query = f"SELECT * " \
-                    f"FROM transactions" \
+                    f"FROM user_transactions" \
                     f" WHERE payment_type = '{payment_type}'" \
                     f" AND username='{username}';"
 
@@ -277,7 +277,7 @@ class Application:
 
         def which_records_by_business_name(business_name: Text, username: Text):
             query = f"SELECT * " \
-                    f"FROM transactions" \
+                    f"FROM user_transactions" \
                     f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}';"
 
@@ -286,7 +286,7 @@ class Application:
 
         def which_records_above_amount(amount: float, username: Text):
             query = f"SELECT * " \
-                    f"FROM transactions" \
+                    f"FROM user_transactions" \
                     f" WHERE total_amount >= '{amount}'" \
                     f" AND username='{username}';"
 
@@ -295,8 +295,8 @@ class Application:
 
         def which_records_of_payment_provider(payment_provider: Text, username: Text):
             query = f"SELECT * " \
-                    f"FROM transactions" \
-                    f" WHERE transactions.payment_provider ILIKE '%{payment_provider}%'" \
+                    f"FROM user_transactions" \
+                    f" WHERE user_transactions.payment_provider ILIKE '%{payment_provider}%'" \
                     f" AND username='{username}';"
 
             result = self.__manage_transactions.transaction_query(sql_query=query)
@@ -306,7 +306,7 @@ class Application:
             query = f"SELECT COUNT(subquery) AS total_transactions " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM transactions" \
+                    f" FROM user_transactions" \
                     f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -324,3 +324,16 @@ class Application:
             'which_records_of_payment_provider': which_records_of_payment_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
         }
+
+T = Transactions()
+T.add_transaction(record_data=
+                  {
+                    'date_of_transaction': '2023-02-16',
+                    'business_name': 'אלביט מערכות בע"מ',
+                    'charge_amount': '16200.0',
+                    'payment_type': 'משכורת',
+                    'total_amount': '16200.0',
+                    'payment_provider': 'Leumi',
+                  },
+    username='liran121214'
+)
