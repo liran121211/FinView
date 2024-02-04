@@ -15,31 +15,32 @@ document.addEventListener('DOMContentLoaded', function () {
             continue;
 
         const outcome_row = document.createElement('tr');
-        const transaction_description_col = document.createElement('td');
         const transaction_amount_col = document.createElement('td');
+        const transaction_description_col = document.createElement('td');
 
         // Add the class name "outcome_description/outcome_amount" to the new <td> element
         transaction_description_col.classList.add('transaction_description_col');
         transaction_amount_col.classList.add('transaction_amount_col');
 
         // Create div elements for word1 and word2
-        const outcome_name = document.createElement('div');
-        const outcome_category = document.createElement('div');
         const outcome_price = document.createElement('div');
         const outcome_date = document.createElement('div');
+        const outcome_name = document.createElement('div');
+        const outcome_category = document.createElement('div');
+
 
         // Set content and styling
-        outcome_name.textContent = user_outcome.business_name[i];
-        outcome_name.classList.add('outcome_name'); // Add the class for styling
-
-        outcome_category.textContent = user_outcome.category[i];
-        outcome_category.classList.add('outcome_category'); // Add the class for styling
-
         outcome_price.textContent = '- ₪' + Math.abs(user_outcome.total_amount[i]).toFixed(2).toLocaleString();
         outcome_price.classList.add('outcome_price'); // Add the class for styling
 
         outcome_date.textContent = user_outcome.date_of_transaction[i];
         outcome_date.classList.add('outcome_date'); // Add the class for styling
+
+        outcome_name.textContent = user_outcome.business_name[i];
+        outcome_name.classList.add('outcome_name'); // Add the class for styling
+
+        outcome_category.textContent = user_outcome.category[i];
+        outcome_category.classList.add('outcome_category'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
         transaction_description_col.appendChild(outcome_name);
@@ -49,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
         transaction_amount_col.appendChild(outcome_date);
 
         // Append the cell to the row
-        outcome_row.appendChild(transaction_description_col);
         outcome_row.appendChild(transaction_amount_col);
+        outcome_row.appendChild(transaction_description_col);
 
         // Append the row to the table body
         tableBody.appendChild(outcome_row);
@@ -78,14 +79,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const income_amount_col = document.createElement('td');
 
         // Add the class name "income_description/income_amount" to the new <td> element
-        income_description_col.classList.add('income_description_col');
         income_amount_col.classList.add('income_amount_col');
+        income_description_col.classList.add('income_description_col');
+
 
         // Create div elements for word1 and word2
-        const income_name = document.createElement('div');
-        const income_category = document.createElement('div');
         const income_amount = document.createElement('div');
         const income_date = document.createElement('div');
+        const income_name = document.createElement('div');
+        const income_category = document.createElement('div');
+
 
         // Set content and styling for word1 and word2
         income_name.textContent = user_income.business_name[i];
@@ -108,8 +111,8 @@ document.addEventListener('DOMContentLoaded', function () {
         income_amount_col.appendChild(income_date);
 
         // Append the cell to the row
-        income_row.appendChild(income_description_col);
         income_row.appendChild(income_amount_col);
+        income_row.appendChild(income_description_col);
 
         // Append the row to the table body
         tableBody.appendChild(income_row);
