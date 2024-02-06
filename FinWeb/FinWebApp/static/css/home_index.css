@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 
+
+uhyiv
 .home-container {
     width: 100%;
     display: flex;
@@ -276,8 +278,7 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-self: flex-start;
-    align-items: center;
+    align-items:flex-start;
     justify-content: center;
 }
 
@@ -400,6 +401,7 @@
 #income-table {
     width: 50%;
     border-collapse: collapse;
+
     margin-right: 20px; /* Adjust as needed */
 }
 
@@ -964,6 +966,7 @@
 
 .quick-overview-doughnut-pie canvas {
     position: initial;
+
     width: 100%; /* Set desired width */
     height: 100%; /* Set desired height */
 

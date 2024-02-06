@@ -2,17 +2,16 @@ from typing import Text
 
 import pandas as pd
 from django.db import models
-from . import finview_app
+from . import FIN_CORE
 
 
 # Create your models here.
 
-def model_payment_provider_pie_chart(username: Text):
-    cols_name_chronology = ['date_of_purchase', 'business_name', 'charge_amount', 'payment_type',
-                            'total_amount', 'sha1_identifier', 'username', 'payment_provider']
+def SpentByCategoryQuery(username: Text):
+    cols_names = ['category', 'total_amount',]
 
-    query = finview_app.ask['which_records_of_payment_provider'](payment_provider='', username=username)
-    return pd.DataFrame(query, columns=cols_name_chronology).groupby('payment_provider')['total_amount'].sum()
+    query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
+    return pd.DataFrame(query, columns=cols_names).to_dict()
 
 
 class UserInformation(models.Model):

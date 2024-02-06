@@ -46,3 +46,5 @@
 2024-02-04 07:17:30,213 - CRITICAL - Column: [date_of_transaction], is not part of the required_columns.
 2024-02-04 19:13:31,656 - CRITICAL - Column: [date_of_transaction], is not part of the required_columns.
 2024-02-04 19:13:49,436 - CRITICAL - Column: [date_of_transaction], is not part of the required_columns.
+2024-02-04 21:02:54,861 - CRITICAL - Column: [date_of_transaction], is not part of the required_columns.
+2024-02-04 21:21:41,820 - CRITICAL - Column: [date_of_transaction], is not part of the required_columns.

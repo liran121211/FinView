@@ -1,6 +1,6 @@
 from FinCore.Core import Application
 
-finview_app = Application()
+FIN_CORE = Application()
 # app.load_statements_to_db(current_user='liran')
 # print(app.ask['how_much_spent_in_specific_month'](selected_month='August', username='liran'))
 # print(app.ask['how_much_spent_in_specific_year'](selected_year=2023, username='liran'))

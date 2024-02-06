@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{@teleporthq, @teleporthq/teleport-custom-scripts, animate.css, bootstrap, chart.js, chartjs-plugin-datalabels, chartjs-plugin-labels, chartjs-plugin-piechart-outlabels, fusioncharts, fusioncharts.theme.fusion, jquery-3.2.1.slim, jquery-3.6.4, popper.js}" />
+    <file url="file://$PROJECT_DIR$" libraries="{@teleporthq, @teleporthq/teleport-custom-scripts, animate.css, bootstrap, chart.js, chartjs-plugin-datalabels, chartjs-plugin-labels, chartjs-plugin-piechart-outlabels, d3.v7, fusioncharts, fusioncharts.theme.fusion, jquery-3.2.1.slim, jquery-3.6.4, popper.js}" />
   </component>
 </project>

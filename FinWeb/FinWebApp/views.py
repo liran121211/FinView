@@ -2,7 +2,9 @@ from typing import Text
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from FinWeb.FinWebApp.models import UserInformation, UserCards, UserPaymentRecords, UserTransactions
+from FinCore.Core import Transactions
+from FinWeb.FinWebApp import FIN_CORE
+from FinWeb.FinWebApp.models import UserInformation, UserCards, UserPaymentRecords, UserTransactions, SpentByCategoryQuery
 
 
 def home_view(request):
@@ -17,6 +19,7 @@ def home_view(request):
         'user_payment_records': retrieve_user_payment_records(logged_in_user),
         'user_income':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'transaction_type', 'הכנסה', -5, 0),
         'user_outcome':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'transaction_type', 'הוצאה', -5, 0),
+        'spent_by_category': SpentByCategoryQuery(logged_in_user),
     })
 
 

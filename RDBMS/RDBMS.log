@@ -540,3 +540,34 @@ LINE 1: SELECT EXISTS(SELECT 1 FROM users WHERE username = 'liran121...
 2024-02-04 07:17:29,194 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-02-04 19:13:28,574 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-02-04 19:13:48,141 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-04 21:02:52,891 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-04 21:21:40,375 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-04 21:23:46,035 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-04 21:24:56,842 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-04 21:25:37,359 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-04 21:25:41,069 - ERROR - syntax error at or near "AND"
+LINE 1: SELECT category FROM user_transactions AND username='liran12...
+                                               ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 227, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "AND"
+LINE 1: SELECT category FROM user_transactions AND username='liran12...
+                                               ^
+
+2024-02-05 07:12:24,725 - ERROR - syntax error at or near "AND"
+LINE 1: SELECT category FROM user_transactions AND username='liran12...
+                                               ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 227, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "AND"
+LINE 1: SELECT category FROM user_transactions AND username='liran12...
+                                               ^
+
+2024-02-05 07:13:26,289 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-05 07:18:06,610 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-05 07:18:52,630 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-05 07:22:14,803 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-05 07:24:31,215 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-05 07:30:27,575 - INFO - Successfully connected to PostgreSQL database - localhost:5432

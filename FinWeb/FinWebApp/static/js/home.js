@@ -1,4 +1,3 @@
-
 /* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     // Get the table body
@@ -164,28 +163,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* ----------------------- Quick Overview Doughnut-Pie - Doughnut Graph ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
-    const quick_overview_data = {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+    let spent_by_category_labels = Object.values(spent_by_category['category']);
+    let spent_by_category_items = Object.values(spent_by_category['total_amount']);
+
+    const spent_by_category_data = {
+        labels: spent_by_category_labels,
         datasets: [{
-            label: "My First Dataset",
-            data: [30, 10, 20, 15, 25],
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(153, 102, 255)'
-            ]
+            data: spent_by_category_items,
+            backgroundColor: getRandomColors(spent_by_category_items.length),
         }]
     };
 
-
     // Configuration options for the doughnut chart
-
-    const quick_overview_config = {
+    const spent_by_category_config = {
         type: 'outlabeledPie',
-        data: quick_overview_data,
+        data: spent_by_category_data,
         options: {
+            title: {
+                display: true,
+                text: 'הוצאות לפי קטגוריה',
+                fontSize: 25,
+                fontColor: '#4C495A',
+                fontFamily: 'Gan',
+            },
             responsive: false,
             zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
             plugins: {
@@ -199,24 +199,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         minSize: 12,
                         maxSize: 18
                     }
-                }
+                },
             }
         }
     };
 
-
-
-    const quick_overview_data_canvas_1 = document.getElementById('quick-overview-doughnut-pie-canvas-1');
+    const spent_by_category_canvas = document.getElementById('quick-overview-doughnut-pie-canvas-1');
     // Create the doughnut chart with the provided configuration
-    const _1 = new Chart(quick_overview_data_canvas_1, quick_overview_config);
+    const _1 = new Chart(spent_by_category_canvas, spent_by_category_config);
 
     const quick_overview_data_canvas_2 = document.getElementById('quick-overview-doughnut-pie-canvas-2');
     // Create the doughnut chart with the provided configuration
-    const _2 = new Chart(quick_overview_data_canvas_2, quick_overview_config);
+    const _2 = new Chart(quick_overview_data_canvas_2, spent_by_category_config);
 
     const quick_overview_data_canvas_3 = document.getElementById('quick-overview-doughnut-pie-canvas-3');
     // Create the doughnut chart with the provided configuration
-    const _3 = new Chart(quick_overview_data_canvas_3, quick_overview_config);
+    const _3 = new Chart(quick_overview_data_canvas_3, spent_by_category_config);
 });
 
 /* ----------------------- Income & Outcome Ratio Dashboard Doughnut Pie ----------------------- */
@@ -433,12 +431,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Chose Card Type logo
         let card_type_logo = '';
-        if (user_cards.card_type[i] === 'VISA')
-        {
+        if (user_cards.card_type[i] === 'VISA') {
             card_type_logo = '<img class="logo" src="static/images/visa_logo.svg" alt="Card Type Logo">';
-        }
-        else
-        {
+        } else {
             card_type_logo = '<img class="logo" src="static/images/mastercard_logo.svg" alt="NFC Logo">'
         }
 
@@ -472,3 +467,41 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(new_card);
     }
 });
+
+
+function getRandomColors(numColors) {
+    const interpolatedColors = [
+        '#7BD92E',
+        '#8FD931',
+        '#A4DA35',
+        '#B8DB39',
+        '#FFD64D',
+        '#FFCC53',
+        '#FFC159',
+        '#FFB75F',
+        '#FFAC65',
+        '#FFA26B',
+        '#FF9871',
+        '#FF8D77',
+        '#FF837D',
+        '#1A87D9',
+        '#3380DC',
+        '#4C89DF',
+        '#6582E2',
+        '#7E8BE5',
+        '#9784E8',
+        '#B07DEB',
+        '#C977EE',
+        '#E270F1'
+
+    ];
+    const randomColors = [];
+
+    for (let i = 0; i < numColors; i++) {
+        const randomIndex = Math.floor(Math.random() * interpolatedColors.length); // Generate a random index
+        const randomColor = interpolatedColors.splice(randomIndex, 1)[0]; // Remove the color at the random index and add it to the result array
+        randomColors.push(randomColor);
+    }
+
+    return randomColors;
+}

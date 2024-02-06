@@ -314,6 +314,15 @@ class Application:
             result = self.__manage_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
+        def how_much_spent_by_category(username: Text):
+            query = f"SELECT category," \
+                    f" SUM(total_amount) AS total_amount_sum" \
+                    f" FROM user_transactions" \
+                    f" GROUP BY category;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
         return {
             'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
@@ -323,17 +332,19 @@ class Application:
             'which_records_above_amount': which_records_above_amount,
             'which_records_of_payment_provider': which_records_of_payment_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
+            'how_much_spent_by_category': how_much_spent_by_category,
         }
 
-T = Transactions()
-T.add_transaction(record_data=
-                  {
-                    'date_of_transaction': '2023-02-16',
-                    'business_name': 'אלביט מערכות בע"מ',
-                    'charge_amount': '16200.0',
-                    'payment_type': 'משכורת',
-                    'total_amount': '16200.0',
-                    'payment_provider': 'Leumi',
-                  },
-    username='liran121214'
-)
+# T = Transactions()
+# T.add_transaction(record_data=
+#                   {
+#                     'date_of_transaction': '2023-02-16',
+#                     'business_name': 'אלביט מערכות בע"מ',
+#                     'charge_amount': '16200.0',
+#                     'payment_type': 'משכורת',
+#                     'total_amount': '16200.0',
+#                     'payment_provider': 'Leumi',
+#                   },
+#     username='liran121214'
+# )
+
