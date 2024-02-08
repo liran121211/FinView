@@ -293,9 +293,9 @@
                         <h2>סקירה כללית</h2>
                             <ul>
                                 {% load humanize %}
-                            <li>חיוב נוכחי:<div id="current-charge"> ₪{{user_information.current_debit|intcomma}}-</div></li>
-                            <li>סה"כ חסכונות:<div id="current-savings">₪{{user_information.total_saving|intcomma}}+</div></li>
-                            <li>חיוב אחרון:<div id="last-charge">₪{{user_information.latest_debit|intcomma}}-</div></li>
+                            <li>חיוב נוכחי:<div id="current-charge">₪{{user_information.current_debit|intcomma}}</div></li>
+                            <li>סה"כ חסכונות:<div id="current-savings">₪{{user_information.total_saving|intcomma}}</div></li>
+                            <li>חיוב אחרון:<div id="last-charge">₪{{user_information.latest_debit|intcomma}}</div></li>
                             </ul>
                       </div>
                       <!-- Third Section: Buttons -->

@@ -1,7 +1,7 @@
 import datetime
 import os.path
 import re
-from typing import AnyStr
+from typing import AnyStr, Any
 import pandas as pd
 import requests
 from abc import ABC, abstractmethod
@@ -377,4 +377,14 @@ class BankLeumiParser(Parser, ABC):
                 return bank_account_number[0]
         except IndexError:
             return BANK_DUMMY_ACCOUNT_NUMBER
+
+    @staticmethod
+    def extract_current_bank_debit(df: pd.DataFrame) -> Any:
+        try:
+            if "היתרה" in df.iloc[3, 0] and isinstance(float(re.sub('|'.join(map(re.escape, ['\u200e', '₪', ])), '', df.iloc[5, 0])), (float, int)):
+                return float(re.sub('|'.join(map(re.escape, ['\u200e', '₪', ])), '', df.iloc[5, 0]))
+        except IndexError:
+            return 0.0
+        except ValueError:
+            return 0.0
 
