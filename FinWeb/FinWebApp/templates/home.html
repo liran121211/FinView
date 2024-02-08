@@ -117,10 +117,11 @@
     <script>
         let user_information = {{ user_information|safe }};
         let user_cards = {{ user_cards|safe }};
-        let user_payment_records = {{ user_payment_records|safe }};
+        let user_direct_debit_subscriptions = {{ user_direct_debit_subscriptions|safe }};
         let user_income = {{ user_income|safe }};
         let user_outcome = {{ user_outcome|safe }};
         let spent_by_category = {{ spent_by_category|safe }};
+        let spent_by_card = {{ spent_by_card|safe }};
     </script>
 
 </head>
@@ -256,10 +257,10 @@
                         <div class="carousel">
                           <ul>
                             <li>
-                              <canvas id="quick-overview-doughnut-pie-canvas-1" width="500" height="500"></canvas>
+                              <canvas id="quick-overview-spent_by_category" width="500" height="500"></canvas>
                             </li>
                             <li>
-                              <canvas id="quick-overview-doughnut-pie-canvas-2" width="500" height="500"></canvas>
+                              <canvas id="quick-overview-spent_by_card" width="500" height="500"></canvas>
                             </li>
                             <li>
                               <canvas id="quick-overview-doughnut-pie-canvas-3" width="500" height="500"></canvas>

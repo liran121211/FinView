@@ -5,12 +5,17 @@ from django.db import models
 from . import FIN_CORE
 
 
-# Create your models here.
-
 def SpentByCategoryQuery(username: Text):
     cols_names = ['category', 'total_amount',]
 
     query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
+    return pd.DataFrame(query, columns=cols_names).to_dict()
+
+
+def SpentByCardNumberQuery(username: Text):
+    cols_names = ['last_4_digits', 'issuer_name', 'total_amount',]
+
+    query = FIN_CORE.ask['how_much_spent_by_card_number'](username=username)
     return pd.DataFrame(query, columns=cols_names).to_dict()
 
 
@@ -33,7 +38,7 @@ class UserCards(models.Model):
     id = models.IntegerField(max_length=6, primary_key=True)
     username = models.CharField(max_length=20, db_column='username')
     issuer_name = models.CharField(max_length=20, db_column='issuer_name')
-    last_four_digits = models.IntegerField(max_length=4, db_column='last_four_digits')
+    last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')
     card_type = models.CharField(max_length=10, db_column='card_type')
     full_name = models.CharField(max_length=20, db_column='full_name')
 
@@ -46,7 +51,7 @@ class UserCards(models.Model):
         return self.id
 
 
-class UserPaymentRecords(models.Model):
+class UserDirectDebitSubscriptions(models.Model):
     id = models.IntegerField(max_length=6, primary_key=True)
     username = models.CharField(max_length=20, db_column='username')
     payment_type = models.CharField(max_length=20, db_column='payment_type')
@@ -55,7 +60,7 @@ class UserPaymentRecords(models.Model):
 
     class Meta:
         # Specify the table name here
-        db_table = 'user_payment_records'
+        db_table = 'user_direct_debit_subscriptions'
         app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
 
     def __str__(self):
@@ -67,12 +72,13 @@ class UserTransactions(models.Model):
     date_of_transaction = models.DateField(max_length=20, db_column='date_of_transaction')
     business_name = models.CharField(max_length=20, db_column='business_name')
     charge_amount = models.FloatField(max_length=20, db_column='charge_amount')
-    payment_type = models.CharField(max_length=20, db_column='payment_type')
     total_amount = models.FloatField(max_length=20, db_column='total_amount')
     username = models.CharField(max_length=20, db_column='username')
     payment_provider = models.CharField(max_length=20, db_column='payment_provider')
     transaction_type = models.CharField(max_length=20, db_column='transaction_type')
     category = models.CharField(max_length=20, db_column='category')
+    last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')
+    payment_direction = models.CharField(max_length=4, db_column='payment_direction')
 
     class Meta:
         # Specify the table name here

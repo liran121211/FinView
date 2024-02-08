@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let col_name = Object.keys(user_outcome)[0]
     let numberOfDuplicates = user_outcome[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_outcome.transaction_type[i] !== 'הוצאה')
+        if (user_outcome.payment_direction[i] !== 'הוצאה')
             continue;
 
         const outcome_row = document.createElement('tr');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let col_name = Object.keys(user_income)[0]
     let numberOfDuplicates = user_income[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_income.transaction_type[i] !== 'הכנסה')
+        if (user_income.payment_direction[i] !== 'הכנסה')
             continue;
 
         const income_row = document.createElement('tr');
@@ -121,9 +121,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- Balance History ----------------------- */
 const balance_history_data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'],
     datasets: [{
-        label: "Sample Data",
+        label: "הכנסות לפי חודש",
         borderColor: "rgb(75, 192, 192)",
         data: [10, 30, 20, 40, 50, 30, 60],
         fill: false
@@ -140,14 +140,14 @@ const balance_history_config = {
                 display: true,
                 title: {
                     display: true,
-                    text: 'Month'
+                    text: 'חודש'
                 }
             },
             y: {
                 display: true,
                 title: {
                     display: true,
-                    text: 'Value'
+                    text: 'ערך'
                 }
             }
         }
@@ -163,8 +163,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* ----------------------- Quick Overview Doughnut-Pie - Doughnut Graph ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
+    // Spent by Category
     let spent_by_category_labels = Object.values(spent_by_category['category']);
     let spent_by_category_items = Object.values(spent_by_category['total_amount']);
+
+    // Spent by Card Number
+    let spent_by_card_labels_last_4_digits = Object.values(spent_by_card['last_4_digits']);
+    let spent_by_card_labels_issuer_name = Object.values(spent_by_card['issuer_name']);
+    let spent_by_card_items = Object.values(spent_by_card['total_amount']);
+
+    let spent_by_card_labels = [];
+
+    // Iterate over one of the lists
+    for (let i = 0; i < spent_by_card_labels_last_4_digits.length; i++) {
+        // Concatenate 'issuer_name' and 'last_4_digits' at the same index
+        let concatenatedItem = '(' + spent_by_card_labels_issuer_name[i] + ' ' + spent_by_card_labels_last_4_digits[i] + ')';
+        // Push the concatenated item to the result list
+        spent_by_card_labels.push(concatenatedItem);
+    }
 
     const spent_by_category_data = {
         labels: spent_by_category_labels,
@@ -204,13 +220,52 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    const spent_by_category_canvas = document.getElementById('quick-overview-doughnut-pie-canvas-1');
+
+    const spent_by_card_data = {
+        labels: spent_by_card_labels,
+        datasets: [{
+            data: spent_by_card_items,
+            backgroundColor: getRandomColors(spent_by_card_items.length),
+        }]
+    };
+
+    // Configuration options for the doughnut chart
+    const spent_by_card_config = {
+        type: 'outlabeledPie',
+        data: spent_by_card_data,
+        options: {
+            title: {
+                display: true,
+                text: 'הוצאות לפי כרטיס',
+                fontSize: 25,
+                fontColor: '#4C495A',
+                fontFamily: 'Gan',
+            },
+            responsive: false,
+            zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
+            plugins: {
+                legend: false,
+                outlabels: {
+                    text: '%l %p',
+                    color: 'white',
+                    stretch: 45,
+                    font: {
+                        resizable: true,
+                        minSize: 12,
+                        maxSize: 18
+                    }
+                },
+            }
+        }
+    };
+
+    const spent_by_category_canvas = document.getElementById('quick-overview-spent_by_category');
     // Create the doughnut chart with the provided configuration
     const _1 = new Chart(spent_by_category_canvas, spent_by_category_config);
 
-    const quick_overview_data_canvas_2 = document.getElementById('quick-overview-doughnut-pie-canvas-2');
+    const spent_by_card_canvas = document.getElementById('quick-overview-spent_by_card');
     // Create the doughnut chart with the provided configuration
-    const _2 = new Chart(quick_overview_data_canvas_2, spent_by_category_config);
+    const _2 = new Chart(spent_by_card_canvas, spent_by_card_config);
 
     const quick_overview_data_canvas_3 = document.getElementById('quick-overview-doughnut-pie-canvas-3');
     // Create the doughnut chart with the provided configuration
@@ -313,10 +368,10 @@ document.addEventListener('DOMContentLoaded', function () {
     tableBody.innerHTML = '';
 
     // Populate the table with data
-    let col_name = Object.keys(user_payment_records)[0]
-    let numberOfDuplicates = user_payment_records[col_name].length;  // Change this value as needed
+    let col_name = Object.keys(user_direct_debit_subscriptions)[0]
+    let numberOfDuplicates = user_direct_debit_subscriptions[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_payment_records.payment_type[i] !== 'Subscription')
+        if (user_direct_debit_subscriptions.payment_type[i] !== 'Subscription')
             continue;
 
         const subscription_row = document.createElement('tr');
@@ -333,10 +388,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const subscription_name_div = document.createElement('div');
 
         // Set content and styling
-        subscription_price_div.textContent = '- ₪' + user_payment_records.amount[i].toFixed(2).toLocaleString();
+        subscription_price_div.textContent = '- ₪' + user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString();
         subscription_price_div.classList.add('subscription-price-div'); // Add the class for styling
 
-        subscription_name_div.textContent = user_payment_records.provider_name[i];
+        subscription_name_div.textContent = user_direct_debit_subscriptions.provider_name[i];
         subscription_name_div.classList.add('subscription-name-div'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -361,10 +416,10 @@ document.addEventListener('DOMContentLoaded', function () {
     tableBody.innerHTML = '';
 
     // Populate the table with data
-    let col_name = Object.keys(user_payment_records)[0]
-    let numberOfDuplicates = user_payment_records[col_name].length;  // Change this value as needed
+    let col_name = Object.keys(user_direct_debit_subscriptions)[0]
+    let numberOfDuplicates = user_direct_debit_subscriptions[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_payment_records.payment_type[i] !== 'Direct Debit')
+        if (user_direct_debit_subscriptions.payment_type[i] !== 'Direct Debit')
             continue;
 
         const direct_debit_row = document.createElement('tr');
@@ -383,10 +438,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Set content and styling
-        direct_debit_price_div.textContent = '- ₪' + user_payment_records.amount[i].toFixed(2).toLocaleString();
+        direct_debit_price_div.textContent = '- ₪' + user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString();
         direct_debit_price_div.classList.add('direct-debit-price-div'); // Add the class for styling
 
-        direct_debit_name_div.textContent = user_payment_records.provider_name[i];
+        direct_debit_name_div.textContent = user_direct_debit_subscriptions.provider_name[i];
         direct_debit_name_div.classList.add('direct-debit-name-div'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -453,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="card-issuer">${JSON.stringify(user_cards.issuer_name[i]).replace(/^"(.*)"$/, '$1')}</div>
                         <div class="card-chip"></div>
                         <div class="card-holder">${JSON.stringify(user_cards.full_name[i]).replace(/^"(.*)"$/, '$1')}</div>
-                        <div class="card-number">${JSON.stringify(user_cards.last_four_digits[i]).replace(/^"(.*)"$/, '$1')} **** **** ****</div>
+                        <div class="card-number">${JSON.stringify(user_cards.last_4_digits[i]).replace(/^"(.*)"$/, '$1')} **** **** ****</div>
                         <div class="card-valid">--/--</div>
                     </div>
                     <div class="card-back">

@@ -99,7 +99,7 @@ class Transactions:
             return 12
 
     def add_transaction(self, record_data: Dict, username: Text):
-        required_columns = self.db.fetch_columns('transactions')
+        required_columns = self.db.fetch_columns('user_transactions')
 
         # validate username existence upon adding.
         if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
@@ -121,13 +121,13 @@ class Transactions:
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
         try:
-            self.db.add_record(table_name='transactions', record_data=record_data)
+            self.db.add_record(table_name='user_transactions', record_data=record_data)
         except InvalidDatetimeFormat as e:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
     def modify_transaction(self, record_data: Dict, transaction_id: Text):
-        required_columns = self.db.fetch_columns('transactions')
+        required_columns = self.db.fetch_columns('user_transactions')
 
         # validate transaction columns
         for k, _ in record_data.items():
@@ -135,27 +135,27 @@ class Transactions:
                 self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
                 return SQL_QUERY_FAILED
 
-        self.db.modify_record(table_name='transactions',
+        self.db.modify_record(table_name='user_transactions',
                               record_data=record_data,
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
     def delete_transaction(self, transaction_id: Text):
-        required_columns = self.db.fetch_columns('transactions')
+        required_columns = self.db.fetch_columns('user_transactions')
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
             self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
             return SQL_QUERY_FAILED
 
-        self.db.delete_record(table_name='transactions',
+        self.db.delete_record(table_name='user_transactions',
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
     def is_primary_key_exist(self, primary_key: Text):
-        return self.db.is_value_exists(table_name='transactions', column_name='sha1_identifier', value=primary_key)
+        return self.db.is_value_exists(table_name='user_transactions', column_name='sha1_identifier', value=primary_key)
 
     def transaction_query(self, sql_query: Text) -> List:
         return self.db.create_query(sql_query)
@@ -175,12 +175,14 @@ class Application:
                     # add records from statements to database
                     for idx, row in cal_data.iterrows():
                         current_record = {
-                            'date_of_purchase': row['date_of_purchase'],
+                            'date_of_transaction': row['date_of_transaction'],
                             'business_name':    row['business_name'],
                             'charge_amount':    row['charge_amount'],
                             'total_amount':     row['total_amount'],
-                            'payment_type':     row['payment_type'],
+                            'transaction_type': row['transaction_type'],
                             'payment_provider': row['payment_provider'],
+                            'last_4_digits':    row['last_4_digits'],
+                            'payment_direction': row['payment_direction'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -190,12 +192,14 @@ class Application:
                     # add records from statements to database
                     for idx, row in max_data.iterrows():
                         current_record = {
-                            'date_of_purchase': row['date_of_purchase'],
+                            'date_of_transaction': row['date_of_transaction'],
                             'business_name':    row['business_name'],
                             'charge_amount':    row['charge_amount'],
                             'total_amount':     row['total_amount'],
-                            'payment_type':     row['payment_type'],
+                            'transaction_type': row['transaction_type'],
                             'payment_provider': row['payment_provider'],
+                            'last_4_digits':    row['last_4_digits'],
+                            'payment_direction': row['payment_direction'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -205,12 +209,14 @@ class Application:
                     # add records from statements to database
                     for idx, row in leumi_data.iterrows():
                         current_record = {
-                            'date_of_purchase': row['date_of_purchase'],
+                            'date_of_transaction': row['date_of_transaction'],
                             'business_name':    row['business_name'],
                             'charge_amount':    row['charge_amount'],
                             'total_amount':     row['total_amount'],
-                            'payment_type':     row['payment_type'],
+                            'transaction_type': row['transaction_type'],
                             'payment_provider': row['payment_provider'],
+                            'last_4_digits':    row['last_4_digits'],
+                            'payment_direction': row['payment_direction'],
                         }
                         self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -235,7 +241,7 @@ class Application:
                     f"FROM (" \
                     f"SELECT total_amount" \
                     f" FROM user_transactions" \
-                    f" WHERE EXTRACT(MONTH FROM date_of_purchase) = {Transactions.num_to_month(selected_month)}" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {Transactions.num_to_month(selected_month)}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
 
@@ -247,7 +253,7 @@ class Application:
                     f"FROM (" \
                     f"SELECT total_amount" \
                     f" FROM user_transactions" \
-                    f" WHERE EXTRACT(YEAR FROM date_of_purchase) = {selected_year}" \
+                    f" WHERE EXTRACT(YEAR FROM date_of_transaction) = {selected_year}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
 
@@ -266,10 +272,10 @@ class Application:
             result = self.__manage_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
-        def which_records_by_payment_type(payment_type: Text, username: Text):
+        def which_records_by_transaction_type(transaction_type: Text, username: Text):
             query = f"SELECT * " \
                     f"FROM user_transactions" \
-                    f" WHERE payment_type = '{payment_type}'" \
+                    f" WHERE transaction_type = '{transaction_type}'" \
                     f" AND username='{username}';"
 
             result = self.__manage_transactions.transaction_query(sql_query=query)
@@ -315,24 +321,37 @@ class Application:
             return format_result(result)
 
         def how_much_spent_by_category(username: Text):
-            query = f"SELECT category," \
-                    f" SUM(total_amount) AS total_amount_sum" \
+            query = f"SELECT category, SUM(total_amount)" \
                     f" FROM user_transactions" \
-                    f" GROUP BY category;"
+                    f" WHERE username='{username}'" \
+                    f" GROUP BY category ;"
 
             result = self.__manage_transactions.transaction_query(sql_query=query)
-            return format_result(result)
+            return result
+
+        def how_much_spent_by_card_number(username: Text):
+            query = f"SELECT user_transactions.last_4_digits, user_cards.issuer_name, SUM(user_transactions.total_amount) AS total_amount_sum " \
+                    f"FROM user_transactions " \
+                    f"JOIN user_cards " \
+                    f"ON user_transactions.last_4_digits = user_cards.last_4_digits " \
+                    f"AND user_transactions.username = user_cards.username " \
+                    f"WHERE user_transactions.username = '{username}' " \
+                    f"GROUP BY user_transactions.last_4_digits, user_cards.issuer_name;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return result
 
         return {
             'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
-            'which_records_by_payment_type': which_records_by_payment_type,
+            'which_records_by_transaction_type': which_records_by_transaction_type,
             'which_records_by_business_name': which_records_by_business_name,
             'which_records_above_amount': which_records_above_amount,
             'which_records_of_payment_provider': which_records_of_payment_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
             'how_much_spent_by_category': how_much_spent_by_category,
+            'how_much_spent_by_card_number': how_much_spent_by_card_number,
         }
 
 # T = Transactions()
@@ -341,10 +360,11 @@ class Application:
 #                     'date_of_transaction': '2023-02-16',
 #                     'business_name': 'אלביט מערכות בע"מ',
 #                     'charge_amount': '16200.0',
-#                     'payment_type': 'משכורת',
+#                     'transaction_type': 'משכורת',
 #                     'total_amount': '16200.0',
 #                     'payment_provider': 'Leumi',
 #                   },
 #     username='liran121214'
 # )
-
+app = Application()
+app.load_statements_to_db(current_user='liran121214')

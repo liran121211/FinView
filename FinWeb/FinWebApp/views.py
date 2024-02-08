@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect
 
 from FinCore.Core import Transactions
 from FinWeb.FinWebApp import FIN_CORE
-from FinWeb.FinWebApp.models import UserInformation, UserCards, UserPaymentRecords, UserTransactions, SpentByCategoryQuery
+from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserTransactions, \
+    SpentByCategoryQuery, SpentByCardNumberQuery
 
 
 def home_view(request):
@@ -16,10 +17,11 @@ def home_view(request):
     return render(request, 'home.html', {
         'user_information': retrieve_user_information(logged_in_user),
         'user_cards': retrieve_user_cards(logged_in_user),
-        'user_payment_records': retrieve_user_payment_records(logged_in_user),
-        'user_income':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'transaction_type', 'הכנסה', -5, 0),
-        'user_outcome':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'transaction_type', 'הוצאה', -5, 0),
+        'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
+        'user_income':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'payment_direction', 'הכנסה', -5, 0),
+        'user_outcome':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'payment_direction', 'הוצאה', -5, 0),
         'spent_by_category': SpentByCategoryQuery(logged_in_user),
+        'spent_by_card': SpentByCardNumberQuery(logged_in_user),
     })
 
 
@@ -63,7 +65,7 @@ def retrieve_user_cards(username: Text) -> dict:
     if filtered_data is None:
         filtered_data = {
             'issuer_name': [],
-            'last_four_digits': [],
+            'last_4_digits': [],
             'card_type': [],
             'full_name': [],
         }
@@ -76,10 +78,10 @@ def retrieve_user_cards(username: Text) -> dict:
         else:
             dict_data['issuer_name'].append(data.issuer_name)
 
-        if dict_data.get('last_four_digits', None) is None:
-            dict_data['last_four_digits'] = [data.last_four_digits]
+        if dict_data.get('last_4_digits', None) is None:
+            dict_data['last_4_digits'] = [data.last_4_digits]
         else:
-            dict_data['last_four_digits'].append(data.last_four_digits)
+            dict_data['last_4_digits'].append(data.last_4_digits)
 
         if dict_data.get('card_type', None) is None:
             dict_data['card_type'] = [data.card_type]
@@ -94,9 +96,9 @@ def retrieve_user_cards(username: Text) -> dict:
     return dict_data
 
 
-def retrieve_user_payment_records(username: Text) -> dict:
+def retrieve_user_direct_debit_subscription_records(username: Text) -> dict:
     # Retrieve all rows from the table
-    filtered_data = UserPaymentRecords.objects.filter(username=username).all()
+    filtered_data = UserDirectDebitSubscriptions.objects.filter(username=username).all()
 
     if filtered_data is None:
         filtered_data = {
@@ -136,12 +138,13 @@ def retrieve_user_transactions(username: Text) -> dict:
             'date_of_transaction': [],
             'business_name': [],
             'charge_amount': [],
-            'payment_type': [],
             'total_amount': [],
             'username': [],
             'payment_provider': [],
             'transaction_type': [],
             'category': [],
+            'last_4_digits': [],
+            'payment_direction': [],
         }
         return filtered_data
 
@@ -167,11 +170,6 @@ def retrieve_user_transactions(username: Text) -> dict:
         else:
             dict_data['charge_amount'].append(data.charge_amount)
 
-        if dict_data.get('payment_type', None) is None:
-            dict_data['payment_type'] = [data.payment_type]
-        else:
-            dict_data['payment_type'].append(data.payment_type)
-
         if dict_data.get('total_amount', None) is None:
             dict_data['total_amount'] = [data.total_amount]
         else:
@@ -196,6 +194,16 @@ def retrieve_user_transactions(username: Text) -> dict:
             dict_data['category'] = [data.category]
         else:
             dict_data['category'].append(data.category)
+
+        if dict_data.get('last_4_digits', None) is None:
+            dict_data['last_4_digits'] = [data.category]
+        else:
+            dict_data['last_4_digits'].append(data.category)
+
+        if dict_data.get('payment_direction', None) is None:
+            dict_data['payment_direction'] = [data.payment_direction]
+        else:
+            dict_data['payment_direction'].append(data.payment_direction)
 
     return dict_data
 

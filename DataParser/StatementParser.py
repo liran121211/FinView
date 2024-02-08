@@ -1,4 +1,6 @@
+import datetime
 import os.path
+import re
 from typing import AnyStr
 import pandas as pd
 import requests
@@ -131,9 +133,9 @@ class LeumiParser(Parser, ABC):
         return INVALID_INDEX
 
     def retrieve_last_index(self, start_idx) -> int:
-        date_of_purchase, business_name, total_amount = 0, 1, 5
+        date_of_transaction, business_name, total_amount = 0, 1, 5
         for idx, values in self.data.iloc[start_idx:].iterrows():
-            if pd.isna(values[date_of_purchase]) or pd.isna(values[business_name]) or pd.isna(values[total_amount]):
+            if pd.isna(values[date_of_transaction]) or pd.isna(values[business_name]) or pd.isna(values[total_amount]):
                 return idx
 
         self.logger.exception(f"LeumiParser - Could not retrieve last index from file.")
@@ -142,10 +144,19 @@ class LeumiParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'payment_provider', 'last_4_digits', 'payment_direction'])
 
-        temp_df = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
-        date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 2, 3, 5
+        # extract last 4 digits
+        last_4_digits = '0000'
+        for _tuple in self.data[self.data.keys()[0]].items():
+            for val in _tuple:
+                if not isinstance(val, datetime.datetime):
+                    matches = re.findall(r'\b\d{4}\b', str(val))
+                    if len(matches) > 0 and 'לכרטיס' in val.split():
+                        last_4_digits = matches[0]
+
+        temp_df = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'payment_provider', 'last_4_digits', 'payment_direction'])
+        date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
         current_df = self.data.iloc[first_idx: last_idx]
@@ -156,8 +167,8 @@ class LeumiParser(Parser, ABC):
 
         for idx, column in current_df.iterrows():
             try:
-                if pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True):
-                    if pd.isna(column.iloc[date_of_purchase_idx]) or pd.isnull(column.iloc[date_of_purchase_idx]):
+                if pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_transaction_idx]) or pd.isnull(column.iloc[date_of_transaction_idx]):
                         continue
 
                 if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
@@ -166,19 +177,21 @@ class LeumiParser(Parser, ABC):
                 if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
                     continue
 
-                if pd.isna(column.iloc[payment_type_idx]) or pd.isnull(column.iloc[payment_type_idx]):
+                if pd.isna(column.iloc[transaction_type_idx]) or pd.isnull(column.iloc[transaction_type_idx]):
                     continue
 
                 if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
                     continue
 
                 data = {
-                    'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True),
+                    'date_of_transaction': pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
                     'business_name': column.iloc[business_name_idx],
                     'charge_amount': column.iloc[charge_amount_idx],
-                    'payment_type': column.iloc[payment_type_idx],
+                    'transaction_type': column.iloc[transaction_type_idx],
                     'total_amount': column.iloc[total_amount_idx],
                     'payment_provider': 'Leumi',
+                    'payment_direction': 'הוצאה',
+                    'last_4_digits': last_4_digits,
                 }
                 temp_df.loc[len(temp_df)] = pd.Series(data)
 
@@ -198,16 +211,23 @@ class CalOnlineParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'payment_provider', 'last_4_digits', 'payment_direction'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
-        date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 3, 4, 2
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'payment_provider', 'last_4_digits', 'payment_direction'])
+        date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 4, 2
+
+        last_4_digits = "0000"
+        if len(self.data.keys()) > 0:
+            last_4_digits = re.findall(r'\b\d{4}\b', self.data.keys()[0])
+
+            if len(last_4_digits) > 0:
+                last_4_digits = last_4_digits[0]
 
         for idx, column in self.data.iterrows():
             try:
-                if pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True):
-                    if pd.isna(column.iloc[date_of_purchase_idx]) or pd.isnull(column.iloc[date_of_purchase_idx]):
+                if pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_transaction_idx]) or pd.isnull(column.iloc[date_of_transaction_idx]):
                         continue
 
                 if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
@@ -216,19 +236,21 @@ class CalOnlineParser(Parser, ABC):
                 if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
                     continue
 
-                if pd.isna(column.iloc[payment_type_idx]) or pd.isnull(column.iloc[payment_type_idx]):
+                if pd.isna(column.iloc[transaction_type_idx]) or pd.isnull(column.iloc[transaction_type_idx]):
                     continue
 
                 if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
                     continue
 
                 data = {
-                    'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True),
+                    'date_of_transaction': pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
                     'business_name': column.iloc[business_name_idx],
                     'charge_amount': column.iloc[charge_amount_idx],
-                    'payment_type': column.iloc[payment_type_idx],
+                    'transaction_type': column.iloc[transaction_type_idx],
                     'total_amount': column.iloc[total_amount_idx],
                     'payment_provider': 'Cal Online',
+                    'payment_direction': 'הוצאה',
+                    'last_4_digits': last_4_digits,
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
@@ -248,36 +270,41 @@ class MaxParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'payment_provider', 'last_4_digits', 'payment_direction'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_purchase', 'business_name', 'charge_amount', 'total_amount', 'payment_type', 'payment_provider'])
-        date_of_purchase_idx, business_name_idx, charge_amount_idx, payment_type_idx, total_amount_idx = 0, 1, 5, 10, 7
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'payment_provider', 'last_4_digits', 'payment_direction'])
+        date_of_transaction_idx, business_name_idx, last_4_digits, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 5, 10, 7
 
         for idx, column in self.data.iterrows():
             try:
-                if pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True):
-                    if pd.isna(column.iloc[date_of_purchase_idx]) or pd.isnull(column.iloc[date_of_purchase_idx]):
+                if pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_transaction_idx]) or pd.isnull(column.iloc[date_of_transaction_idx]):
                         continue
 
                 if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
                     continue
 
+                if pd.isna(column.iloc[last_4_digits]) or pd.isnull(column.iloc[last_4_digits]):
+                    continue
+
                 if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
                     continue
 
-                if pd.isna(column.iloc[payment_type_idx]) or pd.isnull(column.iloc[payment_type_idx]):
+                if pd.isna(column.iloc[transaction_type_idx]) or pd.isnull(column.iloc[transaction_type_idx]):
                     continue
 
                 if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
                     continue
 
                 data = {
-                    'date_of_purchase': pd.to_datetime(column.iloc[date_of_purchase_idx], dayfirst=True),
+                    'date_of_transaction': pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
                     'business_name': column.iloc[business_name_idx],
+                    'last_4_digits': column.iloc[last_4_digits],
                     'charge_amount': column.iloc[charge_amount_idx],
-                    'payment_type': column.iloc[payment_type_idx],
+                    'transaction_type': column.iloc[transaction_type_idx],
                     'total_amount': column.iloc[total_amount_idx],
+                    'payment_direction': 'הוצאה',
                     'payment_provider': 'Max',
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
