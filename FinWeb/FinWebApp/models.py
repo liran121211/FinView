@@ -82,7 +82,7 @@ class UserDirectDebitSubscriptions(models.Model):
         return self.id
 
 
-class UserTransactions(models.Model):
+class UserCreditCardsTransactions(models.Model):
     sha1_identifier = models.CharField(max_length=300, primary_key=True)
     date_of_transaction = models.DateField(max_length=20, db_column='date_of_transaction')
     business_name = models.CharField(max_length=20, db_column='business_name')
@@ -96,7 +96,27 @@ class UserTransactions(models.Model):
 
     class Meta:
         # Specify the table name here
-        db_table = 'user_transactions'
+        db_table = 'user_credit_card_transactions'
+        app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
+
+    def __str__(self):
+        return self.sha1_identifier
+
+class UserBankTransactions(models.Model):
+    sha1_identifier = models.CharField(max_length=300, primary_key=True)
+    transaction_date = models.DateField(max_length=20, db_column='transaction_date')
+    transaction_description = models.CharField(max_length=20, db_column='transaction_description')
+    income_balance = models.FloatField(max_length=20, db_column='income_balance')
+    outcome_balance = models.FloatField(max_length=20, db_column='outcome_balance')
+    current_balance = models.FloatField(max_length=20, db_column='current_balance')
+    username = models.CharField(max_length=20, db_column='username')
+    transaction_provider = models.CharField(max_length=20, db_column='transaction_provider')
+    account_number = models.CharField(max_length=20, db_column='account_number')
+    transaction_reference = models.CharField(max_length=4, db_column='transaction_reference')
+
+    class Meta:
+        # Specify the table name here
+        db_table = 'user_bank_transactions'
         app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
 
     def __str__(self):

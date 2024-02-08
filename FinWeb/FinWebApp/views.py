@@ -2,8 +2,8 @@ from typing import Text
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserTransactions, \
-    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery
+from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
+    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions
 
 
 def home_view(request):
@@ -13,8 +13,8 @@ def home_view(request):
         'user_information': retrieve_user_information(logged_in_user),
         'user_cards': retrieve_user_cards(logged_in_user),
         'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
-        # TODO: NEED TO DEFINE BANK TRANSACTIONS 'user_income': slice_dictionary(retrieve_user_transactions(logged_in_user), 'payment_direction', 'הכנסה', -5, 0),
-        'user_outcome': slice_dictionary(retrieve_user_transactions(logged_in_user), 'all', 'all', -5, 0),
+        'user_income': slice_dictionary(retrieve_user_bank_transactions(logged_in_user), -5, 0),
+        'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
         'spent_by_category': SpentByCategoryQuery(logged_in_user),
         'spent_by_card': SpentByCardNumberQuery(logged_in_user),
         'income_by_month': IncomeByMonthQuery(logged_in_user)
@@ -124,9 +124,9 @@ def retrieve_user_direct_debit_subscription_records(username: Text) -> dict:
     return dict_data
 
 
-def retrieve_user_transactions(username: Text) -> dict:
+def retrieve_user_credit_card_transactions(username: Text) -> dict:
     # Retrieve all rows from the table
-    filtered_data = UserTransactions.objects.filter(username=username).all()
+    filtered_data = UserCreditCardsTransactions.objects.filter(username=username).all()
 
     if filtered_data is None:
         filtered_data = {
@@ -197,19 +197,92 @@ def retrieve_user_transactions(username: Text) -> dict:
 
     return dict_data
 
+def retrieve_user_bank_transactions(username: Text) -> dict:
+    # Retrieve all rows from the table
+    filtered_data = UserBankTransactions.objects.filter(username=username).all()
 
-def slice_dictionary(obj: dict, column: Text, keyword: Text, start_idx: int = 0, end_idx: int = -1) -> dict:
+    if filtered_data is None:
+        filtered_data = {
+            'sha1_identifier': [],
+            'transaction_date': [],
+            'transaction_description': [],
+            'income_balance': [],
+            'outcome_balance': [],
+            'current_balance': [],
+            'username': [],
+            'transaction_provider': [],
+            'account_number': [],
+            'transaction_reference': [],
+        }
+        return filtered_data
+
+    dict_data = dict()
+    for data in filtered_data:
+        if dict_data.get('sha1_identifier', None) is None:
+            dict_data['sha1_identifier'] = [data.sha1_identifier]
+        else:
+            dict_data['sha1_identifier'].append(data.sha1_identifier)
+
+        if dict_data.get('transaction_date', None) is None:
+            dict_data['transaction_date'] = [str(data.transaction_date)]
+        else:
+            dict_data['transaction_date'].append(str(data.transaction_date))
+
+        if dict_data.get('transaction_description', None) is None:
+            dict_data['transaction_description'] = [data.transaction_description]
+        else:
+            dict_data['transaction_description'].append(data.transaction_description)
+
+        if dict_data.get('income_balance', None) is None:
+            dict_data['income_balance'] = [data.income_balance]
+        else:
+            dict_data['income_balance'].append(data.income_balance)
+
+        if dict_data.get('outcome_balance', None) is None:
+            dict_data['outcome_balance'] = [data.outcome_balance]
+        else:
+            dict_data['outcome_balance'].append(data.outcome_balance)
+
+        if dict_data.get('current_balance', None) is None:
+            dict_data['current_balance'] = [data.current_balance]
+        else:
+            dict_data['current_balance'].append(data.current_balance)
+
+        if dict_data.get('username', None) is None:
+            dict_data['username'] = [data.username]
+        else:
+            dict_data['username'].append(data.username)
+
+        if dict_data.get('transaction_provider', None) is None:
+            dict_data['transaction_provider'] = [data.transaction_provider]
+        else:
+            dict_data['transaction_provider'].append(data.transaction_provider)
+
+        if dict_data.get('account_number', None) is None:
+            dict_data['account_number'] = [data.account_number]
+        else:
+            dict_data['account_number'].append(data.account_number)
+
+        if dict_data.get('transaction_reference', None) is None:
+            dict_data['transaction_reference'] = [data.transaction_reference]
+        else:
+            dict_data['transaction_reference'].append(data.transaction_reference)
+
+    return dict_data
+
+
+def slice_dictionary(obj: dict, start_idx: int = 0, end_idx: int = -1) -> dict:
     temp_dict = dict()
     matched_indexes = list()
 
-    if column == 'all' or keyword == 'all':
-        matched_indexes = [i for i in range(len(obj.items()))]
-    else:
-        for k, v in obj.items():
-            if k == column:
-                for i, value in enumerate(v):
-                    if value == keyword:
-                        matched_indexes.append(i)
+    # if column == 'all' or keyword == 'all':
+    #     matched_indexes = [i for i in range(len(obj.items()))]
+    # else:
+    #     for k, v in obj.items():
+    #         if k == column:
+    #             for i, value in enumerate(v):
+    #                 if value == keyword:
+    #                     matched_indexes.append(i)
 
     if not start_idx > len(matched_indexes) or not end_idx > len(matched_indexes):
         # if end index is not defined.

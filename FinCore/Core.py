@@ -331,7 +331,7 @@ class Application:
             query = f"SELECT SUM(total_amount) AS total_sum " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM user_transactions" \
+                    f" FROM user_credit_card_transactions" \
                     f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {num_to_month(selected_month)}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -356,7 +356,7 @@ class Application:
             query = f"SELECT SUM(total_amount) AS total_sum " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM user_transactions" \
+                    f" FROM user_credit_card_transactions" \
                     f" WHERE EXTRACT(YEAR FROM date_of_transaction) = {selected_year}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -368,7 +368,7 @@ class Application:
             query = f"SELECT SUM(total_amount) AS total_sum " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM user_transactions" \
+                    f" FROM user_credit_card_transactions" \
                     f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -378,7 +378,7 @@ class Application:
 
         def which_records_by_transaction_type(transaction_type: Text, username: Text):
             query = f"SELECT * " \
-                    f"FROM user_transactions" \
+                    f"FROM user_credit_card_transactions" \
                     f" WHERE transaction_type = '{transaction_type}'" \
                     f" AND username='{username}';"
 
@@ -387,7 +387,7 @@ class Application:
 
         def which_records_by_business_name(business_name: Text, username: Text):
             query = f"SELECT * " \
-                    f"FROM user_transactions" \
+                    f"FROM user_credit_card_transactions" \
                     f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}';"
 
@@ -396,7 +396,7 @@ class Application:
 
         def which_records_above_amount(amount: float, username: Text):
             query = f"SELECT * " \
-                    f"FROM user_transactions" \
+                    f"FROM user_credit_card_transactions" \
                     f" WHERE total_amount >= '{amount}'" \
                     f" AND username='{username}';"
 
@@ -405,8 +405,8 @@ class Application:
 
         def which_records_of_transaction_provider(transaction_provider: Text, username: Text):
             query = f"SELECT * " \
-                    f"FROM user_transactions" \
-                    f" WHERE user_transactions.transaction_provider ILIKE '%{transaction_provider}%'" \
+                    f"FROM user_credit_card_transactions" \
+                    f" WHERE user_credit_card_transactions.transaction_provider ILIKE '%{transaction_provider}%'" \
                     f" AND username='{username}';"
 
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
@@ -416,7 +416,7 @@ class Application:
             query = f"SELECT COUNT(subquery) AS total_transactions " \
                     f"FROM (" \
                     f"SELECT total_amount" \
-                    f" FROM user_transactions" \
+                    f" FROM user_credit_card_transactions" \
                     f" WHERE business_name ILIKE '%{business_name}%'" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
@@ -426,7 +426,7 @@ class Application:
 
         def how_much_spent_by_category(username: Text):
             query = f"SELECT category, SUM(total_amount)" \
-                    f" FROM user_transactions" \
+                    f" FROM user_credit_card_transactions" \
                     f" WHERE username='{username}'" \
                     f" GROUP BY category;"
 
@@ -434,13 +434,13 @@ class Application:
             return result
 
         def how_much_spent_by_card_number(username: Text):
-            query = f"SELECT user_transactions.last_4_digits, user_cards.issuer_name, SUM(user_transactions.total_amount) AS total_amount_sum " \
-                    f"FROM user_transactions " \
+            query = f"SELECT user_credit_card_transactions.last_4_digits, user_cards.issuer_name, SUM(user_credit_card_transactions.total_amount) AS total_amount_sum " \
+                    f"FROM user_credit_card_transactions " \
                     f"JOIN user_cards " \
-                    f"ON user_transactions.last_4_digits = user_cards.last_4_digits " \
-                    f"AND user_transactions.username = user_cards.username " \
-                    f"WHERE user_transactions.username = '{username}' " \
-                    f"GROUP BY user_transactions.last_4_digits, user_cards.issuer_name;"
+                    f"ON user_credit_card_transactions.last_4_digits = user_cards.last_4_digits " \
+                    f"AND user_credit_card_transactions.username = user_cards.username " \
+                    f"WHERE user_credit_card_transactions.username = '{username}' " \
+                    f"GROUP BY user_credit_card_transactions.last_4_digits, user_cards.issuer_name;"
 
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return result
