@@ -43,7 +43,7 @@ db_instance.add_record(table_name='transactions', record_data= {
                             'transaction_type': 'עסקה טובה',
                             'total_amount': 199.0,
                             'category': 'תשלומים',
-                            'last_4_digits': '0000',
+                            'last_4_digits': CREDIT_CARD_DUMMY_LAST_4_DIGITS,
                             })
 
 db_instance.close_connection()

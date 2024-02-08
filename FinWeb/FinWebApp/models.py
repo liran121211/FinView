@@ -5,6 +5,21 @@ from django.db import models
 from . import FIN_CORE
 
 
+def IncomeByMonthQuery(username: Text):
+    cols_names = ['month_name', 'total_amount', ]
+    hebrew_months = ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
+
+    income_by_month = []
+    for i,_ in enumerate(hebrew_months):
+        query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=i, username=username)
+        if query is None:
+            income_by_month.append(0.)
+        else:
+            income_by_month.append(query)
+
+    return pd.DataFrame(zip(hebrew_months, income_by_month), columns=cols_names).to_dict()
+
+
 def SpentByCategoryQuery(username: Text):
     cols_names = ['category', 'total_amount',]
 
@@ -74,11 +89,10 @@ class UserTransactions(models.Model):
     charge_amount = models.FloatField(max_length=20, db_column='charge_amount')
     total_amount = models.FloatField(max_length=20, db_column='total_amount')
     username = models.CharField(max_length=20, db_column='username')
-    payment_provider = models.CharField(max_length=20, db_column='payment_provider')
+    transaction_provider = models.CharField(max_length=20, db_column='transaction_provider')
     transaction_type = models.CharField(max_length=20, db_column='transaction_type')
     category = models.CharField(max_length=20, db_column='category')
     last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')
-    payment_direction = models.CharField(max_length=4, db_column='payment_direction')
 
     class Meta:
         # Specify the table name here

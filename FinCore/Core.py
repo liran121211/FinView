@@ -1,9 +1,9 @@
-from typing import Text, Dict, List, Any
+from typing import Text, Dict, List, Any, AnyStr
 
 from django.utils.datetime_safe import date
 from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
-from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser
+from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser
 from FinCore import *
 
 
@@ -98,8 +98,18 @@ class Transactions:
         if month == 'December':
             return 12
 
-    def add_transaction(self, record_data: Dict, username: Text):
-        required_columns = self.db.fetch_columns('user_transactions')
+        if isinstance(month, int):
+            return month
+
+    def add_transaction(self, record_data: Dict, username: Text, kind: AnyStr):
+        if kind == 'CC':
+            modified_table = 'user_transactions'
+        elif kind == 'BANK':
+            modified_table = 'user_bank_transactions'
+        else:
+            return
+
+        required_columns = self.db.fetch_columns(modified_table)
 
         # validate username existence upon adding.
         if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
@@ -118,16 +128,23 @@ class Transactions:
         # calculate sha1 value for new added record.
         record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
 
-        if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+        if self.is_primary_key_exist(primary_key=record_data['sha1_identifier'], kind=kind):
             return RECORD_EXIST
         try:
-            self.db.add_record(table_name='user_transactions', record_data=record_data)
+            self.db.add_record(table_name=modified_table, record_data=record_data)
         except InvalidDatetimeFormat as e:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
-    def modify_transaction(self, record_data: Dict, transaction_id: Text):
-        required_columns = self.db.fetch_columns('user_transactions')
+    def modify_transaction(self, record_data: Dict, transaction_id: Text, kind: AnyStr):
+        if kind == 'CC':
+            modified_table = 'user_transactions'
+        elif kind == 'BANK':
+            modified_table = 'user_bank_transactions'
+        else:
+            return
+
+        required_columns = self.db.fetch_columns(modified_table)
 
         # validate transaction columns
         for k, _ in record_data.items():
@@ -135,27 +152,41 @@ class Transactions:
                 self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
                 return SQL_QUERY_FAILED
 
-        self.db.modify_record(table_name='user_transactions',
+        self.db.modify_record(table_name=modified_table,
                               record_data=record_data,
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
-    def delete_transaction(self, transaction_id: Text):
-        required_columns = self.db.fetch_columns('user_transactions')
+    def delete_transaction(self, transaction_id: Text, kind: AnyStr):
+        if kind == 'CC':
+            modified_table = 'user_transactions'
+        elif kind == 'BANK':
+            modified_table = 'user_bank_transactions'
+        else:
+            return
+
+        required_columns = self.db.fetch_columns(modified_table)
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
             self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
             return SQL_QUERY_FAILED
 
-        self.db.delete_record(table_name='user_transactions',
+        self.db.delete_record(table_name=modified_table,
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
-    def is_primary_key_exist(self, primary_key: Text):
-        return self.db.is_value_exists(table_name='user_transactions', column_name='sha1_identifier', value=primary_key)
+    def is_primary_key_exist(self, primary_key: Text, kind: AnyStr):
+        if kind == 'CC':
+            modified_table = 'user_transactions'
+        elif kind == 'BANK':
+            modified_table = 'user_bank_transactions'
+        else:
+            return
+
+        return self.db.is_value_exists(table_name=modified_table, column_name='sha1_identifier', value=primary_key)
 
     def transaction_query(self, sql_query: Text) -> List:
         return self.db.create_query(sql_query)
@@ -180,11 +211,10 @@ class Application:
                             'charge_amount':    row['charge_amount'],
                             'total_amount':     row['total_amount'],
                             'transaction_type': row['transaction_type'],
-                            'payment_provider': row['payment_provider'],
+                            'transaction_provider': row['transaction_provider'],
                             'last_4_digits':    row['last_4_digits'],
-                            'payment_direction': row['payment_direction'],
                         }
-                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
+                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user, kind='CC')
 
                 if root.split(os.path.sep)[-1] == 'Max':
                     max_data = MaxParser(file_path=os.path.join(root, filename)).parse()
@@ -192,16 +222,15 @@ class Application:
                     # add records from statements to database
                     for idx, row in max_data.iterrows():
                         current_record = {
-                            'date_of_transaction': row['date_of_transaction'],
-                            'business_name':    row['business_name'],
-                            'charge_amount':    row['charge_amount'],
-                            'total_amount':     row['total_amount'],
-                            'transaction_type': row['transaction_type'],
-                            'payment_provider': row['payment_provider'],
-                            'last_4_digits':    row['last_4_digits'],
-                            'payment_direction': row['payment_direction'],
+                            'date_of_transaction':  row['date_of_transaction'],
+                            'business_name':        row['business_name'],
+                            'charge_amount':        row['charge_amount'],
+                            'total_amount':         row['total_amount'],
+                            'transaction_type':     row['transaction_type'],
+                            'transaction_provider': row['transaction_provider'],
+                            'last_4_digits':        row['last_4_digits'],
                         }
-                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
+                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user, kind='CC')
 
                 if root.split(os.path.sep)[-1] == 'Leumi':
                     leumi_data = LeumiParser(file_path=os.path.join(root, filename)).parse()
@@ -210,15 +239,31 @@ class Application:
                     for idx, row in leumi_data.iterrows():
                         current_record = {
                             'date_of_transaction': row['date_of_transaction'],
-                            'business_name':    row['business_name'],
-                            'charge_amount':    row['charge_amount'],
-                            'total_amount':     row['total_amount'],
-                            'transaction_type': row['transaction_type'],
-                            'payment_provider': row['payment_provider'],
-                            'last_4_digits':    row['last_4_digits'],
-                            'payment_direction': row['payment_direction'],
+                            'business_name':        row['business_name'],
+                            'charge_amount':        row['charge_amount'],
+                            'total_amount':         row['total_amount'],
+                            'transaction_type':     row['transaction_type'],
+                            'transaction_provider': row['transaction_provider'],
+                            'last_4_digits':        row['last_4_digits'],
                         }
-                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user)
+                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user, kind='CC')
+
+                if root.split(os.path.sep)[-1] == 'BankLeumi':
+                    leumi_data = BankLeumiParser(file_path=os.path.join(root, filename)).parse()
+
+                    # add records from statements to database
+                    for idx, row in leumi_data.iterrows():
+                        current_record = {
+                            'transaction_date':                 row['transaction_date'],
+                            'transaction_description':          row['transaction_description'],
+                            'transaction_reference':            row['transaction_reference'],
+                            'income_balance':                   row['income_balance'],
+                            'outcome_balance':                  row['outcome_balance'],
+                            'current_balance':                  row['current_balance'],
+                            'account_number':                   row['account_number'],
+                            'transaction_provider':             row['transaction_provider'],
+                        }
+                        self.__manage_transactions.add_transaction(record_data=current_record, username=current_user, kind='BANK')
 
     @property
     def ask(self):
@@ -243,6 +288,19 @@ class Application:
                     f" FROM user_transactions" \
                     f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {Transactions.num_to_month(selected_month)}" \
                     f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_much_earned_in_specific_month(selected_month: Text, username: Text):
+            query = f"SELECT SUM(total_amount) AS total_sum " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM user_transactions" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {Transactions.num_to_month(selected_month)}" \
+                    f" AND username='{username}'" \
+                    f" AND payment_direction='הכנסה')" \
                     f" AS subquery;"
 
             result = self.__manage_transactions.transaction_query(sql_query=query)
@@ -299,10 +357,10 @@ class Application:
             result = self.__manage_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
-        def which_records_of_payment_provider(payment_provider: Text, username: Text):
+        def which_records_of_transaction_provider(transaction_provider: Text, username: Text):
             query = f"SELECT * " \
                     f"FROM user_transactions" \
-                    f" WHERE user_transactions.payment_provider ILIKE '%{payment_provider}%'" \
+                    f" WHERE user_transactions.transaction_provider ILIKE '%{transaction_provider}%'" \
                     f" AND username='{username}';"
 
             result = self.__manage_transactions.transaction_query(sql_query=query)
@@ -324,7 +382,7 @@ class Application:
             query = f"SELECT category, SUM(total_amount)" \
                     f" FROM user_transactions" \
                     f" WHERE username='{username}'" \
-                    f" GROUP BY category ;"
+                    f" GROUP BY category;"
 
             result = self.__manage_transactions.transaction_query(sql_query=query)
             return result
@@ -348,10 +406,11 @@ class Application:
             'which_records_by_transaction_type': which_records_by_transaction_type,
             'which_records_by_business_name': which_records_by_business_name,
             'which_records_above_amount': which_records_above_amount,
-            'which_records_of_payment_provider': which_records_of_payment_provider,
+            'which_records_of_transaction_provider': which_records_of_transaction_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
             'how_much_spent_by_category': how_much_spent_by_category,
             'how_much_spent_by_card_number': how_much_spent_by_card_number,
+            'how_much_earned_in_specific_month': how_much_earned_in_specific_month,
         }
 
 # T = Transactions()
@@ -362,7 +421,7 @@ class Application:
 #                     'charge_amount': '16200.0',
 #                     'transaction_type': 'משכורת',
 #                     'total_amount': '16200.0',
-#                     'payment_provider': 'Leumi',
+#                     'transaction_provider': 'Leumi',
 #                   },
 #     username='liran121214'
 # )

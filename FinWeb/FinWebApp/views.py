@@ -2,26 +2,22 @@ from typing import Text
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from FinCore.Core import Transactions
-from FinWeb.FinWebApp import FIN_CORE
 from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserTransactions, \
-    SpentByCategoryQuery, SpentByCardNumberQuery
+    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery
 
 
 def home_view(request):
     logged_in_user = 'liran121214'
-    # pie_chart_data = model_payment_provider_pie_chart(username='liran1214')
-    # pie_chart_labels = list(pie_chart_data.keys())
-    # pie_chart_values = list(pie_chart_data)
 
     return render(request, 'home.html', {
         'user_information': retrieve_user_information(logged_in_user),
         'user_cards': retrieve_user_cards(logged_in_user),
         'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
-        'user_income':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'payment_direction', 'הכנסה', -5, 0),
-        'user_outcome':  slice_dictionary(retrieve_user_transactions(logged_in_user), 'payment_direction', 'הוצאה', -5, 0),
+        # TODO: NEED TO DEFINE BANK TRANSACTIONS 'user_income': slice_dictionary(retrieve_user_transactions(logged_in_user), 'payment_direction', 'הכנסה', -5, 0),
+        'user_outcome': slice_dictionary(retrieve_user_transactions(logged_in_user), 'all', 'all', -5, 0),
         'spent_by_category': SpentByCategoryQuery(logged_in_user),
         'spent_by_card': SpentByCardNumberQuery(logged_in_user),
+        'income_by_month': IncomeByMonthQuery(logged_in_user)
     })
 
 
@@ -140,11 +136,10 @@ def retrieve_user_transactions(username: Text) -> dict:
             'charge_amount': [],
             'total_amount': [],
             'username': [],
-            'payment_provider': [],
+            'transaction_provider': [],
             'transaction_type': [],
             'category': [],
             'last_4_digits': [],
-            'payment_direction': [],
         }
         return filtered_data
 
@@ -180,10 +175,10 @@ def retrieve_user_transactions(username: Text) -> dict:
         else:
             dict_data['username'].append(data.username)
 
-        if dict_data.get('payment_provider', None) is None:
-            dict_data['payment_provider'] = [data.payment_provider]
+        if dict_data.get('transaction_provider', None) is None:
+            dict_data['transaction_provider'] = [data.transaction_provider]
         else:
-            dict_data['payment_provider'].append(data.payment_provider)
+            dict_data['transaction_provider'].append(data.transaction_provider)
 
         if dict_data.get('transaction_type', None) is None:
             dict_data['transaction_type'] = [data.transaction_type]
@@ -200,11 +195,6 @@ def retrieve_user_transactions(username: Text) -> dict:
         else:
             dict_data['last_4_digits'].append(data.category)
 
-        if dict_data.get('payment_direction', None) is None:
-            dict_data['payment_direction'] = [data.payment_direction]
-        else:
-            dict_data['payment_direction'].append(data.payment_direction)
-
     return dict_data
 
 
@@ -212,11 +202,14 @@ def slice_dictionary(obj: dict, column: Text, keyword: Text, start_idx: int = 0,
     temp_dict = dict()
     matched_indexes = list()
 
-    for k,v in obj.items():
-        if k == column:
-            for i, value in enumerate(v):
-                if value == keyword:
-                    matched_indexes.append(i)
+    if column == 'all' or keyword == 'all':
+        matched_indexes = [i for i in range(len(obj.items()))]
+    else:
+        for k, v in obj.items():
+            if k == column:
+                for i, value in enumerate(v):
+                    if value == keyword:
+                        matched_indexes.append(i)
 
     if not start_idx > len(matched_indexes) or not end_idx > len(matched_indexes):
         # if end index is not defined.
@@ -225,7 +218,7 @@ def slice_dictionary(obj: dict, column: Text, keyword: Text, start_idx: int = 0,
         else:
             matched_indexes = matched_indexes[start_idx:end_idx]
 
-    for k,v in obj.items():
+    for k, v in obj.items():
         for i, value in enumerate(v):
             if i in matched_indexes:
                 if k not in temp_dict.keys():

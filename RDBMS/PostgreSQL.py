@@ -235,5 +235,8 @@ class PostgreSQL:
                 # return result from sql
                 return result
 
-        except Exception as e:
+        except psycopg2.Error as e:
+            # An exception occurred, roll back the transaction
             self.logger.exception(e)
+            self.connection.rollback()
+

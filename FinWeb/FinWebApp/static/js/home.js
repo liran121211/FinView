@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let col_name = Object.keys(user_outcome)[0]
     let numberOfDuplicates = user_outcome[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_outcome.payment_direction[i] !== 'הוצאה')
-            continue;
 
         const outcome_row = document.createElement('tr');
         const transaction_amount_col = document.createElement('td');
@@ -58,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ----------------------- Income Table -----------------------*/
-document.addEventListener('DOMContentLoaded', function () {
+/* ----------------------- Income Table -----------------------
+document.addEventListener("DOMContentLoaded", function () {
     // Get the table body
     const tableBody = document.querySelector('#income-table tbody');
 
@@ -70,8 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let col_name = Object.keys(user_income)[0]
     let numberOfDuplicates = user_income[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_income.payment_direction[i] !== 'הכנסה')
-            continue;
 
         const income_row = document.createElement('tr');
         const income_description_col = document.createElement('td');
@@ -119,42 +115,45 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ----------------------- Balance History ----------------------- */
-const balance_history_data = {
-    labels: ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'],
-    datasets: [{
-        label: "הכנסות לפי חודש",
-        borderColor: "rgb(75, 192, 192)",
-        data: [10, 30, 20, 40, 50, 30, 60],
-        fill: false
-    }]
-};
+ */
 
-// Configuration options for the chart
-const balance_history_config = {
-    type: 'line',
-    data: balance_history_data,
-    options: {
-        scales: {
-            x: {
-                display: true,
-                title: {
+/* ----------------------- Balance History ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    const balance_history_data = {
+        labels: Object.values(income_by_month.month_name),
+        datasets: [{
+            label: "הכנסות לפי חודש",
+            borderColor: "rgb(75, 192, 192)",
+            data: Object.values(income_by_month.total_amount),
+            fill: false
+        }]
+    };
+
+    // Configuration options for the chart
+    const balance_history_config = {
+        type: 'line',
+        data: balance_history_data,
+        options: {
+            scales: {
+                x: {
                     display: true,
-                    text: 'חודש'
-                }
-            },
-            y: {
-                display: true,
-                title: {
+                    title: {
+                        display: true,
+                        text: 'חודש'
+                    }
+                },
+                y: {
                     display: true,
-                    text: 'ערך'
+                    title: {
+                        display: true,
+                        text: 'ערך'
+                    }
                 }
             }
         }
-    }
-};
+    };
 
-document.addEventListener("DOMContentLoaded", function () {
+
     const canvas = document.getElementById("balance-history-graph");
     // Create the chart with the provided configuration
     const _ = new Chart(canvas, balance_history_config);
