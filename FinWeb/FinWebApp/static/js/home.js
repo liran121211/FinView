@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Set content and styling
-        outcome_price.textContent = '- ₪' + Math.abs(user_outcome.total_amount[i]).toFixed(2).toLocaleString();
+        outcome_price.textContent = '- ₪' + intcomma(user_outcome.total_amount[i].toFixed(2).toLocaleString());
         outcome_price.classList.add('outcome_price'); // Add the class for styling
 
         outcome_date.textContent = user_outcome.date_of_transaction[i];
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ----------------------- Income Table -----------------------
+/* ----------------------- Income Table -----------------------*/
 document.addEventListener("DOMContentLoaded", function () {
     // Get the table body
     const tableBody = document.querySelector('#income-table tbody');
@@ -86,16 +86,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // Set content and styling for word1 and word2
-        income_name.textContent = user_income.business_name[i];
+        income_name.textContent = user_income.transaction_description[i];
         income_name.classList.add('income_name'); // Add the class for styling
 
-        income_category.textContent = user_income.category[i];
+        income_category.textContent = user_income.transaction_category[i];
         income_category.classList.add('income_category'); // Add the class for styling
 
-        income_amount.textContent = '+ ₪' + Math.abs(user_income.total_amount[i]).toFixed(2).toLocaleString();
+        income_amount.textContent = '+ ₪' + intcomma((user_income.income_balance[i]).toFixed(2).toLocaleString());
         income_amount.classList.add('income_amount'); // Add the class for styling
 
-        income_date.textContent = user_income.date_of_transaction[i];
+        income_date.textContent = user_income.transaction_date[i];
         income_date.classList.add('income_date'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -114,8 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
- */
 
 /* ----------------------- Balance History ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
@@ -387,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const subscription_name_div = document.createElement('div');
 
         // Set content and styling
-        subscription_price_div.textContent = '- ₪' + user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString();
+        subscription_price_div.textContent = '- ₪' + intcomma(user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString());
         subscription_price_div.classList.add('subscription-price-div'); // Add the class for styling
 
         subscription_name_div.textContent = user_direct_debit_subscriptions.provider_name[i];
@@ -437,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Set content and styling
-        direct_debit_price_div.textContent = '- ₪' + user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString();
+        direct_debit_price_div.textContent = '- ₪' + intcomma(user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString());
         direct_debit_price_div.classList.add('direct-debit-price-div'); // Add the class for styling
 
         direct_debit_name_div.textContent = user_direct_debit_subscriptions.provider_name[i];
@@ -522,6 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/* ----------------------- Misc Functions ----------------------- */
 
 function getRandomColors(numColors) {
     const interpolatedColors = [
@@ -558,4 +557,27 @@ function getRandomColors(numColors) {
     }
 
     return randomColors;
+}
+
+
+function intcomma(number) {
+    // Convert the number to a string
+    number = number.toString();
+
+    // Split the string into integer and decimal parts
+    let parts = number.split(".");
+    let integerPart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+    // Add commas to the integer part
+    let formattedInteger = "";
+    for (let i = integerPart.length - 1, j = 1; i >= 0; i--, j++) {
+        formattedInteger = integerPart.charAt(i) + formattedInteger;
+        if (j % 3 === 0 && i > 0) {
+            formattedInteger = "," + formattedInteger;
+        }
+    }
+
+    // Concatenate the integer and decimal parts
+    return  formattedInteger + decimalPart;
 }

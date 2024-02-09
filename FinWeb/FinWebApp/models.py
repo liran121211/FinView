@@ -11,7 +11,7 @@ def IncomeByMonthQuery(username: Text):
 
     income_by_month = []
     for i,_ in enumerate(hebrew_months):
-        query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=i, username=username)
+        query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=i+1, username=username)
         if query is None:
             income_by_month.append(0.)
         else:
@@ -112,7 +112,9 @@ class UserBankTransactions(models.Model):
     username = models.CharField(max_length=20, db_column='username')
     transaction_provider = models.CharField(max_length=20, db_column='transaction_provider')
     account_number = models.CharField(max_length=20, db_column='account_number')
-    transaction_reference = models.CharField(max_length=4, db_column='transaction_reference')
+    transaction_reference = models.CharField(max_length=10, db_column='transaction_reference')
+    transaction_category = models.CharField(max_length=20, db_column='transaction_category')
+
 
     class Meta:
         # Specify the table name here

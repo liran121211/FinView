@@ -322,10 +322,10 @@ class BankLeumiParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider'])
+            return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference','income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider'])
+        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference','income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
         transaction_date, transaction_description, transaction_reference, income_balance, outcome_balance, current_balance = 0, 2, 3, 5, 4, 6
 
         for idx, column in self.data.iterrows():
@@ -359,6 +359,7 @@ class BankLeumiParser(Parser, ABC):
                     'current_balance':          re.sub('|'.join(map(re.escape, ['\u200e', '-', ','])), '', str(column.iloc[current_balance])),
                     'account_number':           self.extract_bank_leumi_account_number(),
                     'transaction_provider':     'Bank Leumi',
+                    'transaction_category':     'זיכוי', #TODO: find way to categorize
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
