@@ -388,4 +388,3 @@ class BankLeumiParser(Parser, ABC):
             return 0.0
         except ValueError:
             return 0.0
-
