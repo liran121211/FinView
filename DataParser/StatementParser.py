@@ -7,7 +7,6 @@ import requests
 from abc import ABC, abstractmethod
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
-
 from DataParser import *
 
 
@@ -82,6 +81,10 @@ class Parser:
     def extract_base_data(self) -> pd.DataFrame:
         pass
 
+    @abstractmethod
+    def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
+        pass
+
     def define_missing_category(self, temp_df):
         categories = {'1': 'ציוד לבית ולמשרד',
                       '2': 'אוכל',
@@ -135,7 +138,7 @@ class LeumiParser(Parser, ABC):
     def retrieve_last_index(self, start_idx) -> int:
         date_of_transaction, business_name, total_amount = 0, 1, 5
         for idx, values in self.data.iloc[start_idx:].iterrows():
-            if pd.isna(values[date_of_transaction]) or pd.isna(values[business_name]) or pd.isna(values[total_amount]):
+            if pd.isna(values.iloc[date_of_transaction]) or pd.isna(values.iloc[business_name]) or pd.isna(values.iloc[total_amount]):
                 return idx
 
         self.logger.exception(f"LeumiParser - Could not retrieve last index from file.")
@@ -144,7 +147,7 @@ class LeumiParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits',])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
 
         # extract last 4 digits
         last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
@@ -155,7 +158,7 @@ class LeumiParser(Parser, ABC):
                     if len(matches) > 0 and 'לכרטיס' in val.split():
                         last_4_digits = matches[0]
 
-        temp_df = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits',])
+        temp_df = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
         date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
@@ -184,13 +187,14 @@ class LeumiParser(Parser, ABC):
                     continue
 
                 data = {
-                    'date_of_transaction': pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
-                    'business_name': column.iloc[business_name_idx],
-                    'charge_amount': column.iloc[charge_amount_idx],
-                    'transaction_type': column.iloc[transaction_type_idx],
-                    'total_amount': column.iloc[total_amount_idx],
+                    'date_of_transaction':  pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
+                    'business_name':        column.iloc[business_name_idx],
+                    'charge_amount':        column.iloc[charge_amount_idx],
+                    'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
+                    'total_amount':         column.iloc[total_amount_idx],
                     'transaction_provider': 'Leumi',
-                    'last_4_digits': last_4_digits,
+                    'last_4_digits':        last_4_digits,
+                    'category':             GEMINI_MODEL.find_business_category(business_name=column.iloc[business_name_idx])
                 }
                 temp_df.loc[len(temp_df)] = pd.Series(data)
 
@@ -198,6 +202,18 @@ class LeumiParser(Parser, ABC):
                 continue
 
         return temp_df.iloc[first_idx: last_idx]
+
+    def extract_transaction_type(self, transaction_type: AnyStr)-> AnyStr:
+        if transaction_type == REGULAR_PAYMENT:
+            return REGULAR_PAYMENT
+
+        if 'תשלומים' in transaction_type:
+            return CREDIT_PAYMENT
+
+        if 'קבע' in transaction_type:
+            return DIRECT_DEBIT
+
+        return UNDETERMINED_PAYMENT_TYPE
 
     def parse(self) -> pd.DataFrame:
         return self.extract_base_data().reset_index(drop=True)
@@ -210,10 +226,10 @@ class CalOnlineParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits'])
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
         date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
         if len(self.data.keys()) > 0:
@@ -243,13 +259,14 @@ class CalOnlineParser(Parser, ABC):
                     continue
 
                 data = {
-                    'date_of_transaction': pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
-                    'business_name': column.iloc[business_name_idx],
-                    'charge_amount': column.iloc[charge_amount_idx],
-                    'transaction_type': column.iloc[transaction_type_idx],
-                    'total_amount': column.iloc[total_amount_idx],
+                    'date_of_transaction':  pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
+                    'business_name':        column.iloc[business_name_idx],
+                    'charge_amount':        column.iloc[charge_amount_idx],
+                    'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
+                    'total_amount':         column.iloc[total_amount_idx],
                     'transaction_provider': 'Cal Online',
-                    'last_4_digits': last_4_digits,
+                    'last_4_digits':        last_4_digits,
+                    'category':             GEMINI_MODEL.find_business_category(business_name=column.iloc[business_name_idx])
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
@@ -261,6 +278,18 @@ class CalOnlineParser(Parser, ABC):
     def parse(self) -> pd.DataFrame:
         return self.extract_base_data().reset_index(drop=True)
 
+    def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
+        if 'רגילה' in transaction_type:
+            return REGULAR_PAYMENT
+
+        if 'תשלומים' in transaction_type:
+            return CREDIT_PAYMENT
+
+        if 'קבע' in transaction_type:
+            return DIRECT_DEBIT
+
+        return UNDETERMINED_PAYMENT_TYPE
+
 
 class MaxParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):
@@ -269,10 +298,10 @@ class MaxParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits'])
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
         date_of_transaction_idx, business_name_idx, last_4_digits, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 5, 10, 7
 
         for idx, column in self.data.iterrows():
@@ -297,13 +326,14 @@ class MaxParser(Parser, ABC):
                     continue
 
                 data = {
-                    'date_of_transaction': pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
-                    'business_name': column.iloc[business_name_idx],
-                    'last_4_digits': column.iloc[last_4_digits],
-                    'charge_amount': column.iloc[charge_amount_idx],
-                    'transaction_type': column.iloc[transaction_type_idx],
-                    'total_amount': column.iloc[total_amount_idx],
+                    'date_of_transaction':  pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
+                    'business_name':        column.iloc[business_name_idx],
+                    'last_4_digits':        column.iloc[last_4_digits],
+                    'charge_amount':        column.iloc[charge_amount_idx],
+                    'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
+                    'total_amount':         column.iloc[total_amount_idx],
                     'transaction_provider': 'Max',
+                    'category':             GEMINI_MODEL.find_business_category(business_name=column.iloc[business_name_idx])
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
@@ -314,6 +344,19 @@ class MaxParser(Parser, ABC):
 
     def parse(self) -> pd.DataFrame:
         return self.extract_base_data().reset_index(drop=True)
+
+    def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
+        if 'רגילה' in transaction_type:
+            return REGULAR_PAYMENT
+
+        if 'תשלום' in transaction_type:
+            return CREDIT_PAYMENT
+
+        if 'קבע' in transaction_type:
+            return DIRECT_DEBIT
+
+        return UNDETERMINED_PAYMENT_TYPE
+
 
 class BankLeumiParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):

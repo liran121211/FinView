@@ -14,7 +14,5 @@ class GeminiModel():
         who knows which category the business I will ask you about belongs to. The categories: {BUSINESS_CATEGORIES}.
         Can you tell me what category the business: {business_name}?
         Please respond with the name of the category only in Hebrew without revealing the name of the business."""
-        return self.model.generate_content(define_role).text
-
-g = GeminiModel()
-print(g.find_business_category(business_name="""צ'יפר מרקט ד.ד.י השקעות בע"מ"""))
+        print(self.model.generate_content(define_role).text)
+        return self.model.generate_content(define_role).text.strip()

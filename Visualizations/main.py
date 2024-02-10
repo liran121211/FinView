@@ -34,7 +34,7 @@ lp = MaxParser(r'Files/Input/MAX_AUG.xlsx')
 # print(max_parser.parse())
 
 db_instance = PostgreSQL()
-db_instance.delete_record(table_name='user_transactions', column_key='sha1_identifier', key= '218e5a14754020387b35e853a15980ce70f78a47')
+db_instance.delete_record(table_name='user_credit_card_transactions', column_key='sha1_identifier', key= '218e5a14754020387b35e853a15980ce70f78a47')
 
 db_instance.add_record(table_name='transactions', record_data= {
                             'date_of_purchase': '01/01/1980',

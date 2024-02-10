@@ -1,5 +1,9 @@
 import logging
 import os
+from AI.Gemini import GeminiModel
+
+# Use AI for data completion
+GEMINI_MODEL = GeminiModel()
 
 # Get the current script path
 CURRENT_FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -24,3 +28,10 @@ Logger.setLevel(logging.DEBUG)
 INVALID_INDEX = -1
 BANK_DUMMY_ACCOUNT_NUMBER = '000-0000/00'
 CREDIT_CARD_DUMMY_LAST_4_DIGITS = 0000
+
+
+# Transaction Types
+REGULAR_PAYMENT = 'עסקה רגילה'
+CREDIT_PAYMENT = 'עסקת תשלומים'
+DIRECT_DEBIT = 'הוראת קבע'
+UNDETERMINED_PAYMENT_TYPE = 'סוג עסקה לא ידוע'

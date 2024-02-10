@@ -1,6 +1,6 @@
 from typing import Text, Dict, List, Any
 
-from django.utils.datetime_safe import date
+from django.utils.timezone import datetime
 from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser
@@ -27,7 +27,7 @@ class Users:
                                'first_name': first_name,
                                'last_name': last_name,
                                'email': email,
-                               'date_joined': date.today()
+                               'date_joined': datetime.today()
                            })
 
     def modify_user(self, username: Text, password: Text):
@@ -61,7 +61,7 @@ class CreditCardsTransactions:
         self.db = PostgreSQL_DB
 
     def add_transaction(self, record_data: Dict, username: Text):
-        required_columns = self.db.fetch_columns('user_transactions')
+        required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate username existence upon adding.
         if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
@@ -83,13 +83,13 @@ class CreditCardsTransactions:
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
         try:
-            self.db.add_record(table_name='user_transactions', record_data=record_data)
+            self.db.add_record(table_name='user_credit_card_transactions', record_data=record_data)
         except InvalidDatetimeFormat as e:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
     def modify_transaction(self, record_data: Dict, transaction_id: Text):
-        required_columns = self.db.fetch_columns('user_transactions')
+        required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate transaction columns
         for k, _ in record_data.items():
@@ -97,27 +97,27 @@ class CreditCardsTransactions:
                 self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
                 return SQL_QUERY_FAILED
 
-        self.db.modify_record(table_name='user_transactions',
+        self.db.modify_record(table_name='user_credit_card_transactions',
                               record_data=record_data,
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
     def delete_transaction(self, transaction_id: Text):
-        required_columns = self.db.fetch_columns('user_transactions')
+        required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
             self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
             return SQL_QUERY_FAILED
 
-        self.db.delete_record(table_name='user_transactions',
+        self.db.delete_record(table_name='user_credit_card_transactions',
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
     def is_primary_key_exist(self, primary_key: Text):
-        return self.db.is_value_exists(table_name='user_transactions', column_name='sha1_identifier', value=primary_key)
+        return self.db.is_value_exists(table_name='user_credit_card_transactions', column_name='sha1_identifier', value=primary_key)
 
     def transaction_query(self, sql_query: Text) -> List:
         return self.db.create_query(sql_query)
@@ -247,13 +247,14 @@ class Application:
                     # add records from statements to database
                     for idx, row in cal_data.iterrows():
                         current_record = {
-                            'date_of_transaction': row['date_of_transaction'],
-                            'business_name':    row['business_name'],
-                            'charge_amount':    row['charge_amount'],
-                            'total_amount':     row['total_amount'],
-                            'transaction_type': row['transaction_type'],
-                            'transaction_provider': row['transaction_provider'],
-                            'last_4_digits':    row['last_4_digits'],
+                            'date_of_transaction':      row['date_of_transaction'],
+                            'business_name':            row['business_name'],
+                            'charge_amount':            row['charge_amount'],
+                            'total_amount':             row['total_amount'],
+                            'transaction_type':         row['transaction_type'],
+                            'transaction_provider':     row['transaction_provider'],
+                            'last_4_digits':            row['last_4_digits'],
+                            'category':                 row['category'],
                         }
                         self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -270,6 +271,7 @@ class Application:
                             'transaction_type':     row['transaction_type'],
                             'transaction_provider': row['transaction_provider'],
                             'last_4_digits':        row['last_4_digits'],
+                            'category':             row['category'],
                         }
                         self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -279,13 +281,14 @@ class Application:
                     # add records from statements to database
                     for idx, row in leumi_data.iterrows():
                         current_record = {
-                            'date_of_transaction': row['date_of_transaction'],
+                            'date_of_transaction':  row['date_of_transaction'],
                             'business_name':        row['business_name'],
                             'charge_amount':        row['charge_amount'],
                             'total_amount':         row['total_amount'],
                             'transaction_type':     row['transaction_type'],
                             'transaction_provider': row['transaction_provider'],
                             'last_4_digits':        row['last_4_digits'],
+                            'category':             row['category'],
                         }
                         self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
 
@@ -295,20 +298,20 @@ class Application:
                     # add records from statements to database
                     for idx, row in bank_leumi_data.parse().iterrows():
                         current_record = {
-                            'transaction_date':                 row['transaction_date'],
-                            'transaction_description':          row['transaction_description'],
-                            'transaction_reference':            row['transaction_reference'],
-                            'income_balance':                   row['income_balance'],
-                            'outcome_balance':                  row['outcome_balance'],
-                            'current_balance':                  row['current_balance'],
-                            'account_number':                   row['account_number'],
-                            'transaction_provider':             row['transaction_provider'],
+                            'transaction_date':         row['transaction_date'],
+                            'transaction_description':  row['transaction_description'],
+                            'transaction_reference':    row['transaction_reference'],
+                            'income_balance':           row['income_balance'],
+                            'outcome_balance':          row['outcome_balance'],
+                            'current_balance':          row['current_balance'],
+                            'account_number':           row['account_number'],
+                            'transaction_provider':     row['transaction_provider'],
                         }
                         self.__manage_bank_transactions.add_transaction(record_data=current_record, username=current_user)
 
-                        current_debit = BankLeumiParser.extract_current_bank_debit(bank_leumi_data.data)
-                        self.__manage_user_information.modify_information(username=current_user,
-                                                                          record_data={'current_debit': current_debit})
+                    # extract current bank balance (last loaded statement)
+                    current_debit = BankLeumiParser.extract_current_bank_debit(bank_leumi_data.data)
+                    self.__manage_user_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
 
 
     @property
