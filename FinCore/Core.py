@@ -6,7 +6,6 @@ from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser
 from FinCore import *
 
-
 class Users:
     def __init__(self):
         self.logger = Logger
@@ -30,19 +29,24 @@ class Users:
                                'date_joined': datetime.today()
                            })
 
-    def modify_user(self, username: Text, password: Text):
-        # TODO: modify specific/more than 1 value by given user id
+    def modify_user(self, user_id: int, username: Text, password: Text):
+        if not self.is_primary_key_exist(primary_key=user_id):
+            return RECORD_NOT_EXIST
+
         self.db.modify_record(table_name='users',
                               record_data=
                               {
                                   'username': username,
                                   'password': password
                               },
-                              column_key='username',
-                              key=username
+                              column_key='user_id',
+                              key=user_id
                               )
 
     def delete_user(self, user_id: int):
+        if not self.is_primary_key_exist(primary_key=user_id):
+            return RECORD_NOT_EXIST
+
         self.db.delete_record(table_name='auth_user',
                               column_key='id',
                               key=user_id
@@ -65,7 +69,7 @@ class CreditCardsTransactions:
 
         # validate username existence upon adding.
         if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
-            return RECORD_EXIST
+            return RECORD_NOT_EXIST
 
         # add username as foreign key ( Many->One).
         required_columns.append('username')
@@ -82,6 +86,10 @@ class CreditCardsTransactions:
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
+
+        # Generate category value for new added record.
+        record_data['category'] = Gemini_Model.find_business_category(record_data['business_name'])
+
         try:
             self.db.add_record(table_name='user_credit_card_transactions', record_data=record_data)
         except InvalidDatetimeFormat as e:
@@ -97,13 +105,20 @@ class CreditCardsTransactions:
                 self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
                 return SQL_QUERY_FAILED
 
+        # validate username existence upon modifying.
+        if not self.db.is_value_exists(table_name='user_credit_card_transactions', column_name='username', value=record_data['username']):
+            return RECORD_NOT_EXIST
+
+        if not self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+            return RECORD_NOT_EXIST
+
         self.db.modify_record(table_name='user_credit_card_transactions',
                               record_data=record_data,
                               column_key='sha1_identifier',
                               key=transaction_id
                               )
 
-    def delete_transaction(self, transaction_id: Text):
+    def delete_transaction(self, sha1_identifier: Text):
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate transaction columns
@@ -111,9 +126,12 @@ class CreditCardsTransactions:
             self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
             return SQL_QUERY_FAILED
 
+        if not self.is_primary_key_exist(primary_key=sha1_identifier):
+            return RECORD_NOT_EXIST
+
         self.db.delete_record(table_name='user_credit_card_transactions',
                               column_key='sha1_identifier',
-                              key=transaction_id
+                              key=sha1_identifier
                               )
 
     def is_primary_key_exist(self, primary_key: Text):
@@ -133,7 +151,7 @@ class BankTransactions:
 
         # validate username existence upon adding.
         if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
-            return RECORD_EXIST
+            return RECORD_NOT_EXIST
 
         # add username as foreign key ( Many->One).
         required_columns.append('username')
@@ -150,13 +168,17 @@ class BankTransactions:
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
+
+        # Generate category value for new added record.
+        record_data['category'] = Gemini_Model.find_business_category(record_data['transaction_description'])
+
         try:
             self.db.add_record(table_name='user_bank_transactions', record_data=record_data)
         except InvalidDatetimeFormat as e:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
-    def modify_transaction(self, record_data: Dict, transaction_id: Text):
+    def modify_transaction(self, record_data: Dict, sha1_identifier: Text):
         required_columns = self.db.fetch_columns('user_bank_transactions')
 
         # validate transaction columns
@@ -165,13 +187,20 @@ class BankTransactions:
                 self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
                 return SQL_QUERY_FAILED
 
+        # validate username existence upon modifying.
+        if not self.db.is_value_exists(table_name='user_bank_transactions', column_name='username', value=record_data['username']):
+            return RECORD_NOT_EXIST
+
+        if not self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+            return RECORD_NOT_EXIST
+
         self.db.modify_record(table_name='user_bank_transactions',
                               record_data=record_data,
                               column_key='sha1_identifier',
-                              key=transaction_id
+                              key=sha1_identifier
                               )
 
-    def delete_transaction(self, transaction_id: Text):
+    def delete_transaction(self, sha1_identifier: Text):
         required_columns = self.db.fetch_columns('user_bank_transactions')
 
         # validate transaction columns
@@ -179,9 +208,12 @@ class BankTransactions:
             self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
             return SQL_QUERY_FAILED
 
+        if not self.is_primary_key_exist(primary_key=sha1_identifier):
+            return RECORD_NOT_EXIST
+
         self.db.delete_record(table_name='user_bank_transactions',
                               column_key='sha1_identifier',
-                              key=transaction_id
+                              key=sha1_identifier
                               )
 
     def is_primary_key_exist(self, primary_key: Text):
@@ -196,21 +228,44 @@ class UserInformation:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_information(self, username: Text, current_debit: float, total_saving: float, latest_debit: float) -> int:
-        if self.is_user_exist(username=username):
+    def add_information(self, record_data: Dict, username: Text) -> int:
+        required_columns = self.db.fetch_columns('user_information')
+
+        # validate username existence upon adding.
+        if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
+            return RECORD_NOT_EXIST
+
+        # add username as foreign key ( Many->One).
+        required_columns.append('username')
+        record_data['username'] = username
+
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                return SQL_QUERY_FAILED
+
+        if self.is_primary_key_exist(primary_key=record_data['username']):
             return RECORD_EXIST
+        try:
+            self.db.add_record(table_name='user_information', record_data=record_data)
+        except InvalidDatetimeFormat as e:
+            self.logger.exception(e)
+            return SQL_QUERY_FAILED
 
-        self.db.add_record(table_name='user_information',
-                           record_data=
-                           {
-                               'current_debit': current_debit,
-                               'total_saving': total_saving,
-                               'latest_debit': latest_debit,
-                               'username': username,
-                           })
+    def modify_information(self, record_data: Dict, username: Text):
+        required_columns = self.db.fetch_columns('user_information')
 
-    def modify_information(self, username: Text, record_data: dict):
-        # TODO: modify specific/more than 1 value by given user id
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                return SQL_QUERY_FAILED
+
+        # validate username existence upon modifying.
+        if not self.is_primary_key_exist(primary_key=username):
+            return RECORD_NOT_EXIST
+
         self.db.modify_record(table_name='user_information',
                               record_data=record_data,
                               column_key='username',
@@ -218,17 +273,83 @@ class UserInformation:
                               )
 
     def delete_information(self, username: Text):
+        required_columns = self.db.fetch_columns('user_information')
+
+        # validate transaction columns
+        if 'username' not in required_columns:
+            self.logger.critical(f"Column: [username], is not part of the required_columns")
+            return SQL_QUERY_FAILED
+
+        if not self.is_primary_key_exist(primary_key=username):
+            return RECORD_NOT_EXIST
+
         self.db.delete_record(table_name='user_information',
                               column_key='username',
                               key=username
                               )
 
-    def is_primary_key_exist(self, primary_key: int):
+    def is_primary_key_exist(self, primary_key: Any):
         return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
 
-    def is_user_exist(self, username: Text):
-        return self.db.is_value_exists(table_name='auth_user', column_name='username', value=username)
 
+class UserDirectDebitSubscriptions:
+    def __init__(self):
+        self.logger = Logger
+        self.db = PostgreSQL_DB
+
+    def add_direct_debit_or_subscription(self, record_data: Dict, username: Text):
+        required_columns = self.db.fetch_columns('user_direct_debit_subscriptions')
+
+        # validate username existence upon adding.
+        if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
+            return RECORD_NOT_EXIST
+
+        # add username as foreign key ( Many->One).
+        required_columns.append('username')
+        record_data['username'] = username
+
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the [user_direct_debit_subscription] required_columns.")
+                return SQL_QUERY_FAILED
+
+        # calculate sha1 value for new added record.
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
+
+        if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+            return RECORD_EXIST
+        try:
+            self.db.add_record(table_name='user_direct_debit_subscriptions', record_data=record_data)
+        except InvalidDatetimeFormat as e:
+            self.logger.exception(e)
+            return SQL_QUERY_FAILED
+
+    def modify_direct_debit_or_subscription(self, record_data: dict):
+        self.db.modify_record(table_name='user_direct_debit_subscriptions',
+                              record_data=record_data,
+                              column_key='sha1_identifier',
+                              key=record_data['sha1_identifier']
+                              )
+
+    def delete_direct_debit_or_subscription(self, sha1_identifier: Text):
+        required_columns = self.db.fetch_columns('user_direct_debit_subscriptions')
+
+        # validate transaction columns
+        if 'sha1_identifier' not in required_columns:
+            self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
+            return SQL_QUERY_FAILED
+
+        if not self.is_primary_key_exist(primary_key=sha1_identifier):
+            return RECORD_NOT_EXIST
+
+        self.db.delete_record(table_name='user_direct_debit_subscriptions',
+                              column_key='sha1_identifier',
+                              key=sha1_identifier
+                              )
+
+    def is_primary_key_exist(self, primary_key: Any):
+        return self.db.is_value_exists(table_name='user_direct_debit_subscriptions', column_name='sha1_identifier', value=primary_key)
 
 
 class Application:
@@ -237,6 +358,7 @@ class Application:
         self.__manage_credit_cards_transactions = CreditCardsTransactions()
         self.__manage_bank_transactions = BankTransactions()
         self.__manage_user_information = UserInformation()
+        self.__manage_user_direct_debit_subscriptions = UserDirectDebitSubscriptions()
 
     def load_statements_to_db(self, current_user: Text):
         for root, dirs, files in os.walk(os.path.join(PROJECT_ROOT, os.path.join('Files', 'Input'))):
@@ -246,7 +368,7 @@ class Application:
 
                     # add records from statements to database
                     for idx, row in cal_data.iterrows():
-                        current_record = {
+                        current_credit_card_transaction_record = {
                             'date_of_transaction':      row['date_of_transaction'],
                             'business_name':            row['business_name'],
                             'charge_amount':            row['charge_amount'],
@@ -254,9 +376,16 @@ class Application:
                             'transaction_type':         row['transaction_type'],
                             'transaction_provider':     row['transaction_provider'],
                             'last_4_digits':            row['last_4_digits'],
-                            'category':                 row['category'],
                         }
-                        self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
+                        self.__manage_credit_cards_transactions.add_transaction(record_data=current_credit_card_transaction_record, username=current_user)
+
+                        if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
+                            current_direct_debit_subscription_record = {
+                                'amount':               row['total_amount'],
+                                'payment_type':         row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
+                                'provider_name':        row['business_name'],
+                            }
+                            self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'Max':
                     max_data = MaxParser(file_path=os.path.join(root, filename)).parse()
@@ -271,9 +400,16 @@ class Application:
                             'transaction_type':     row['transaction_type'],
                             'transaction_provider': row['transaction_provider'],
                             'last_4_digits':        row['last_4_digits'],
-                            'category':             row['category'],
                         }
                         self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
+
+                        if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
+                            current_direct_debit_subscription_record = {
+                                'amount':               row['total_amount'],
+                                'payment_type':         row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
+                                'provider_name':        row['business_name'],
+                            }
+                            self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'Leumi':
                     leumi_data = LeumiParser(file_path=os.path.join(root, filename)).parse()
@@ -288,9 +424,16 @@ class Application:
                             'transaction_type':     row['transaction_type'],
                             'transaction_provider': row['transaction_provider'],
                             'last_4_digits':        row['last_4_digits'],
-                            'category':             row['category'],
                         }
                         self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
+
+                        if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
+                            current_direct_debit_subscription_record = {
+                                'amount':               row['total_amount'],
+                                'payment_type':         row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
+                                'provider_name':        row['business_name'],
+                            }
+                            self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'BankLeumi':
                     bank_leumi_data = BankLeumiParser(file_path=os.path.join(root, filename))
@@ -502,17 +645,7 @@ def num_to_month(month: Text) -> int:
     if isinstance(month, int):
         return month
 
-# T = Transactions()
-# T.add_transaction(record_data=
-#                   {
-#                     'date_of_transaction': '2023-02-16',
-#                     'business_name': 'אלביט מערכות בע"מ',
-#                     'charge_amount': '16200.0',
-#                     'transaction_type': 'משכורת',
-#                     'total_amount': '16200.0',
-#                     'transaction_provider': 'Leumi',
-#                   },
-#     username='liran121214'
-# )
+
+
 app = Application()
 app.load_statements_to_db(current_user='liran121214')

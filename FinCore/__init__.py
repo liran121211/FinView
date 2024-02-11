@@ -1,6 +1,10 @@
 import logging
 import os
 from RDBMS.PostgreSQL import PostgreSQL
+from AI.Gemini import GeminiModel
+
+# Use AI for data completion
+Gemini_Model = GeminiModel()
 
 # Get the current script path
 CURRENT_FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -26,6 +30,7 @@ PostgreSQL_DB = PostgreSQL()
 
 # Defines
 RECORD_EXIST = 0
+RECORD_NOT_EXIST = -1
 SQL_QUERY_FAILED = -1
 SINGLE_LIST = 0
 SINGLE_TUPLE = 0

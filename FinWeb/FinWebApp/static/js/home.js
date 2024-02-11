@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let col_name = Object.keys(user_direct_debit_subscriptions)[0]
     let numberOfDuplicates = user_direct_debit_subscriptions[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_direct_debit_subscriptions.payment_type[i] !== 'Subscription')
+        if (user_direct_debit_subscriptions.payment_type[i] !== 'עסקת תשלומים')
             continue;
 
         const subscription_row = document.createElement('tr');
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let col_name = Object.keys(user_direct_debit_subscriptions)[0]
     let numberOfDuplicates = user_direct_debit_subscriptions[col_name].length;  // Change this value as needed
     for (let i = 0; i < numberOfDuplicates; i++) {
-        if (user_direct_debit_subscriptions.payment_type[i] !== 'Direct Debit')
+        if (user_direct_debit_subscriptions.payment_type[i] !== 'הוראת קבע')
             continue;
 
         const direct_debit_row = document.createElement('tr');

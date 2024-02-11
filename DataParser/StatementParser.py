@@ -192,9 +192,8 @@ class LeumiParser(Parser, ABC):
                     'charge_amount':        column.iloc[charge_amount_idx],
                     'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
                     'total_amount':         column.iloc[total_amount_idx],
-                    'transaction_provider': 'Leumi',
                     'last_4_digits':        last_4_digits,
-                    'category':             GEMINI_MODEL.find_business_category(business_name=column.iloc[business_name_idx])
+                    'transaction_provider': 'Leumi',
                 }
                 temp_df.loc[len(temp_df)] = pd.Series(data)
 
@@ -264,9 +263,8 @@ class CalOnlineParser(Parser, ABC):
                     'charge_amount':        column.iloc[charge_amount_idx],
                     'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
                     'total_amount':         column.iloc[total_amount_idx],
-                    'transaction_provider': 'Cal Online',
                     'last_4_digits':        last_4_digits,
-                    'category':             GEMINI_MODEL.find_business_category(business_name=column.iloc[business_name_idx])
+                    'transaction_provider': 'Cal Online',
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
@@ -333,7 +331,6 @@ class MaxParser(Parser, ABC):
                     'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
                     'total_amount':         column.iloc[total_amount_idx],
                     'transaction_provider': 'Max',
-                    'category':             GEMINI_MODEL.find_business_category(business_name=column.iloc[business_name_idx])
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 

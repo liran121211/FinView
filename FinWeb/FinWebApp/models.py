@@ -67,7 +67,7 @@ class UserCards(models.Model):
 
 
 class UserDirectDebitSubscriptions(models.Model):
-    id = models.IntegerField(max_length=6, primary_key=True)
+    sha1_identifier = models.IntegerField(max_length=100, primary_key=True)
     username = models.CharField(max_length=20, db_column='username')
     payment_type = models.CharField(max_length=20, db_column='payment_type')
     amount = models.FloatField(max_length=20, db_column='amount')

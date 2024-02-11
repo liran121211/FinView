@@ -1,9 +1,5 @@
 import logging
 import os
-from AI.Gemini import GeminiModel
-
-# Use AI for data completion
-GEMINI_MODEL = GeminiModel()
 
 # Get the current script path
 CURRENT_FILE_PATH = os.path.dirname(os.path.abspath(__file__))
