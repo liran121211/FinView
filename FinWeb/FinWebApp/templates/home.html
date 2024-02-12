@@ -123,6 +123,7 @@
         let spent_by_category = {{ spent_by_category|safe }};
         let spent_by_card = {{ spent_by_card|safe }};
         let income_by_month = {{ income_by_month|safe }};
+        let income_against_outcome = {{ income_against_outcome|safe }};
     </script>
 
 </head>
@@ -214,9 +215,10 @@
                 <!-- Income & Outcome Ratio Chart -->
                  <div class="income-outcome-half-doughnut">
                      <p class="income-outcome-half-doughnut-title">ניצול הכנסות כנגד הוצאות</p>
+                     <p class="income-outcome-half-doughnut-title-2">חודש נוכחי</p>
                     <canvas id="income-outcome-half-doughnut-chart-1" width="600" height="400"></canvas>
                      <canvas id="income-outcome-half-doughnut-chart-2" width="600" height="400"></canvas>
-                     <p class="income-outcome-half-doughnut-percent">89%</p>
+                     <p class="income-outcome-half-doughnut-percent">{{ income_against_outcome|floatformat:2 }}%</p>
                     </div>
 
                 <div class="dashboard-separator"></div>

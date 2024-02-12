@@ -838,7 +838,7 @@ uhyiv
     left: 50%;
     transform: translate(-50%, 0);
     font-size: 80px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     bottom: 0;
 }
 
@@ -846,9 +846,18 @@ uhyiv
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
+    padding-bottom: 25px;
     font-size: 25px;
     bottom: 0;
 }
+.income-outcome-half-doughnut-title-2 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 25px;
+    bottom: 0;
+}
+
 
 /* ----------------- Subscription & Direct Debit CSS ----------------- */
 

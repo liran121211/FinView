@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
 from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
-    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions
+    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome
 
 
 def home_view(request):
@@ -17,7 +17,8 @@ def home_view(request):
         'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
         'spent_by_category': SpentByCategoryQuery(logged_in_user),
         'spent_by_card': SpentByCardNumberQuery(logged_in_user),
-        'income_by_month': IncomeByMonthQuery(logged_in_user)
+        'income_by_month': IncomeByMonthQuery(logged_in_user),
+        'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
     })
 
 

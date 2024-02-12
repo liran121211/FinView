@@ -1,8 +1,20 @@
+from datetime import datetime
 from typing import Text
 
 import pandas as pd
 from django.db import models
 from . import FIN_CORE
+
+
+def IncomeAgainstOutcome(username: Text):
+    # Get the current date
+    current_date = datetime.now()
+    current_month = current_date.month
+
+    income_query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=current_month +4, selected_year=2023, username=username)
+    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month'](selected_month=current_month +4, selected_year=2023, username=username)
+
+    return (outcome_query/income_query) *100
 
 
 def IncomeByMonthQuery(username: Text):
@@ -11,7 +23,7 @@ def IncomeByMonthQuery(username: Text):
 
     income_by_month = []
     for i,_ in enumerate(hebrew_months):
-        query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=i+1, username=username)
+        query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=i+1, selected_year=2023, username=username)
         if query is None:
             income_by_month.append(0.)
         else:

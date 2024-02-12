@@ -316,21 +316,48 @@ document.addEventListener("DOMContentLoaded", function () {
     let ior_chart_1 = document.getElementById('income-outcome-half-doughnut-chart-1').getContext('2d');
     new Chart(ior_chart_1, ior_options_1);
 
+    let arrow_color, arrow_position_in_circle;
+    let income_outcome_precent = document.querySelector('.income-outcome-half-doughnut-percent');
+    if ( income_against_outcome >= 0 && income_against_outcome <= 33.3)
+    {
+        arrow_color = 'rgba(46, 204, 113, 1)';
+        arrow_position_in_circle = [250, 10];
+    }
+    if ( income_against_outcome >= 33.3 && income_against_outcome <= 66.6)
+    {
+        arrow_color = 'rgba(255, 164, 46, 1)';
+        arrow_position_in_circle = [11, 0.5];
+    }
+
+    if ( income_against_outcome >= 66.6 && income_against_outcome <= 99.9)
+    {
+        arrow_color = 'rgba(231, 76, 60, 1)';
+        arrow_position_in_circle = [1, 0.5];
+    }
+
+    if ( income_against_outcome >= 99.9 && income_against_outcome <= 9999)
+    {
+        arrow_color = 'rgba(231, 76, 60, 1)';
+        arrow_position_in_circle = [1, 1.0]
+        income_outcome_precent.style.color = '#E74C3C';
+    }
+
+
     let ior_options_2 = {
         type: 'doughnut',
         data: {
             labels: ["", "Purple", ""],
             datasets: [
                 {
-                    data: [88.5, 1, 10.5],
+                    data: [arrow_position_in_circle[0], arrow_position_in_circle[1], 10.5],
                     backgroundColor: [
                         "rgba(0,0,0,0)",
                         "rgba(255,255,255,1)",
                         "rgba(0,0,0,0)",
                     ],
                     borderColor: [
-                        'rgba(0, 0, 0 ,0)',
-                        'rgba(46, 204, 113, 1)',
+                        "rgba(0,0,0,0)",
+                        arrow_color,
                         'rgba(0, 0, 0 ,0)'
                     ],
                     borderWidth: 3

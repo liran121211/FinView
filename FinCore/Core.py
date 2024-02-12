@@ -473,26 +473,27 @@ class Application:
                 if len(result) > 0:
                     return result
 
-        def how_much_spent_in_specific_month(selected_month: Text, username: Text):
-            query = f"SELECT SUM(total_amount) AS total_sum " \
+        def how_much_spent_in_specific_month(selected_month: Text, selected_year: int, username: Text):
+            query = f"SELECT SUM(outcome_balance) AS total_sum " \
                     f"FROM (" \
-                    f"SELECT total_amount" \
-                    f" FROM user_credit_card_transactions" \
-                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {num_to_month(selected_month)}" \
+                    f"SELECT outcome_balance" \
+                    f" FROM user_bank_transactions" \
+                    f" WHERE EXTRACT(MONTH FROM transaction_date) = {num_to_month(selected_month)}" \
+                    f" AND EXTRACT(YEAR FROM transaction_date) =  {selected_year}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
 
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
-        def how_much_earned_in_specific_month(selected_month: Text, username: Text):
+        def how_much_earned_in_specific_month(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT SUM(income_balance) AS total_sum " \
                     f"FROM (" \
                     f"SELECT income_balance" \
                     f" FROM user_bank_transactions" \
                     f" WHERE EXTRACT(MONTH FROM transaction_date) = {num_to_month(selected_month)}" \
-                    f" AND username='{username}'" \
-                    f" AND income_balance!='0')" \
+                    f" AND EXTRACT(YEAR FROM transaction_date) =  {selected_year}" \
+                    f" AND username='{username}')" \
                     f" AS subquery;"
 
             result = self.__manage_bank_transactions.transaction_query(sql_query=query)
@@ -593,6 +594,7 @@ class Application:
 
         return {
             'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
+            'how_much_earned_in_specific_month': how_much_earned_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
             'which_records_by_transaction_type': which_records_by_transaction_type,
@@ -602,7 +604,6 @@ class Application:
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
             'how_much_spent_by_category': how_much_spent_by_category,
             'how_much_spent_by_card_number': how_much_spent_by_card_number,
-            'how_much_earned_in_specific_month': how_much_earned_in_specific_month,
         }
 
 def num_to_month(month: Text) -> int:
