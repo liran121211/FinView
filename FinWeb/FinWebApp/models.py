@@ -11,8 +11,8 @@ def IncomeAgainstOutcome(username: Text):
     current_date = datetime.now()
     current_month = current_date.month
 
-    income_query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=current_month +4, selected_year=2023, username=username)
-    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month'](selected_month=current_month +4, selected_year=2023, username=username)
+    income_query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=current_month, selected_year=2023, username=username)
+    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month'](selected_month=current_month, selected_year=2023, username=username)
 
     return (outcome_query/income_query) *100
 

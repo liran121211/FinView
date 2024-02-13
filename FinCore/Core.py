@@ -381,7 +381,7 @@ class Application:
 
                         if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
                             current_direct_debit_subscription_record = {
-                                'amount':               row['total_amount'],
+                                'amount':               row['charge_amount'],
                                 'payment_type':         row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
                                 'provider_name':        row['business_name'],
                             }
@@ -405,7 +405,7 @@ class Application:
 
                         if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
                             current_direct_debit_subscription_record = {
-                                'amount':               row['total_amount'],
+                                'amount':               row['charge_amount'],
                                 'payment_type':         row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
                                 'provider_name':        row['business_name'],
                             }
@@ -429,7 +429,7 @@ class Application:
 
                         if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
                             current_direct_debit_subscription_record = {
-                                'amount':               row['total_amount'],
+                                'amount':               row['charge_amount'],
                                 'payment_type':         row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
                                 'provider_name':        row['business_name'],
                             }

@@ -20,5 +20,11 @@ class GeminiModel():
         except ValueError:
             response = ' '.join([keyword.text.strip() for keyword in self.model.generate_content(define_role).parts])
 
-        print(response)
-        return response
+        print(self.filter_gemini_category(response))
+        return self.filter_gemini_category(response)
+
+    def filter_gemini_category(self, response: Text):
+        for i, category in BUSINESS_CATEGORIES.items():
+            if response in category:
+                return category
+        return 'קטגוריה לא ידועה'
