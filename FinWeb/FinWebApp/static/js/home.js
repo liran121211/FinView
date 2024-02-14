@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Get the table body
     const tableBody = document.querySelector('#transactions-table tbody');
+    const category_logo = document.querySelector('#transaction_description_col');
 
     // Clear any existing content
     tableBody.innerHTML = '';
@@ -50,8 +51,54 @@ document.addEventListener('DOMContentLoaded', function () {
         outcome_row.appendChild(transaction_amount_col);
         outcome_row.appendChild(transaction_description_col);
 
+
+        // Other background properties
+        outcome_row.style.backgroundPosition = 'right';
+        outcome_row.style.backgroundPositionY = '5px';
+        outcome_row.style.backgroundRepeat = 'no-repeat';
+        outcome_row.style.backgroundSize = '35px';
+
+        switch (user_outcome.category[i])
+        {
+            case 'ביטוח':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/insurance_logo.svg")';
+                break;
+            case 'מזון וצריכה':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/grocery_logo.svg")';
+                break;
+            case 'שרותי תקשורת':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/internet_communication_logo.svg")';
+                break;
+            case 'רפואה וקוסמטיקה':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/pharmacy_logo.svg")';
+                break;
+            case 'מחשבים, תוכנות וחשמל':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/electronics_logo.svg")';
+                break;
+            case 'פנאי ובידור':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/entertainment_logo.svg")';
+                break;
+            case 'עירייה וממשלה':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/municipal_government_logo.svg")';
+                break;
+            case 'תחבורה':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/transport_logo.svg")';
+                break;
+            case 'שונות':
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/other_logo.svg")';
+                break;
+            default:
+            outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/unknown_category_logo.svg")';
+            break;
+        }
+
         // Append the row to the table body
         tableBody.appendChild(outcome_row);
+
+
+
+
+
     }
 });
 

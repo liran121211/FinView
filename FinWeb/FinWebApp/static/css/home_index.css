@@ -354,11 +354,6 @@ uhyiv
     padding-right: 45px;
     padding-bottom: 12px;
     text-align: right;
-    background-position: right;
-    background-position-y: 5px;
-    background-image: url('https://i.pinimg.com/564x/06/ae/e9/06aee950c65877ff0c0ecb2e191bab00.jpg');
-    background-repeat: no-repeat; /* Do not repeat the background image */
-    background-size: 35px;
 }
 
 .transaction_amount_col {
