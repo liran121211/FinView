@@ -1,5 +1,5 @@
 from typing import Text
-from AI import BUSINESS_CATEGORIES
+from AI import CREDIT_CARD_TRANSACTIONS_CATEGORIES, BANK_TRANSACTIONS_CATEGORIES
 import google.generativeai as genai
 
 
@@ -11,7 +11,7 @@ class GeminiModel():
 
     def find_business_category(self, business_name: Text) -> Text:
         define_role = f"""You are a Business Explorer,
-        who knows which category the business I will ask you about belongs to. The categories: {BUSINESS_CATEGORIES}.
+        who knows which category the business I will ask you about belongs to. The categories: {CREDIT_CARD_TRANSACTIONS_CATEGORIES}.
         Can you tell me what category the business: {business_name}?
         Please respond with the name of the category only in Hebrew without revealing the name of the business."""
 
@@ -20,11 +20,26 @@ class GeminiModel():
         except ValueError:
             response = ' '.join([keyword.text.strip() for keyword in self.model.generate_content(define_role).parts])
 
-        print(self.filter_gemini_category(response))
-        return self.filter_gemini_category(response)
-
-    def filter_gemini_category(self, response: Text):
-        for i, category in BUSINESS_CATEGORIES.items():
+        for i, category in CREDIT_CARD_TRANSACTIONS_CATEGORIES.items():
             if response in category:
                 return category
+
         return 'קטגוריה לא ידועה'
+
+    def find_bank_transaction_category(self, description: Text) -> Text:
+        define_role = f"""You are a Bank Analyst,
+        who knows which category the transaction I will ask you about belongs to. The categories: {BANK_TRANSACTIONS_CATEGORIES}.
+        Can you tell me what category the transaction: {description}?
+        Please respond with the name of the category only in Hebrew without revealing the name of the business."""
+
+        try:
+            response = self.model.generate_content(define_role).text.strip()
+        except ValueError:
+            response = ' '.join([keyword.text.strip() for keyword in self.model.generate_content(define_role).parts])
+
+        for i, category in BANK_TRANSACTIONS_CATEGORIES.items():
+            if response in category:
+                return category
+
+        return 'קטגוריה לא ידועה'
+

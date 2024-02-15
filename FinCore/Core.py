@@ -170,7 +170,7 @@ class BankTransactions:
             return RECORD_EXIST
 
         # Generate category value for new added record.
-        record_data['category'] = Gemini_Model.find_business_category(record_data['transaction_description'])
+        record_data['transaction_category'] = Gemini_Model.find_bank_transaction_category(record_data['transaction_description'])
 
         try:
             self.db.add_record(table_name='user_bank_transactions', record_data=record_data)

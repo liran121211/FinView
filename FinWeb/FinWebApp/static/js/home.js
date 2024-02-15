@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
         outcome_row.appendChild(transaction_amount_col);
         outcome_row.appendChild(transaction_description_col);
 
-
         // Other background properties
         outcome_row.style.backgroundPosition = 'right';
         outcome_row.style.backgroundPositionY = '5px';
@@ -94,10 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the row to the table body
         tableBody.appendChild(outcome_row);
-
-
-
-
 
     }
 });
@@ -155,6 +150,43 @@ document.addEventListener("DOMContentLoaded", function () {
         // Append the cell to the row
         income_row.appendChild(income_amount_col);
         income_row.appendChild(income_description_col);
+
+                // Other background properties
+        income_row.style.backgroundPosition = 'right';
+        income_row.style.backgroundPositionY = '5px';
+        income_row.style.backgroundRepeat = 'no-repeat';
+        income_row.style.backgroundSize = '35px';
+
+        switch (user_income.transaction_category[i])
+        {
+            case 'הכנסה':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/income_logo.svg")';
+                break;
+            case 'הוצאה':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/outcome_logo.svg")';
+                break;
+            case 'חיסכון והשקעות':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/saving_investment_logo.svg")';
+                break;
+            case 'הלוואות':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/loan_logo.svg")';
+                break;
+            case 'עמלות':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/fee_logo.svg")';
+                break;
+            case 'העברות ומשיכות':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/transfer_withdraw_logo.svg")';
+                break;
+            case 'מיסים':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/taxes_logo.svg")';
+                break;
+            case 'שונות':
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/other_logo.svg")';
+                break;
+            default:
+            income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/unknown_category_logo.svg")';
+            break;
+        }
 
         // Append the row to the table body
         tableBody.appendChild(income_row);
