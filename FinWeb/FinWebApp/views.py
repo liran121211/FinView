@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
 from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
-    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome
+    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
+    BankTransactionByCategoryQuery
 
 
 def home_view(request):
@@ -15,8 +16,9 @@ def home_view(request):
         'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
         'user_income': slice_dictionary(retrieve_user_bank_transactions(logged_in_user, True), -5, 0),
         'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
-        'spent_by_category': SpentByCategoryQuery(logged_in_user),
-        'spent_by_card': SpentByCardNumberQuery(logged_in_user),
+        'spent_by_category': SpentByCategoryQuery(logged_in_user), # Pie-Chart view
+        'bank_transaction_by_category': BankTransactionByCategoryQuery(logged_in_user),  # Pie-Chart view
+        'spent_by_card': SpentByCardNumberQuery(logged_in_user), # Pie-Chart view
         'income_by_month': IncomeByMonthQuery(logged_in_user),
         'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
     })

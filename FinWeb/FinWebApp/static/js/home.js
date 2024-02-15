@@ -57,8 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         outcome_row.style.backgroundRepeat = 'no-repeat';
         outcome_row.style.backgroundSize = '35px';
 
-        switch (user_outcome.category[i])
-        {
+        switch (user_outcome.category[i]) {
             case 'ביטוח':
                 outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/insurance_logo.svg")';
                 break;
@@ -87,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/other_logo.svg")';
                 break;
             default:
-            outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/unknown_category_logo.svg")';
-            break;
+                outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/unknown_category_logo.svg")';
+                break;
         }
 
         // Append the row to the table body
@@ -151,14 +150,13 @@ document.addEventListener("DOMContentLoaded", function () {
         income_row.appendChild(income_amount_col);
         income_row.appendChild(income_description_col);
 
-                // Other background properties
+        // Other background properties
         income_row.style.backgroundPosition = 'right';
         income_row.style.backgroundPositionY = '5px';
         income_row.style.backgroundRepeat = 'no-repeat';
         income_row.style.backgroundSize = '35px';
 
-        switch (user_income.transaction_category[i])
-        {
+        switch (user_income.transaction_category[i]) {
             case 'הכנסה':
                 income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/income_logo.svg")';
                 break;
@@ -184,8 +182,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/other_logo.svg")';
                 break;
             default:
-            income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/unknown_category_logo.svg")';
-            break;
+                income_row.style.backgroundImage = 'url("static/images/bank_categories_icons/unknown_category_logo.svg")';
+                break;
         }
 
         // Append the row to the table body
@@ -247,8 +245,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let spent_by_card_labels_last_4_digits = Object.values(spent_by_card['last_4_digits']);
     let spent_by_card_labels_issuer_name = Object.values(spent_by_card['issuer_name']);
     let spent_by_card_items = Object.values(spent_by_card['total_amount']);
-
     let spent_by_card_labels = [];
+
+    // Earned by Category
+    let bank_transaction_by_category_labels = Object.values(bank_transaction_by_category['transaction_category']);
+    let bank_transaction_by_category_items = Object.values(bank_transaction_by_category['total_amount']);
 
     // Iterate over one of the lists
     for (let i = 0; i < spent_by_card_labels_last_4_digits.length; i++) {
@@ -335,17 +336,56 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    const spent_by_category_canvas = document.getElementById('quick-overview-spent_by_category');
-    // Create the doughnut chart with the provided configuration
-    const _1 = new Chart(spent_by_category_canvas, spent_by_category_config);
 
-    const spent_by_card_canvas = document.getElementById('quick-overview-spent_by_card');
-    // Create the doughnut chart with the provided configuration
-    const _2 = new Chart(spent_by_card_canvas, spent_by_card_config);
+    const bank_transaction_by_category_data = {
+        labels: bank_transaction_by_category_labels,
+        datasets: [{
+            data: bank_transaction_by_category_items,
+            backgroundColor: getRandomColors(bank_transaction_by_category_items.length),
+        }]
+    };
 
-    const quick_overview_data_canvas_3 = document.getElementById('quick-overview-doughnut-pie-canvas-3');
+    // Configuration options for the doughnut chart
+    const bank_transaction_by_category_config = {
+        type: 'outlabeledPie',
+        data: bank_transaction_by_category_data,
+        options: {
+            title: {
+                display: true,
+                text: ',תנועות בנק לפי קטגוריה',
+                fontSize: 25,
+                fontColor: '#4C495A',
+                fontFamily: 'Gan',
+            },
+            responsive: false,
+            zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
+            plugins: {
+                legend: false,
+                outlabels: {
+                    text: '%l %p',
+                    color: 'white',
+                    stretch: 45,
+                    font: {
+                        resizable: true,
+                        minSize: 12,
+                        maxSize: 18
+                    }
+                },
+            }
+        }
+    };
+
+    const spent_by_category_canvas = document.getElementById('quick-overview-spent-by-category');
     // Create the doughnut chart with the provided configuration
-    const _3 = new Chart(quick_overview_data_canvas_3, spent_by_category_config);
+    new Chart(spent_by_category_canvas, spent_by_category_config);
+
+    const spent_by_card_canvas = document.getElementById('quick-overview-spent-by-card');
+    // Create the doughnut chart with the provided configuration
+    new Chart(spent_by_card_canvas, spent_by_card_config);
+
+    const bank_transaction_by_category_canvas = document.getElementById('quick-overview-earned-by-category');
+    // Create the doughnut chart with the provided configuration
+    new Chart(bank_transaction_by_category_canvas, bank_transaction_by_category_config);
 });
 
 /* ----------------------- Income & Outcome Ratio Dashboard Doughnut Pie ----------------------- */
@@ -397,25 +437,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let arrow_color, arrow_position_in_circle;
     let income_outcome_precent = document.querySelector('.income-outcome-half-doughnut-percent');
-    if ( income_against_outcome >= 0 && income_against_outcome <= 33.3)
-    {
+    if (income_against_outcome >= 0 && income_against_outcome <= 33.3) {
         arrow_color = 'rgba(46, 204, 113, 1)';
         arrow_position_in_circle = [250, 10];
     }
-    if ( income_against_outcome >= 33.3 && income_against_outcome <= 66.6)
-    {
+    if (income_against_outcome >= 33.3 && income_against_outcome <= 66.6) {
         arrow_color = 'rgba(255, 164, 46, 1)';
         arrow_position_in_circle = [11, 0.5];
     }
 
-    if ( income_against_outcome >= 66.6 && income_against_outcome <= 99.9)
-    {
+    if (income_against_outcome >= 66.6 && income_against_outcome <= 99.9) {
         arrow_color = 'rgba(231, 76, 60, 1)';
         arrow_position_in_circle = [1, 0.5];
     }
 
-    if ( income_against_outcome >= 99.9 && income_against_outcome <= 9999)
-    {
+    if (income_against_outcome >= 99.9 && income_against_outcome <= 9999) {
         arrow_color = 'rgba(231, 76, 60, 1)';
         arrow_position_in_circle = [1, 1.0]
         income_outcome_precent.style.color = '#E74C3C';
@@ -685,5 +721,5 @@ function intcomma(number) {
     }
 
     // Concatenate the integer and decimal parts
-    return  formattedInteger + decimalPart;
+    return formattedInteger + decimalPart;
 }

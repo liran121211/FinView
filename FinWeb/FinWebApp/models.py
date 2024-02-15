@@ -38,6 +38,12 @@ def SpentByCategoryQuery(username: Text):
     query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
     return pd.DataFrame(query, columns=cols_names).to_dict()
 
+def BankTransactionByCategoryQuery(username: Text):
+    cols_names = ['transaction_category', 'total_amount',]
+
+    query = FIN_CORE.ask['total_transaction_amount_by_bank_category'](username=username)
+    return pd.DataFrame(query, columns=cols_names).to_dict()
+
 
 def SpentByCardNumberQuery(username: Text):
     cols_names = ['last_4_digits', 'issuer_name', 'total_amount',]
