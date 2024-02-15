@@ -789,7 +789,7 @@ uhyiv
 
 .tables-separator-horizontal {
     position: initial;
-    margin-right: 40px;
+
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -852,12 +852,20 @@ uhyiv
 /* ----------------- Subscription & Direct Debit CSS ----------------- */
 
 .subscriptions-direct-debit-section {
-    margin-right: 20px;
+    direction: rtl;
 }
 
 #subscriptions-table {
     width: 100%;
     border-collapse: collapse;
+}
+
+.subscriptions-tbody {
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    display: block;
+    direction: ltr;
 }
 
 #subscriptions-table tr:nth-child(even) {
@@ -867,6 +875,10 @@ uhyiv
     text-align: right;
     color: #4C495A;
     background-color: #4BC0C0;
+}
+
+#subscriptions-table tr:nth-child(odd) {
+    font-family: 'Gan', sans-serif;
 }
 
 #subscriptions-table th {
@@ -880,16 +892,15 @@ uhyiv
 
 .subscription-name-col {
     border-bottom: 1px solid #ddd;
-    padding: 5px;
+    padding-left: 94px;
     text-align: left;
 }
 
 .subscription-price-col {
     border-bottom: 1px solid #ddd;
-    padding: 5px;
+    padding-left: 25px;
+    padding-bottom: 5px;
     text-align: right;
-    background-repeat: no-repeat; /* Do not repeat the background image */
-    background-size: 35px;
 }
 
 .subscription-name-div {
@@ -897,6 +908,7 @@ uhyiv
     font-size: 18px;
     color: #4C495A;
     text-align: right;
+    padding: 5px;
 }
 
 .subscription-price-div {
@@ -910,7 +922,14 @@ uhyiv
 #direct-debit-table {
     width: 100%;
     border-collapse: collapse;
-    margin-right: 100px; /* Adjust as needed */
+}
+
+.direct-debit-tbody {
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    display: block;
+    direction: ltr;
 }
 
 #direct-debit-table tr:nth-child(even) {
@@ -919,7 +938,11 @@ uhyiv
     padding-bottom: 10px;
     text-align: right;
     color: #4C495A;
-    background-color: #ff6384;
+    background-color: #FF6384;
+}
+
+#direct-debit-table tr:nth-child(odd) {
+    font-family: 'Gan', sans-serif;
 }
 
 #direct-debit-table th {
@@ -933,16 +956,15 @@ uhyiv
 
 .direct-debit-name-col {
     border-bottom: 1px solid #ddd;
-    padding: 5px;
+    padding-left: 70px;
     text-align: left;
 }
 
 .direct-debit-price-col {
     border-bottom: 1px solid #ddd;
-    padding: 5px;
+    padding-left: 25px;
+    padding-bottom: 5px;
     text-align: right;
-    background-repeat: no-repeat; /* Do not repeat the background image */
-    background-size: 35px;
 }
 
 .direct-debit-name-div {
@@ -950,6 +972,7 @@ uhyiv
     font-size: 18px;
     color: #4C495A;
     text-align: right;
+    padding: 5px;
 }
 
 .direct-debit-price-div {
@@ -957,10 +980,6 @@ uhyiv
     font-size: 18px;
     color: #4C495A;
     text-align: left;
-}
-
-.subscriptions-direct-debit-section {
-    margin-right: 20px;
 }
 
 

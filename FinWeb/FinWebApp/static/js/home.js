@@ -537,9 +537,11 @@ document.addEventListener('DOMContentLoaded', function () {
         subscription_price_col.appendChild(subscription_price_div);
         subscription_name_col.appendChild(subscription_name_div);
 
+
         // Append the cell to the row
         subscription_row.appendChild(subscription_price_col);
         subscription_row.appendChild(subscription_name_col);
+
 
         // Append the row to the table body
         tableBody.appendChild(subscription_row);
