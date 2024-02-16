@@ -53,6 +53,10 @@ class Users:
                               key=user_id
                               )
 
+    def retrieve_user_record(self, username: Text) -> List:
+        first_name_idx, last_name_idx = 5, 6
+        return self.db.retrieve_record(table_name='auth_user', column='username', value=username, specific_indexes=[first_name_idx, last_name_idx])
+
     def is_primary_key_exist(self, primary_key: int) -> int:
         return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
 
@@ -79,7 +83,7 @@ class CreditCardsTransactions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_credit_card_transactions] required_columns.")
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
@@ -103,7 +107,7 @@ class CreditCardsTransactions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_credit_card_transactions] required_columns.")
                 return SQL_QUERY_FAILED
 
         # validate username existence upon modifying.
@@ -124,7 +128,7 @@ class CreditCardsTransactions:
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
-            self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
+            self.logger.critical(f"Column: [sha1_identifier], is not part of the [user_credit_card_transactions] required_columns.")
             return SQL_QUERY_FAILED
 
         if not self.is_primary_key_exist(primary_key=sha1_identifier):
@@ -161,7 +165,7 @@ class BankTransactions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_bank_transactions] required_columns.")
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
@@ -185,7 +189,7 @@ class BankTransactions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_bank_transactions] required_columns.")
                 return SQL_QUERY_FAILED
 
         # validate username existence upon modifying.
@@ -206,7 +210,7 @@ class BankTransactions:
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
-            self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
+            self.logger.critical(f"Column: [sha1_identifier], is not part of the [user_bank_transactions] required_columns.")
             return SQL_QUERY_FAILED
 
         if not self.is_primary_key_exist(primary_key=sha1_identifier):
@@ -243,7 +247,7 @@ class UserInformation:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_information] required_columns.")
                 return SQL_QUERY_FAILED
 
         if self.is_primary_key_exist(primary_key=record_data['username']):
@@ -260,7 +264,7 @@ class UserInformation:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_information] required_columns.")
                 return SQL_QUERY_FAILED
 
         # validate username existence upon modifying.
@@ -332,7 +336,7 @@ class UserDirectDebitSubscriptions:
         # validate transaction columns
         for k, _ in record_data.items():
             if k not in required_columns:
-                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                self.logger.critical(f"Column: [{k}], is not part of the [user_direct_debit_subscriptions] required_columns.")
                 return SQL_QUERY_FAILED
 
         # validate username existence upon modifying.
@@ -350,7 +354,7 @@ class UserDirectDebitSubscriptions:
 
         # validate transaction columns
         if 'sha1_identifier' not in required_columns:
-            self.logger.critical(f"Column: [sha1_identifier], is not part of the required_columns")
+            self.logger.critical(f"Column: [sha1_identifier], is not part of the [user_direct_debit_subscriptions] required_columns.")
             return SQL_QUERY_FAILED
 
         if not self.is_primary_key_exist(primary_key=sha1_identifier):
@@ -364,10 +368,82 @@ class UserDirectDebitSubscriptions:
     def is_primary_key_exist(self, primary_key: Any) -> int:
         return self.db.is_value_exists(table_name='user_direct_debit_subscriptions', column_name='sha1_identifier', value=primary_key)
 
+class UserCards:
+    def __init__(self):
+        self.logger = Logger
+        self.db = PostgreSQL_DB
+
+    def add_card(self, record_data: Dict, username: Text) -> int:
+        required_columns = self.db.fetch_columns('user_cards')
+
+        # validate username existence upon adding.
+        if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
+            return RECORD_NOT_EXIST
+
+        # add username as foreign key ( Many->One).
+        required_columns.append('username')
+        record_data['username'] = username
+
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the [user_cards] required_columns.")
+                return SQL_QUERY_FAILED
+
+        # calculate sha1 value for new added record.
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
+
+        if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+            return RECORD_EXIST
+        try:
+            self.db.add_record(table_name='user_cards', record_data=record_data)
+        except InvalidDatetimeFormat as e:
+            self.logger.exception(e)
+            return SQL_QUERY_FAILED
+
+    def modify_card(self, record_data: dict) -> int:
+        required_columns = self.db.fetch_columns('user_cards')
+
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the [user_cards] required_columns.")
+                return SQL_QUERY_FAILED
+
+        # validate username existence upon modifying.
+        if not self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+            return RECORD_NOT_EXIST
+
+        self.db.modify_record(table_name='user_cards',
+                              record_data=record_data,
+                              column_key='sha1_identifier',
+                              key=record_data['sha1_identifier']
+                              )
+
+    def delete_card(self, sha1_identifier: Text) -> int:
+        required_columns = self.db.fetch_columns('user_cards')
+
+        # validate transaction columns
+        if 'sha1_identifier' not in required_columns:
+            self.logger.critical(f"Column: [sha1_identifier], is not part of the [user_cards] required_columns.")
+            return SQL_QUERY_FAILED
+
+        if not self.is_primary_key_exist(primary_key=sha1_identifier):
+            return RECORD_NOT_EXIST
+
+        self.db.delete_record(table_name='user_cards',
+                              column_key='sha1_identifier',
+                              key=sha1_identifier
+                              )
+
+    def is_primary_key_exist(self, primary_key: Any) -> int:
+        return self.db.is_value_exists(table_name='user_cards', column_name='sha1_identifier', value=primary_key)
+
 
 class Application:
     def __init__(self):
         self.__manage_users = Users()
+        self.__manage_user_cards = UserCards()
         self.__manage_credit_cards_transactions = CreditCardsTransactions()
         self.__manage_bank_transactions = BankTransactions()
         self.__manage_user_information = UserInformation()
@@ -400,6 +476,14 @@ class Application:
                             }
                             self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
 
+                        current_card_record = {
+                            'last_4_digits':            row['last_4_digits'],
+                            'card_type':                row['card_type'],
+                            'issuer_name':              row['transaction_provider'],
+                            'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
+                            }
+                        self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
+
                 if root.split(os.path.sep)[-1] == 'Max':
                     max_data = MaxParser(file_path=os.path.join(root, filename)).parse()
 
@@ -424,6 +508,14 @@ class Application:
                             }
                             self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
 
+                        current_card_record = {
+                            'last_4_digits':            row['last_4_digits'],
+                            'card_type':                row['card_type'],
+                            'issuer_name':              row['transaction_provider'],
+                            'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
+                            }
+                        self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
+
                 if root.split(os.path.sep)[-1] == 'Leumi':
                     leumi_data = LeumiParser(file_path=os.path.join(root, filename)).parse()
 
@@ -447,6 +539,14 @@ class Application:
                                 'provider_name':        row['business_name'],
                             }
                             self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
+
+                        current_card_record = {
+                            'last_4_digits':            row['last_4_digits'],
+                            'card_type':                row['card_type'],
+                            'issuer_name':              row['transaction_provider'],
+                            'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
+                            }
+                        self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'BankLeumi':
                     bank_leumi_data = BankLeumiParser(file_path=os.path.join(root, filename))

@@ -440,21 +440,34 @@ document.addEventListener("DOMContentLoaded", function () {
     if (income_against_outcome >= 0 && income_against_outcome <= 33.3) {
         arrow_color = 'rgba(46, 204, 113, 1)';
         arrow_position_in_circle = [250, 10];
+        document.querySelector('.income-outcome-half-doughnut-percent').textContent = intcomma((income_against_outcome).toFixed(2).toLocaleString()) + '%';
     }
     if (income_against_outcome >= 33.3 && income_against_outcome <= 66.6) {
         arrow_color = 'rgba(255, 164, 46, 1)';
         arrow_position_in_circle = [11, 0.5];
+        document.querySelector('.income-outcome-half-doughnut-percent').textContent = intcomma((income_against_outcome).toFixed(2).toLocaleString()) + '%';
     }
 
     if (income_against_outcome >= 66.6 && income_against_outcome <= 99.9) {
         arrow_color = 'rgba(231, 76, 60, 1)';
         arrow_position_in_circle = [1, 0.5];
+        document.querySelector('.income-outcome-half-doughnut-percent').textContent = intcomma((income_against_outcome).toFixed(2).toLocaleString()) + '%';
     }
 
     if (income_against_outcome >= 99.9 && income_against_outcome <= 9999) {
         arrow_color = 'rgba(231, 76, 60, 1)';
         arrow_position_in_circle = [1, 1.0]
         income_outcome_precent.style.color = '#E74C3C';
+        document.querySelector('.income-outcome-half-doughnut-percent').textContent = intcomma((income_against_outcome).toFixed(2).toLocaleString()) + '%';
+    }
+
+    if (income_against_outcome === -1) {
+        arrow_color = 'rgba(46, 204, 113, 1)';
+        arrow_position_in_circle = [250, 10];
+        document.querySelector('.income-outcome-half-doughnut-title-2').textContent = 'לא קיימים נתונים לחודש הנוכחי';
+        document.querySelector('.income-outcome-half-doughnut-title-2').style.fontSize = '20px';
+        document.querySelector('.income-outcome-half-doughnut-percent').textContent = '0.0%';
+
     }
 
 
@@ -625,11 +638,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Chose Card Type logo
         let card_type_logo = '';
-        if (user_cards.card_type[i] === 'VISA') {
+        if (user_cards.card_type[i] === 'Visa')
             card_type_logo = '<img class="logo" src="static/images/visa_logo.svg" alt="Card Type Logo">';
-        } else {
-            card_type_logo = '<img class="logo" src="static/images/mastercard_logo.svg" alt="NFC Logo">'
-        }
+
+        if (user_cards.card_type[i] === 'MasterCard')
+            card_type_logo = '<img class="logo" src="static/images/mastercard_logo.svg" alt="Card Type Logo">';
+
+        if (user_cards.card_type[i] === 'Unknown')
+            card_type_logo = '<img class="logo" src="static/images/unknown_card_type_logo.svg" alt="Card Type Logo" width="15px" height="15px">';
 
         // Set the HTML content for the "cards-group" div
         new_card.innerHTML = `

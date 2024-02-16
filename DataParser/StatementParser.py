@@ -77,7 +77,7 @@ class LeumiParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
 
         # extract last 4 digits
         last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
@@ -88,7 +88,7 @@ class LeumiParser(Parser, ABC):
                     if len(matches) > 0 and 'לכרטיס' in val.split():
                         last_4_digits = matches[0]
 
-        temp_df = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
+        temp_df = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
         date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 2, 3, 5
         first_idx = self.retrieve_first_index()
         last_idx = self.retrieve_last_index(first_idx)
@@ -124,6 +124,7 @@ class LeumiParser(Parser, ABC):
                     'total_amount':         column.iloc[total_amount_idx],
                     'last_4_digits':        last_4_digits,
                     'transaction_provider': 'Leumi',
+                    'card_type':            'Unknown',
                 }
                 temp_df.loc[len(temp_df)] = pd.Series(data)
 
@@ -155,19 +156,22 @@ class CalOnlineParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type' 'category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
         date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
+        # extract last 4 card digits from file
         if len(self.data.keys()) > 0:
             last_4_digits = re.findall(r'\b\d{4}\b', self.data.keys()[0])
+            card_type = 'Visa' if 'ויזה' in self.data.keys()[0] else 'MasterCard' if 'מאסטרקארד' in self.data.keys()[0] else 'Unknown'
 
             if len(last_4_digits) > 0:
                 last_4_digits = last_4_digits[0]
         else:
             last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
+            card_type = 'Unknown'
 
         for idx, column in self.data.iterrows():
             try:
@@ -194,6 +198,7 @@ class CalOnlineParser(Parser, ABC):
                     'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
                     'total_amount':         column.iloc[total_amount_idx],
                     'last_4_digits':        last_4_digits,
+                    'card_type':            card_type,
                     'transaction_provider': 'Cal Online',
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
@@ -226,10 +231,10 @@ class MaxParser(Parser, ABC):
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
-            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'category'])
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits','card_type', 'category'])
         date_of_transaction_idx, business_name_idx, last_4_digits, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 5, 10, 7
 
         for idx, column in self.data.iterrows():
@@ -261,6 +266,7 @@ class MaxParser(Parser, ABC):
                     'transaction_type':     self.extract_transaction_type(column.iloc[transaction_type_idx]),
                     'total_amount':         column.iloc[total_amount_idx],
                     'transaction_provider': 'Max',
+                    'card_type':            'Unknown',
                 }
                 info_rows.loc[len(info_rows)] = pd.Series(data)
 
