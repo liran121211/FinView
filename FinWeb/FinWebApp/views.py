@@ -200,6 +200,7 @@ def retrieve_user_credit_card_transactions(username: Text) -> dict:
 
     return dict_data
 
+
 def retrieve_user_bank_transactions(username: Text, positive_only: bool) -> dict:
     if positive_only:
         filtered_data = UserBankTransactions.objects.filter(username=username, income_balance__gt=0).all()

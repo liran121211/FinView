@@ -15,7 +15,7 @@ FILE_HANDLER = logging.FileHandler(os.path.join(PROJECT_ROOT, os.path.join('Data
 FILE_HANDLER.setLevel(logging.DEBUG)
 FILE_HANDLER.setFormatter(FORMATTER)
 
-# init scope level Logger.
+# Init scope level Logger.
 Logger = logging.getLogger(__name__)
 Logger.addHandler(FILE_HANDLER)
 Logger.setLevel(logging.DEBUG)
@@ -24,7 +24,6 @@ Logger.setLevel(logging.DEBUG)
 INVALID_INDEX = -1
 BANK_DUMMY_ACCOUNT_NUMBER = '000-0000/00'
 CREDIT_CARD_DUMMY_LAST_4_DIGITS = 0000
-
 
 # Transaction Types
 REGULAR_PAYMENT = 'עסקה רגילה'

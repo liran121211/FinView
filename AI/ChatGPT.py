@@ -1,9 +1,10 @@
 import g4f
 import requests
-from typing import Text
+from typing import Text, Any
 from bs4 import BeautifulSoup
 
-def google_query_description(query: Text):
+
+def google_query_description(query: Text) -> Any:
     try:
         # Perform Google search
         url = f"https://www.google.com/search?q={query}"
@@ -24,7 +25,7 @@ def google_query_description(query: Text):
         return None
 
 
-def send_chatgpt_4_prompt(query: Text):
+def send_chatgpt_4_prompt(query: Text) -> Any:
     messages = [{"role": "system", "content": query}, ]
 
     response = g4f.ChatCompletion.create(

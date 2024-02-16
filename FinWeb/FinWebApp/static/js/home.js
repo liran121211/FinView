@@ -661,7 +661,7 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(new_card);
     }
 
-    // scroll credit cards grid
+    // set scroll bar credit cards grid
     container.addEventListener('wheel', (e) => {
       container.scrollTo({
         top: container.scrollTop + e.deltaY,

@@ -6,6 +6,7 @@ from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser
 from FinCore import *
 
+
 class Users:
     def __init__(self):
         self.logger = Logger
@@ -29,7 +30,7 @@ class Users:
                                'date_joined': datetime.today()
                            })
 
-    def modify_user(self, user_id: int, username: Text, password: Text):
+    def modify_user(self, user_id: int, username: Text, password: Text) -> int:
         if not self.is_primary_key_exist(primary_key=user_id):
             return RECORD_NOT_EXIST
 
@@ -43,7 +44,7 @@ class Users:
                               key=user_id
                               )
 
-    def delete_user(self, user_id: int):
+    def delete_user(self, user_id: int) -> int:
         if not self.is_primary_key_exist(primary_key=user_id):
             return RECORD_NOT_EXIST
 
@@ -52,10 +53,10 @@ class Users:
                               key=user_id
                               )
 
-    def is_primary_key_exist(self, primary_key: int):
+    def is_primary_key_exist(self, primary_key: int) -> int:
         return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
 
-    def is_user_exist(self, username: Text):
+    def is_user_exist(self, username: Text) -> int:
         return self.db.is_value_exists(table_name='auth_user', column_name='username', value=username)
 
 
@@ -64,7 +65,7 @@ class CreditCardsTransactions:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_transaction(self, record_data: Dict, username: Text):
+    def add_transaction(self, record_data: Dict, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate username existence upon adding.
@@ -96,7 +97,7 @@ class CreditCardsTransactions:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
-    def modify_transaction(self, record_data: Dict, transaction_id: Text):
+    def modify_transaction(self, record_data: Dict, transaction_id: Text) -> int:
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate transaction columns
@@ -118,7 +119,7 @@ class CreditCardsTransactions:
                               key=transaction_id
                               )
 
-    def delete_transaction(self, sha1_identifier: Text):
+    def delete_transaction(self, sha1_identifier: Text) -> int:
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
 
         # validate transaction columns
@@ -134,7 +135,7 @@ class CreditCardsTransactions:
                               key=sha1_identifier
                               )
 
-    def is_primary_key_exist(self, primary_key: Text):
+    def is_primary_key_exist(self, primary_key: Text) -> int:
         return self.db.is_value_exists(table_name='user_credit_card_transactions', column_name='sha1_identifier', value=primary_key)
 
     def transaction_query(self, sql_query: Text) -> List:
@@ -146,7 +147,7 @@ class BankTransactions:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_transaction(self, record_data: Dict, username: Text):
+    def add_transaction(self, record_data: Dict, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_bank_transactions')
 
         # validate username existence upon adding.
@@ -178,7 +179,7 @@ class BankTransactions:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
-    def modify_transaction(self, record_data: Dict, sha1_identifier: Text):
+    def modify_transaction(self, record_data: Dict, sha1_identifier: Text) -> int:
         required_columns = self.db.fetch_columns('user_bank_transactions')
 
         # validate transaction columns
@@ -200,7 +201,7 @@ class BankTransactions:
                               key=sha1_identifier
                               )
 
-    def delete_transaction(self, sha1_identifier: Text):
+    def delete_transaction(self, sha1_identifier: Text) -> int:
         required_columns = self.db.fetch_columns('user_bank_transactions')
 
         # validate transaction columns
@@ -216,7 +217,7 @@ class BankTransactions:
                               key=sha1_identifier
                               )
 
-    def is_primary_key_exist(self, primary_key: Text):
+    def is_primary_key_exist(self, primary_key: Text) -> int:
         return self.db.is_value_exists(table_name='user_bank_transactions', column_name='sha1_identifier', value=primary_key)
 
     def transaction_query(self, sql_query: Text) -> List:
@@ -253,7 +254,7 @@ class UserInformation:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
-    def modify_information(self, record_data: Dict, username: Text):
+    def modify_information(self, record_data: Dict, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_information')
 
         # validate transaction columns
@@ -272,7 +273,7 @@ class UserInformation:
                               key=username
                               )
 
-    def delete_information(self, username: Text):
+    def delete_information(self, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_information')
 
         # validate transaction columns
@@ -288,7 +289,7 @@ class UserInformation:
                               key=username
                               )
 
-    def is_primary_key_exist(self, primary_key: Any):
+    def is_primary_key_exist(self, primary_key: Any) -> int:
         return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
 
 
@@ -297,7 +298,7 @@ class UserDirectDebitSubscriptions:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_direct_debit_or_subscription(self, record_data: Dict, username: Text):
+    def add_direct_debit_or_subscription(self, record_data: Dict, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_direct_debit_subscriptions')
 
         # validate username existence upon adding.
@@ -325,14 +326,26 @@ class UserDirectDebitSubscriptions:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
 
-    def modify_direct_debit_or_subscription(self, record_data: dict):
+    def modify_direct_debit_or_subscription(self, record_data: dict) -> int:
+        required_columns = self.db.fetch_columns('user_direct_debit_subscriptions')
+
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the required_columns.")
+                return SQL_QUERY_FAILED
+
+        # validate username existence upon modifying.
+        if not self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
+            return RECORD_NOT_EXIST
+
         self.db.modify_record(table_name='user_direct_debit_subscriptions',
                               record_data=record_data,
                               column_key='sha1_identifier',
                               key=record_data['sha1_identifier']
                               )
 
-    def delete_direct_debit_or_subscription(self, sha1_identifier: Text):
+    def delete_direct_debit_or_subscription(self, sha1_identifier: Text) -> int:
         required_columns = self.db.fetch_columns('user_direct_debit_subscriptions')
 
         # validate transaction columns
@@ -348,7 +361,7 @@ class UserDirectDebitSubscriptions:
                               key=sha1_identifier
                               )
 
-    def is_primary_key_exist(self, primary_key: Any):
+    def is_primary_key_exist(self, primary_key: Any) -> int:
         return self.db.is_value_exists(table_name='user_direct_debit_subscriptions', column_name='sha1_identifier', value=primary_key)
 
 

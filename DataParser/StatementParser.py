@@ -1,10 +1,9 @@
+import pandas as pd
 import datetime
 import os.path
 import re
-from typing import AnyStr, Any
-import pandas as pd
-import requests
 from abc import ABC, abstractmethod
+from typing import AnyStr, Any
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
 from DataParser import *
@@ -25,47 +24,7 @@ class Parser:
             self.is_valid = False
 
     @staticmethod
-    def is_string_in_hebrew(value):
-        try:
-            hebrew_chars = set(range(0x0590, 0x05FF + 1))
-            contains_hebrew = any(ord(char) in hebrew_chars for char in value)
-
-            if contains_hebrew:
-                return value[::-1]
-            else:
-                return value
-
-        except TypeError:
-            return value
-
-    @staticmethod
-    def get_business_category(business_name):
-        base_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
-        api_key = "AIzaSyAxcSgbrcJL7ucJ8bTfagIf27952bhj0xM"
-        params = {
-            "key": api_key,
-            "input": business_name,
-            "inputtype": "textquery",
-            "fields": "name,types"
-        }
-
-        response = requests.get(base_url, params=params)
-        data = response.json()
-
-        if data.get("candidates"):
-            first_candidate = data["candidates"][0]
-            # business_name = first_candidate.get("name", "Unknown Business")
-            business_types = first_candidate.get("types", [])
-
-            if business_types:
-                return business_types
-            else:
-                return []
-
-        return []
-
-    @staticmethod
-    def is_xlsx_file(file_path):
+    def is_xlsx_file(file_path: AnyStr) -> bool:
         try:
             # Try to load the file with openpyxl
             load_workbook(file_path)
@@ -84,35 +43,6 @@ class Parser:
     @abstractmethod
     def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
         pass
-
-    def define_missing_category(self, temp_df):
-        categories = {'1': 'ציוד לבית ולמשרד',
-                      '2': 'אוכל',
-                      '3': 'פנאי ובידור',
-                      '4': 'עמלות',
-                      '5': 'קוסמטיקה ופארם',
-                      '6': 'ביגוד',
-                      '7': 'שירותי תקשורת',
-                      '8': 'ממשלה ועירייה',
-                      '9': 'שונות',
-                      }
-
-        temp_df['category'] = pd.Series()
-
-        for idx, row in temp_df.iterrows():
-            print(f"Business Category: {row['business_name']}")
-            print(
-                "1.Home Equipment | 2. Food | 3.Entertainment | 4. Fees | 5.Cosmetic and Pharmacy | 6.Clothes | 7. Communication | 8. Goverment and Municipality | 9. Misc")
-
-            answer = categories[input(str("Answer (1-9): "))]
-            temp_df.loc[idx:idx, ['category']] = self.is_string_in_hebrew(answer)
-            os.system('cls' if os.name == 'nt' else 'clear')
-
-        output_path = os.path.basename(self.__file_absolute_path)[:-5]
-        output_path = output_path + '_parsed.xlsx'
-        temp_df.to_excel(os.path.join(PROJECT_ROOT, fr'files\Output\{output_path}'))
-
-        return temp_df
 
     @property
     def data(self):
@@ -202,7 +132,7 @@ class LeumiParser(Parser, ABC):
 
         return temp_df.iloc[first_idx: last_idx]
 
-    def extract_transaction_type(self, transaction_type: AnyStr)-> AnyStr:
+    def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
         if transaction_type == REGULAR_PAYMENT:
             return REGULAR_PAYMENT
 

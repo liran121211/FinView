@@ -1,5 +1,3 @@
-
-
 CREDIT_CARD_TRANSACTIONS_CATEGORIES = {
     '1': 'ביטוח',
     '2': 'מזון וצריכה',
