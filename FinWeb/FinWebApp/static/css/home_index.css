@@ -509,14 +509,22 @@ direction: ltr;
 }
 
 /* ----------------- Credit Cards Panel ----------------- */
-.cards-group {
-display: flex;
-margin: 10px;
-}
-
 .credit-cards h2 {
 margin-right: 10px;
 color: #4C495A;
+}
+
+.cards-group {
+display: grid;
+grid-template-columns: repeat(2, 1fr); /* Two columns */
+grid-auto-rows: 150px; /* Automatically adjust row height */
+grid-row-gap: 15px; /* Adjust the gap between grid items in the column direction */
+max-height: 150px; /* Adjust the maximum height as needed */
+overflow-y:hidden;
+overflow-x: hidden; /* Hide horizontal scrollbar */
+scrollbar-width: thin;
+direction: rtl;
+margin: 10px;
 }
 
 .no-cards-title {

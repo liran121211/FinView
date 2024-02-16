@@ -660,6 +660,14 @@ document.addEventListener('DOMContentLoaded', function () {
         // Append the "cards-group" div to the container
         container.appendChild(new_card);
     }
+
+    // scroll credit cards grid
+    container.addEventListener('wheel', (e) => {
+      container.scrollTo({
+        top: container.scrollTop + e.deltaY,
+        behavior: 'smooth'
+      });
+});
 });
 
 /* ----------------------- Misc Functions ----------------------- */
