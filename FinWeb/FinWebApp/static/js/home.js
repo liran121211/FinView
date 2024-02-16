@@ -527,21 +527,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const subscription_name_div = document.createElement('div');
 
         // Set content and styling
-        subscription_price_div.textContent = '- ₪' + intcomma(user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString());
+        subscription_price_div.textContent = '₪' + intcomma(user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString());
         subscription_price_div.classList.add('subscription-price-div'); // Add the class for styling
 
         subscription_name_div.textContent = user_direct_debit_subscriptions.provider_name[i];
         subscription_name_div.classList.add('subscription-name-div'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
-        subscription_price_col.appendChild(subscription_price_div);
         subscription_name_col.appendChild(subscription_name_div);
-
+        subscription_price_col.appendChild(subscription_price_div);
 
         // Append the cell to the row
-        subscription_row.appendChild(subscription_price_col);
         subscription_row.appendChild(subscription_name_col);
-
+        subscription_row.appendChild(subscription_price_col);
 
         // Append the row to the table body
         tableBody.appendChild(subscription_row);
@@ -579,19 +577,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Set content and styling
-        direct_debit_price_div.textContent = '- ₪' + intcomma(user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString());
+        direct_debit_price_div.textContent = '₪' + intcomma(user_direct_debit_subscriptions.amount[i].toFixed(2).toLocaleString());
         direct_debit_price_div.classList.add('direct-debit-price-div'); // Add the class for styling
 
         direct_debit_name_div.textContent = user_direct_debit_subscriptions.provider_name[i];
         direct_debit_name_div.classList.add('direct-debit-name-div'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
-        direct_debit_price_col.appendChild(direct_debit_price_div);
         direct_debit_name_col.appendChild(direct_debit_name_div);
+        direct_debit_price_col.appendChild(direct_debit_price_div);
 
         // Append the cell to the row
-        direct_debit_row.appendChild(direct_debit_price_col);
         direct_debit_row.appendChild(direct_debit_name_col);
+        direct_debit_row.appendChild(direct_debit_price_col);
 
         // Append the row to the table body
         tableBody.appendChild(direct_debit_row);

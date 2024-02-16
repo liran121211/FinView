@@ -2204,3 +2204,36 @@ psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer
 LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
                                                          ^
 
+2024-02-16 08:51:10,574 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-16 08:51:15,969 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 198, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-16 08:51:16,055 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 08:51:16,080 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 08:51:16,102 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 08:51:17,638 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:29,807 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-16 10:05:30,989 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 198, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-16 10:05:31,072 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:31,079 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:31,104 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:31,122 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:32,460 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:32,467 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-16 10:05:32,473 - INFO - Successfully added a new record to PostgreSQL database.
