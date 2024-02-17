@@ -1,8 +1,14 @@
 /* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
+    // check if [user_outcome] was empty
+    const empty_transactions_title = document.querySelector('#empty-transactions-description');
+    if (Object.keys(user_outcome).length === 0) {
+        empty_transactions_title.textContent = 'לא נמצאו הוצאות אחרונות';
+        return;
+    }
+
     // Get the table body
     const tableBody = document.querySelector('#transactions-table tbody');
-    const category_logo = document.querySelector('#transaction_description_col');
 
     // Clear any existing content
     tableBody.innerHTML = '';
@@ -99,6 +105,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- Income Table -----------------------*/
 document.addEventListener("DOMContentLoaded", function () {
+    // check if [user_income] was empty
+    const empty_income_title = document.querySelector('#empty-income-description');
+    if (Object.keys(user_income).length === 0) {
+        empty_income_title.textContent = 'לא נמצאו הכנסות אחרונות';
+        return;
+    }
+
     // Get the table body
     const tableBody = document.querySelector('#income-table tbody');
 
@@ -268,16 +281,25 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Configuration options for the doughnut chart
+    let spent_by_category_title = 'הוצאות לפי קטגוריה';
+    let spent_by_category_font_color = '#4C495A';
+    let spent_by_category_font_size = 22;
+    if (Object.keys(spent_by_category['category']).length === 0) {
+        spent_by_category_title = spent_by_category_title + ' (מידע לא זמין)';
+        spent_by_category_font_color = '#C6C6C6';
+        spent_by_category_font_size = 18;
+    }
+
     const spent_by_category_config = {
         type: 'outlabeledPie',
         data: spent_by_category_data,
         options: {
             title: {
                 display: true,
-                text: 'הוצאות לפי קטגוריה',
-                fontSize: 25,
-                fontColor: '#4C495A',
-                fontFamily: 'Gan',
+                text: spent_by_category_title,
+                fontSize: spent_by_category_font_size,
+                fontColor: spent_by_category_font_color,
+                fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
             zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
@@ -307,16 +329,25 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Configuration options for the doughnut chart
+    let spent_by_card_title = 'הוצאות לפי כרטיס';
+    let spent_by_card_font_color = '#4C495A';
+    let spent_by_card_font_size = 22;
+    if (Object.keys(spent_by_category['category']).length === 0) {
+        spent_by_card_title = spent_by_card_title + ' (מידע לא זמין)';
+        spent_by_card_font_color = '#C6C6C6';
+        spent_by_card_font_size = 18;
+    }
+
     const spent_by_card_config = {
         type: 'outlabeledPie',
         data: spent_by_card_data,
         options: {
             title: {
                 display: true,
-                text: 'הוצאות לפי כרטיס',
-                fontSize: 25,
-                fontColor: '#4C495A',
-                fontFamily: 'Gan',
+                text: spent_by_card_title,
+                fontSize: spent_by_card_font_size,
+                fontColor: spent_by_card_font_color,
+                fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
             zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
@@ -345,17 +376,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
-    // Configuration options for the doughnut chart
+    let bank_transaction_by_category_title = 'תנועות בנק לפי קטגוריה';
+    let bank_transaction_by_category_font_color = '#4C495A';
+    let bank_transaction_by_category_font_size = 22;
+    if (Object.keys(spent_by_category['category']).length === 0) {
+        bank_transaction_by_category_title = bank_transaction_by_category_title + ' (מידע לא זמין)';
+        bank_transaction_by_category_font_color = '#C6C6C6';
+        bank_transaction_by_category_font_size = 18;
+    }
+
     const bank_transaction_by_category_config = {
         type: 'outlabeledPie',
         data: bank_transaction_by_category_data,
         options: {
             title: {
                 display: true,
-                text: ',תנועות בנק לפי קטגוריה',
-                fontSize: 25,
-                fontColor: '#4C495A',
-                fontFamily: 'Gan',
+                text: bank_transaction_by_category_title,
+                fontSize: bank_transaction_by_category_font_size,
+                fontColor: bank_transaction_by_category_font_color,
+                fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
             zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
@@ -464,10 +503,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (income_against_outcome === -1) {
         arrow_color = 'rgba(46, 204, 113, 1)';
         arrow_position_in_circle = [250, 10];
-        document.querySelector('.income-outcome-half-doughnut-title-2').textContent = 'לא קיימים נתונים לחודש הנוכחי';
-        document.querySelector('.income-outcome-half-doughnut-title-2').style.fontSize = '20px';
+        document.querySelector('.income-outcome-half-doughnut-title-2').style.display = 'none';
+        document.querySelector('.income-outcome-half-doughnut-no-data-title').textContent = 'לא קיימים נתונים לחודש הנוכחי';
         document.querySelector('.income-outcome-half-doughnut-percent').textContent = '0.0%';
-
     }
 
 
@@ -513,6 +551,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* ----------------------- Subscription & Direct Debit Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
+    // check if [user_subscriptions] was empty
+    const empty_subscriptions_title = document.querySelector('#empty-subscriptions-description');
+    if (Object.keys(user_direct_debit_subscriptions).length === 0) {
+        empty_subscriptions_title.textContent = 'לא נמצאו תשלומים פעילים';
+        return;
+    }
+
     // Get the table body
     const tableBody = document.querySelector('#subscriptions-table tbody');
 
@@ -561,6 +606,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    // check if [user_subscriptions] was empty
+    const empty_direct_debit_title = document.querySelector('#empty-direct-debit-description');
+    if (Object.keys(user_direct_debit_subscriptions).length === 0) {
+        empty_direct_debit_title.textContent = 'לא נמצאו הוראות קבע פעילות';
+        return;
+    }
+
     // Get the table body
     const tableBody = document.querySelector('#direct-debit-table tbody');
 
@@ -615,15 +667,16 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
 
     // Get the container element
-    let container = document.querySelector('.cards-group');
+    const container = document.querySelector('.cards-group');
 
-    // check if at least 1 card has been found.
+    // check if no cards has been found.
     if (Object.keys(user_cards).length === 0) {
-        let no_cards_title = document.createElement('div');
-        no_cards_title.classList.add('no-cards-title');
-        no_cards_title.innerHTML = `<p> לא נמצאו כרטיסים פעילים :(</p>`;
-        container.appendChild(no_cards_title);
+        document.querySelector('.dashboard-container').style.marginTop = '-100px';
+        const no_cards_description = document.querySelector('#no-cards-description');
+        no_cards_description.textContent = ` לא נמצאו כרטיסים פעילים :(`;
         return;
+    } else {
+        document.querySelector('#no-cards-description').style.display = 'none';
     }
 
     // Define the number of times you want to duplicate the HTML
@@ -679,11 +732,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // set scroll bar credit cards grid
     container.addEventListener('wheel', (e) => {
-      container.scrollTo({
-        top: container.scrollTop + e.deltaY,
-        behavior: 'smooth'
-      });
-});
+        container.scrollTo({
+            top: container.scrollTop + e.deltaY,
+            behavior: 'smooth'
+        });
+    });
 });
 
 /* ----------------------- Misc Functions ----------------------- */

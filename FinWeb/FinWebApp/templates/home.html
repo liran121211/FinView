@@ -98,8 +98,7 @@
     <link rel="stylesheet" href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"/>
 
     <!-- Local CSS Files -->
-    <link rel="stylesheet" type="text/css" href=" {% static '/css/home_style.css' %} ">
-    <link rel="stylesheet" type="text/css" href=" {% static '/css/home_index.css' %} ">
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/home.css' %} ">
 
     <!-- Local JS Files -->
     <script src="{% static 'js/home.js' %}"></script>
@@ -143,11 +142,14 @@
                      class="home-image"/>
                 <div data-thq="thq-navbar-nav" class="home-desktop-menu">
                     <nav class="home-links">
-                        <span class="home-text04">#לא מוגדר#</span>
+                        <span class="home-text04">הגדרות</span>
                         <span class="home-text03">תקציב</span>
                         <span class="home-text02">ניתוח אנליטיקות/טרנדים</span>
                         <span class="home-text01">עסקאות</span>
-                        <span class="home-text">מבט על</span>
+                        <a href="{% url 'home_page' %}" class="home-link">
+                            <span class="home-text">מבט על</span>
+                        </a>
+
                     </nav>
                     <div class="home-buttons">
                         <button class="home-login button">התחברות</button>
@@ -201,6 +203,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <td>
+                            <p id="empty-subscriptions-description"></p>
+                        </td>
                         </tbody>
                     </table>
 
@@ -214,6 +219,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <td>
+                            <p id="empty-direct-debit-description"></p>
+                        </td>
                         </tbody>
                     </table>
                 </div>
@@ -224,6 +232,7 @@
                 <div class="income-outcome-half-doughnut">
                     <p class="income-outcome-half-doughnut-title">ניצול הכנסות כנגד הוצאות</p>
                     <p class="income-outcome-half-doughnut-title-2">חודש נוכחי</p>
+                    <p class="income-outcome-half-doughnut-no-data-title"></p>
                     <canvas id="income-outcome-half-doughnut-chart-1" width="600" height="400"></canvas>
                     <canvas id="income-outcome-half-doughnut-chart-2" width="600" height="400"></canvas>
                     <p class="income-outcome-half-doughnut-percent"></p>
@@ -260,7 +269,9 @@
                         <div class="quick-overview-doughnut-pie-carousel">
                             <ul>
                                 <li>
-                                    <canvas id="quick-overview-spent-by-category" width="500" height="500"></canvas>
+                                    <canvas id="quick-overview-spent-by-category" width="500" height="500">
+                                        <p id="empty-quick-overview-spent-by-category"></p>
+                                    </canvas>
                                 </li>
                                 <li>
                                     <canvas id="quick-overview-spent-by-card" width="500" height="500"></canvas>
@@ -304,6 +315,7 @@
                     <div class="credit-cards">
                         <h2>כרטיסים פעילים</h2>
                         <div class="cards-group">
+                                <p id="no-cards-description"></p>
                             <!--Cards Loaded By home.js -->
                         </div>
                     </div>
@@ -322,7 +334,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <td class="transaction_description_col"></td>
+                    <td class="transaction_description_col">
+                        <p id="empty-transactions-description"></p>
+                    </td>
+
                     <td class="transaction_amount_col"></td>
                     </tbody>
                 </table>
@@ -337,7 +352,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <td class="income_description_col"></td>
+                    <td class="income_description_col">
+                        <p id="empty-income-description"></p>
+                    </td>
                     <td class="income_amount_col"></td>
                     </tbody>
                 </table>

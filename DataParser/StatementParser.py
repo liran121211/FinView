@@ -162,16 +162,19 @@ class CalOnlineParser(Parser, ABC):
         info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
         date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
+        #assume data not found at first.
+        last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
+        card_type = 'Unknown'
+
         # extract last 4 card digits from file
         if len(self.data.keys()) > 0:
             last_4_digits = re.findall(r'\b\d{4}\b', self.data.keys()[0])
-            card_type = 'Visa' if 'ויזה' in self.data.keys()[0] else 'MasterCard' if 'מאסטרקארד' in self.data.keys()[0] else 'Unknown'
+            card_type = 'Visa' if 'ויזה' in self.data.keys()[0] else 'MasterCard' if 'מסטרקארד' in self.data.keys()[0] else 'Unknown'
 
-            if len(last_4_digits) > 0:
+            if len(last_4_digits) > 0 and last_4_digits[0].isdigit():
                 last_4_digits = last_4_digits[0]
-        else:
-            last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
-            card_type = 'Unknown'
+            else:
+                last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
 
         for idx, column in self.data.iterrows():
             try:
@@ -283,6 +286,95 @@ class MaxParser(Parser, ABC):
             return REGULAR_PAYMENT
 
         if 'תשלום' in transaction_type:
+            return CREDIT_PAYMENT
+
+        if 'קבע' in transaction_type:
+            return DIRECT_DEBIT
+
+        return UNDETERMINED_PAYMENT_TYPE
+
+
+class IsracardParser(Parser, ABC):
+    def __init__(self, file_path: AnyStr):
+        super().__init__(file_path)
+
+    def extract_base_data(self) -> pd.DataFrame:
+        if not self.is_valid:
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type' 'category'])
+
+        # Check if the required columns exist in the DataFrame
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
+        date_of_transaction_idx, business_name_idx, charge_amount_idx, total_amount_idx = 0, 1, 4, 2
+
+        # assume data not found first.
+        last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
+        card_type = 'Unknown'
+
+        # extract last 4 card digits from file
+        if len(self.data.keys()) > 0:
+            first_col_name = self.data.columns[0]
+
+            if len(self.data[first_col_name]) >=2:
+                last_4_digits_cell = self.data[first_col_name].iloc[2]
+                last_4_digits = re.findall(r'\b\d{4}\b', last_4_digits_cell)
+                card_type = 'Visa' if 'ויזה' in self.data.keys()[0] else 'MasterCard' if 'מסטרקארד' in last_4_digits_cell else 'Unknown'
+
+                if len(last_4_digits) > 0 and last_4_digits[0].isdigit():
+                    last_4_digits = last_4_digits[0]
+                else:
+                    last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
+
+        for idx, column in self.data.iterrows():
+            try:
+                if column.iloc[0] == 'עסקאות בחו˝ל':
+                    date_of_transaction_idx, business_name_idx, charge_amount_idx, total_amount_idx = 0, 2, 5, 5
+
+                if pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True):
+                    if pd.isna(column.iloc[date_of_transaction_idx]) or pd.isnull(column.iloc[date_of_transaction_idx]):
+                        continue
+
+                if pd.isna(column.iloc[business_name_idx]) or pd.isnull(column.iloc[business_name_idx]):
+                    continue
+
+                if pd.isna(column.iloc[charge_amount_idx]) or pd.isnull(column.iloc[charge_amount_idx]):
+                    continue
+
+                # TODO: find out where transaction type is showed in Isracard xlsx
+                # if pd.isna(column.iloc[transaction_type_idx]) or pd.isnull(column.iloc[transaction_type_idx]):
+                #     continue
+
+                if pd.isna(column.iloc[total_amount_idx]) or pd.isnull(column.iloc[total_amount_idx]):
+                    continue
+
+                if pd.isna(pd.to_numeric(column.iloc[total_amount_idx], errors='coerce')):
+                    continue
+
+                data = {
+                    'date_of_transaction':  pd.to_datetime(column.iloc[date_of_transaction_idx], dayfirst=True),
+                    'business_name':        column.iloc[business_name_idx],
+                    'charge_amount':        column.iloc[charge_amount_idx],
+                    'transaction_type':     UNDETERMINED_PAYMENT_TYPE,
+                    'total_amount':         column.iloc[total_amount_idx],
+                    'last_4_digits':        last_4_digits,
+                    'card_type':            card_type,
+                    'transaction_provider': 'Isracard',
+                }
+                info_rows.loc[len(info_rows)] = pd.Series(data)
+
+            except ValueError:
+                continue
+
+        return info_rows
+
+    def parse(self) -> pd.DataFrame:
+        return self.extract_base_data().reset_index(drop=True)
+
+    def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
+        if 'רגילה' in transaction_type:
+            return REGULAR_PAYMENT
+
+        if 'תשלומים' in transaction_type:
             return CREDIT_PAYMENT
 
         if 'קבע' in transaction_type:

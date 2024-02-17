@@ -8,20 +8,23 @@ from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitS
 
 
 def home_view(request):
-    logged_in_user = 'liran121214'
+    if request.user.is_authenticated:
+        logged_in_user = request.user.username
 
-    return render(request, 'home.html', {
-        'user_information': retrieve_user_information(logged_in_user),
-        'user_cards': retrieve_user_cards(logged_in_user),
-        'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
-        'user_income': slice_dictionary(retrieve_user_bank_transactions(logged_in_user, True), -5, 0),
-        'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
-        'spent_by_category': SpentByCategoryQuery(logged_in_user), # Pie-Chart view
-        'bank_transaction_by_category': BankTransactionByCategoryQuery(logged_in_user),  # Pie-Chart view
-        'spent_by_card': SpentByCardNumberQuery(logged_in_user), # Pie-Chart view
-        'income_by_month': IncomeByMonthQuery(logged_in_user),
-        'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
-    })
+        return render(request, 'home.html', {
+            'user_information': retrieve_user_information(logged_in_user),
+            'user_cards': retrieve_user_cards(logged_in_user),
+            'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
+            'user_income': slice_dictionary(retrieve_user_bank_transactions(logged_in_user, True), -5, 0),
+            'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
+            'spent_by_category': SpentByCategoryQuery(logged_in_user),  # Pie-Chart view
+            'bank_transaction_by_category': BankTransactionByCategoryQuery(logged_in_user),  # Pie-Chart view
+            'spent_by_card': SpentByCardNumberQuery(logged_in_user),  # Pie-Chart view
+            'income_by_month': IncomeByMonthQuery(logged_in_user),
+            'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
+        })
+    else:
+        return render(request, 'login.html', {'data': 'Invalid username or password'})
 
 
 def login_view(request):
@@ -32,7 +35,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('..', {'data': 'Login Successfully'})
+            return redirect('home_page')
         else:
             return render(request, 'login.html', {'data': 'Invalid username or password'})
 
@@ -43,12 +46,14 @@ def retrieve_user_information(username: Text) -> dict:
     # Retrieve all rows from the table
     filtered_data = UserInformation.objects.filter(username=username).first()
 
+    # if query was invalid or empty.
     if filtered_data is None:
         filtered_data = {
             'latest_debit': 0.0,
             'current_debit': 0.0,
             'total_saving': 0.0
         }
+        return filtered_data
 
     return {
         'latest_debit': filtered_data.latest_debit,
@@ -61,6 +66,7 @@ def retrieve_user_cards(username: Text) -> dict:
     # Retrieve all rows from the table
     filtered_data = UserCards.objects.filter(username=username).all()
 
+    # if query was invalid or empty.
     if filtered_data is None:
         filtered_data = {
             'issuer_name': [],
@@ -99,6 +105,7 @@ def retrieve_user_direct_debit_subscription_records(username: Text) -> dict:
     # Retrieve all rows from the table
     filtered_data = UserDirectDebitSubscriptions.objects.filter(username=username).all()
 
+    # if query was invalid or empty.
     if filtered_data is None:
         filtered_data = {
             'payment_type': [],
@@ -131,6 +138,7 @@ def retrieve_user_credit_card_transactions(username: Text) -> dict:
     # Retrieve all rows from the table
     filtered_data = UserCreditCardsTransactions.objects.filter(username=username).all()
 
+    # if query was invalid or empty.
     if filtered_data is None:
         filtered_data = {
             'sha1_identifier': [],
@@ -208,6 +216,7 @@ def retrieve_user_bank_transactions(username: Text, positive_only: bool) -> dict
         # Retrieve all rows from the table
         filtered_data = UserBankTransactions.objects.filter(username=username).all()
 
+    # if query was invalid or empty.
     if filtered_data is None:
         filtered_data = {
             'sha1_identifier': [],

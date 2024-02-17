@@ -13,6 +13,7 @@ def IncomeAgainstOutcome(username: Text):
     income_query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=month, selected_year=year, username=username)
     outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month'](selected_month=month, selected_year=year, username=username)
 
+    # handle case of missing data from specific date.
     if income_query is None or outcome_query is None:
         return INVALID_ANSWER
 

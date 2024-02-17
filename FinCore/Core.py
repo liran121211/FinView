@@ -3,7 +3,7 @@ from typing import Text, Dict, List, Any
 from django.utils.timezone import datetime
 from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
-from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser
+from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser, IsracardParser
 from FinCore import *
 
 
@@ -546,6 +546,37 @@ class Application:
                             'issuer_name':              row['transaction_provider'],
                             'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
                             }
+                        self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
+
+                if root.split(os.path.sep)[-1] == 'Isracard':
+                    isracard_data = IsracardParser(file_path=os.path.join(root, filename)).parse()
+                    # add records from statements to database
+                    for idx, row in isracard_data.iterrows():
+                        current_record = {
+                            'date_of_transaction':  row['date_of_transaction'],
+                            'business_name':        row['business_name'],
+                            'charge_amount':        row['charge_amount'],
+                            'total_amount':         row['total_amount'],
+                            'transaction_type':     row['transaction_type'],
+                            'transaction_provider': row['transaction_provider'],
+                            'last_4_digits':        row['last_4_digits'],
+                        }
+                        self.__manage_credit_cards_transactions.add_transaction(record_data=current_record, username=current_user)
+
+                        if len(row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]) > 0:
+                            current_direct_debit_subscription_record = {
+                                'amount':           row['charge_amount'],
+                                'payment_type':     row[(row == 'עסקת תשלומים') | (row == 'הוראת קבע')]['transaction_type'],
+                                'provider_name':    row['business_name'],
+                            }
+                            self.__manage_user_direct_debit_subscriptions.add_direct_debit_or_subscription(record_data=current_direct_debit_subscription_record, username=current_user)
+
+                        current_card_record = {
+                            'last_4_digits':    row['last_4_digits'],
+                            'card_type':        row['card_type'],
+                            'issuer_name':      row['transaction_provider'],
+                            'full_name': ' '.join(self.__manage_users.retrieve_user_record(current_user)),
+                        }
                         self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
 
                 if root.split(os.path.sep)[-1] == 'BankLeumi':

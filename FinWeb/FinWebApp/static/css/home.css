@@ -1,6 +1,102 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
+:root {
+  --dl-color-gray-500: #595959;
+  --dl-color-gray-700: #999999;
+  --dl-color-gray-900: #D9D9D9;
+  --dl-size-size-large: 144px;
+  --dl-size-size-small: 48px;
+  --dl-color-danger-300: #A22020;
+  --dl-color-danger-500: #BF2626;
+  --dl-color-danger-700: #E14747;
+  --dl-color-gray-black: #000000;
+  --dl-color-gray-white: #FFFFFF;
+  --dl-size-size-medium: 96px;
+  --dl-size-size-xlarge: 192px;
+  --dl-size-size-xsmall: 16px;
+  --dl-space-space-unit: 16px;
+  --dl-color-primary-100: #003EB3;
+  --dl-color-primary-300: #0074F0;
+  --dl-color-primary-500: #14A9FF;
+  --dl-color-primary-700: #85DCFF;
+  --dl-color-success-300: #199033;
+  --dl-color-success-500: #32A94C;
+  --dl-color-success-700: #4CC366;
+  --dl-size-size-xxlarge: 288px;
+  --dl-size-size-maxwidth: 1400px;
+  --dl-radius-radius-round: 50%;
+  --dl-space-space-halfunit: 8px;
+  --dl-space-space-sixunits: 96px;
+  --dl-space-space-twounits: 32px;
+  --dl-radius-radius-radius2: 2px;
+  --dl-radius-radius-radius4: 4px;
+  --dl-radius-radius-radius8: 8px;
+  --dl-space-space-fiveunits: 80px;
+  --dl-space-space-fourunits: 64px;
+  --dl-space-space-threeunits: 48px;
+  --dl-space-space-oneandhalfunits: 24px;
+}
+.button {
+  color: var(--dl-color-gray-black);
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-gray-white);
+}
+.input {
+  color: var(--dl-color-gray-black);
+  cursor: auto;
+  padding: 0.5rem 1rem;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-gray-white);
+}
+.textarea {
+  color: var(--dl-color-gray-black);
+  cursor: auto;
+  padding: 0.5rem;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-gray-white);
+}
+.list {
+  width: 100%;
+  margin: 1em 0px 1em 0px;
+  display: block;
+  padding: 0px 0px 0px 1.5rem;
+  list-style-type: none;
+  list-style-position: outside;
+}
+.list-item {
+  display: list-item;
+}
+.teleport-show {
+  display: flex !important;
+}
+.Content {
+  font-size: 16px;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+.Heading {
+  font-size: 32px;
+  font-family: Inter;
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+
+
+
 
 uhyiv
 .home-container {
@@ -348,6 +444,13 @@ color: #4C495A;
 background-color: initial;
 }
 
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
+}
+
 .transaction_description_col {
 border-bottom: 1px solid #ddd;
 padding-right: 45px;
@@ -406,6 +509,13 @@ padding-bottom: 5px;
 text-align: right;
 color: #4C495A;
 background-color: initial;
+}
+
+#empty-income-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
 }
 
 .income_description_col {
@@ -516,6 +626,7 @@ color: #4C495A;
 
 .cards-group {
 display: grid;
+grid-template-rows: 2fr 1fr; /* First row takes 1 unit of height, second row takes 2 units */
 grid-template-columns: repeat(2, 1fr); /* Two columns */
 grid-auto-rows: 150px; /* Automatically adjust row height */
 grid-row-gap: 15px; /* Adjust the gap between grid items in the column direction */
@@ -526,6 +637,13 @@ scrollbar-width: thin;
 direction: rtl;
 margin: 10px;
 }
+
+#no-cards-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+}
+
 
 .no-cards-title {
 margin: 7px;
@@ -831,6 +949,8 @@ position: absolute;
 }
 
 .income-outcome-half-doughnut-percent {
+font-family: 'Gan', sans-serif;
+color: #4C495A;
 position: absolute;
 left: 50%;
 transform: translate(-50%, 0);
@@ -840,18 +960,32 @@ bottom: 0;
 }
 
 .income-outcome-half-doughnut-title {
+font-family: 'Gan', sans-serif;
+color: #4C495A;
 position: absolute;
 left: 50%;
 transform: translate(-50%, 0);
 padding-bottom: 25px;
-font-size: 25px;
+font-size: 22px;
 bottom: 0;
 }
 .income-outcome-half-doughnut-title-2 {
+font-family: 'Gan', sans-serif;
+color: #4C495A;
 position: absolute;
 left: 50%;
 transform: translate(-50%, 0);
-font-size: 25px;
+font-size: 20px;
+bottom: 0;
+}
+
+.income-outcome-half-doughnut-no-data-title {
+font-family: 'Gan', sans-serif;
+color: #C6C6C6;
+position: absolute;
+left: 50%;
+transform: translate(-50%, 0);
+font-size: 18px;
 bottom: 0;
 }
 
@@ -879,6 +1013,13 @@ overflow-x: hidden; /* Hide horizontal scrollbar */
 scrollbar-width: thin;
 display: block;
 direction: rtl;
+}
+
+#empty-subscriptions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
 }
 
 #subscriptions-table tr:nth-child(even) {
@@ -953,6 +1094,13 @@ overflow-x: hidden; /* Hide horizontal scrollbar */
 scrollbar-width: thin;
 display: block;
 direction: rtl;
+}
+
+#empty-direct-debit-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
 }
 
 #direct-debit-table tr:nth-child(even) {
@@ -1071,7 +1219,7 @@ border-radius: 15px;
 position: absolute;
 cursor: pointer;
 margin-left: -7.5px;
-bottom: -22.5px;
+bottom: 50.5px;
 width: 15px;
 height: 15px;
 opacity: 0.5;
