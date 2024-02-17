@@ -34,6 +34,9 @@
     <orderEntry type="library" name="popper.js" level="application" />
     <orderEntry type="library" name="d3.v7" level="application" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="removeUnused" value="true" />
+  </component>
   <component name="TemplatesService">
     <option name="templateFileTypes">
       <list>

@@ -17,7 +17,10 @@ def IncomeAgainstOutcome(username: Text):
     if income_query is None or outcome_query is None:
         return INVALID_ANSWER
 
-    return (outcome_query / income_query) * 100
+    try:
+        return (outcome_query / income_query) * 100
+    except ZeroDivisionError:
+        return INVALID_ANSWER
 
 
 def IncomeByMonthQuery(username: Text):

@@ -3,7 +3,8 @@ from typing import Text, Dict, List, Any
 from django.utils.timezone import datetime
 from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
-from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser, IsracardParser
+from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser, IsracardParser, \
+    BankMizrahiTefahotParser
 from FinCore import *
 
 
@@ -294,7 +295,7 @@ class UserInformation:
                               )
 
     def is_primary_key_exist(self, primary_key: Any) -> int:
-        return self.db.is_value_exists(table_name='auth_user', column_name='id', value=primary_key)
+        return self.db.is_value_exists(table_name='auth_user', column_name='username', value=primary_key)
 
 
 class UserDirectDebitSubscriptions:
@@ -600,6 +601,26 @@ class Application:
                     current_debit = BankLeumiParser.extract_current_bank_debit(bank_leumi_data.data)
                     self.__manage_user_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
 
+                if root.split(os.path.sep)[-1] == 'BankMizrahiTefahot':
+                    bank_mizrahi_tefahot_data = BankMizrahiTefahotParser(file_path=os.path.join(root, filename)).parse()
+
+                    # add records from statements to database
+                    for idx, row in bank_mizrahi_tefahot_data.iterrows():
+                        current_record = {
+                            'transaction_date':         row['transaction_date'],
+                            'transaction_description':  row['transaction_description'],
+                            'transaction_reference':    row['transaction_reference'],
+                            'income_balance':           row['income_balance'],
+                            'outcome_balance':          row['outcome_balance'],
+                            'current_balance':          row['current_balance'],
+                            'account_number':           row['account_number'],
+                            'transaction_provider':     row['transaction_provider'],
+                        }
+                        self.__manage_bank_transactions.add_transaction(record_data=current_record, username=current_user)
+
+                    # extract current bank balance (last loaded statement)
+                    current_debit = BankMizrahiTefahotParser.extract_current_bank_debit(bank_mizrahi_tefahot_data)
+                    self.__manage_user_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
 
     @property
     def ask(self):
