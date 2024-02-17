@@ -156,6 +156,46 @@ class PostgreSQL:
             # If there's an error, print the error message
             self.logger.exception(e)
 
+    def retrieve_record(self, table_name: Text, column: Text, value: Text, specific_indexes: List = None) -> List:
+        #  check connection before using sql instance
+        if not self.is_postgresql_connected():
+            self.logger.warning(f"Error on retrieve_record from PostgreSQL while connection is closed.")
+            return []
+
+        try:
+            # Create a cursor to execute SQL commands
+            cursor = self.connection.cursor()
+
+            # Query to get column names from the specified table
+            query = f"SELECT * FROM {table_name} WHERE {column} = '{value}'"
+
+            # Execute the query with the specified table name
+            cursor.execute(query)
+            query_result = cursor.fetchall()
+
+            if len(query_result) == 0:
+                return []
+
+            # Fetch all column names from the result set
+            if specific_indexes is None:
+                return [row for row in query_result][FIRST_RESULT]
+            else:
+                final_result = []
+                query_result = [row for row in query_result][FIRST_RESULT]
+
+                for i in specific_indexes:
+                    try:
+                        final_result.append(query_result[i])
+                    except IndexError as e:
+                        self.logger.exception(e)
+
+                return final_result
+
+        except psycopg2.OperationalError as e:
+            # If there's an error, print the error message
+            self.logger.exception(e)
+            self.connection.rollback()
+
     def fetch_columns(self, table_name: Text) -> List:
 
         #  check connection before using sql instance
@@ -179,6 +219,7 @@ class PostgreSQL:
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
             self.logger.exception(e)
+            self.connection.rollback()
 
     def is_value_exists(self, table_name: Text, column_name: Text, value: Text) -> int:
 
@@ -235,5 +276,7 @@ class PostgreSQL:
                 # return result from sql
                 return result
 
-        except Exception as e:
+        except psycopg2.Error as e:
+            # An exception occurred, roll back the transaction
             self.logger.exception(e)
+            self.connection.rollback()
