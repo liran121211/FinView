@@ -189,7 +189,7 @@ class CalOnlineParser(Parser, ABC):
         info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
         date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 4, 2
 
-        #assume data not found at first.
+        # assume data not found at first.
         last_4_digits = CREDIT_CARD_DUMMY_LAST_4_DIGITS
         card_type = 'Unknown'
 
@@ -264,7 +264,7 @@ class MaxParser(Parser, ABC):
             return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits','card_type', 'category'])
+        info_rows = pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
         date_of_transaction_idx, business_name_idx, last_4_digits, charge_amount_idx, transaction_type_idx, total_amount_idx = 0, 1, 3, 5, 10, 7
 
         for idx, column in self.data.iterrows():
@@ -342,7 +342,7 @@ class IsracardParser(Parser, ABC):
         if len(self.data.keys()) > 0:
             first_col_name = self.data.columns[0]
 
-            if len(self.data[first_col_name]) >=2:
+            if len(self.data[first_col_name]) >= 2:
                 last_4_digits_cell = self.data[first_col_name].iloc[2]
                 last_4_digits = re.findall(r'\b\d{4}\b', last_4_digits_cell)
                 card_type = 'Visa' if 'ויזה' in self.data.keys()[0] else 'MasterCard' if 'מסטרקארד' in last_4_digits_cell else 'Unknown'
@@ -420,7 +420,7 @@ class BankLeumiParser(Parser, ABC):
             return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference','income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
+        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
         transaction_date, transaction_description, transaction_reference, income_balance, outcome_balance, current_balance = 0, 2, 3, 5, 4, 6
 
         for idx, column in self.data.iterrows():
@@ -443,7 +443,6 @@ class BankLeumiParser(Parser, ABC):
 
                 if pd.isna(column.iloc[current_balance]) or pd.isnull(column.iloc[current_balance]):
                     continue
-
 
                 data = {
                     'transaction_date':         pd.to_datetime(column.iloc[transaction_date], dayfirst=True),
@@ -494,7 +493,7 @@ class BankMizrahiTefahotParser(Parser, ABC):
             return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
 
         # Check if the required columns exist in the DataFrame
-        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference','income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
+        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
 
         # extract data from pdf file into Dataframe
         pdf_text = self.extract_text_from_pdf(self.file_absolute_path)
@@ -537,7 +536,6 @@ class BankMizrahiTefahotParser(Parser, ABC):
                 continue
 
             if valid_transaction_row and transaction_descriptions_valid:
-                x = 1
                 data = {
                     'transaction_date':         pd.to_datetime(tokens[transaction_date_idx], dayfirst=True),
                     'transaction_description':  (' '.join([str(tokens[idx]) for idx in transaction_description_indexes])),
@@ -584,7 +582,7 @@ class BankMizrahiTefahotParser(Parser, ABC):
             if BankMizrahiTefahotParser.is_valid_description(token):
                 valid_desc += 1
 
-        return  valid_desc
+        return valid_desc
 
     @staticmethod
     def is_valid_float(amount: AnyStr) -> bool:
@@ -592,7 +590,7 @@ class BankMizrahiTefahotParser(Parser, ABC):
             if '-' in amount:
                 amount = '-' + amount.replace('-', '')
 
-            # Set the locale to handle numbers with commas as thousand separators
+            # Set the locale to handle numbers with commas as a thousand separators
             locale.setlocale(locale.LC_NUMERIC, 'en_US.UTF-8')
 
             # Convert the string to a float using locale-aware parsing
@@ -606,7 +604,6 @@ class BankMizrahiTefahotParser(Parser, ABC):
     def extract_bank_mizrahi_tefahot_account_number(self) -> AnyStr:
         pdf_text = self.extract_text_from_pdf(self.file_absolute_path)
 
-        matches = []
         for line in pdf_text.split('\n'):
             # Define the pattern
             pattern = r'\b\d{3}-\d{6}\b'
@@ -617,3 +614,12 @@ class BankMizrahiTefahotParser(Parser, ABC):
                 return matches[0]
 
         return BANK_DUMMY_ACCOUNT_NUMBER
+
+    @staticmethod
+    def extract_current_bank_debit(df: pd.DataFrame) -> Any:
+        try:
+            return df['current_balance'].iloc[0]
+        except IndexError:
+            return 0.0
+        except ValueError:
+            return 0.0
