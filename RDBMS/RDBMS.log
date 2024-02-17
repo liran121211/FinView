@@ -4251,3 +4251,113 @@ psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer
 LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
                                                          ^
 
+2024-02-17 13:31:07,542 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 13:31:09,515 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 18:34:48,239 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 18:38:15,971 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 18:39:20,778 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 18:40:45,399 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 18:44:23,470 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 18:44:27,860 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 18:49:43,598 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 18:49:46,104 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 18:56:25,594 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 20:46:45,729 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 20:49:50,771 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 20:54:51,806 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 20:55:36,054 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 20:58:16,193 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 20:58:18,541 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 21:02:42,311 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:06:55,228 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:08:35,423 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:08:38,300 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 21:09:26,902 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:09:29,934 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 21:10:48,459 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:10:51,185 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 21:11:15,641 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:11:20,219 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+
+2024-02-17 21:12:55,647 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:12:57,831 - ERROR - invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 239, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "liran121214"
+LINE 1: SELECT EXISTS(SELECT 1 FROM auth_user WHERE id = 'liran12121...
+                                                         ^
+

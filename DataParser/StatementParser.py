@@ -1,9 +1,12 @@
+import locale
+
 import pandas as pd
 import datetime
 import os.path
 import re
 from abc import ABC, abstractmethod
 from typing import AnyStr, Any
+from PyPDF2 import PdfReader
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
 from DataParser import *
@@ -14,14 +17,32 @@ class Parser:
         self.logger = logging.getLogger(__name__)
         self.logger.addHandler(FILE_HANDLER)
         self.filename = os.path.basename(file_path)
-        self.__file_absolute_path = os.path.join(PROJECT_ROOT, file_path)
+        self.file_absolute_path = os.path.join(PROJECT_ROOT, file_path)
 
         # validate xlsx file before init instance
-        if self.is_xlsx_file(self.__file_absolute_path):
-            self.__df = pd.read_excel(self.__file_absolute_path, engine='openpyxl')
+        if self.is_xlsx_file(self.file_absolute_path):
+            self.__df = pd.read_excel(self.file_absolute_path, engine='openpyxl')
+            self.is_valid = True
+
+        # validate pdf file before init instance
+        elif self.is_pdf_file(self.file_absolute_path):
+            # collect data from pdf into dataframe from class method: extract_base_data
+            self.__df = pd.DataFrame()
             self.is_valid = True
         else:
             self.is_valid = False
+
+    @staticmethod
+    def extract_text_from_pdf(file_path: AnyStr) -> AnyStr:
+        pdf_text = ""
+        with open(file_path, 'rb') as file:
+            reader = PdfReader(file)
+            num_pages = len(reader.pages)
+            for page_num in range(num_pages):
+                page = reader.pages[page_num]
+                pdf_text += page.extract_text()
+
+        return pdf_text
 
     @staticmethod
     def is_xlsx_file(file_path: AnyStr) -> bool:
@@ -31,6 +52,12 @@ class Parser:
             return True
         except InvalidFileException:
             return False
+
+    @staticmethod
+    def is_pdf_file(file_path: AnyStr) -> bool:
+        with open(file_path, 'rb') as file:
+            header = file.read(4)  # Read the first 4 bytes
+            return header.startswith(b'%PDF')
 
     @abstractmethod
     def parse(self) -> pd.DataFrame:
@@ -455,3 +482,138 @@ class BankLeumiParser(Parser, ABC):
             return 0.0
         except ValueError:
             return 0.0
+
+
+class BankMizrahiTefahotParser(Parser, ABC):
+    def __init__(self, file_path: AnyStr):
+        super().__init__(file_path)
+
+    def extract_base_data(self) -> pd.DataFrame:
+        if not self.is_valid:
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
+
+        # Check if the required columns exist in the DataFrame
+        info_rows = pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference','income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
+
+        # extract data from pdf file into Dataframe
+        pdf_text = self.extract_text_from_pdf(self.file_absolute_path)
+        for line in pdf_text.split('\n'):
+            tokens = line.split()
+            transaction_description_len = self.count_description_len(line)
+
+            # define rules for valid data row
+            transaction_description_indexes = []
+            valid_transaction_row, transaction_descriptions_valid = True, True
+
+            # define len to read from transaction description
+            for idx in range(1, transaction_description_len + INDEX_INCREASE_BY_1):
+                transaction_description_indexes.append(idx)
+
+            # define indexes of columns
+            transaction_date_idx = 0
+            income_outcome_balance_idx = transaction_description_indexes[LAST_INDEX] + INDEX_INCREASE_BY_1
+            current_balance_idx = income_outcome_balance_idx + INDEX_INCREASE_BY_1
+            transaction_reference_idx = current_balance_idx + INDEX_INCREASE_BY_1
+
+            try:
+                if not self.is_valid_date(tokens[transaction_date_idx]):
+                    valid_transaction_row = False
+
+                for idx in transaction_description_indexes:
+                    if not self.is_valid_description(tokens[idx]):
+                        transaction_descriptions_valid = False
+
+                if not self.is_valid_float(tokens[income_outcome_balance_idx]):
+                    valid_transaction_row = False
+
+                if not self.is_valid_float(tokens[current_balance_idx]):
+                    valid_transaction_row = False
+
+                if not self.is_valid_float(tokens[transaction_reference_idx]):
+                    valid_transaction_row = False
+
+            except IndexError:
+                continue
+
+            if valid_transaction_row and transaction_descriptions_valid:
+                x = 1
+                data = {
+                    'transaction_date':         pd.to_datetime(tokens[transaction_date_idx], dayfirst=True),
+                    'transaction_description':  (' '.join([str(tokens[idx]) for idx in transaction_description_indexes])),
+                    'transaction_reference':    tokens[transaction_reference_idx],
+                    'income_balance':           float(str(tokens[income_outcome_balance_idx]).replace(',', '').replace('-', '')) if '-' not in tokens[income_outcome_balance_idx] else 0.0,
+                    'outcome_balance':          float(str(tokens[income_outcome_balance_idx]).replace(',', '').replace('-', '')) if '-' in tokens[income_outcome_balance_idx] else 0.0,
+                    'current_balance':          float(str(tokens[current_balance_idx]).replace(',', '').replace('-', '')) * (-1) if '-' in tokens[income_outcome_balance_idx] else str(tokens[current_balance_idx]).replace(',', '').replace('-', ''),
+                    'account_number':           self.extract_bank_mizrahi_tefahot_account_number(),
+                    'transaction_provider':     'Mizrahi Tefahot',
+                }
+                info_rows.loc[len(info_rows)] = pd.Series(data)
+
+        return info_rows
+
+    def parse(self) -> pd.DataFrame:
+        return self.extract_base_data().reset_index(drop=True)
+
+    @staticmethod
+    def is_valid_date(date_string: AnyStr) -> bool:
+        # Regular expression to match the date format
+        pattern = r'^\d{2}/\d{2}/\d{4}$'
+
+        # Check if the date string matches the pattern
+        if re.match(pattern, date_string):
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def is_valid_description(description: AnyStr) -> bool:
+        # Range of Hebrew Unicode characters
+        hebrew_range = range(0x0590, 0x05FF + 1)  # Hebrew Unicode block
+
+        # Check if any character in the string belongs to the Hebrew Unicode block
+        for char in description:
+            if ord(char) in hebrew_range:
+                return True
+        return False
+
+    @staticmethod
+    def count_description_len(line: AnyStr) -> int:
+        valid_desc = 0
+        for token in line.split():
+            if BankMizrahiTefahotParser.is_valid_description(token):
+                valid_desc += 1
+
+        return  valid_desc
+
+    @staticmethod
+    def is_valid_float(amount: AnyStr) -> bool:
+        try:
+            if '-' in amount:
+                amount = '-' + amount.replace('-', '')
+
+            # Set the locale to handle numbers with commas as thousand separators
+            locale.setlocale(locale.LC_NUMERIC, 'en_US.UTF-8')
+
+            # Convert the string to a float using locale-aware parsing
+            _ = locale.atof(amount)
+
+            # Check if the string represents a valid float
+            return True
+        except ValueError:
+            return False
+
+    def extract_bank_mizrahi_tefahot_account_number(self) -> AnyStr:
+        pdf_text = self.extract_text_from_pdf(self.file_absolute_path)
+
+        matches = []
+        for line in pdf_text.split('\n'):
+            # Define the pattern
+            pattern = r'\b\d{3}-\d{6}\b'
+
+            # Use regular expression to find matches
+            matches = re.findall(pattern, str(line))
+            if len(matches) > 0:
+                return matches[0]
+
+        return BANK_DUMMY_ACCOUNT_NUMBER
