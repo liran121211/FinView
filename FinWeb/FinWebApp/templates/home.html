@@ -142,7 +142,9 @@
                      class="home-image"/>
                 <div data-thq="thq-navbar-nav" class="home-desktop-menu">
                     <nav class="home-links">
-                        <span class="home-text04">הגדרות</span>
+                        <a href="{% url 'settings_page' %}" class="home-link">
+                            <span class="home-text04">הגדרות</span>
+                        </a>
                         <span class="home-text03">תקציב</span>
                         <span class="home-text02">ניתוח אנליטיקות/טרנדים</span>
                         <span class="home-text01">עסקאות</span>

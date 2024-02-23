@@ -42,6 +42,15 @@ def login_view(request):
     return render(request, 'login.html', )
 
 
+def settings_view(request):
+    if request.user.is_authenticated:
+        logged_in_user = request.user.username
+
+        return render(request, 'settings.html', { })
+    else:
+        return render(request, 'login.html', {'data': 'Invalid username or password'})
+
+
 def retrieve_user_information(username: Text) -> dict:
     # Retrieve all rows from the table
     filtered_data = UserInformation.objects.filter(username=username).first()

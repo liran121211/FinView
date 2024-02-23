@@ -18,10 +18,11 @@ import os
 
 from django.contrib import admin
 from django.urls import path
-from FinWebApp.views import login_view, home_view
+from FinWebApp.views import login_view, home_view, settings_view
 
 urlpatterns = [
+    path('', home_view, name='home_page'),
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login_page'),
-    path('', home_view, name='home_page'),
+    path('settings/', settings_view, name='settings_page'),
 ]
