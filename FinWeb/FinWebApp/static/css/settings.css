@@ -240,33 +240,54 @@ margin-left: var(--dl-space-space-twounits);
   margin-bottom: var(--dl-space-space-twounits);
 }
 .home-text10 {
-  box-shadow: 5px 5px 10px 0px #d4d4d4;
-  transition: 0.3s;
+  transition: 0.1s;
   border-color: var(--dl-color-gray-black);
-  border-width: 0px;
   margin-bottom: var(--dl-space-space-twounits);
-  animation-name: none;
-  animation-delay: 0s;
-  animation-duration: 300ms;
-  animation-direction: normal;
-  animation-iteration-count: 1;
-  animation-timing-function: ease;
+  font-family: 'Gan', sans-serif;
 }
 .home-text10:hover {
-  box-shadow: 5px 5px 10px 0px #cccaca;
-  background-color: #c5c5c5;
+font-weight: bold; /* Bold the text on hover */
+  cursor: pointer;
 }
 .home-text11 {
   margin-bottom: var(--dl-space-space-twounits);
+  font-family: 'Gan', sans-serif;
+}
+.home-text11:hover {
+font-weight: bold; /* Bold the text on hover */
+    cursor: pointer;
 }
 .home-text12 {
   margin-bottom: var(--dl-space-space-twounits);
+  font-family: 'Gan', sans-serif;
+}
+.home-text12:hover {
+font-weight: bold; /* Bold the text on hover */
+    cursor: pointer;
 }
 .home-text13 {
   margin-bottom: var(--dl-space-space-twounits);
+  font-family: 'Gan', sans-serif;
+}
+.home-text13:hover {
+font-weight: bold; /* Bold the text on hover */
+    cursor: pointer;
 }
 .home-text14 {
   margin-bottom: var(--dl-space-space-twounits);
+  font-family: 'Gan', sans-serif;
+}
+.home-text14:hover {
+font-weight: bold; /* Bold the text on hover */
+    cursor: pointer;
+}
+.home-text15 {
+  margin-bottom: var(--dl-space-space-twounits);
+  font-family: 'Gan', sans-serif;
+}
+.home-text15:hover {
+font-weight: bold; /* Bold the text on hover */
+    cursor: pointer;
 }
 .home-profile {
   width: 100%;
@@ -280,13 +301,18 @@ margin-left: var(--dl-space-space-twounits);
   border-left-width: 0px;
   border-right-width: 0px;
   border-bottom-width: 0px;
+  font-family: 'Gan', sans-serif;
+    cursor: pointer;
 }
 .home-container2 {
+  padding: 5px;
   display: flex;
   align-items: flex-end;
   margin-left: var(--dl-space-space-halfunit);
   flex-direction: column;
   justify-content: space-between;
+  font-family: 'Gan', sans-serif;
+    cursor: pointer;
 }
 .home-text16 {
   font-size: 1.15rem;
