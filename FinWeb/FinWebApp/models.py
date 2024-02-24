@@ -60,6 +60,23 @@ def SpentByCardNumberQuery(username: Text):
     return pd.DataFrame(query, columns=cols_names).to_dict()
 
 
+class UserPersonalInformation(models.Model):
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=9, db_column='password')
+    first_name = models.CharField(max_length=9, db_column='first_name')
+    last_name = models.CharField(max_length=9, db_column='last_name')
+    email = models.EmailField(max_length=9, db_column='email')
+    active_user = models.BooleanField(max_length=9, db_column='is_active')
+    date_joined = models.DateField(max_length=9, db_column='date_joined')
+
+    class Meta:
+        # Specify the table name here
+        db_table = 'auth_user'
+        app_label = 'FinWeb'  # Specify the app label that doesn't exist in INSTALLED_APPS
+
+    def __str__(self):
+        return self.username
+
 class UserInformation(models.Model):
     username = models.CharField(max_length=50, primary_key=True)
     current_debit = models.FloatField(max_length=9, db_column='current_debit')

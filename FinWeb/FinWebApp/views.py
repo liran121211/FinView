@@ -1,10 +1,11 @@
 from typing import Text
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
+from FinWeb.FinWebApp.forms import PersonalDetailsForm
 from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
-    BankTransactionByCategoryQuery
+    BankTransactionByCategoryQuery, UserPersonalInformation
 
 
 def home_view(request):
@@ -44,12 +45,21 @@ def login_view(request):
 
 def settings_view(request):
     if request.user.is_authenticated:
-        logged_in_user = request.user.username
+        user_personal_information_instance = get_object_or_404(UserPersonalInformation, pk=request.user.id)  # Retrieve user from the database  # Retrieve user from the database
 
-        return render(request, 'settings.html', { })
-    else:
-        return render(request, 'login.html', {'data': 'Invalid username or password'})
+        if request.method == 'POST':
+            user_personal_information_instance.first_name = request.POST.get('first_name')
+            user_personal_information_instance.last_name = request.POST.get('last_name')
+            user_personal_information_instance.email = request.POST.get('email')
+            user_personal_information_instance.password = request.POST.get('password')
+            user_personal_information_instance.save()
+            return render(request, 'settings.html', {'user_personal_information_instance': user_personal_information_instance})
 
+        else:
+            user_personal_information_instance.active_user = 'פעיל' if user_personal_information_instance.active_user is True else 'לא פעיל'
+            return render(request, 'settings.html', {'user_personal_information_instance': user_personal_information_instance})
+
+    return render(request, 'login.html', )
 
 def retrieve_user_information(username: Text) -> dict:
     # Retrieve all rows from the table
