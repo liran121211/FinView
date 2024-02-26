@@ -101,21 +101,22 @@
     <link rel="stylesheet" type="text/css" href=" {% static '/css/settings.css' %} ">
 
     <!-- Local JS Files -->
-
+    <script src="{% static 'js/settings.js' %}"></script>
 
     <!-- Remote JS Files -->
 
 
     <!-- Load data into variables from View -->
     <script>
-
+        let user_cards = {{ user_cards|safe }};
     </script>
+
 </head>
 <body>
 <div>
 
     <div class="home-container">
-        <div class="home-main-horizional-layout">
+        <div class="home-main-horizontal-layout">
             <header data-thq="thq-navbar" class="home-navbar-interactive">
                 <img alt="logo" src="https://presentation-website-assets.teleporthq.io/logos/logo.png"
                      class="home-image"/>
@@ -185,12 +186,12 @@
                         <svg viewBox="0 0 1024 1024" class="home-icon10">
                             <path d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
                         </svg>
-                        <span class="home-text10">פרטים אישיים</span>
-                        <span class="home-text11">כרטיסים בחשבון</span>
-                        <span class="home-text12">הלוואות</span>
-                        <span class="home-text13">הוראות קבע ותשלומים</span>
-                        <span class="home-text14">עסקאות בכרטיסי אשראי</span>
-                        <span class="home-text15">תנועות בבנק</span>
+                        <span class="nav-span" data-div="personal-details-div">פרטים אישיים</span>
+                        <span class="nav-span" data-div="credit-cards-details-div">כרטיסים בחשבון</span>
+                        <span class="nav-span" data-div="personal-details-div1">הלוואות</span>
+                        <span class="nav-span" data-div="personal-details-div2">הוראות קבע ותשלומים</span>
+                        <span class="nav-span" data-div="personal-details-div3">עסקאות בכרטיסי אשראי</span>
+                        <span class="nav-span" data-div="personal-details-div4">תנועות בבנק</span>
                     </nav>
                     <div class="home-profile">
                         <div class="home-container2">
@@ -212,17 +213,20 @@
                     <fieldset>
                         <div id="personal-details-div-sub">
                             <label for="first-name">שם פרטי:</label>
-                            <input type="text" id="first-name" name="first_name" value="{{ user_personal_information_instance.first_name }}">
+                            <input type="text" id="first-name" name="first_name"
+                                   value="{{ user_personal_information_instance.first_name }}">
                         </div>
 
                         <div id="personal-details-div-sub">
                             <label for="last-name">שם משפחה:</label>
-                            <input type="text" id="last-name" name="last_name" value="{{ user_personal_information_instance.last_name }}">
+                            <input type="text" id="last-name" name="last_name"
+                                   value="{{ user_personal_information_instance.last_name }}">
                         </div>
 
                         <div id="personal-details-div-sub">
                             <label for="email">כתובת מייל:</label>
-                            <input type="email" id="email" name="email" value="{{ user_personal_information_instance.email }}">
+                            <input type="email" id="email" name="email"
+                                   value="{{ user_personal_information_instance.email }}">
                         </div>
                     </fieldset>
 
@@ -230,12 +234,14 @@
                     <fieldset>
                         <div id="personal-details-div-sub">
                             <label id="username-label" for="username">שם משתמש:</label>
-                            <label id="username-data" for="username">{{ user_personal_information_instance.username }}</label>
+                            <label id="username-data"
+                                   for="username">{{ user_personal_information_instance.username }}</label>
                         </div>
 
                         <div id="personal-details-div-sub">
                             <label for="password">סיסמא:</label>
-                            <input type="password" id="password" name="password" value="{{ user_personal_information_instance.password }}">
+                            <input type="password" id="password" name="password"
+                                   value="{{ user_personal_information_instance.password }}">
                         </div>
                     </fieldset>
 
@@ -243,12 +249,14 @@
                     <fieldset>
                         <div id="personal-details-div-sub">
                             <label id="active-user-label" for="active-user">סטטוס משתמש:</label>
-                            <label id="active-user-data" for="active-user">{{ user_personal_information_instance.active_user }}</label>
+                            <label id="active-user-data"
+                                   for="active-user">{{ user_personal_information_instance.active_user }}</label>
                         </div>
 
                         <div id="personal-details-div-sub">
                             <label id="date-joined-label" for="date-joined">תאריך הצטרפות:</label>
-                            <label id="date-joined-data" for="date-joined">{{ user_personal_information_instance.date_joined|date:"d.m.Y H:i" }}</label>
+                            <label id="date-joined-data"
+                                   for="date-joined">{{ user_personal_information_instance.date_joined|date:"d.m.Y H:i" }}</label>
                         </div>
                     </fieldset>
 
@@ -257,6 +265,29 @@
                     </div>
                 </form>
 
+            </div>
+            <div class="credit-cards-details-div">
+
+                <table id="credit-cards-table">
+                    <thead>
+                    <tr>
+                        <th>4 ספרות אחרונות</th>
+                        <th>שם המנפיק</th>
+                        <th>סוג כרטיס</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="credit-card-type-col">
+                        <p id="empty-transactions-description"></p>
+                    </td>
+                    <td class="credit-card-issuer-name-col"></td>
+                    <td class="credit-card-last-4-digits-col"></td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="settings-modification-block-status">
+                <div class="settings-modification-block-success-status"></div>
+                <div class="settings-modification-block-fail-status"></div>
             </div>
         </div>
     </div>

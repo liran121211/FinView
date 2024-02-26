@@ -7,7 +7,7 @@ align-items: flex-start;
 flex-direction: column;
 justify-content: flex-start;
 }
-.home-main-horizional-layout {
+.home-main-horizontal-layout {
 width: 100%;
 height: 100%;
 display: flex;
@@ -239,56 +239,17 @@ height: var(--dl-size-size-xsmall);
 align-self: flex-end;
 margin-bottom: var(--dl-space-space-twounits);
 }
-.home-text10 {
+.nav-span {
 transition: 0.1s;
 border-color: var(--dl-color-gray-black);
 margin-bottom: var(--dl-space-space-twounits);
 font-family: 'Gan', sans-serif;
 }
-.home-text10:hover {
+.nav-span:hover {
 font-weight: bold; /* Bold the text on hover */
 cursor: pointer;
 }
-.home-text11 {
-margin-bottom: var(--dl-space-space-twounits);
-font-family: 'Gan', sans-serif;
-}
-.home-text11:hover {
-font-weight: bold; /* Bold the text on hover */
-cursor: pointer;
-}
-.home-text12 {
-margin-bottom: var(--dl-space-space-twounits);
-font-family: 'Gan', sans-serif;
-}
-.home-text12:hover {
-font-weight: bold; /* Bold the text on hover */
-cursor: pointer;
-}
-.home-text13 {
-margin-bottom: var(--dl-space-space-twounits);
-font-family: 'Gan', sans-serif;
-}
-.home-text13:hover {
-font-weight: bold; /* Bold the text on hover */
-cursor: pointer;
-}
-.home-text14 {
-margin-bottom: var(--dl-space-space-twounits);
-font-family: 'Gan', sans-serif;
-}
-.home-text14:hover {
-font-weight: bold; /* Bold the text on hover */
-cursor: pointer;
-}
-.home-text15 {
-margin-bottom: var(--dl-space-space-twounits);
-font-family: 'Gan', sans-serif;
-}
-.home-text15:hover {
-font-weight: bold; /* Bold the text on hover */
-cursor: pointer;
-}
+
 .home-profile {
 width: 100%;
 display: flex;
@@ -494,6 +455,31 @@ margin-right: 255px;
 font-family: 'Gan', sans-serif;
 }
 
+.settings-modification-block-status{
+margin: 0 auto; /* Center horizontally */
+}
+
+.settings-modification-block-success-status{
+opacity: 0; /* Initially hidden */
+background-color: #d4edda; /* Greenish background color */
+border: 1px solid #c3e6cb; /* Greenish border color */
+color: #155724; /* Dark green text color */
+padding: 10px 20px; /* Padding around the text */
+border-radius: 5px; /* Rounded corners */
+margin-bottom: 20px; /* Margin at the bottom to separate from other content */
+
+}
+
+.settings-modification-block-fail-status{
+background-color: #f8d7da; /* Redish background color */
+border: 1px solid #f5c6cb; /* Redish border color */
+color: #721c24; /* Dark red text color */
+padding: 10px 20px; /* Padding around the text */
+border-radius: 5px; /* Rounded corners */
+margin-bottom: 20px; /* Margin at the bottom to separate from other content */
+opacity: 0; /* Initially hidden */
+}
+
 .personal-details-div form {
 display: flex;
 flex-direction: column; /* Stack fieldsets vertically */
@@ -511,14 +497,13 @@ direction: rtl;
 margin-bottom: 20px; /* Add space between fieldsets */
 background-color: #f7f7f7;
 display: flex;
-width: 1000px;
 direction: rtl;
 }
 
 .personal-details-div  {
-display: flex;
-align-items: center; /* Vertically center content within each row */
-margin: 50px;
+padding-top: 100px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
 }
 
 .personal-details-div input {
@@ -557,4 +542,75 @@ border-radius: 4px; /* Add rounded corners */
 
 #personal-details-div-button:hover {
 background-color: #2980b9; /* Change background color on hover */
+}
+
+
+/* ----------------- Transaction Table CSS ----------------- */
+.credit-cards-details-div  {
+padding-top: 100px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+}
+#credit-cards-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#credit-cards-table th {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+padding-bottom: 5px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#credit-cards-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
+}
+
+.credit-card_type-col {
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card_issuer-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card-last-4-digits-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card-type {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.credit-card-issuer-name {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align:center;
+margin: 10px;
+}
+
+.credit-card-last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
 }

@@ -93,7 +93,7 @@ class UserInformation(models.Model):
 
 
 class UserCards(models.Model):
-    sha1_identifier = models.IntegerField(max_length=40, primary_key=True)
+    sha1_identifier = models.CharField(max_length=40, primary_key=True)
     username = models.CharField(max_length=50, db_column='username')
     issuer_name = models.CharField(max_length=50, db_column='issuer_name')
     last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')

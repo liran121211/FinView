@@ -1,5 +1,6 @@
 from typing import Text
 from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from FinWeb.FinWebApp.forms import PersonalDetailsForm
@@ -45,8 +46,21 @@ def login_view(request):
 
 def settings_view(request):
     if request.user.is_authenticated:
+        # fetch initial data
+        logged_in_user = request.user.username
         user_personal_information_instance = get_object_or_404(UserPersonalInformation, pk=request.user.id)  # Retrieve user from the database  # Retrieve user from the database
 
+        # handle credit cards editing
+        if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
+
+            # Perform database update operation here
+            user_credit_cards_instance.card_type = request.POST.get('selected_card_type')
+            user_credit_cards_instance.save()
+
+            return JsonResponse({'success': True})
+
+        # handle personal information editing
         if request.method == 'POST':
             user_personal_information_instance.first_name = request.POST.get('first_name')
             user_personal_information_instance.last_name = request.POST.get('last_name')
@@ -57,9 +71,13 @@ def settings_view(request):
 
         else:
             user_personal_information_instance.active_user = 'פעיל' if user_personal_information_instance.active_user is True else 'לא פעיל'
-            return render(request, 'settings.html', {'user_personal_information_instance': user_personal_information_instance})
+            return render(request, 'settings.html', {
+                'user_personal_information_instance': user_personal_information_instance,
+                'user_cards': retrieve_user_cards(logged_in_user),
+            })
 
     return render(request, 'login.html', )
+
 
 def retrieve_user_information(username: Text) -> dict:
     # Retrieve all rows from the table
@@ -92,6 +110,7 @@ def retrieve_user_cards(username: Text) -> dict:
             'last_4_digits': [],
             'card_type': [],
             'full_name': [],
+            'sha1_identifier': [],
         }
         return filtered_data
 
@@ -116,6 +135,11 @@ def retrieve_user_cards(username: Text) -> dict:
             dict_data['full_name'] = [data.full_name]
         else:
             dict_data['full_name'].append(data.full_name)
+
+        if dict_data.get('sha1_identifier', None) is None:
+            dict_data['sha1_identifier'] = [data.sha1_identifier]
+        else:
+            dict_data['sha1_identifier'].append(data.sha1_identifier)
 
     return dict_data
 
