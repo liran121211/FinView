@@ -9,10 +9,11 @@ from RDBMS import *
 
 class PostgreSQL:
     @staticmethod
-    def calc_sha1(raw_data: dict):
+    def calc_sha1(raw_data: dict, excluded_keys: List):
         result = ""
-        for _, v in raw_data.items():
-            result += str(v)
+        for k, v in raw_data.items():
+            if k not in excluded_keys:
+                result += str(v)
 
         # Create a new SHA-1 hash object
         sha1 = hashlib.sha1()

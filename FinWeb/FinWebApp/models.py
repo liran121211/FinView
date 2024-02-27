@@ -108,6 +108,16 @@ class UserCards(models.Model):
     def __str__(self):
         return self.id
 
+    def to_dict(self):
+        return {
+            'sha1_identifier': self.sha1_identifier,
+            'username': self.username,
+            'issuer_name': self.issuer_name,
+            'last_4_digits': self.last_4_digits,
+            'card_type': self.card_type,
+            'full_name': self.full_name
+        }
+
 
 class UserDirectDebitSubscriptions(models.Model):
     sha1_identifier = models.IntegerField(max_length=40, primary_key=True)

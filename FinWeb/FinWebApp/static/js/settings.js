@@ -168,7 +168,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        showSuccessStatus("השינויים עודכנו בהצלחה");
+                        if (!data.success) {
+                            // Handle the case where the server indicates failure
+                            showFailStatus("העדכון מידע נכשל");
+                        } else {
+                            // Handle the case where the server indicates success
+                            showSuccessStatus("השינויים עודכנו בהצלחה");
+                        }
                     })
                     .catch(error => {
                         showFailStatus("העדכון מידע לא בוצע בהצלחה");
@@ -200,13 +206,13 @@ function getCookie(name) {
 // Function to show success status message
 function showSuccessStatus(message) {
     const successStatusElement = document.querySelector('.settings-modification-block-success-status');
-    successStatusElement.style.opacity = '1';
     successStatusElement.textContent = message;
     successStatusElement.style.display = 'block';
     setTimeout(() => {
-        successStatusElement.style.opacity = '0';
         successStatusElement.style.display = 'none';
-    }, 1000);
+    }, 2000);
+
+
 }
 
 // Function to show fail status message
@@ -216,5 +222,5 @@ function showFailStatus(message) {
     failStatusElement.style.display = 'block';
     setTimeout(() => {
         failStatusElement.style.display = 'none';
-    }, 1000);
+    }, 2000);
 }

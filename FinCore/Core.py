@@ -88,7 +88,7 @@ class CreditCardsTransactions:
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
-        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data, excluded_keys=[])
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
@@ -170,7 +170,7 @@ class BankTransactions:
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
-        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data, excluded_keys=[])
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
@@ -321,7 +321,7 @@ class UserDirectDebitSubscriptions:
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
-        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data, excluded_keys=[])
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
@@ -392,7 +392,7 @@ class UserCards:
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
-        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data)
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data, excluded_keys=['card_type'])
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST

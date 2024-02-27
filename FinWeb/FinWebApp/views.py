@@ -1,12 +1,16 @@
-from typing import Text
+from typing import Text, Any
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.core.exceptions import ValidationError, FieldError, ObjectDoesNotExist, PermissionDenied
+from django.db import IntegrityError, DataError
+from django.db.models import ProtectedError
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
-from FinWeb.FinWebApp.forms import PersonalDetailsForm
+from FinWeb.FinWebApp import Logger
 from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
     BankTransactionByCategoryQuery, UserPersonalInformation
+from RDBMS.PostgreSQL import PostgreSQL
 
 
 def home_view(request):
@@ -46,28 +50,49 @@ def login_view(request):
 
 def settings_view(request):
     if request.user.is_authenticated:
-        # fetch initial data
         logged_in_user = request.user.username
-        user_personal_information_instance = get_object_or_404(UserPersonalInformation, pk=request.user.id)  # Retrieve user from the database  # Retrieve user from the database
 
         # handle credit cards editing
         if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
+            try:
+                old_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
+            except Http404 as e:
+                Logger.logger.critical(e)
+                raise Http404("This page does not exist")
 
-            # Perform database update operation here
-            user_credit_cards_instance.card_type = request.POST.get('selected_card_type')
-            user_credit_cards_instance.save()
+            # old values of current object retrieval
+            old_user_credit_cards_instance_dict = old_user_credit_cards_instance.to_dict()
 
-            return JsonResponse({'success': True})
+            # perform database update operation here
+            new_user_credit_cards_instance = UserCards()
+            new_user_credit_cards_instance.username = old_user_credit_cards_instance_dict['username']
+            new_user_credit_cards_instance.last_4_digits = old_user_credit_cards_instance_dict['last_4_digits']
+            new_user_credit_cards_instance.issuer_name = old_user_credit_cards_instance_dict['issuer_name']
+            new_user_credit_cards_instance.full_name = old_user_credit_cards_instance_dict['full_name']
+            new_user_credit_cards_instance.card_type = request.POST.get('selected_card_type', old_user_credit_cards_instance_dict['card_type'])
+            new_user_credit_cards_instance.sha1_identifier = PostgreSQL.calc_sha1(new_user_credit_cards_instance.to_dict(), excluded_keys=['card_type'])
+
+            # check if modification instance cause an exception
+            if handle_instance_modification(new_user_credit_cards_instance) and handle_instance_deletion(old_user_credit_cards_instance):
+                return JsonResponse({'success': True})
+            return JsonResponse({'success': False})
 
         # handle personal information editing
+        try:
+            user_personal_information_instance = get_object_or_404(UserPersonalInformation, pk=request.user.id)  # Retrieve user from the database  # Retrieve user from the database
+        except Http404 as e:
+            Logger.logger.critical(e)
+            raise Http404("This page does not exist")
+
         if request.method == 'POST':
-            user_personal_information_instance.first_name = request.POST.get('first_name')
-            user_personal_information_instance.last_name = request.POST.get('last_name')
-            user_personal_information_instance.email = request.POST.get('email')
-            user_personal_information_instance.password = request.POST.get('password')
-            user_personal_information_instance.save()
-            return render(request, 'settings.html', {'user_personal_information_instance': user_personal_information_instance})
+            user_personal_information_instance.first_name = request.POST.get('first_name', user_personal_information_instance.first_name)
+            user_personal_information_instance.last_name = request.POST.get('last_name', user_personal_information_instance.last_name)
+            user_personal_information_instance.email = request.POST.get('email', user_personal_information_instance.email)
+            user_personal_information_instance.password = request.POST.get('password', user_personal_information_instance.password)
+
+            # check if modification instance cause an exception
+            if handle_instance_modification(user_personal_information_instance):
+                return render(request, 'settings.html',{'user_personal_information_instance': user_personal_information_instance})
 
         else:
             user_personal_information_instance.active_user = 'פעיל' if user_personal_information_instance.active_user is True else 'לא פעיל'
@@ -356,3 +381,66 @@ def slice_dictionary(obj: dict, start_idx: int = 0, end_idx: int = -1) -> dict:
                     temp_dict[k].append(value)
 
     return temp_dict
+
+
+def handle_instance_modification(instance: Any) -> bool:
+    try:
+        instance.save()
+        return True
+
+    except IntegrityError as e:
+        # Handle database integrity errors
+        Logger.logger.critical(e)
+        return False
+    except ValidationError as e:
+        # Handle validation errors
+        Logger.logger.critical(e)
+        return False
+    except ObjectDoesNotExist as e:
+        # Handle object not found errors
+        Logger.logger.critical(e)
+        return False
+    except FieldError as e:
+        # Handle field-related errors
+        Logger.logger.critical(e)
+        return False
+    except DataError as e:
+        # Handle data-related errors
+        Logger.logger.critical(e)
+        return False
+    except Exception as e:
+        # Handle other unexpected exceptions
+        Logger.logger.critical(e)
+        return False
+
+
+def handle_instance_deletion(instance: Any) -> bool:
+    try:
+        instance.delete()
+        return True
+
+    except ObjectDoesNotExist as e:
+        # Handle database integrity errors
+        Logger.logger.critical(e)
+        return False
+    except ProtectedError as e:
+        # Handle validation errors
+        Logger.logger.critical(e)
+        return False
+    except PermissionDenied as e:
+        # Handle object not found errors
+        Logger.logger.critical(e)
+        return False
+    except IntegrityError as e:
+        # Handle field-related errors
+        Logger.logger.critical(e)
+        return False
+    except Exception as e:
+        # Handle other unexpected exceptions
+        Logger.logger.critical(e)
+        return False
+
+
+def handler404(request, exception):
+    # Handle the 404 error and render the custom 404 template
+    return render(request, '404.html', status=404)

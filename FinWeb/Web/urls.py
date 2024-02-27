@@ -26,3 +26,5 @@ urlpatterns = [
     path('login/', login_view, name='login_page'),
     path('settings/', settings_view, name='settings_page'),
 ]
+
+handler404 = 'FinWebApp.views.handler404'
