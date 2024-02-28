@@ -546,7 +546,7 @@ background-color: #2980b9; /* Change background color on hover */
 }
 
 
-/* ----------------- Transaction Table CSS ----------------- */
+/* ----------------- Credit Cards Table CSS ----------------- */
 .credit-cards-details-div  {
 padding-top: 100px;
 padding-bottom: 50px;
@@ -610,6 +610,142 @@ margin: 10px;
 }
 
 .credit-card-last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+/* ----------------- Credit Card Transactions Table CSS ----------------- */
+.credit-cards-transactions-div  {
+padding-top: 100px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#credit-cards-transactions-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#credit-cards-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+padding-bottom: 5px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#credit-cards-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
+}
+
+.date-of-transaction-col {
+border-bottom: 1px solid #ddd;
+}
+
+.business-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.charge-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.total-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-type-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.last-4-digits-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.date-of-transaction {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.business-name {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align:center;
+margin: 10px;
+}
+
+.charge-amount {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.total-amount {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-type {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.category {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.last-4-digits {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 color: #4C495A;

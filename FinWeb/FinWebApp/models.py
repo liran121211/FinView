@@ -77,6 +77,7 @@ class UserPersonalInformation(models.Model):
     def __str__(self):
         return self.username
 
+
 class UserInformation(models.Model):
     username = models.CharField(max_length=50, primary_key=True)
     current_debit = models.FloatField(max_length=9, db_column='current_debit')
@@ -93,12 +94,12 @@ class UserInformation(models.Model):
 
 
 class UserCards(models.Model):
-    sha1_identifier = models.CharField(max_length=40, primary_key=True)
-    username = models.CharField(max_length=50, db_column='username')
-    issuer_name = models.CharField(max_length=50, db_column='issuer_name')
     last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')
     card_type = models.CharField(max_length=50, db_column='card_type')
+    issuer_name = models.CharField(max_length=50, db_column='issuer_name')
     full_name = models.CharField(max_length=50, db_column='full_name')
+    username = models.CharField(max_length=50, db_column='username')
+    sha1_identifier = models.CharField(max_length=40, primary_key=True)
 
     class Meta:
         # Specify the table name here
@@ -109,13 +110,14 @@ class UserCards(models.Model):
         return self.id
 
     def to_dict(self):
+        # order of dictionary building is crucial for primary key (keep this order)
         return {
-            'sha1_identifier': self.sha1_identifier,
-            'username': self.username,
-            'issuer_name': self.issuer_name,
             'last_4_digits': self.last_4_digits,
             'card_type': self.card_type,
-            'full_name': self.full_name
+            'issuer_name': self.issuer_name,
+            'full_name': self.full_name,
+            'username': self.username,
+            'sha1_identifier': self.sha1_identifier
         }
 
 

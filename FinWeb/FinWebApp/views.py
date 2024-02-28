@@ -52,56 +52,59 @@ def settings_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
 
-        # handle credit cards editing
-        if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            try:
-                old_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
-            except Http404 as e:
-                Logger.logger.critical(e)
-                raise Http404("This page does not exist")
-
-            # old values of current object retrieval
-            old_user_credit_cards_instance_dict = old_user_credit_cards_instance.to_dict()
-
-            # perform database update operation here
-            new_user_credit_cards_instance = UserCards()
-            new_user_credit_cards_instance.username = old_user_credit_cards_instance_dict['username']
-            new_user_credit_cards_instance.last_4_digits = old_user_credit_cards_instance_dict['last_4_digits']
-            new_user_credit_cards_instance.issuer_name = old_user_credit_cards_instance_dict['issuer_name']
-            new_user_credit_cards_instance.full_name = old_user_credit_cards_instance_dict['full_name']
-            new_user_credit_cards_instance.card_type = request.POST.get('selected_card_type', old_user_credit_cards_instance_dict['card_type'])
-            new_user_credit_cards_instance.sha1_identifier = PostgreSQL.calc_sha1(new_user_credit_cards_instance.to_dict(), excluded_keys=['card_type'])
-
-            # check if modification instance cause an exception
-            if handle_instance_modification(new_user_credit_cards_instance) and handle_instance_deletion(old_user_credit_cards_instance):
-                return JsonResponse({'success': True})
-            return JsonResponse({'success': False})
-
         # handle personal information editing
         try:
-            user_personal_information_instance = get_object_or_404(UserPersonalInformation, pk=request.user.id)  # Retrieve user from the database  # Retrieve user from the database
+            # Retrieve user from the database
+            user_personal_information_object = get_object_or_404(UserPersonalInformation, pk=request.user.id)
+            user_personal_information_object.active_user = 'פעיל' if user_personal_information_object.active_user is True else 'לא פעיל'
         except Http404 as e:
             Logger.logger.critical(e)
             raise Http404("This page does not exist")
 
-        if request.method == 'POST':
-            user_personal_information_instance.first_name = request.POST.get('first_name', user_personal_information_instance.first_name)
-            user_personal_information_instance.last_name = request.POST.get('last_name', user_personal_information_instance.last_name)
-            user_personal_information_instance.email = request.POST.get('email', user_personal_information_instance.email)
-            user_personal_information_instance.password = request.POST.get('password', user_personal_information_instance.password)
-
-            # check if modification instance cause an exception
-            if handle_instance_modification(user_personal_information_instance):
-                return render(request, 'settings.html',{'user_personal_information_instance': user_personal_information_instance})
-
-        else:
-            user_personal_information_instance.active_user = 'פעיל' if user_personal_information_instance.active_user is True else 'לא פעיל'
-            return render(request, 'settings.html', {
-                'user_personal_information_instance': user_personal_information_instance,
-                'user_cards': retrieve_user_cards(logged_in_user),
-            })
+        return render(request, 'settings.html', {
+            'user_personal_information_instance': user_personal_information_object,
+            'user_cards': retrieve_user_cards(logged_in_user),
+            'credit_cards_transactions': retrieve_user_credit_card_transactions(logged_in_user),
+        })
 
     return render(request, 'login.html', )
+
+
+def settings_personal_information_post(request):
+    # handle personal information editing
+    try:
+        # Retrieve user from the database
+        user_personal_information_object = get_object_or_404(UserPersonalInformation, pk=request.user.id)
+    except Http404 as e:
+        Logger.logger.critical(e)
+        raise Http404("This page does not exist")
+
+    if request.method == 'POST':
+        user_personal_information_object.first_name = request.POST.get('first_name',  user_personal_information_object.first_name)
+        user_personal_information_object.last_name = request.POST.get('last_name', user_personal_information_object.last_name)
+        user_personal_information_object.email = request.POST.get('email', user_personal_information_object.email)
+        user_personal_information_object.password = request.POST.get('password', user_personal_information_object.password)
+
+        # check if modification of instance cause an exception
+        if handle_instance_modification(user_personal_information_object):
+            return redirect('settings_page')
+
+def settings_user_cards_post(request):
+    # handle credit cards editing
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        try:
+            current_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get( 'sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
+        except Http404 as e:
+            Logger.logger.critical(e)
+            raise Http404("This page does not exist")
+
+        # perform database update operation here
+        current_user_credit_cards_instance.card_type = request.POST.get('selected_card_type', current_user_credit_cards_instance.card_type)
+
+        # check if modification instance can cause an exception
+        if handle_instance_modification(current_user_credit_cards_instance):
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False})
 
 
 def retrieve_user_information(username: Text) -> dict:
@@ -270,9 +273,9 @@ def retrieve_user_credit_card_transactions(username: Text) -> dict:
             dict_data['category'].append(data.category)
 
         if dict_data.get('last_4_digits', None) is None:
-            dict_data['last_4_digits'] = [data.category]
+            dict_data['last_4_digits'] = [data.last_4_digits]
         else:
-            dict_data['last_4_digits'].append(data.category)
+            dict_data['last_4_digits'].append(data.last_4_digits)
 
     return dict_data
 

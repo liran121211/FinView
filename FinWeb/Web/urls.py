@@ -18,13 +18,17 @@ import os
 
 from django.contrib import admin
 from django.urls import path
-from FinWebApp.views import login_view, home_view, settings_view
+from FinWebApp.views import login_view, home_view, settings_view, settings_personal_information_post, settings_user_cards_post
 
 urlpatterns = [
     path('', home_view, name='home_page'),
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login_page'),
     path('settings/', settings_view, name='settings_page'),
+
+    # post paths
+    path('settings/submit_personal_information', settings_personal_information_post, name='settings_personal_information_post'),
+    path('settings/submit_user_cards', settings_user_cards_post, name='settings_user_cards_post'),
 ]
 
 handler404 = 'FinWebApp.views.handler404'
