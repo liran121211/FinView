@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Elegant Valuable Ibex</title>
+    <title>FinView - מבט על</title>
     <meta property="og:title" content="Elegant Valuable Ibex"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8"/>
@@ -99,6 +99,7 @@
 
     <!-- Local CSS Files -->
     <link rel="stylesheet" type="text/css" href=" {% static '/css/home.css' %} ">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
     <!-- Local JS Files -->
     <script src="{% static 'js/home.js' %}"></script>
@@ -138,8 +139,7 @@
     <div class="home-container">
         <div class="home-container1">
             <header data-thq="thq-navbar" class="home-navbar-interactive">
-                <img alt="logo" src="https://presentation-website-assets.teleporthq.io/logos/logo.png"
-                     class="home-image"/>
+                <img src="{% static 'images/FinView_logo.svg' %}" alt="FinView Logo" class="home-logo"/>
                 <div data-thq="thq-navbar-nav" class="home-desktop-menu">
                     <nav class="home-links">
                         <a href="{% url 'settings_page' %}" class="home-link">
@@ -166,8 +166,7 @@
                 <div data-thq="thq-mobile-menu" class="home-mobile-menu">
                     <div class="home-nav">
                         <div class="home-top">
-                            <img alt="image" src="https://presentation-website-assets.teleporthq.io/logos/logo.png"
-                                 class="home-logo"/>
+                            <img src="{% static 'images/FinView_logo.svg' %}" alt="FinView Logo" class="home-logo"/>
                             <div data-thq="thq-close-menu" class="home-close-menu">
                                 <svg viewBox="0 0 1024 1024" class="home-icon02">
                                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>

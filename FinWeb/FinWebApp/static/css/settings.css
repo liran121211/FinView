@@ -23,7 +23,7 @@ justify-content: space-between;
 background-color: #3498db;
 }
 .home-image {
-height: 2rem;
+height: 40px;
 }
 .home-desktop-menu {
 flex: 1;
@@ -149,7 +149,7 @@ margin-bottom: var(--dl-space-space-threeunits);
 justify-content: space-between;
 }
 .home-logo {
-height: 2rem;
+height: 40px;
 }
 .home-close-menu {
 display: flex;

@@ -494,3 +494,12 @@
 2024-02-29 20:56:00,397 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-02-29 20:56:04,553 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
 2024-02-29 20:56:05,136 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 21:27:44,300 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 21:27:46,771 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 21:27:47,400 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 21:30:11,240 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 21:30:13,648 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 21:30:14,248 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 21:37:50,204 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 21:37:52,576 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 21:37:53,132 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
