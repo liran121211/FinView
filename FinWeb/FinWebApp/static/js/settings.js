@@ -1,9 +1,10 @@
+/* ----------------------- Settings Panel ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.nav-span').forEach(function (span) {
         span.addEventListener('click', function () {
 
-            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div']
+            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div']
 
             // Iterate over each class name
             navDivClasses.forEach(function (navDivClass) {
@@ -243,8 +244,204 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderTable(currentPage);
     renderPagination();
+
+
+    // Object to track sort state for each column
+    const sortState = {
+        date_of_transaction: 'asc',
+        business_name: 'asc',
+        charge_amount: 'asc',
+        total_amount: 'asc',
+        transaction_provider: 'asc',
+        transaction_type: 'asc',
+        transaction_category: 'asc',
+        last_4_digits: 'asc'
+    };
+
+    const name_conversion = {
+        '4 ספרות אחרונות': 'last_4_digits',
+        'קטגוריה': 'transaction_category',
+        'סוג העסקה': 'transaction_type',
+        'ספק העסקה': 'transaction_provider',
+        'סכום העסקה': 'total_amount',
+        'סכום חיוב': 'charge_amount',
+        'שם בית העסק': 'business_name',
+        'תאריך עסקה': 'date_of_transaction'
+    }
+
+    // Function to sort transactions based on a column
+    function sortByColumn(column) {
+        const isAscending = sortState[column] === 'asc';
+        const multiplier = isAscending ? 1 : -1;
+
+        // Sort the data array based on the selected column
+        credit_cards_transactions[column].sort((valueA, valueB) => {
+            // Check if both values are numbers
+            if (!isNaN(valueA) && !isNaN(valueB)) {
+                return (valueA - valueB) * multiplier; // Numeric comparison
+            } else {
+                // Use localeCompare for string comparison
+                return valueA.localeCompare(valueB) * multiplier;
+            }
+        });
+
+        // Reverse the sort order for the column
+        sortState[column] = isAscending ? 'desc' : 'asc';
+    }
+
+    // Function to handle click events on column headers
+    function handleColumnHeaderClick(event) {
+        const columnHeader = event.target;
+        const column = name_conversion[columnHeader.textContent];
+        sortByColumn(column);
+        renderTable(currentPage);
+    }
+
+    // Add click event listeners to column headers
+    const columnHeaderElements = document.querySelectorAll('#credit-cards-transactions-table th');
+    columnHeaderElements.forEach(columnHeader => {
+        columnHeader.addEventListener('click', handleColumnHeaderClick);
+    });
+
+
 });
 
+
+/* ----------------------- Bank Transactions Table ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    // Check if user_cards is empty
+    const emptyBankTitle = document.querySelector('#empty-transactions-description');
+    if (Object.keys(user_cards).length === 0) {
+        emptyBankTitle.textContent = 'לא נמצאו תנועות בנק';
+        return;
+    }
+
+    const tableBody = document.querySelector('#bank-transactions-table tbody');
+    const itemsPerPage = 10;
+    let currentPage = 1;
+
+    const colName = Object.keys(bank_transactions)[0];
+    const numberOfDuplicates = bank_transactions[colName].length;
+    const totalPages = Math.ceil(numberOfDuplicates / itemsPerPage);
+
+    function createTableCell(content, className) {
+        const cell = document.createElement('td');
+        cell.classList.add(className);
+        const div = document.createElement('div');
+        div.textContent = content;
+        div.classList.add(className.replace('-col', ''));
+        cell.appendChild(div);
+        return cell;
+    }
+
+    function renderTable(page) {
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, numberOfDuplicates);
+        tableBody.innerHTML = '';
+
+        for (let i = startIndex; i < endIndex; i++) {
+            const row = document.createElement('tr');
+
+            row.appendChild(createTableCell(bank_transactions.account_number[i], 'account-number-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_category[i], 'transaction-category-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_reference[i], 'transaction-reference-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_provider[i], 'transaction-provider-col'));
+            row.appendChild(createTableCell(bank_transactions.current_balance[i], 'current-balance-col'));
+            row.appendChild(createTableCell(bank_transactions.outcome_balance[i], 'outcome-balance-col'));
+            row.appendChild(createTableCell(bank_transactions.income_balance[i], 'income-balance-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_description[i], 'transaction-description-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_date[i], 'transaction-date-col'));
+
+            tableBody.appendChild(row);
+        }
+    }
+
+    function renderPagination() {
+        const pagination = document.getElementById("bank-transactions-pagination");
+        pagination.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = '#';
+            pageLink.textContent = i;
+            if (i === currentPage) {
+                pageLink.classList.add('active');
+            }
+            pageLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                currentPage = i;
+                renderTable(currentPage);
+                renderPagination();
+            });
+            pagination.appendChild(pageLink);
+        }
+    }
+
+    renderTable(currentPage);
+    renderPagination();
+
+
+    // Object to track sort state for each column
+    const sortState = {
+        account_number: 'asc',
+        transaction_category: 'asc',
+        transaction_reference: 'asc',
+        transaction_provider: 'asc',
+        current_balance: 'asc',
+        outcome_balance: 'asc',
+        income_balance: 'asc',
+        transaction_description: 'asc',
+        transaction_date: 'asc'
+    };
+
+    const name_conversion = {
+        'מספר חשבון': 'account_number',
+        'קטגוריה': 'transaction_category',
+        'אסמכתא': 'transaction_reference',
+        'שם הבנק': 'transaction_provider',
+        'יתרה נוכחית': 'current_balance',
+        'סכום חיוב': 'outcome_balance',
+        'סכום זיכוי': 'income_balance',
+        'תיאור תנועה': 'transaction_description',
+        'תאריך תנועה': 'transaction_date'
+    }
+
+    // Function to sort transactions based on a column
+    function sortByColumn(column) {
+        const isAscending = sortState[column] === 'asc';
+        const multiplier = isAscending ? 1 : -1;
+
+        // Sort the data array based on the selected column
+        bank_transactions[column].sort((valueA, valueB) => {
+            // Check if both values are numbers
+            if (!isNaN(valueA) && !isNaN(valueB)) {
+                return (valueA - valueB) * multiplier; // Numeric comparison
+            } else {
+                // Use localeCompare for string comparison
+                return valueA.localeCompare(valueB) * multiplier;
+            }
+        });
+
+        // Reverse the sort order for the column
+        sortState[column] = isAscending ? 'desc' : 'asc';
+    }
+
+    // Function to handle click events on column headers
+    function handleColumnHeaderClick(event) {
+        const columnHeader = event.target;
+        const column = name_conversion[columnHeader.textContent];
+        sortByColumn(column);
+        renderTable(currentPage);
+    }
+
+    // Add click event listeners to column headers
+    const columnHeaderElements = document.querySelectorAll('#bank-transactions-table th');
+    columnHeaderElements.forEach(columnHeader => {
+        columnHeader.addEventListener('click', handleColumnHeaderClick);
+    });
+});
+
+/* ----------------------- Misc Functions ----------------------- */
 
 // Function to get CSRF cookie value
 function getCookie(name) {

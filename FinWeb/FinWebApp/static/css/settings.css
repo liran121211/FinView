@@ -779,3 +779,179 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+
+/* ----------------- Bank Transactions Table CSS ----------------- */
+.bank-transactions-div  {
+padding-top: 100px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#bank-transactions-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#bank-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+padding: 10px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#bank-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
+}
+
+.transaction-date-col {
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-description-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.income-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.outcome-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.current-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-reference-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.account-number-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-date {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-description {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align:center;
+margin: 10px;
+}
+
+.income-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.outcome-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.current-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-reference {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.account-number {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+#bank-transactions-pagination {
+margin-top: 20px;
+text-align: center;
+}
+
+#bank-transactions-pagination a {
+display: inline-block;
+padding: 5px 10px;
+margin: 0 3px;
+color: #333;
+background-color: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 3px;
+text-decoration: none;
+transition: background-color 0.3s ease;
+}
+
+#bank-transactions-pagination a:hover {
+background-color: #e0e0e0;
+}
+
+#bank-transactions-pagination a.active {
+background-color: #007bff;
+color: #fff;
+border-color: #007bff;
+}

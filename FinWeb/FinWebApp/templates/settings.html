@@ -112,6 +112,7 @@
     <script>
         let user_cards = {{ user_cards|safe }};
         let credit_cards_transactions = {{ credit_cards_transactions|safe }};
+        let bank_transactions = {{ bank_transactions|safe }};
     </script>
 
 </head>
@@ -121,8 +122,7 @@
     <div class="home-container">
         <div class="home-main-horizontal-layout">
             <header data-thq="thq-navbar" class="home-navbar-interactive">
-                <img alt="logo" src="https://presentation-website-assets.teleporthq.io/logos/logo.png"
-                     class="home-image"/>
+                <img src="{% static 'images/FinView_logo.jpg' %}" alt="FinView Logo" class="home-image"/>
                 <div data-thq="thq-navbar-nav" class="home-desktop-menu">
                     <nav class="home-links">
                         <a href="{% url 'settings_page' %}" class="home-link">
@@ -194,7 +194,7 @@
                         <span class="nav-span" data-div="personal-details-div1">הלוואות</span>
                         <span class="nav-span" data-div="personal-details-div2">הוראות קבע ותשלומים</span>
                         <span class="nav-span" data-div="credit-cards-transactions-div">עסקאות בכרטיסי אשראי</span>
-                        <span class="nav-span" data-div="personal-details-div4">תנועות בבנק</span>
+                        <span class="nav-span" data-div="bank-transactions-div">תנועות בבנק</span>
                     </nav>
                     <div class="home-profile">
                         <div class="home-container2">
@@ -308,7 +308,7 @@
                         <p id="empty-transactions-description"></p>
                     </td>
                     <td class="last-4-digits-col"></td>
-                    <td class="category-col"></td>
+                    <td class="transaction-category-col"></td>
                     <td class="transaction-type-col"></td>
                     <td class="transaction-provider-col"></td>
                     <td class="total-amount-col"></td>
@@ -319,6 +319,40 @@
                     </tbody>
                 </table>
                 <div id="credit-cards-transactions-pagination"></div>
+            </div>
+            <div class="bank-transactions-div">
+
+                <table id="bank-transactions-table">
+                    <thead>
+                    <tr>
+                        <th>מספר חשבון</th>
+                        <th>קטגוריה</th>
+                        <th>אסמכתא</th>
+                        <th>שם הבנק</th>
+                        <th>יתרה נוכחית</th>
+                        <th>סכום חיוב</th>
+                        <th>סכום זיכוי</th>
+                        <th>תיאור תנועה</th>
+                        <th>תאריך תנועה</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="date-of-transaction-col">
+                        <p id="empty-transactions-description"></p>
+                    </td>
+                    <td class="account-number-col"></td>
+                    <td class="transaction-category-col"></td>
+                    <td class="transaction-reference-col"></td>
+                    <td class="transaction-provider-col"></td>
+                    <td class="current-balance-col"></td>
+                    <td class="outcome-balance-col"></td>
+                    <td class="income-balance-col"></td>
+                    <td class="transaction-description-col"></td>
+                    <td class="transaction-date-col"></td>
+
+                    </tbody>
+                </table>
+                <div id="bank-transactions-pagination"></div>
             </div>
 
             <div class="settings-modification-block-status">

@@ -64,6 +64,7 @@ def settings_view(request):
             'user_personal_information_instance': user_personal_information_object,
             'user_cards': retrieve_user_cards(logged_in_user),
             'credit_cards_transactions': retrieve_user_credit_card_transactions(logged_in_user),
+            'bank_transactions': retrieve_user_bank_transactions(logged_in_user, positive_only=False)
         })
 
     return render(request, 'login.html', )

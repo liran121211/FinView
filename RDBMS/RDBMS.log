@@ -1,0 +1,496 @@
+2024-02-17 21:34:28,992 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:34:29,036 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:34:29,522 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-17 21:34:30,775 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-17 21:34:31,428 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-17 21:34:31,439 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-17 21:34:31,455 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-17 21:34:32,022 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-17 21:34:32,045 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-19 18:43:16,660 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-19 18:43:23,796 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-19 18:43:24,426 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-19 21:57:18,555 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-19 21:57:20,754 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-19 22:02:15,642 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-19 22:02:17,856 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-19 22:02:18,432 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-23 17:35:19,703 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-23 17:35:24,335 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-23 17:35:24,908 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-23 18:20:44,149 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-23 18:20:46,497 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-23 18:20:47,116 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:07:13,618 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:07:18,148 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:07:18,726 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:09:53,840 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:09:56,127 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:09:56,680 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:10:10,749 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:10:12,919 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:10:13,465 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:12:42,381 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:12:44,587 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:12:45,200 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:14:27,928 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:14:30,051 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:14:30,602 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:14:47,297 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:15:06,240 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:15:10,158 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:15:29,003 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:15:32,573 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:15:34,109 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:17:38,458 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:17:42,333 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:17:43,903 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:19:26,574 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:19:30,230 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:19:31,899 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:21:15,438 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 11:21:19,195 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 11:21:20,882 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 12:46:11,004 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 12:46:15,836 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 12:46:17,544 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 12:47:12,795 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 12:47:16,719 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 12:47:18,388 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 17:55:40,545 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 17:55:46,316 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 17:55:47,956 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 17:58:41,604 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 17:58:45,449 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 17:58:47,158 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 17:59:56,586 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:00:00,298 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:00:01,972 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:00:34,333 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:00:37,816 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:00:39,354 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:05:52,830 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:05:56,359 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:05:57,966 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:11:20,414 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:11:23,907 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:11:25,565 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:16:14,878 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:16:19,489 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:16:21,412 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:19:10,949 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:19:15,262 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:19:16,892 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:20:06,387 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:20:09,914 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:20:11,446 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:21:39,659 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:21:43,429 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:21:44,975 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:22:24,281 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:22:27,711 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:22:29,227 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:24:36,696 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:24:40,193 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:24:41,715 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:25:19,769 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 18:25:23,327 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 18:25:24,838 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:13:36,908 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 22:13:42,452 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:13:43,984 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:19:56,517 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 22:20:00,150 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:20:01,700 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:21:39,655 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 22:21:43,520 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:21:45,120 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:22:55,112 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 22:22:58,842 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:23:00,375 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:24:05,501 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 22:24:09,014 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:24:10,547 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:25:10,187 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-24 22:25:13,960 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:25:15,754 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-24 22:25:15,956 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-24 22:25:16,262 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-24 22:25:16,586 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-24 22:25:20,262 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-25 19:04:41,076 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-25 19:04:45,101 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-25 19:04:45,674 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 12:59:35,268 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 12:59:40,108 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 12:59:40,715 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 12:59:52,408 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 12:59:54,528 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 12:59:55,092 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:06:21,666 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 21:06:26,329 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:06:26,964 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:06:27,096 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 21:06:27,281 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 21:06:27,405 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 21:06:29,337 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 21:08:00,792 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 21:08:04,446 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:08:05,982 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:11:01,650 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 21:11:05,173 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:11:06,766 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:14:57,696 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 21:15:01,402 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:15:03,148 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:37:08,963 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 21:37:12,525 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 21:37:14,071 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:33:39,103 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 22:33:43,940 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:33:45,541 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:34:47,461 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 22:34:51,058 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:34:52,741 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:44:54,552 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 22:44:58,277 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:44:59,819 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:58:48,351 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 22:58:52,915 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:58:54,460 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:58:54,640 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 22:58:54,831 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 22:58:55,088 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 22:58:58,343 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-26 22:59:36,145 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 22:59:39,913 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 22:59:41,441 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 23:04:51,202 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-26 23:04:54,823 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-26 23:04:56,326 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 06:49:17,222 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 06:49:22,711 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 06:49:24,239 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:30:18,085 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:30:22,008 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:30:23,941 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:31:10,899 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:31:14,494 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:31:16,086 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:35:58,531 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:36:02,988 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:36:04,534 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:43:22,483 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:43:24,569 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:43:25,107 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:44:05,371 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:44:07,459 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:44:08,010 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:44:50,159 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:44:52,238 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:44:52,784 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:47:33,180 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:47:36,830 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:47:38,351 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:47:38,735 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 07:50:25,574 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:50:27,677 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:50:28,244 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:50:28,331 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 07:52:58,500 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 07:53:02,043 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:53:03,565 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 07:53:03,738 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 07:53:03,932 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 07:53:04,201 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 07:53:07,472 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 08:04:27,657 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:04:31,284 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:04:32,846 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:11:18,084 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:11:21,995 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:11:23,613 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:29:12,879 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:29:16,986 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:29:18,601 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:29:31,361 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:29:35,346 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:29:37,277 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:30:30,815 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:30:34,472 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:30:36,089 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:32:31,764 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:32:33,857 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:32:34,404 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:33:45,743 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:33:47,982 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:33:48,533 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:35:01,206 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:35:03,426 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:35:04,010 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:39:45,049 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:39:47,208 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:39:47,754 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:40:04,656 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:40:06,766 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:40:07,325 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:40:33,535 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:40:35,732 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:40:36,289 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:43:31,622 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:43:33,849 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:43:34,446 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:45:25,703 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:45:27,929 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:45:28,507 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:53:29,939 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 08:53:32,435 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 08:53:33,014 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:00:46,823 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:00:49,005 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:00:49,563 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:00:51,566 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:01:35,074 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:01:37,225 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:01:37,801 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:13:37,874 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:13:40,152 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:13:40,726 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:20:06,607 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:20:09,065 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:20:09,636 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:20:38,823 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:20:40,902 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:20:41,463 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:25:35,450 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:25:37,750 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:25:38,345 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:25:38,424 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:25:38,560 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:25:38,679 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:25:40,356 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:26:51,229 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:26:55,297 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:26:56,956 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:28:03,186 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:28:06,846 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:28:08,462 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:28:51,609 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:28:56,104 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:28:57,902 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:29:24,786 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:29:28,490 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:29:30,246 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:31:07,913 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:31:11,673 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:31:13,236 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:33:12,152 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:33:15,727 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:33:17,287 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:33:17,663 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:34:20,292 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:34:48,596 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:34:50,812 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:34:51,390 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:35:38,418 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:35:41,769 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:35:42,346 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:35:42,715 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:35:44,364 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:38:03,120 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:38:06,335 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:38:06,924 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:38:07,284 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:38:08,908 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:41:43,216 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:41:45,362 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:41:45,925 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:41:46,022 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:41:46,163 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:41:46,279 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:41:47,948 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:42:23,840 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:42:25,922 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:42:26,480 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:42:26,801 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:42:28,381 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:43:04,574 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:43:06,678 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:43:07,221 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:43:07,542 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:43:09,135 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:53:04,195 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 09:53:50,458 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:53:52,103 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 09:56:14,073 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 09:56:17,708 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 19:51:30,761 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 19:52:59,053 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 19:53:05,442 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 19:53:07,065 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 19:53:07,743 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 19:56:05,032 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 19:56:07,152 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 19:56:07,703 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 19:56:07,783 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 19:56:07,916 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 19:56:08,030 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 19:56:09,641 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-27 19:57:03,769 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-27 19:57:07,359 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-27 19:57:08,921 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:41:02,100 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:41:12,340 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:41:14,480 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:44:38,914 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:44:42,643 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:44:45,318 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:44:46,047 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:44:57,766 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:44:59,891 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:45:01,609 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:48:33,141 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:48:37,102 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:48:38,921 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:48:39,654 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:48:42,969 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:49:39,278 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:49:42,948 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:49:44,544 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:49:45,200 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:49:48,582 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:50:42,516 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:50:47,348 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:50:49,294 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:54:14,162 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:54:17,754 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:56:16,778 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:56:18,895 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:56:19,459 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:56:19,798 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:56:21,495 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:57:23,983 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:57:27,533 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:57:29,066 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:58:26,611 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 18:58:28,845 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:58:29,447 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 18:58:29,773 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 18:58:31,462 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:00:00,629 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 19:00:04,300 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:00:05,903 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:00:06,084 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:00:06,287 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:00:06,576 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:00:10,091 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:03:05,625 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 19:03:11,189 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:03:13,150 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:03:28,718 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 19:03:30,878 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:03:31,439 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:03:31,515 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:03:31,647 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:03:31,765 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:03:33,506 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:04:06,793 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 19:04:09,117 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:04:09,675 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:07:14,825 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 19:07:17,021 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:07:17,578 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:07:17,902 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:07:19,481 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 19:07:39,214 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 19:07:41,349 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 19:07:41,911 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:27:00,344 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 20:27:03,671 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:27:04,297 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:32:19,124 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 20:32:21,338 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:32:21,915 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:42:21,649 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 20:42:23,849 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:42:24,417 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:49:40,316 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 20:49:42,642 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:49:43,205 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:51:34,279 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 20:51:38,222 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 20:51:39,804 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 21:51:55,862 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 21:52:00,279 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 21:52:01,954 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 21:52:47,772 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 21:52:51,586 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 21:52:53,231 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 21:52:53,413 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 21:52:53,615 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 21:52:53,920 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 21:52:57,904 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 21:57:45,635 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 21:57:49,324 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 21:57:51,313 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:00:10,650 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:00:15,110 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:00:16,799 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:03:41,216 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:03:45,315 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:03:47,249 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:05:27,562 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:05:31,758 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:05:33,449 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:05:33,644 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:05:33,850 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:05:34,131 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:05:37,768 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:07:19,259 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:07:21,529 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:07:22,169 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:09:07,028 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:09:11,777 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:09:14,114 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:09:14,539 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:09:14,756 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:09:15,111 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:09:20,533 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:12:43,525 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:12:47,561 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:12:49,250 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:12:49,455 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:12:49,670 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:12:49,965 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:12:53,662 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:14:19,743 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 22:14:22,588 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:14:23,472 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 22:14:23,557 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:14:23,732 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:14:23,865 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 22:14:26,165 - INFO - Successfully added a new record to PostgreSQL database.
+2024-02-28 23:21:33,202 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 23:21:36,671 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 23:21:37,241 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 23:32:50,226 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 23:32:53,331 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 23:32:53,915 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 23:42:37,503 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-28 23:42:39,718 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-28 23:42:40,314 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 19:30:57,320 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 19:31:06,934 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 19:31:07,649 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:03:38,179 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 20:03:42,039 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:03:42,767 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:08:25,118 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 20:08:27,268 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:08:27,832 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:09:06,972 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 20:09:09,423 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:09:10,060 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:56:00,397 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-02-29 20:56:04,553 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-02-29 20:56:05,136 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
