@@ -40,7 +40,7 @@ def IncomeByMonthQuery(username: Text):
 
 
 def SpentByCategoryQuery(username: Text):
-    cols_names = ['category', 'total_amount', ]
+    cols_names = ['transaction_category', 'total_amount', ]
 
     query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
     return pd.DataFrame(query, columns=cols_names).to_dict()
@@ -146,7 +146,7 @@ class UserCreditCardsTransactions(models.Model):
     username = models.CharField(max_length=50, db_column='username')
     transaction_provider = models.CharField(max_length=50, db_column='transaction_provider')
     transaction_type = models.CharField(max_length=50, db_column='transaction_type')
-    category = models.CharField(max_length=50, db_column='category')
+    transaction_category = models.CharField(max_length=50, db_column='transaction_category')
     last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')
 
     class Meta:

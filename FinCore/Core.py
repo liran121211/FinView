@@ -94,7 +94,7 @@ class CreditCardsTransactions:
             return RECORD_EXIST
 
         # Generate category value for new added record.
-        record_data['category'] = Gemini_Model.find_business_category(record_data['business_name'])
+        record_data['transaction_category'] = Gemini_Model.find_business_category(record_data['business_name'])
 
         try:
             self.db.add_record(table_name='user_credit_card_transactions', record_data=record_data)
@@ -737,10 +737,10 @@ class Application:
             return format_result(result)
 
         def how_much_spent_by_category(username: Text):
-            query = f"SELECT category, SUM(total_amount)" \
+            query = f"SELECT transaction_category, SUM(total_amount)" \
                     f" FROM user_credit_card_transactions" \
                     f" WHERE username='{username}'" \
-                    f" GROUP BY category;"
+                    f" GROUP BY transaction_category;"
 
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return result

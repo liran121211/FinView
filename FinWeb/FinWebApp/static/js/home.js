@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         outcome_name.textContent = user_outcome.business_name[i];
         outcome_name.classList.add('outcome_name'); // Add the class for styling
 
-        outcome_category.textContent = user_outcome.category[i];
+        outcome_category.textContent = user_outcome.transaction_category[i];
         outcome_category.classList.add('outcome_category'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         outcome_row.style.backgroundRepeat = 'no-repeat';
         outcome_row.style.backgroundSize = '35px';
 
-        switch (user_outcome.category[i]) {
+        switch (user_outcome.transaction_category[i]) {
             case 'ביטוח':
                 outcome_row.style.backgroundImage = 'url("static/images/credit_card_categories_icons/insurance_logo.svg")';
                 break;
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ----------------------- Quick Overview Doughnut-Pie - Doughnut Graph ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
     // Spent by Category
-    let spent_by_category_labels = Object.values(spent_by_category['category']);
+    let spent_by_category_labels = Object.values(spent_by_category['transaction_category']);
     let spent_by_category_items = Object.values(spent_by_category['total_amount']);
 
     // Spent by Card Number
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let spent_by_category_title = 'הוצאות לפי קטגוריה';
     let spent_by_category_font_color = '#4C495A';
     let spent_by_category_font_size = 22;
-    if (Object.keys(spent_by_category['category']).length === 0) {
+    if (Object.keys(spent_by_category['transaction_category']).length === 0) {
         spent_by_category_title = spent_by_category_title + ' (מידע לא זמין)';
         spent_by_category_font_color = '#C6C6C6';
         spent_by_category_font_size = 18;
@@ -332,7 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let spent_by_card_title = 'הוצאות לפי כרטיס';
     let spent_by_card_font_color = '#4C495A';
     let spent_by_card_font_size = 22;
-    if (Object.keys(spent_by_category['category']).length === 0) {
+    if (Object.keys(spent_by_category['transaction_category']).length === 0) {
         spent_by_card_title = spent_by_card_title + ' (מידע לא זמין)';
         spent_by_card_font_color = '#C6C6C6';
         spent_by_card_font_size = 18;
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let bank_transaction_by_category_title = 'תנועות בנק לפי קטגוריה';
     let bank_transaction_by_category_font_color = '#4C495A';
     let bank_transaction_by_category_font_size = 22;
-    if (Object.keys(spent_by_category['category']).length === 0) {
+    if (Object.keys(spent_by_category['transaction_category']).length === 0) {
         bank_transaction_by_category_title = bank_transaction_by_category_title + ' (מידע לא זמין)';
         bank_transaction_by_category_font_color = '#C6C6C6';
         bank_transaction_by_category_font_size = 18;

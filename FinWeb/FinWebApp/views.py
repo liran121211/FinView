@@ -10,7 +10,6 @@ from FinWeb.FinWebApp import Logger
 from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
     BankTransactionByCategoryQuery, UserPersonalInformation
-from RDBMS.PostgreSQL import PostgreSQL
 
 
 def home_view(request):
@@ -89,11 +88,12 @@ def settings_personal_information_post(request):
         if handle_instance_modification(user_personal_information_object):
             return redirect('settings_page')
 
+
 def settings_user_cards_post(request):
     # handle credit cards editing
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         try:
-            current_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get( 'sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
+            current_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
         except Http404 as e:
             Logger.logger.critical(e)
             raise Http404("This page does not exist")
@@ -220,7 +220,7 @@ def retrieve_user_credit_card_transactions(username: Text) -> dict:
             'username': [],
             'transaction_provider': [],
             'transaction_type': [],
-            'category': [],
+            'transaction_category': [],
             'last_4_digits': [],
         }
         return filtered_data
@@ -267,10 +267,10 @@ def retrieve_user_credit_card_transactions(username: Text) -> dict:
         else:
             dict_data['transaction_type'].append(data.transaction_type)
 
-        if dict_data.get('category', None) is None:
-            dict_data['category'] = [data.category]
+        if dict_data.get('transaction_category', None) is None:
+            dict_data['transaction_category'] = [data.transaction_category]
         else:
-            dict_data['category'].append(data.category)
+            dict_data['transaction_category'].append(data.transaction_category)
 
         if dict_data.get('last_4_digits', None) is None:
             dict_data['last_4_digits'] = [data.last_4_digits]
