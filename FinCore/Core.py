@@ -229,7 +229,7 @@ class BankTransactions:
         return self.db.create_query(sql_query)
 
 
-class UserInformation:
+class UserFinancialInformation:
     def __init__(self):
         self.logger = Logger
         self.db = PostgreSQL_DB
@@ -447,7 +447,7 @@ class Application:
         self.__manage_user_cards = UserCards()
         self.__manage_credit_cards_transactions = CreditCardsTransactions()
         self.__manage_bank_transactions = BankTransactions()
-        self.__manage_user_information = UserInformation()
+        self.__manage_user_financial_information = UserFinancialInformation()
         self.__manage_user_direct_debit_subscriptions = UserDirectDebitSubscriptions()
 
     def load_statements_to_db(self, current_user: Text):
@@ -599,7 +599,7 @@ class Application:
 
                     # extract current bank balance (last loaded statement)
                     current_debit = BankLeumiParser.extract_current_bank_debit(bank_leumi_data.data)
-                    self.__manage_user_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
+                    self.__manage_user_financial_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
 
                 if root.split(os.path.sep)[-1] == 'BankMizrahiTefahot':
                     bank_mizrahi_tefahot_data = BankMizrahiTefahotParser(file_path=os.path.join(root, filename)).parse()
@@ -620,7 +620,7 @@ class Application:
 
                     # extract current bank balance (last loaded statement)
                     current_debit = BankMizrahiTefahotParser.extract_current_bank_debit(bank_mizrahi_tefahot_data)
-                    self.__manage_user_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
+                    self.__manage_user_financial_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
 
     @property
     def ask(self):

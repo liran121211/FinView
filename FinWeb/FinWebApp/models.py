@@ -78,7 +78,7 @@ class UserPersonalInformation(models.Model):
         return self.username
 
 
-class UserInformation(models.Model):
+class UserFinancialInformation(models.Model):
     username = models.CharField(max_length=50, primary_key=True)
     current_debit = models.FloatField(max_length=9, db_column='current_debit')
     latest_debit = models.FloatField(max_length=9, db_column='latest_debit')

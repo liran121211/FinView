@@ -1,13 +1,16 @@
 from typing import Text, Any
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError, FieldError, ObjectDoesNotExist, PermissionDenied
-from django.db import IntegrityError, DataError
+from django.db import IntegrityError, DataError, DatabaseError
 from django.db.models import ProtectedError
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
-from FinWeb.FinWebApp import Logger
-from FinWeb.FinWebApp.models import UserInformation, UserCards, UserDirectDebitSubscriptions, UserBankTransactions, \
+from FinWeb.FinWebApp import Logger, INVALID_KEY
+from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
+    UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
     BankTransactionByCategoryQuery, UserPersonalInformation
 
@@ -29,10 +32,16 @@ def home_view(request):
             'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
         })
     else:
-        return render(request, 'login.html', {'data': 'Invalid username or password'})
+        return render(request, 'login.html')
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('home_page')
+    return render(request, 'login.html', )
+
+
+def login_post(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -42,9 +51,33 @@ def login_view(request):
             login(request, user)
             return redirect('home_page')
         else:
-            return render(request, 'login.html', {'data': 'Invalid username or password'})
+            return render(request, 'login.html', {'data': 'שם משתמש או/ו סיסמא שגויים'})
 
-    return render(request, 'login.html', )
+
+def register_post(request):
+    if request.method == 'POST':
+        full_name = request.POST['full_name'].split()
+        first_name, last_name = full_name[0], full_name[1]
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+
+        # Create the user
+        handle_instance_creation(instance=None, kwargs={
+            'kind': 'create_user',
+            'username': username,
+            'password': password,
+            'email': email,
+            'first_name': first_name,
+            'last_name': last_name
+        })
+
+        user = authenticate(request, username=username, password=pasFCsword)
+        if user is not None:
+            login(request, user)
+            return redirect('home_page')
+
+    return render(request, 'login.html')
 
 
 def settings_view(request):
@@ -80,10 +113,13 @@ def settings_personal_information_post(request):
         raise Http404("This page does not exist")
 
     if request.method == 'POST':
-        user_personal_information_object.first_name = request.POST.get('first_name',  user_personal_information_object.first_name)
-        user_personal_information_object.last_name = request.POST.get('last_name', user_personal_information_object.last_name)
+        user_personal_information_object.first_name = request.POST.get('first_name',
+                                                                       user_personal_information_object.first_name)
+        user_personal_information_object.last_name = request.POST.get('last_name',
+                                                                      user_personal_information_object.last_name)
         user_personal_information_object.email = request.POST.get('email', user_personal_information_object.email)
-        user_personal_information_object.password = request.POST.get('password', user_personal_information_object.password)
+        user_personal_information_object.password = request.POST.get('password',
+                                                                     user_personal_information_object.password)
 
         # check if modification of instance cause an exception
         if handle_instance_modification(user_personal_information_object):
@@ -94,13 +130,15 @@ def settings_user_cards_post(request):
     # handle credit cards editing
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         try:
-            current_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
+            current_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get(
+                'sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
         except Http404 as e:
             Logger.logger.critical(e)
             raise Http404("This page does not exist")
 
         # perform database update operation here
-        current_user_credit_cards_instance.card_type = request.POST.get('selected_card_type', current_user_credit_cards_instance.card_type)
+        current_user_credit_cards_instance.card_type = request.POST.get('selected_card_type',
+                                                                        current_user_credit_cards_instance.card_type)
 
         # check if modification instance can cause an exception
         if handle_instance_modification(current_user_credit_cards_instance):
@@ -110,7 +148,7 @@ def settings_user_cards_post(request):
 
 def retrieve_user_information(username: Text) -> dict:
     # Retrieve all rows from the table
-    filtered_data = UserInformation.objects.filter(username=username).first()
+    filtered_data = UserFinancialInformation.objects.filter(username=username).first()
 
     # if query was invalid or empty.
     if filtered_data is None:
@@ -437,6 +475,37 @@ def handle_instance_deletion(instance: Any) -> bool:
         return False
     except IntegrityError as e:
         # Handle field-related errors
+        Logger.logger.critical(e)
+        return False
+    except Exception as e:
+        # Handle other unexpected exceptions
+        Logger.logger.critical(e)
+        return False
+
+
+def handle_instance_creation(instance: Any, **kargs) -> bool:
+    try:
+        if kargs.get('kind', None) == 'user_creation':
+            User.objects.create_user(username=kargs.get('username', INVALID_KEY),
+                                     password=kargs.get('password', INVALID_KEY),
+                                     email=kargs.get('email', INVALID_KEY),
+                                     first_name=kargs.get('first_name', INVALID_KEY),
+                                     last_name=kargs.get('last_name', INVALID_KEY),
+                                     )
+            return True
+        else:
+            return False
+
+    except IntegrityError as e:
+        # Handle field-related errors
+        Logger.logger.critical(e)
+        return False
+    except ValidationError as e:
+        # Handle validation errors
+        Logger.logger.critical(e)
+        return False
+    except DatabaseError as e:
+        # Handle database-related errors
         Logger.logger.critical(e)
         return False
     except Exception as e:

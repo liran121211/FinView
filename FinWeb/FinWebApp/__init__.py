@@ -27,3 +27,4 @@ Logger.setLevel(logging.DEBUG)
 
 #Define
 INVALID_ANSWER = -1
+INVALID_KEY = 'None'
