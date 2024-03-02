@@ -94,8 +94,8 @@ justify-content: space-between;
 }
 .home-login {
 transition: 0.3s;
-border-width: 0px;
-margin-right: var(--dl-space-space-twounits);
+border-width: 0;
+width: 100px;
 }
 .home-login:hover {
 animation-name: pulse;

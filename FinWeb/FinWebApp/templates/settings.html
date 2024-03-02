@@ -138,8 +138,13 @@
 
                     </nav>
                     <div class="home-buttons">
-                        <button class="home-login button">התחברות</button>
-                        <button class="home-register button">הרשמה</button>
+                        {% if user.is_authenticated %}
+                            <button class="home-login button" onclick="window.location.href='{% url 'logout_page' %}'">
+                                התנתק
+                            </button>
+                        {% else %}
+                            <!-- ELSE_DO_NOTHING -->
+                        {% endif %}
                     </div>
                 </div>
                 <div data-thq="thq-burger-menu" class="home-burger-menu">

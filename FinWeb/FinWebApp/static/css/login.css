@@ -259,3 +259,23 @@ fab fa-facebook-f {
 width: 100px;
 height: 100px;
 }
+
+.success-message{
+background-color: #d4edda; /* Greenish background color */
+border: 1px solid #c3e6cb; /* Greenish border color */
+color: #155724; /* Dark green text color */
+padding: 10px 20px; /* Padding around the text */
+border-radius: 5px; /* Rounded corners */
+margin-bottom: 20px; /* Margin at the bottom to separate from other content */
+display: block;
+}
+
+.error-message{
+background-color: #f8d7da; /* Redish background color */
+border: 1px solid #f5c6cb; /* Redish border color */
+color: #721c24; /* Dark red text color */
+padding: 10px 20px; /* Padding around the text */
+border-radius: 5px; /* Rounded corners */
+margin-bottom: 20px; /* Margin at the bottom to separate from other content */
+display: block;
+}

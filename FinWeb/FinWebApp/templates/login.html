@@ -1,127 +1,84 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>FinView - התחברות</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
 
-    .login-container {
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      width: 300px;
-    }
-
-    .login-header {
-      background-color: #3498db;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      font-size: 20px;
-    }
-
-    .login-form {
-      padding: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 5px;
-    }
-
-    input {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .login-btn {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .login-btn:hover {
-      background-color: #2980b9;
-    }
-  </style>
-        <!-- Local CSS Files -->
-        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <!-- Local CSS Files -->
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/login.css' %} ">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Local JS Files -->
+    <script src="{% static 'js/login.js' %}"></script>
 </head>
 <body>
-      <form method="post" action="{% url 'login_page' %}">
-        {% csrf_token %}
-          <div class="login-container">
-            <div class="login-header">Login</div>
-            <div class="login-form">
-              <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <div class="error-message" id="username-error"></div>
-              </div>
-              <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <div class="error-message" id="password-error"></div>
-                {% if data %}
-                    <div class="error-message">{{ data }}</div>
-                {% endif %}
-              </div>
-              <button class="login-btn" id="login-btn">Login</button>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form method="post" action="{% url 'register_post' %}">
+            {% csrf_token %}
+            <h1>צור חשבון</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
-          </div>
-      </form>
+            <span>או השתמש במייל ליצירת חשבון</span>
+            <label for="full_name"></label><input type="text" id="full_name" name="full_name" required placeholder="שם מלא">
+            <label for="username"></label><input type="text" id="username" name="username" required placeholder="שם משתמש">
+            <label for="email"></label><input type="email" id="email" name="email" required placeholder="מייל">
+            <label for="password"></label><input type="password" id="password" name="password" required placeholder="סיסמה">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            <button>הירשם</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form method="post" action="{% url 'login_post' %}">
+            {% csrf_token %}
+            <h1>כניסה לאזור האישי</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>או התחבר עם מייל וסיסמה</span>
+            <label for="username"></label><input type="text" id="username" name="username" required placeholder="שם משתמש">
+            <label for="password"></label><input type="password" id="password" name="password" required placeholder="סיסמה">
+
+            {% if success_registration %}
+                <div class="success-message">{{ success_registration }}</div>
+            {% endif %}
+
+            {% if failure_registration %}
+                <div class="error-message">{{ failure_registration }}</div>
+            {% endif %}
+
+            {% if failure_login %}
+                <div class="error-message">{{ failure_login }}</div>
+            {% endif %}
+
+            <a href="#">שכחת את הסיסמה?</a>
+            <button class="login-btn" id="login-btn">התחבר</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>ברוך שובך!</h1>
+                <p>כדי להישאר מחובר, התחבר למשתמש קיים</p>
+                <button class="ghost" id="signIn">התחבר</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>שלום לך!</h1>
+                <p>אנא הכנס את פרטיך האישיים כדי להתחיל את המסע</p>
+                <button class="ghost" id="signUp">הירשם</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-
-  <!-- Include jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      // Event listener for the login button
-      $("#login-btn").click(function () {
-        // Reset error messages
-        $(".error-message").text("");
-
-        // Get input values
-          let username = $("#username").val();
-          let password = $("#password").val();
-
-          // Simple validation
-        if (username === "") {
-          $("#username-error").text("Please enter your username.");
-          return;
-        }
-
-        if (password === "") {
-          $("#password-error").text("Please enter your password.");
-
-        }
-
-      });
-    });
-  </script>
 </html>
