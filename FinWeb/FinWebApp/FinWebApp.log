@@ -1,0 +1,23 @@
+2024-03-03 20:34:06,396 - WARNING - 'Settings' object has no attribute 'MAX_UPLOAD_SIZE'
+2024-03-04 19:15:45,685 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:15:45,685 - WARNING - name 'WRONG_FILE_TYPE' is not defined
+2024-03-04 19:16:18,506 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:16:18,506 - WARNING - name 'WRONG_FILE_TYPE' is not defined
+2024-03-04 19:26:43,706 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:26:43,706 - WARNING - name 'WRONG_FILE_TYPE' is not defined
+2024-03-04 19:27:06,227 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:27:06,227 - WARNING - name 'WRONG_FILE_TYPE' is not defined
+2024-03-04 19:30:18,024 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:30:18,024 - WARNING - name 'WRONG_FILE_TYPE' is not defined
+2024-03-04 19:32:46,599 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:32:46,600 - WARNING - name 'WRONG_FILE_TYPE' is not defined
+2024-03-04 19:39:00,545 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:39:24,100 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:44:32,713 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:44:59,096 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:45:09,892 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:45:40,342 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:45:46,924 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:46:40,517 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:47:47,202 - WARNING - ValidationError: File type not allowed
+2024-03-04 19:51:28,460 - WARNING - ValidationError: File type not allowed

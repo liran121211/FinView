@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.nav-span').forEach(function (span) {
         span.addEventListener('click', function () {
 
-            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div']
+            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-div', ]
 
             // Iterate over each class name
             navDivClasses.forEach(function (navDivClass) {
@@ -157,14 +157,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(data => {
                         if (!data.success) {
                             // Handle the case where the server indicates failure
-                            showFailStatus("עדכון מידע נכשל");
+                            showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
                         } else {
                             // Handle the case where the server indicates success
-                            showSuccessStatus("השינויים עודכנו בהצלחה");
+                            showSuccessStatus('השינויים עודכנו בהצלחה', "'.settings-modification-block-success-status'");
                         }
                     })
                     .catch(_ => {
-                        showFailStatus("עדכון מידע נכשל");
+                        showFailStatus("עדכון מידע נכשל", "'.settings-modification-block-fail-status'");
                     });
             });
         }
@@ -441,6 +441,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+/* ----------------------- File Upload Table ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('upload-button').addEventListener('click', function (event) {
+        event.preventDefault();
+        let formData = new FormData();
+        formData.append('file', document.getElementById('file-input-field').files[0]);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/settings/upload', true);
+        xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        xhr.onload = function () {
+            if (xhr.status === 200)
+            {
+                let responseData = JSON.parse(xhr.responseText);
+                showSuccessStatus(responseData.statusText, '.file-upload-success-status');
+            }
+            else
+            {
+                let responseData = JSON.parse(xhr.responseText);
+                showFailStatus(responseData.statusText, '.file-upload-failure-status');
+            }
+        };
+        xhr.send(formData);
+    });
+
+});
+
 /* ----------------------- Misc Functions ----------------------- */
 
 // Function to get CSRF cookie value
@@ -461,8 +488,8 @@ function getCookie(name) {
 }
 
 // Function to show success status message
-function showSuccessStatus(message) {
-    const successStatusElement = document.querySelector('.settings-modification-block-success-status');
+function showSuccessStatus(message, element) {
+    const successStatusElement = document.querySelector(element);
     successStatusElement.textContent = message;
     successStatusElement.style.display = 'block';
     setTimeout(() => {
@@ -473,8 +500,8 @@ function showSuccessStatus(message) {
 }
 
 // Function to show fail status message
-function showFailStatus(message) {
-    const failStatusElement = document.querySelector('.settings-modification-block-fail-status');
+function showFailStatus(message, element) {
+    const failStatusElement = document.querySelector(element);
     failStatusElement.textContent = message;
     failStatusElement.style.display = 'block';
     setTimeout(() => {

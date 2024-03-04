@@ -17,7 +17,6 @@ from . import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = 'django-insecure-8*4vzaxkucf%df#zioekp!mk6qch%88_k24y1!@$!y^&hjpbu%
 DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
 
 # Application definition
 
@@ -73,21 +71,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Web.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.postgresql',
-        'NAME':     DJANGO_DATABASE_NAME,
-        'USER':     DJANGO_DATABASE_USER,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DJANGO_DATABASE_NAME,
+        'USER': DJANGO_DATABASE_USER,
         'PASSWORD': DJANGO_DATABASE_PASSWORD,
-        'HOST':     DJANGO_DATABASE_HOST,
-        'PORT':     DJANGO_DATABASE_PORT,
+        'HOST': DJANGO_DATABASE_HOST,
+        'PORT': DJANGO_DATABASE_PORT,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -107,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -119,18 +114,22 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
+# Static uploads (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# files upload settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MAX_UPLOAD_SIZE = 10000000  # maximum size of file is 10Mb
+ALLOWED_UPLOAD_TYPES = ['application/pdf', 'application/xlsx']
+
 STATICFILES_DIRS = [
     BASE_DIR / "FinWebApp/static",
 ]
 
-# List of finder classes that know how to find static files in
+# List of finder classes that know how to find static uploads in
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -142,4 +141,3 @@ STATICFILES_FINDERS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
-

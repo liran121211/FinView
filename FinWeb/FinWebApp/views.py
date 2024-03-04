@@ -1,13 +1,21 @@
+import os
+from datetime import datetime
+from random import randint
 from typing import Text, Any
+
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError, FieldError, ObjectDoesNotExist, PermissionDenied
+from django.core.files.storage import FileSystemStorage
+from django.core.files.uploadedfile import UploadedFile
 from django.db import IntegrityError, DataError, DatabaseError
 from django.db.models import ProtectedError
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
-from FinWeb.FinWebApp import Logger
+from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_WRONG_TYPE, FILE_VALIDATION_ERROR, \
+    FILE_UPLOAD_SUCCESS
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
@@ -146,6 +154,7 @@ def settings_personal_information_post(request):
             return redirect('settings_page')
     else:
         return redirect('settings_page')
+
 
 def settings_user_cards_post(request):
     # handle credit cards editing
@@ -504,6 +513,66 @@ def handle_instance_deletion(instance: Any) -> bool:
         # Handle other unexpected exceptions
         Logger.logger.critical(e)
         return False
+
+
+def handle_uploaded_file(file: UploadedFile, username: Text) -> int:
+    """
+    Function to handle uploaded securely.
+    """
+    try:
+        # Validate file size
+        if file.size > settings.MAX_UPLOAD_SIZE:
+            Logger.warning("ValidationError: File size exceeds the allowed limit")
+            return FILE_SIZE_TOO_BIG
+
+        # Validate file type
+        allowed_types = settings.ALLOWED_UPLOAD_TYPES
+        if not file.content_type in allowed_types:
+            Logger.warning("ValidationError: File type not allowed")
+            return FILE_WRONG_TYPE
+
+        # Generate a unique filename
+        filename = str(username) + '_' + datetime.now().strftime("%d_%m_%y_%H_%M_%S") + '___' + file.name
+        while os.path.exists(os.path.join(settings.MEDIA_ROOT, filename)):
+            filename = str(username) + '_' + datetime.now().strftime("%d_%m_%y_%H_%M_%S") + '___'  + filename + '_' + randint(1, 100)
+
+        # Save the file to the media directory
+        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+        _ = fs.save(filename, file)
+        return FILE_UPLOAD_SUCCESS
+
+    except ValidationError as e:
+        # Handle validation errors
+        Logger.warning(e)
+        return FILE_VALIDATION_ERROR
+
+    except Exception as e:
+        Logger.warning(e)
+        return FILE_UPLOAD_ERROR
+
+
+def upload_post(request):
+    if request.user.is_authenticated:
+        logged_in_user = request.user.username
+
+        if request.method == 'POST' and request.FILES:
+            file = request.FILES['file']
+
+            # Process the uploaded file
+            upload_status = handle_uploaded_file(file, logged_in_user)
+            if upload_status == FILE_UPLOAD_SUCCESS:
+                return JsonResponse({'statusText': 'הקובץ הועלה בהצלחה'}, status=FILE_UPLOAD_SUCCESS)
+
+            if upload_status == FILE_WRONG_TYPE:
+                return JsonResponse({'statusText': 'סוג קובץ אינו נתמך'}, status=FILE_WRONG_TYPE)
+
+            if upload_status == FILE_SIZE_TOO_BIG:
+                return JsonResponse({'statusText': 'גודל הקובץ חורג מ 10MB'}, status=FILE_SIZE_TOO_BIG)
+
+            if upload_status == FILE_VALIDATION_ERROR:
+                return JsonResponse({'statusText': 'קובץ אינו תקין'}, status=FILE_VALIDATION_ERROR)
+
+        return JsonResponse({'statusText': 'שגיאת העלאה כללית'}, status=FILE_UPLOAD_ERROR)
 
 
 def handler404(request, exception):
