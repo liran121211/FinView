@@ -13,7 +13,7 @@ flex-direction: column;
 font-family: 'Montserrat', sans-serif;
 height: 100vh;
 margin: -20px 0 50px;
-      font-family: 'Gan', sans-serif;
+font-family: 'Gan', sans-serif;
 }
 
 h1 {
@@ -278,4 +278,23 @@ padding: 10px 20px; /* Padding around the text */
 border-radius: 5px; /* Rounded corners */
 margin-bottom: 20px; /* Margin at the bottom to separate from other content */
 display: block;
+}
+
+.home-logo {
+margin-top: -70px;
+width: 250px;
+height: 110px;
+}
+
+footer {
+font-family: 'Montserrat', sans-serif;
+text-align: center;
+padding: 3px;
+background-color: #349cf6;
+color: white;
+}
+
+footer a {
+font-family: 'Montserrat', sans-serif;
+color: white;
 }

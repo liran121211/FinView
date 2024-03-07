@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FinView - התחברות</title>
+    <title>FinTuT - התחברות</title>
 
     <!-- Local CSS Files -->
     <link rel="stylesheet" type="text/css" href=" {% static '/css/login.css' %} ">
@@ -68,11 +68,13 @@
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
+                <img src="{% static 'images/FinTuT_logo_login.svg' %}" alt="FinView Logo" class="home-logo"/>
                 <h1>ברוך שובך!</h1>
                 <p>כדי להישאר מחובר, התחבר למשתמש קיים</p>
                 <button class="ghost" id="signIn">התחבר</button>
             </div>
             <div class="overlay-panel overlay-right">
+                <img src="{% static 'images/FinTuT_logo_login.svg' %}" alt="FinView Logo" class="home-logo"/>
                 <h1>שלום לך!</h1>
                 <p>אנא הכנס את פרטיך האישיים כדי להתחיל את המסע</p>
                 <button class="ghost" id="signUp">הירשם</button>
@@ -81,4 +83,9 @@
     </div>
 </div>
 </body>
+
+<footer>
+  <p>FinTuT - Financial Tracker Utility Tool
+  <a href="https://www.linkedin.com/in/liran-smadja/">@ Made By Liran Smadja @</a></p>
+</footer>
 </html>

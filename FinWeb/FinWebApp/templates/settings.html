@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>FinView - הגדרות</title>
+    <title>FinTuT - הגדרות</title>
     <meta property="og:title" content="Elegant Valuable Ibex"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8"/>
@@ -97,7 +97,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    />
 
     <!-- Local CSS Files -->
     <link rel="stylesheet" type="text/css" href=" {% static '/css/settings.css' %} ">
@@ -123,7 +123,7 @@
     <div class="home-container">
         <div class="home-main-horizontal-layout">
             <header data-thq="thq-navbar" class="home-navbar-interactive">
-                <img src="{% static 'images/FinView_logo.svg' %}" alt="FinView Logo" class="home-logo"/>
+                <img src="{% static 'images/FinTuT_logo.svg' %}" alt="FinView Logo" class="home-logo"/>
                 <div data-thq="thq-navbar-nav" class="home-desktop-menu">
                     <nav class="home-links">
                         <a href="{% url 'settings_page' %}" class="home-link">
@@ -155,7 +155,8 @@
                 <div data-thq="thq-mobile-menu" class="home-mobile-menu">
                     <div class="home-nav">
                         <div class="home-top">
-                            <img src="{% static 'images/FinView_logo.svg' %}" width="100px" height="100px" alt="FinView Logo" class="home-logo"/>  class="home-logo"/>
+                            <img src="{% static 'images/FinTuT_logo.svg' %}" width="100px" height="100px"
+                                 alt="FinView Logo" class="home-logo"/> class="home-logo"/>
                             <div data-thq="thq-close-menu" class="home-close-menu">
                                 <svg viewBox="0 0 1024 1024" class="home-icon02">
                                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
@@ -216,7 +217,7 @@
         </div>
         <div class="settings-modification-block">
             <div class="personal-details-div">
-                <form method="post"  action="{% url 'settings_personal_information_post' %}">
+                <form method="post" action="{% url 'settings_personal_information_post' %}">
                     {% csrf_token %}
                     <h3>פרטים אישיים</h3>
                     <fieldset>
@@ -361,10 +362,13 @@
             </div>
             <div class="upload-files-div">
                 <h2>העלה קובץ למערכת</h2>
-                <input type="file" id="file-input-field">
-                <button id="upload-button">העלה</button>
-                <div class="file-upload-success-status"></div>
-                <div class="file-upload-failure-status"></div>
+                <div class="upload-files-container">
+                    <div id="selected-file-name"></div>
+                    <input type="file" id="file-input" style="display: none;"/>
+                    <button id="file-button">בחר קובץ</button>
+                    <div class="file-upload-success-status"></div>
+                    <div class="file-upload-failure-status"></div>
+                </div>
             </div>
 
             <div class="settings-modification-block-status">
@@ -373,7 +377,12 @@
             </div>
         </div>
     </div>
-    <script defer="" src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
-    ></script>
+</div>
+<script defer="" src="https://unpkg.com/@teleporthq/teleport-custom-scripts"></script>
 </body>
+
+<footer>
+    <p>FinTuT - Financial Tracker Utility Tool
+        <a href="https://www.linkedin.com/in/liran-smadja/">@ Made By Liran Smadja @</a></p>
+</footer>
 </html>

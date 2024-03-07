@@ -1317,3 +1317,16 @@ border-collapse: collapse;
 margin-right: 30px; /* Adjust as needed */
 scrollbar-width: thin;
 }
+
+footer {
+font-family: 'Montserrat', sans-serif;
+text-align: center;
+padding: 3px;
+background-color: #349cf6;
+color: white;
+}
+
+footer a {
+font-family: 'Montserrat', sans-serif;
+color: white;
+}

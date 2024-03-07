@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.nav-span').forEach(function (span) {
         span.addEventListener('click', function () {
 
-            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-div', ]
+            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-div',]
 
             // Iterate over each class name
             navDivClasses.forEach(function (navDivClass) {
@@ -443,29 +443,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- File Upload Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('upload-button').addEventListener('click', function (event) {
-        event.preventDefault();
-        let formData = new FormData();
-        formData.append('file', document.getElementById('file-input-field').files[0]);
-
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '/settings/upload', true);
-        xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-        xhr.onload = function () {
-            if (xhr.status === 200)
-            {
-                let responseData = JSON.parse(xhr.responseText);
-                showSuccessStatus(responseData.statusText, '.file-upload-success-status');
-            }
-            else
-            {
-                let responseData = JSON.parse(xhr.responseText);
-                showFailStatus(responseData.statusText, '.file-upload-failure-status');
-            }
-        };
-        xhr.send(formData);
+    let isFileSelected = false;
+    document.getElementById('file-button').addEventListener('click', function () {
+        if (isFileSelected === false)
+            document.getElementById('file-input').click(); // Trigger file input field click
     });
 
+    document.getElementById('file-input').addEventListener('change', function () {
+        if (this.files[0].name !== '') {
+            isFileSelected = true;
+            document.getElementById('selected-file-name').innerText = this.files[0].name; // Display file name
+            document.getElementById('file-button').innerText  = 'העלה';
+        }
+    });
+
+    document.getElementById('file-button').addEventListener('click', function () {
+        if (isFileSelected === true) {
+
+            let formData = new FormData();
+            formData.append('file', document.getElementById('file-input').files[0]);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/settings/upload', true);
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    let responseData = JSON.parse(xhr.responseText);
+                    showSuccessStatus(responseData.statusText, '.file-upload-success-status');
+                } else {
+                    let responseData = JSON.parse(xhr.responseText);
+                    showFailStatus(responseData.statusText, '.file-upload-failure-status');
+                }
+            };
+            xhr.send(formData);
+        }
+    });
 });
 
 /* ----------------------- Misc Functions ----------------------- */

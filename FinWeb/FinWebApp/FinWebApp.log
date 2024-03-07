@@ -21,3 +21,6 @@
 2024-03-04 19:46:40,517 - WARNING - ValidationError: File type not allowed
 2024-03-04 19:47:47,202 - WARNING - ValidationError: File type not allowed
 2024-03-04 19:51:28,460 - WARNING - ValidationError: File type not allowed
+2024-03-06 18:57:39,587 - WARNING - can only concatenate str (not "int") to str
+2024-03-06 18:57:39,767 - WARNING - can only concatenate str (not "int") to str
+2024-03-06 18:57:39,926 - WARNING - can only concatenate str (not "int") to str
