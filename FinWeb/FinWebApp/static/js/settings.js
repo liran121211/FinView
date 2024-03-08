@@ -443,41 +443,116 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- File Upload Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-    let isFileSelected = false;
-    document.getElementById('file-button').addEventListener('click', function () {
-        if (isFileSelected === false)
-            document.getElementById('file-input').click(); // Trigger file input field click
+    const form = document.querySelector("#upload-file-form");
+    const fileInput = document.querySelector(".upload-file-input");
+    const progressArea = document.querySelector(".upload-file-progress-area");
+    const uploadedArea = document.querySelector(".uploaded-file-area");
+
+    form.addEventListener("click", function () {
+        fileInput.click();
     });
 
-    document.getElementById('file-input').addEventListener('change', function () {
-        if (this.files[0].name !== '') {
-            isFileSelected = true;
-            document.getElementById('selected-file-name').innerText = this.files[0].name; // Display file name
-            document.getElementById('file-button').innerText  = 'העלה';
+    fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            let fileName = file.name;
+            if (fileName.length >= 50) {
+                const splitName = fileName.split('.');
+                fileName = splitName[0].substring(0, 50) + "... ." + splitName[1];
+            }
+            uploadFile(fileName);
         }
     });
 
-    document.getElementById('file-button').addEventListener('click', function () {
-        if (isFileSelected === true) {
+    function uploadFile(name) {
+        let fileSize;
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/settings/upload', true);
+        xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        xhr.upload.addEventListener("progress", function (event) {
 
-            let formData = new FormData();
-            formData.append('file', document.getElementById('file-input').files[0]);
+            const loaded = event.loaded;
+            const total = event.total;
+            const fileLoaded = Math.floor((loaded / total) * 100);
+            const fileTotal = Math.floor(total / 1000);
 
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', '/settings/upload', true);
-            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    let responseData = JSON.parse(xhr.responseText);
-                    showSuccessStatus(responseData.statusText, '.file-upload-success-status');
-                } else {
-                    let responseData = JSON.parse(xhr.responseText);
-                    showFailStatus(responseData.statusText, '.file-upload-failure-status');
-                }
-            };
-            xhr.send(formData);
-        }
-    });
+            (fileTotal < 1024) ? fileSize = fileTotal + ' ק"ב ' : fileSize = (loaded / (1024 * 1024)).toFixed(2) + ' מ"ב ';
+            const progressHTML = `<li class="upload-file-row">
+                          <i class="fas fa-file-alt"></i>
+                          <div class="upload-file-content">
+                            <div class="upload-file-details">
+                              <span class="upload-file-name">${name} • מעלה</span>
+                              <span class="upload-file-percent">${fileLoaded}%</span>
+                            </div>
+                            <div class="upload-file-progress-bar">
+                              <div class="upload-file-progress" style="width: ${fileLoaded}%"></div>
+                            </div>
+                          </div>
+                        </li>`;
+
+            uploadedArea.classList.add("onprogress");
+            progressArea.innerHTML = progressHTML;
+
+            if (loaded === total) {
+                progressArea.innerHTML = "";
+                const uploadedHTML = `<li class="upload-file-row">
+                            <div class="content upload">
+                              <i class="fas fa-file-alt"></i>
+                              <div class="upload-file-details">
+                                <span class="upload-file-name">${name} • טוען נתונים למערכת...</span>
+                                <span class="upload-file-size">${fileSize}</span>
+                              </div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                          </li>`;
+
+                uploadedArea.classList.remove("onprogress");
+                uploadedArea.classList.add("completed-client-side");
+                uploadedArea.innerHTML = uploadedHTML;
+            }
+        });
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                let responseData = JSON.parse(xhr.responseText);
+                progressArea.innerHTML = "";
+                const uploadedServer = `<li class="upload-file-row">
+                            <div class="content upload">
+                              <i class="fas fa-file-alt"></i>
+                              <div class="upload-file-details">
+                                <span class="upload-file-name">${name} • ${responseData.statusText}</span>
+                                <span class="upload-file-size">${fileSize}</span>
+                              </div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                          </li>`;
+
+                uploadedArea.classList.remove("completed-client-side");
+                uploadedArea.classList.add("completed-server-side");
+                uploadedArea.innerHTML = uploadedServer;
+            } else {
+                let responseData = JSON.parse(xhr.responseText);
+                progressArea.innerHTML = "";
+                const uploadedServer = `<li class="upload-file-row">
+                            <div class="content upload">
+                              <i class="fas fa-file-alt"></i>
+                              <div class="upload-file-details">
+                                <span class="upload-file-name">${name} • ${responseData.statusText}</span>
+                                <span class="upload-file-size">${fileSize}</span>
+                              </div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                          </li>`;
+
+                uploadedArea.classList.remove("completed-client-side");
+                uploadedArea.classList.add("completed-server-side");
+                uploadedArea.innerHTML = uploadedServer;
+            }
+        };
+        const data = new FormData(form);
+        xhr.send(data);
+    }
+
 });
 
 /* ----------------------- Misc Functions ----------------------- */

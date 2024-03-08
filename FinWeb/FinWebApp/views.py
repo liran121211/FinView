@@ -556,7 +556,7 @@ def upload_post(request):
         logged_in_user = request.user.username
 
         if request.method == 'POST' and request.FILES:
-            file = request.FILES['file']
+            file = request.FILES['upload-file-input']
 
             # Process the uploaded file
             upload_status = handle_uploaded_file(file, logged_in_user)

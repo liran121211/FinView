@@ -361,13 +361,15 @@
                 <div id="bank-transactions-pagination"></div>
             </div>
             <div class="upload-files-div">
-                <h2>העלה קובץ למערכת</h2>
-                <div class="upload-files-container">
-                    <div id="selected-file-name"></div>
-                    <input type="file" id="file-input" style="display: none;"/>
-                    <button id="file-button">בחר קובץ</button>
-                    <div class="file-upload-success-status"></div>
-                    <div class="file-upload-failure-status"></div>
+                <div class="upload-file-container">
+                    <header>העלאת נתונים למערכת</header>
+                    <form id="upload-file-form" action="#">
+                        <input class="upload-file-input" type="file" name="upload-file-input" hidden>
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>לחץ כאן לבחירת קובץ</p>
+                    </form>
+                    <section class="upload-file-progress-area"></section>
+                    <section class="uploaded-file-area"></section>
                 </div>
             </div>
 
