@@ -511,7 +511,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 uploadedArea.innerHTML = uploadedHTML;
             }
         });
-
         xhr.onload = function () {
             if (xhr.status === 200) {
                 let responseData = JSON.parse(xhr.responseText);
@@ -530,6 +529,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 uploadedArea.classList.remove("completed-client-side");
                 uploadedArea.classList.add("completed-server-side");
                 uploadedArea.innerHTML = uploadedServer;
+                showSuccessStatus("רשומות שנמצאו: " + responseData.Statistics[0] + " רשומות חדשות שנוספו: " + responseData.Statistics[1] + " רשומות שנכשלו: " + responseData.Statistics[2] + " רשומות קיימות: " + responseData.Statistics[3], ".upload-file-statistics");
             } else {
                 let responseData = JSON.parse(xhr.responseText);
                 progressArea.innerHTML = "";
@@ -581,9 +581,7 @@ function showSuccessStatus(message, element) {
     successStatusElement.style.display = 'block';
     setTimeout(() => {
         successStatusElement.style.display = 'none';
-    }, 2000);
-
-
+    }, 4000);
 }
 
 // Function to show fail status message

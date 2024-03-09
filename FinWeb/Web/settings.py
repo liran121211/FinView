@@ -122,8 +122,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # files upload settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MAX_UPLOAD_SIZE = 100000000  # maximum size of file is 10Mb
-ALLOWED_UPLOAD_TYPES = ['application/pdf', 'application/xlsx', 'application/x-msdownload']
+MAX_UPLOAD_SIZE = 10000000  # maximum size of file is 10Mb
+ALLOWED_UPLOAD_TYPES = ['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
 
 STATICFILES_DIRS = [
     BASE_DIR / "FinWebApp/static",

@@ -24,3 +24,12 @@
 2024-03-06 18:57:39,587 - WARNING - can only concatenate str (not "int") to str
 2024-03-06 18:57:39,767 - WARNING - can only concatenate str (not "int") to str
 2024-03-06 18:57:39,926 - WARNING - can only concatenate str (not "int") to str
+2024-03-08 21:32:12,662 - WARNING - ValidationError: File type not allowed
+2024-03-08 21:34:28,158 - WARNING - ValidationError: File type not allowed
+2024-03-08 21:35:04,910 - WARNING - ValidationError: File type not allowed
+2024-03-08 21:40:10,515 - WARNING - ValidationError: File type not allowed
+2024-03-08 22:01:08,553 - WARNING - ValidationError: File type not allowed
+2024-03-08 22:01:47,976 - WARNING - ValidationError: File type not allowed
+2024-03-08 22:03:56,395 - WARNING - ValidationError: File type not allowed
+2024-03-08 23:29:30,907 - WARNING - ValidationError: File type not allowed
+2024-03-08 23:30:53,857 - INFO - upload folder for user liran121214 has been created successfully.

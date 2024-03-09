@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from random import randint
-from typing import Text, Any
+from typing import Text, Any, List
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -15,7 +15,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_WRONG_TYPE, FILE_VALIDATION_ERROR, \
-    FILE_UPLOAD_SUCCESS
+    FILE_UPLOAD_SUCCESS, FIN_CORE
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
@@ -537,7 +537,14 @@ def handle_uploaded_file(file: UploadedFile, username: Text) -> int:
             filename = str(username) + '_' + datetime.now().strftime("%d_%m_%y_%H_%M_%S") + '___'  + filename + '_' + randint(1, 100)
 
         # Save the file to the media directory
-        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+        try:
+            if not os.path.exists(os.path.join(settings.MEDIA_ROOT, username)):
+                os.makedirs(os.path.join(settings.MEDIA_ROOT, username))
+                Logger.info(f"upload folder for user {username} has been created successfully.")
+        except OSError:
+            Logger.critical(f"creating upload folder for user {username} raised OSError.")
+
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, username))
         _ = fs.save(filename, file)
         return FILE_UPLOAD_SUCCESS
 
@@ -551,6 +558,10 @@ def handle_uploaded_file(file: UploadedFile, username: Text) -> int:
         return FILE_UPLOAD_ERROR
 
 
+def handle_processed_file(file: UploadedFile, username: Text) -> List:
+    return FIN_CORE.load_statements_to_db(username, folder_path=os.path.join(settings.MEDIA_ROOT, username))
+
+
 def upload_post(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
@@ -560,8 +571,14 @@ def upload_post(request):
 
             # Process the uploaded file
             upload_status = handle_uploaded_file(file, logged_in_user)
+            process_status = handle_processed_file(file, logged_in_user)
+
             if upload_status == FILE_UPLOAD_SUCCESS:
-                return JsonResponse({'statusText': 'הקובץ הועלה בהצלחה'}, status=FILE_UPLOAD_SUCCESS)
+                return JsonResponse(
+                    {
+                        'statusText': 'הקובץ הועלה בהצלחה',
+                        'Statistics': process_status
+                    }, status=FILE_UPLOAD_SUCCESS)
 
             if upload_status == FILE_WRONG_TYPE:
                 return JsonResponse({'statusText': 'סוג קובץ אינו נתמך'}, status=FILE_WRONG_TYPE)
