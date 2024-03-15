@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Other background properties
         outcome_row.style.backgroundPosition = 'right';
-        outcome_row.style.backgroundPositionY = '5px';
+        outcome_row.style.backgroundPositionY = '3px';
         outcome_row.style.backgroundRepeat = 'no-repeat';
-        outcome_row.style.backgroundSize = '35px';
+        outcome_row.style.backgroundSize = '28px';
 
         switch (user_outcome.transaction_category[i]) {
             case 'ביטוח':
@@ -165,9 +165,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Other background properties
         income_row.style.backgroundPosition = 'right';
-        income_row.style.backgroundPositionY = '5px';
+        income_row.style.backgroundPositionY = '3px';
         income_row.style.backgroundRepeat = 'no-repeat';
-        income_row.style.backgroundSize = '35px';
+        income_row.style.backgroundSize = '28px';
 
         switch (user_income.transaction_category[i]) {
             case 'הכנסה':
@@ -242,14 +242,18 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
 
-    const canvas = document.getElementById("balance-history-graph");
     // Create the chart with the provided configuration
+    const canvas = document.getElementById("balance-history-graph");
     const _ = new Chart(canvas, balance_history_config);
 });
 
 
 /* ----------------------- Quick Overview Doughnut-Pie - Doughnut Graph ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
+    //define size by resolution:
+    let screenWidthRatio = window.screen.width / 2560;
+    let screenHeightRatio = window.screen.height / 1080;
+
     // Spent by Category
     let spent_by_category_labels = Object.values(spent_by_category['transaction_category']);
     let spent_by_category_items = Object.values(spent_by_category['total_amount']);
@@ -302,7 +306,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
-            zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
+            zoomOutPercentage: 55 * (1 + (1 - screenHeightRatio)), // makes chart 40% smaller (50% by default, if the property is undefined)
+
             plugins: {
                 legend: false,
                 outlabels: {
@@ -350,7 +355,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
-            zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
+            zoomOutPercentage: 55 * (1 + (1 - screenHeightRatio)), // makes chart 40% smaller (50% by default, if the property is undefined)
+
             plugins: {
                 legend: false,
                 outlabels: {
@@ -397,7 +403,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
-            zoomOutPercentage: 55, // makes chart 40% smaller (50% by default, if the property is undefined)
+            zoomOutPercentage: 55 * (1 + (1 - screenHeightRatio)), // makes chart 40% smaller (50% by default, if the property is undefined)
+
             plugins: {
                 legend: false,
                 outlabels: {

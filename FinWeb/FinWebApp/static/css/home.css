@@ -419,6 +419,8 @@ padding: 16px;
 }
 
 /* ----------------- Transaction Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+
 #transactions-table {
 width: 50%;
 border-collapse: collapse;
@@ -452,8 +454,6 @@ text-align: right;
 border-bottom: 1px solid #ddd;
 padding-left: 45px;
 text-align: right;
-background-repeat: no-repeat; /* Do not repeat the background image */
-background-size: 35px;
 }
 
 .outcome_name {
@@ -484,7 +484,77 @@ color: #C6C6C6;
 text-align: left;
 }
 
+}
+
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+#transactions-table {
+width: 50%;
+border-collapse: collapse;
+margin-right: 30px; /* Adjust as needed */
+}
+
+#transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding-bottom: 5px;
+text-align: right;
+color: #4C495A;
+background-color: initial;
+}
+
+#empty-transactions-description {
+font-family: 'Gan', sans-serif;
+font-size: calc(16px - 20%);
+color: #C6C6C6;
+margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
+}
+
+.transaction_description_col {
+border-bottom: 1px solid #ddd;
+padding-right: 40px;
+padding-bottom: calc(12px - 1%);
+text-align: right;
+}
+
+.transaction_amount_col {
+border-bottom: 1px solid #ddd;
+padding-left: calc(100px - 20%);
+text-align: right;
+}
+
+.outcome_name {
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: right;
+}
+
+.outcome_category {
+font-family: 'Gan', sans-serif;
+font-size: calc(13px - 20%);
+color: #C6C6C6;
+text-align: right;
+}
+
+.outcome_price {
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: left;
+}
+
+.outcome_date {
+font-family: 'Gan', sans-serif;
+font-size: calc(13px - 20%);
+color: #C6C6C6;
+text-align: left;
+}
+
+}
+
 /* ----------------- Income Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+
 #income-table {
 width: 50%;
 border-collapse: collapse;
@@ -517,10 +587,8 @@ text-align: right;
 
 .income_amount_col {
 border-bottom: 1px solid #ddd;
-padding-left: 45px;
+padding-left: 20px;
 text-align: right;
-background-repeat: no-repeat; /* Do not repeat the background image */
-background-size: 35px;
 }
 
 .income_name {
@@ -551,8 +619,81 @@ color: #C6C6C6;
 text-align: left;
 }
 
+}
 
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+/* CSS styles for screens with a resolution of 1366x768 */
+#income-table {
+width: 50%;
+border-collapse: collapse;
+margin-right: 20px; /* Adjust as needed */
+}
+
+#income-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding-bottom: 5px;
+text-align: right;
+color: #4C495A;
+background-color: initial;
+}
+
+#empty-income-description {
+font-family: 'Gan', sans-serif;
+font-size: calc(16px - 20%);
+color: #C6C6C6;
+margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
+}
+
+.income_description_col {
+border-bottom: 1px solid #ddd;
+padding-right: 40px;
+padding-bottom: calc(12px - 1%);
+text-align: right;
+}
+
+.income_amount_col {
+border-bottom: 1px solid #ddd;
+padding-left: calc(20px - 20%);
+text-align: right;
+}
+
+.income_name {
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: right;
+}
+
+.income_category {
+font-family: 'Gan', sans-serif;
+font-size: calc(13px - 20%);
+color: #C6C6C6;
+text-align: right;
+}
+
+.income_amount {
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: left;
+}
+
+.income_date {
+font-family: 'Gan', sans-serif;
+font-size: calc(13px - 20%);
+color: #C6C6C6;
+text-align: left;
+}
+
+}
 /* ----------------- Dashboard Panel Upper ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+#profile_avatar {
+height: 100px;
+width: 380px;
+}
+
 .dashboard-container {
 padding: 20px 20px 20px;
 direction: rtl;
@@ -608,6 +749,72 @@ padding-left: 20px;
 direction: ltr;
 }
 
+}
+
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+/* CSS styles for screens with a resolution of 1366x768 */
+
+#profile_avatar {
+height: 70px;
+width: 270px;
+}
+
+.dashboard-container {
+padding: 20px 20px 20px;
+direction: rtl;
+}
+
+.dashboard-headline h1 {
+font-size: 17px;
+margin-bottom: 7px;
+font-family: 'Gan', sans-serif;
+color: #4C495A;
+}
+
+.home-overview h2,
+.buttons h2 {
+font-size: 17px;
+margin-top: 7px;
+margin-bottom: 3px;
+color: #4C495A;
+}
+
+.home-overview ul {
+display: inline-block; /* Display list items in a row */
+font-family: 'Gan', sans-serif;
+font-size: 13px;
+color: #4C495A;
+margin-bottom: 7px;
+}
+
+.home-overview li {
+display: inline-block; /* Display list items in a row */
+margin-right: 10px; /* Adjust spacing between items */
+font-family: 'Gan', sans-serif;
+}
+
+#current-charge {
+color: #000000;
+font-size: 21px;
+padding-left: 14px;
+direction: ltr;
+}
+
+#last-charge {
+color: #000000;
+font-size: 21px;
+padding-left: 14px;
+direction: ltr;
+}
+
+#current-savings {
+color: #000000;
+font-size: 21px;
+padding-left: 14px;
+direction: ltr;
+}
+
+}
 /* ----------------- Credit Cards Panel ----------------- */
 .credit-cards h2 {
 margin-right: 10px;
@@ -925,6 +1132,331 @@ background-color: #ccc;
 margin-right: 5px;
 }
 
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+.credit-cards h2 {
+margin-right: 7px;
+font-size: 21px;
+color: #4C495A;
+}
+
+.cards-group {
+display: grid;
+grid-template-rows: 2fr 1fr; /* First row takes 1 unit of height, second row takes 2 units */
+grid-template-columns: repeat(2, 1fr); /* Two columns */
+grid-auto-rows: 105px; /* Automatically adjust row height */
+grid-row-gap: 11px; /* Adjust the gap between grid items in the column direction */
+max-height: 105px; /* Adjust the maximum height as needed */
+overflow-y:hidden;
+overflow-x: hidden; /* Hide horizontal scrollbar */
+scrollbar-width: thin;
+direction: rtl;
+margin: 7px;
+}
+
+#no-cards-description{
+font-family: 'Gan', sans-serif;
+font-size: 11px;
+color: #C6C6C6;
+}
+
+
+.no-cards-title {
+margin: 5px;
+color: #4C495A;
+font-family: 'Gan', sans-serif;
+font-size: 12px;
+}
+
+.card {
+width: 157px;
+height: 98px;
+border-radius: 7px;
+perspective: 700px;
+margin-right: 7px;
+}
+
+.card:hover .card-inner {
+transform: rotateY(180deg);
+}
+
+.card-inner {
+position: relative;
+width: 100%;
+height: 100%;
+border-radius: 7px;
+transition: transform 600ms ease;
+transform-style: preserve-3d;
+box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card-front, .card-back {
+position: absolute;
+top: 0;
+width: 100%;
+height: 100%;
+border-radius: 7px;
+overflow: hidden;
+backface-visibility: hidden;
+background: linear-gradient(321.03deg, #01adef 0%, #0860bf 91.45%);
+}
+
+.card-front {
+border-radius: 7px;
+overflow: hidden;
+position: relative;
+transition: transform 300ms ease-in-out;
+}
+
+.card-back {
+transform: rotateY(180deg);
+}
+
+.card-back::before {
+content: "";
+position: absolute;
+top: 10%;
+left: 20%;
+width: 100%;
+height: 100%;
+border-radius: 100%;
+background-image: linear-gradient(to right top, #a3d4e7, #a7d5e6, #abd5e4, #aed6e3, #b2d6e2, #aed4e2, #abd3e1, #a7d1e1, #9bcee1, #8ecae1, #81c7e1, #73c3e1);
+filter: blur(10px);
+opacity: 0.15;
+}
+
+.card-back::after {
+content: "";
+position: absolute;
+top: 15%;
+width: 100%;
+height: 21px;
+background-image: linear-gradient(to right top, #021318, #07191f, #0a1f26, #0b262e, #0c2c35, #0c2c35, #0c2c35, #0c2c35, #0b262e, #0a1f26, #07191f, #021318);
+}
+
+.card-bg {
+position: absolute;
+top: -14px;
+right: -84px;
+width: 1568px;
+height: 98px;
+background: linear-gradient(321.03deg, #01adef 0%, #0860bf 91.45%);
+border-top-left-radius: 100%;
+}
+
+.card-bg::before {
+content: "";
+position: absolute;
+top: -14px;
+right: -56px;
+width: 266px;
+height: 175px;
+background: linear-gradient(321.03deg, #01adef 0%, #0860bf 91.45%);
+border-top-left-radius: 100%;
+}
+
+.card-bg::after {
+content: "";
+position: absolute;
+top: -14px;
+right: -84px;
+width: 266px;
+height: 175px;
+background: linear-gradient(321.03deg, #01adef 0%, #0860bf 91.45%);
+border-top-left-radius: 100%;
+}
+
+.card-glow {
+position: absolute;
+top: calc(-140px - 30%);
+left: calc(-65px - 30%);
+height: calc(200px - 30%);
+width: calc(400px - 30%);
+background: rgba(0, 183, 255, 0.4);
+filter: blur(calc(10px - 30%));
+border-radius: calc(100% - 30%);
+transform: skew(-15deg, -15deg);
+}
+
+.card-contactless {
+position: absolute;
+right: calc(50px - 30%);
+top: calc(35px - 25%);
+transform: scale(0.35);
+}
+
+.card-chip {
+position: absolute;
+top: 30px;
+left: 13px;
+width: 22px;
+height: 17px;
+border-radius: 5px;
+background-color: #ffda7b;
+overflow: hidden;
+}
+
+.card-chip::before {
+content: "";
+position: absolute;
+left: 49%;
+top: -7%;
+transform: translateX(-50%);
+background: #ffda7b;
+border: 1px solid #a27c1f;
+width: 25%;
+height: 110%;
+border-radius: 100%;
+z-index: 2;
+}
+
+.card-chip::after {
+content: "";
+position: absolute;
+top: 30%;
+left: -10%;
+background: transparent;
+border: 1px solid #a27c1f;
+width: 120%;
+height: 33%;
+}
+
+.card-holder {
+position: absolute;
+left: 14px;
+bottom: 14px;
+color: white;
+font-size: 9px;
+letter-spacing: 0.2em;
+filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card-number {
+position: absolute;
+left: 13px;
+bottom: 31px;
+color: white;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 0.2em;
+filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card-valid {
+position: absolute;
+right: 14px;
+bottom: 14px;
+color: white;
+font-size: 9px;
+letter-spacing: 0.2em;
+filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card-valid::before {
+content: "GOOD THRU";
+position: absolute;
+top: 1px;
+left: -55px;
+width: 50px;
+font-size: 7px;
+}
+
+.card-issuer {
+position: initial;
+text-align: left;
+margin: 8px;
+color: white;
+font-size: 9px;
+letter-spacing: 0.2em;
+filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card-signature {
+position: absolute;
+top: 56px;
+left: 15px;
+width: 70%;
+height: 23px;
+background: #eeecec;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #021318;
+font-family: "Mr Dafoe", cursive;
+font-size: 11px;
+font-weight: 400;
+}
+
+.card-signature::before {
+content: "Authorized Signature";
+position: absolute;
+top: -15px;
+left: 0;
+font-family: "Overpass Mono", monospace;
+font-size: 9px;
+color: #eeecec;
+}
+
+.card-seccode {
+position: absolute;
+top: 60px;
+left: 122px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 28px;
+height: 12px;
+color: #021318;
+background-color: #eeecec;
+text-align: center;
+font-size: 8px;
+}
+
+.logo {
+position: absolute;
+right: 14px;
+top: 14px;
+width: 35px;
+}
+
+
+.dashboard-separator {
+position: initial;
+height: 450px;
+width: 1px;
+margin-left: 20px;
+margin-right: 20px;
+background-color: #ccc;
+}
+
+.tables-separator-horizontal {
+position: initial;
+
+margin-top: 10px;
+margin-bottom: 10px;
+width: 100%;
+height: 2px;
+background-color: #ccc;
+}
+
+.tables-separator-vertical {
+position: initial;
+margin-right: 20px;
+margin-left: -10px;
+width: 3px;
+height: 170px;
+background-color: #ccc;
+}
+
+.balance-history {
+margin-right: 5px;
+}
+
+#balance-history-graph{
+width: 520px;
+height: 224px;
+}
+
+}
 
 /* ----------------- Income & Outcome Half Doughnut-Pie CSS ----------------- */
 
