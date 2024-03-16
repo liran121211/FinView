@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', function () {
+    if (scaleValueByScreenSize(1) !== 1) {
+        document.querySelector(".income-outcome-half-doughnut").style.display = 'none';
+        document.querySelector(".dashboard-separator-2").style.display = 'none';
+    }
+});
 /* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     // check if [user_outcome] was empty
@@ -222,6 +228,8 @@ document.addEventListener('DOMContentLoaded', function () {
         type: 'line',
         data: balance_history_data,
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     display: true,
@@ -244,6 +252,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Create the chart with the provided configuration
     const canvas = document.getElementById("balance-history-graph");
+    if (scaleValueByScreenSize(1) !== 1) {
+        // Set the width and height of the canvas
+        canvas.width = 520; // Set your desired width
+        canvas.height = 224; // Set your desired height
+    }
     const _ = new Chart(canvas, balance_history_config);
 });
 
@@ -251,9 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ----------------------- Quick Overview Doughnut-Pie - Doughnut Graph ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
     //define size by resolution:
-    let screenWidthRatio = window.screen.width / 2560;
-    let screenHeightRatio = window.screen.height / 1080;
-    let pieChartSize = 50;
+    let pieChartSize = 100 - scaleValueByScreenSize(50);
 
     // Spent by Category
     let spent_by_category_labels = Object.values(spent_by_category['transaction_category']);
@@ -288,11 +299,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Configuration options for the doughnut chart
     let spent_by_category_title = 'הוצאות לפי קטגוריה';
     let spent_by_category_font_color = '#4C495A';
-    let spent_by_category_font_size = 22;
+    let spent_by_category_font_size = scaleValueByScreenSize(22);
     if (Object.keys(spent_by_category['transaction_category']).length === 0) {
         spent_by_category_title = spent_by_category_title + ' (מידע לא זמין)';
         spent_by_category_font_color = '#C6C6C6';
-        spent_by_category_font_size = 18;
+        spent_by_category_font_size = scaleValueByScreenSize(18);
     }
 
     const spent_by_category_config = {
@@ -317,8 +328,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     stretch: 45,
                     font: {
                         resizable: true,
-                        minSize: 18,
-                        maxSize: 25
+                        minSize: scaleValueByScreenSize(20),
+                        maxSize: scaleValueByScreenSize(25)
                     }
                 },
             }
@@ -337,11 +348,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Configuration options for the doughnut chart
     let spent_by_card_title = 'הוצאות לפי כרטיס';
     let spent_by_card_font_color = '#4C495A';
-    let spent_by_card_font_size = 22;
+    let spent_by_card_font_size = scaleValueByScreenSize(22);
     if (Object.keys(spent_by_category['transaction_category']).length === 0) {
         spent_by_card_title = spent_by_card_title + ' (מידע לא זמין)';
         spent_by_card_font_color = '#C6C6C6';
-        spent_by_card_font_size = 18;
+        spent_by_card_font_size = scaleValueByScreenSize(18);
     }
 
     const spent_by_card_config = {
@@ -366,8 +377,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     stretch: 45,
                     font: {
                         resizable: true,
-                        minSize: 18,
-                        maxSize: 25
+                        minSize: scaleValueByScreenSize(20),
+                        maxSize: scaleValueByScreenSize(25)
                     }
                 },
             }
@@ -385,11 +396,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let bank_transaction_by_category_title = 'תנועות בנק לפי קטגוריה';
     let bank_transaction_by_category_font_color = '#4C495A';
-    let bank_transaction_by_category_font_size = 22;
+    let bank_transaction_by_category_font_size = scaleValueByScreenSize(22);
     if (Object.keys(spent_by_category['transaction_category']).length === 0) {
         bank_transaction_by_category_title = bank_transaction_by_category_title + ' (מידע לא זמין)';
         bank_transaction_by_category_font_color = '#C6C6C6';
-        bank_transaction_by_category_font_size = 18;
+        bank_transaction_by_category_font_size = scaleValueByScreenSize(18);
     }
 
     const bank_transaction_by_category_config = {
@@ -414,8 +425,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     stretch: 45,
                     font: {
                         resizable: true,
-                        minSize: 18,
-                        maxSize: 25
+                        minSize: scaleValueByScreenSize(15),
+                        maxSize: scaleValueByScreenSize(20)
                     }
                 },
             }
@@ -423,14 +434,32 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const spent_by_category_canvas = document.getElementById('quick-overview-spent-by-category');
+    if (scaleValueByScreenSize(1) !== 1) {
+        // Set the width and height of the canvas
+        spent_by_category_canvas.width = 400; // Set your desired width
+        spent_by_category_canvas.height = 400; // Set your desired height
+    }
+
     // Create the doughnut chart with the provided configuration
     new Chart(spent_by_category_canvas, spent_by_category_config);
 
     const spent_by_card_canvas = document.getElementById('quick-overview-spent-by-card');
+    if (scaleValueByScreenSize(1) !== 1) {
+        // Set the width and height of the canvas
+        spent_by_card_canvas.width = 400; // Set your desired width
+        spent_by_card_canvas.height = 400; // Set your desired height
+    }
+
     // Create the doughnut chart with the provided configuration
     new Chart(spent_by_card_canvas, spent_by_card_config);
 
     const bank_transaction_by_category_canvas = document.getElementById('quick-overview-earned-by-category');
+    if (scaleValueByScreenSize(1) !== 1) {
+        // Set the width and height of the canvas
+        bank_transaction_by_category_canvas.width = 400; // Set your desired width
+        bank_transaction_by_category_canvas.height = 400; // Set your desired height
+    }
+
     // Create the doughnut chart with the provided configuration
     new Chart(bank_transaction_by_category_canvas, bank_transaction_by_category_config);
 });
@@ -807,4 +836,19 @@ function intcomma(number) {
 
     // Concatenate the integer and decimal parts
     return formattedInteger + decimalPart;
+}
+
+function scaleValueByScreenSize(X) {
+    // Get the current screen width and height
+    let screenWidth = window.screen.width;
+    let screenHeight = window.screen.height;
+
+    if (screenWidth <= 1280 && screenHeight <= 720)
+        return X * 0.80;
+
+    if (screenWidth <= 2560 && screenHeight <= 1080)
+        return X;
+
+    // default
+    return X;
 }

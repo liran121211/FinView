@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
-
 :root {
 --dl-color-gray-500: #595959;
 --dl-color-gray-700: #999999;
@@ -29,7 +28,7 @@
 --dl-radius-radius-round: 50%;
 --dl-space-space-halfunit: 8px;
 --dl-space-space-sixunits: 96px;
---dl-space-space-twounits: 32px;
+--dl-space-space-twounits: 22px;
 --dl-radius-radius-radius2: 2px;
 --dl-radius-radius-radius4: 4px;
 --dl-radius-radius-radius8: 8px;
@@ -38,6 +37,7 @@
 --dl-space-space-threeunits: 48px;
 --dl-space-space-oneandhalfunits: 24px;
 }
+
 .button {
 color: var(--dl-color-gray-black);
 display: inline-block;
@@ -47,6 +47,7 @@ border-width: 1px;
 border-radius: 4px;
 background-color: var(--dl-color-gray-white);
 }
+
 .input {
 color: var(--dl-color-gray-black);
 cursor: auto;
@@ -56,6 +57,7 @@ border-width: 1px;
 border-radius: 4px;
 background-color: var(--dl-color-gray-white);
 }
+
 .textarea {
 color: var(--dl-color-gray-black);
 cursor: auto;
@@ -65,6 +67,7 @@ border-width: 1px;
 border-radius: 4px;
 background-color: var(--dl-color-gray-white);
 }
+
 .list {
 width: 100%;
 margin: 1em 0px 1em 0px;
@@ -73,12 +76,15 @@ padding: 0px 0px 0px 1.5rem;
 list-style-type: none;
 list-style-position: outside;
 }
+
 .list-item {
 display: list-item;
 }
+
 .teleport-show {
 display: flex !important;
 }
+
 .Content {
 font-size: 16px;
 font-family: Inter;
@@ -87,6 +93,7 @@ line-height: 1.15;
 text-transform: none;
 text-decoration: none;
 }
+
 .Heading {
 font-size: 32px;
 font-family: Inter;
@@ -111,7 +118,7 @@ justify-content: flex-start;
 .home-container1 {
 flex: 0 0 auto;
 width: 100%;
-height: 100px;
+height: 80px;
 display: flex;
 align-items: center;
 justify-content: flex-start;
@@ -364,7 +371,7 @@ flex: 0 0 auto;
 width: 100%;
 height: 100%;
 display: flex;
-align-items:flex-start;
+align-items: flex-start;
 justify-content: center;
 }
 
@@ -437,7 +444,7 @@ color: #4C495A;
 background-color: initial;
 }
 
-#empty-transactions-description{
+#empty-transactions-description {
 font-family: 'Gan', sans-serif;
 font-size: 16px;
 color: #C6C6C6;
@@ -487,7 +494,7 @@ text-align: left;
 
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 #transactions-table {
 width: 50%;
 border-collapse: collapse;
@@ -572,7 +579,7 @@ color: #4C495A;
 background-color: initial;
 }
 
-#empty-income-description{
+#empty-income-description {
 font-family: 'Gan', sans-serif;
 font-size: 16px;
 color: #C6C6C6;
@@ -622,7 +629,7 @@ text-align: left;
 
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 /* CSS styles for screens with a resolution of 1366x768 */
 #income-table {
 width: 50%;
@@ -688,6 +695,7 @@ text-align: left;
 }
 
 }
+
 /* ----------------- Dashboard Panel Upper ----------------- */
 @media only screen and (max-width: 2560px) and (max-height: 1080px) {
 #profile_avatar {
@@ -752,16 +760,15 @@ direction: ltr;
 
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 /* CSS styles for screens with a resolution of 1366x768 */
-
 #profile_avatar {
 height: 70px;
 width: 270px;
 }
 
 .dashboard-container {
-padding: 20px 20px 20px;
+padding: 20px 20px 60px;
 direction: rtl;
 }
 
@@ -816,7 +823,9 @@ direction: ltr;
 }
 
 }
+
 /* ----------------- Credit Cards Panel ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .credit-cards h2 {
 margin-right: 10px;
 color: #4C495A;
@@ -829,14 +838,14 @@ grid-template-columns: repeat(2, 1fr); /* Two columns */
 grid-auto-rows: 150px; /* Automatically adjust row height */
 grid-row-gap: 15px; /* Adjust the gap between grid items in the column direction */
 max-height: 150px; /* Adjust the maximum height as needed */
-overflow-y:hidden;
+overflow-y: hidden;
 overflow-x: hidden; /* Hide horizontal scrollbar */
 scrollbar-width: thin;
 direction: rtl;
 margin: 10px;
 }
 
-#no-cards-description{
+#no-cards-description {
 font-family: 'Gan', sans-serif;
 font-size: 16px;
 color: #C6C6C6;
@@ -1110,6 +1119,15 @@ margin-right: 20px;
 background-color: #ccc;
 }
 
+.dashboard-separator-2 {
+position: initial;
+height: 450px;
+width: 1px;
+margin-left: 20px;
+margin-right: 20px;
+background-color: #ccc;
+}
+
 .tables-separator-horizontal {
 position: initial;
 
@@ -1133,7 +1151,9 @@ background-color: #ccc;
 margin-right: 5px;
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 .credit-cards h2 {
 margin-right: 7px;
 font-size: 21px;
@@ -1147,14 +1167,14 @@ grid-template-columns: repeat(2, 1fr); /* Two columns */
 grid-auto-rows: 105px; /* Automatically adjust row height */
 grid-row-gap: 11px; /* Adjust the gap between grid items in the column direction */
 max-height: 105px; /* Adjust the maximum height as needed */
-overflow-y:hidden;
+overflow-y: hidden;
 overflow-x: hidden; /* Hide horizontal scrollbar */
 scrollbar-width: thin;
 direction: rtl;
 margin: 7px;
 }
 
-#no-cards-description{
+#no-cards-description {
 font-family: 'Gan', sans-serif;
 font-size: 11px;
 color: #C6C6C6;
@@ -1422,10 +1442,19 @@ width: 35px;
 
 .dashboard-separator {
 position: initial;
-height: 400px;
+height: 350px;
 width: 1px;
-margin-left: 5px;
-margin-right: 5px;
+margin-left: 10px;
+margin-right: 10px;
+background-color: #ccc;
+}
+
+.dashboard-separator-2 {
+position: initial;
+height: 350px;
+width: 1px;
+margin-left: 10px;
+margin-right: 10px;
 background-color: #ccc;
 }
 
@@ -1450,11 +1479,6 @@ background-color: #ccc;
 
 .balance-history {
 margin-right: 5px;
-}
-
-#balance-history-graph{
-width: 520px;
-height: 224px;
 }
 
 }
@@ -1492,6 +1516,7 @@ padding-bottom: 25px;
 font-size: 22px;
 bottom: 0;
 }
+
 .income-outcome-half-doughnut-title-2 {
 font-family: 'Gan', sans-serif;
 color: #4C495A;
@@ -1514,7 +1539,7 @@ bottom: 0;
 
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 .income-outcome-half-doughnut {
 position: relative;
 width: 310px;
@@ -1522,52 +1547,53 @@ height: 180px;
 }
 
 .income-outcome-half-doughnut canvas {
-    position: absolute;
+position: absolute;
 }
 
 .income-outcome-half-doughnut-percent {
-    font-family: 'Gan', sans-serif;
-    color: #4C495A;
-    position: absolute;
-    left: 50%;
-    transform: translate(-48%, 0);
-    font-size: calc(40px);
-    padding-bottom: calc(40px);
-    bottom: 0;
+font-family: 'Gan', sans-serif;
+color: #4C495A;
+position: absolute;
+left: 50%;
+transform: translate(-48%, 0);
+font-size: calc(40px);
+padding-bottom: calc(40px);
+bottom: 0;
 }
 
 .income-outcome-half-doughnut-title {
-    font-family: 'Gan', sans-serif;
-    color: #4C495A;
-    position: absolute;
-    left: 50%;
-    transform: translate(-48%, 0);
-    padding-bottom: calc(20px);
-    font-size: calc(15px);
-    bottom: 0;
+font-family: 'Gan', sans-serif;
+color: #4C495A;
+position: absolute;
+left: 50%;
+transform: translate(-48%, 0);
+padding-bottom: calc(20px);
+font-size: calc(15px);
+bottom: 0;
 }
 
 .income-outcome-half-doughnut-title-2 {
-    font-family: 'Gan', sans-serif;
-    color: #4C495A;
-    position: absolute;
-    left: 50%;
-    transform: translate(-48%, 0);
-    font-size: calc(15px);
-    bottom: 0;
+font-family: 'Gan', sans-serif;
+color: #4C495A;
+position: absolute;
+left: 50%;
+transform: translate(-48%, 0);
+font-size: calc(15px);
+bottom: 0;
 }
 
 .income-outcome-half-doughnut-no-data-title {
-    font-family: 'Gan', sans-serif;
-    color: #C6C6C6;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    font-size: calc(18px - 20%);
-    bottom: 0;
+font-family: 'Gan', sans-serif;
+color: #C6C6C6;
+position: absolute;
+left: 50%;
+transform: translate(-50%, 0);
+font-size: calc(18px - 20%);
+bottom: 0;
 }
 
 }
+
 /* ----------------- Subscription & Direct Debit CSS ----------------- */
 @media only screen and (max-width: 2560px) and (max-height: 1080px) {
 
@@ -1587,14 +1613,14 @@ flex: 1;
 
 .subscriptions-tbody {
 max-height: 200px; /* Adjust the maximum height as needed */
-overflow-y:auto;
+overflow-y: auto;
 overflow-x: hidden; /* Hide horizontal scrollbar */
 scrollbar-width: thin;
 display: block;
 direction: rtl;
 }
 
-#empty-subscriptions-description{
+#empty-subscriptions-description {
 font-family: 'Gan', sans-serif;
 font-size: 16px;
 color: #C6C6C6;
@@ -1668,14 +1694,14 @@ flex: 1;
 
 #direct-debit-table tbody {
 max-height: 200px; /* Adjust the maximum height as needed */
-overflow-y:auto;
+overflow-y: auto;
 overflow-x: hidden; /* Hide horizontal scrollbar */
 scrollbar-width: thin;
 display: block;
 direction: rtl;
 }
 
-#empty-direct-debit-description{
+#empty-direct-debit-description {
 font-family: 'Gan', sans-serif;
 font-size: 16px;
 color: #C6C6C6;
@@ -1738,174 +1764,175 @@ width: auto;
 
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 
 .subscriptions-direct-debit-section {
 direction: rtl;
 }
 
 #subscriptions-table {
-    width: calc(100% - 5%);
-    border-collapse: collapse;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    cursor: pointer;
-    flex: 1;
+width: calc(100% - 5%);
+border-collapse: collapse;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+cursor: pointer;
+flex: 1;
 }
 
 .subscriptions-tbody {
-    max-height: calc(200px - 20%); /* Adjust the maximum height as needed */
-    overflow-y: auto;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    scrollbar-width: thin;
-    display: block;
-    direction: rtl;
+max-height: calc(200px - 20%); /* Adjust the maximum height as needed */
+overflow-y: auto;
+overflow-x: hidden; /* Hide horizontal scrollbar */
+scrollbar-width: thin;
+display: block;
+direction: rtl;
 }
 
-#empty-subscriptions-description{
-    font-family: 'Gan', sans-serif;
-    font-size: calc(16px - 20%);
-    color: #C6C6C6;
-    margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
+#empty-subscriptions-description {
+font-family: 'Gan', sans-serif;
+font-size: calc(16px - 20%);
+color: #C6C6C6;
+margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
 }
 
 #subscriptions-table tr:nth-child(even) {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    padding-bottom: calc(10px - 20%);
-    text-align: right;
-    color: #4C495A;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+padding-bottom: calc(10px - 20%);
+text-align: right;
+color: #4C495A;
 background-color: #4BC0C0;
 }
 
 #subscriptions-table tr:nth-child(odd) {
-    font-family: 'Gan', sans-serif;
+font-family: 'Gan', sans-serif;
 }
 
 #subscriptions-table th {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    padding-bottom: calc(10px - 20%);
-    text-align: right;
-    color: #4C495A;
-    background-color: #FFFFFF;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+padding-bottom: calc(10px - 20%);
+text-align: right;
+color: #4C495A;
+background-color: #FFFFFF;
 }
 
 .subscription-name-col {
-    border-bottom: 1px solid #ddd;
-    padding-left: calc(50px - 20%);
-    text-align: left;
-    width: 100%;
+border-bottom: 1px solid #ddd;
+padding-left: calc(50px - 20%);
+text-align: left;
+width: 100%;
 }
 
 .subscription-price-col {
-    border-bottom: 1px solid #ddd;
-    padding-left: calc(25px - 5%);
-    padding-bottom: calc(5px - 0%);
-    text-align: right;
-    width: 100%;
+border-bottom: 1px solid #ddd;
+padding-left: calc(25px - 5%);
+padding-bottom: calc(5px - 0%);
+text-align: right;
+width: 100%;
 }
 
 .subscription-name-div {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    color: #4C495A;
-    text-align: right;
-    padding: 5px;
-    width: auto;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: right;
+padding: 5px;
+width: auto;
 }
 
 .subscription-price-div {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    color: #4C495A;
-    text-align: left;
-    width: auto;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: left;
+width: auto;
 }
 
 
 #direct-debit-table {
-    width: calc(100% - 5%);
-    border-collapse: collapse;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    cursor: pointer;
-    flex: 1;
+width: calc(100% - 5%);
+border-collapse: collapse;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+cursor: pointer;
+flex: 1;
 }
 
 #direct-debit-table tbody {
-    max-height: calc(200px - 20%); /* Adjust the maximum height as needed */
-    overflow-y: auto;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    scrollbar-width: thin;
-    display: block;
-    direction: rtl;
+max-height: calc(200px - 20%); /* Adjust the maximum height as needed */
+overflow-y: auto;
+overflow-x: hidden; /* Hide horizontal scrollbar */
+scrollbar-width: thin;
+display: block;
+direction: rtl;
 }
 
 #empty-direct-debit-description {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(16px - 20%);
-    color: #C6C6C6;
-    margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
+font-family: 'Gan', sans-serif;
+font-size: calc(16px - 20%);
+color: #C6C6C6;
+margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
 }
 
 #direct-debit-table tr:nth-child(even) {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    padding-bottom: calc(10px - 20%);
-    text-align: right;
-    color: #4C495A;
-    background-color: #FF6384;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+padding-bottom: calc(10px - 20%);
+text-align: right;
+color: #4C495A;
+background-color: #FF6384;
 }
 
 #direct-debit-table tr:nth-child(odd) {
-    font-family: 'Gan', sans-serif;
+font-family: 'Gan', sans-serif;
 }
 
 #direct-debit-table th {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    padding-bottom: calc(10px - 20%);
-    text-align: right;
-    color: #4C495A;
-    background-color: #FFFFFF;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+padding-bottom: calc(10px - 20%);
+text-align: right;
+color: #4C495A;
+background-color: #FFFFFF;
 }
 
 .direct-debit-name-col {
-    border-bottom: 1px solid #ddd;
-    padding-left: calc(50px - 20%);
-    text-align: left;
-    width: 100%;
+border-bottom: 1px solid #ddd;
+padding-left: calc(50px - 20%);
+text-align: left;
+width: 100%;
 }
 
 .direct-debit-price-col {
-    border-bottom: 1px solid #ddd;
-    padding-left: calc(25px - 0%);
-    padding-bottom: calc(5px - 0%);
-    text-align: right;
-    width: 100%;
+border-bottom: 1px solid #ddd;
+padding-left: calc(25px - 0%);
+padding-bottom: calc(5px - 0%);
+text-align: right;
+width: 100%;
 }
 
 .direct-debit-name-div {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    color: #4C495A;
-    text-align: right;
-    padding: 5px;
-    width: auto;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: right;
+padding: 5px;
+width: auto;
 }
 
 .direct-debit-price-div {
-    font-family: 'Gan', sans-serif;
-    font-size: calc(18px - 20%);
-    color: #4C495A;
-    text-align: left;
-    width: auto;
+font-family: 'Gan', sans-serif;
+font-size: calc(18px - 20%);
+color: #4C495A;
+text-align: left;
+width: auto;
 }
 
 }
+
 /* ----------------- Quick OverView Doughnut-Pie CSS ----------------- */
 @media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .quick-overview-doughnut-pie canvas {
@@ -2068,7 +2095,7 @@ display: block;
 
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
 .quick-overview-doughnut-pie canvas {
 position: initial;
 
@@ -2097,7 +2124,7 @@ justify-content: center;
 
 .quick-overview-doughnut-pie-carousel-wrapper {
 position: relative;
-max-width: 307px;
+max-width: 470px;
 }
 
 .quick-overview-doughnut-pie-carousel-wrapper input {
@@ -2116,7 +2143,7 @@ overflow: hidden;
 margin: 0;
 padding: 0;
 height: 100%;
-width: 400%;
+width: 300%;
 transition: left 0.8s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
@@ -2127,8 +2154,8 @@ border-radius: 12px;
 .quick-overview-doughnut-pie-nav-dot {
 position: absolute;
 cursor: pointer;
-margin-left: 35.0px;
-bottom: -10.5px;
+margin-left: 60.0px;
+bottom: 30.0px;
 width: 12px;
 height: 12px;
 opacity: 0.5;
@@ -2151,7 +2178,7 @@ left: 32%;
 }
 
 #quick-overview-doughnut-pie-slide1:checked ~ .quick-overview-doughnut-pie-carousel ul {
-left: 0;
+left: 7%;
 }
 
 #quick-overview-doughnut-pie-slide1:checked ~ .quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide1] {
@@ -2163,7 +2190,7 @@ left: 36%;
 }
 
 #quick-overview-doughnut-pie-slide2:checked ~ .quick-overview-doughnut-pie-carousel ul {
-left: -136%;
+left: -93%;
 }
 
 #quick-overview-doughnut-pie-slide2:checked ~ .quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide2] {
@@ -2175,7 +2202,7 @@ left: 40%;
 }
 
 #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-carousel ul {
-left: -272%;
+left: -193%;
 }
 
 #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide3] {
@@ -2188,7 +2215,7 @@ position: absolute;
 cursor: pointer;
 font-weight: bolder;
 text-shadow: 0 0 7.5px rgba(0, 0, 0, .7);
-top:50%;
+top: 50%;
 z-index: 1;
 opacity: 0.7;
 height: 20px;
@@ -2224,26 +2251,6 @@ display: block;
 
 #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-left-arrow[for=quick-overview-doughnut-pie-slide2], #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-right-arrow[for=quick-overview-doughnut-pie-slide4] {
 display: block;
-}
-
-#quick-overview-earned-by-category{
-width: 350px;
-height: 350px;
-}
-
-#quick-overview-spent-by-category {
-width: 350px;
-height: 350px;
-}
-
-  #quick-overview-spent-by-card {
-width: 350px;
-height: 350px;
-}
-
-  #quick-overview-earned-by-category {
-width: 350px;
-height: 350px;
 }
 
 }
