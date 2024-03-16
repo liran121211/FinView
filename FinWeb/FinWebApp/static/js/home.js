@@ -253,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //define size by resolution:
     let screenWidthRatio = window.screen.width / 2560;
     let screenHeightRatio = window.screen.height / 1080;
+    let pieChartSize = 50;
 
     // Spent by Category
     let spent_by_category_labels = Object.values(spent_by_category['transaction_category']);
@@ -306,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
-            zoomOutPercentage: 55 * (1 + (1 - screenHeightRatio)), // makes chart 40% smaller (50% by default, if the property is undefined)
+            zoomOutPercentage: pieChartSize, // makes chart 40% smaller (50% by default, if the property is undefined)
 
             plugins: {
                 legend: false,
@@ -316,8 +317,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     stretch: 45,
                     font: {
                         resizable: true,
-                        minSize: 12,
-                        maxSize: 18
+                        minSize: 18,
+                        maxSize: 25
                     }
                 },
             }
@@ -355,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
-            zoomOutPercentage: 55 * (1 + (1 - screenHeightRatio)), // makes chart 40% smaller (50% by default, if the property is undefined)
+            zoomOutPercentage: pieChartSize, // makes chart 40% smaller (50% by default, if the property is undefined)
 
             plugins: {
                 legend: false,
@@ -365,8 +366,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     stretch: 45,
                     font: {
                         resizable: true,
-                        minSize: 12,
-                        maxSize: 18
+                        minSize: 18,
+                        maxSize: 25
                     }
                 },
             }
@@ -403,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
-            zoomOutPercentage: 55 * (1 + (1 - screenHeightRatio)), // makes chart 40% smaller (50% by default, if the property is undefined)
+            zoomOutPercentage: pieChartSize, // makes chart 40% smaller (50% by default, if the property is undefined)
 
             plugins: {
                 legend: false,
@@ -413,8 +414,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     stretch: 45,
                     font: {
                         resizable: true,
-                        minSize: 12,
-                        maxSize: 18
+                        minSize: 18,
+                        maxSize: 25
                     }
                 },
             }

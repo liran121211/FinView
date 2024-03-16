@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
+
 :root {
 --dl-color-gray-500: #595959;
 --dl-color-gray-700: #999999;
@@ -1421,10 +1422,10 @@ width: 35px;
 
 .dashboard-separator {
 position: initial;
-height: 450px;
+height: 400px;
 width: 1px;
-margin-left: 20px;
-margin-right: 20px;
+margin-left: 5px;
+margin-right: 5px;
 background-color: #ccc;
 }
 
@@ -1459,7 +1460,7 @@ height: 224px;
 }
 
 /* ----------------- Income & Outcome Half Doughnut-Pie CSS ----------------- */
-
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .income-outcome-half-doughnut {
 position: relative;
 width: 450px;
@@ -1511,8 +1512,64 @@ font-size: 18px;
 bottom: 0;
 }
 
+}
 
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+.income-outcome-half-doughnut {
+position: relative;
+width: 310px;
+height: 180px;
+}
+
+.income-outcome-half-doughnut canvas {
+    position: absolute;
+}
+
+.income-outcome-half-doughnut-percent {
+    font-family: 'Gan', sans-serif;
+    color: #4C495A;
+    position: absolute;
+    left: 50%;
+    transform: translate(-48%, 0);
+    font-size: calc(40px);
+    padding-bottom: calc(40px);
+    bottom: 0;
+}
+
+.income-outcome-half-doughnut-title {
+    font-family: 'Gan', sans-serif;
+    color: #4C495A;
+    position: absolute;
+    left: 50%;
+    transform: translate(-48%, 0);
+    padding-bottom: calc(20px);
+    font-size: calc(15px);
+    bottom: 0;
+}
+
+.income-outcome-half-doughnut-title-2 {
+    font-family: 'Gan', sans-serif;
+    color: #4C495A;
+    position: absolute;
+    left: 50%;
+    transform: translate(-48%, 0);
+    font-size: calc(15px);
+    bottom: 0;
+}
+
+.income-outcome-half-doughnut-no-data-title {
+    font-family: 'Gan', sans-serif;
+    color: #C6C6C6;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: calc(18px - 20%);
+    bottom: 0;
+}
+
+}
 /* ----------------- Subscription & Direct Debit CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 
 .subscriptions-direct-debit-section {
 direction: rtl;
@@ -1679,9 +1736,178 @@ text-align: left;
 width: auto;
 }
 
+}
 
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+
+.subscriptions-direct-debit-section {
+direction: rtl;
+}
+
+#subscriptions-table {
+    width: calc(100% - 5%);
+    border-collapse: collapse;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    flex: 1;
+}
+
+.subscriptions-tbody {
+    max-height: calc(200px - 20%); /* Adjust the maximum height as needed */
+    overflow-y: auto;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    scrollbar-width: thin;
+    display: block;
+    direction: rtl;
+}
+
+#empty-subscriptions-description{
+    font-family: 'Gan', sans-serif;
+    font-size: calc(16px - 20%);
+    color: #C6C6C6;
+    margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
+}
+
+#subscriptions-table tr:nth-child(even) {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    padding-bottom: calc(10px - 20%);
+    text-align: right;
+    color: #4C495A;
+background-color: #4BC0C0;
+}
+
+#subscriptions-table tr:nth-child(odd) {
+    font-family: 'Gan', sans-serif;
+}
+
+#subscriptions-table th {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    padding-bottom: calc(10px - 20%);
+    text-align: right;
+    color: #4C495A;
+    background-color: #FFFFFF;
+}
+
+.subscription-name-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: calc(50px - 20%);
+    text-align: left;
+    width: 100%;
+}
+
+.subscription-price-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: calc(25px - 5%);
+    padding-bottom: calc(5px - 0%);
+    text-align: right;
+    width: 100%;
+}
+
+.subscription-name-div {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    color: #4C495A;
+    text-align: right;
+    padding: 5px;
+    width: auto;
+}
+
+.subscription-price-div {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    color: #4C495A;
+    text-align: left;
+    width: auto;
+}
+
+
+#direct-debit-table {
+    width: calc(100% - 5%);
+    border-collapse: collapse;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    flex: 1;
+}
+
+#direct-debit-table tbody {
+    max-height: calc(200px - 20%); /* Adjust the maximum height as needed */
+    overflow-y: auto;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    scrollbar-width: thin;
+    display: block;
+    direction: rtl;
+}
+
+#empty-direct-debit-description {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(16px - 20%);
+    color: #C6C6C6;
+    margin: calc(50px - 20%) 0 calc(70px - 20%) 0;
+}
+
+#direct-debit-table tr:nth-child(even) {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    padding-bottom: calc(10px - 20%);
+    text-align: right;
+    color: #4C495A;
+    background-color: #FF6384;
+}
+
+#direct-debit-table tr:nth-child(odd) {
+    font-family: 'Gan', sans-serif;
+}
+
+#direct-debit-table th {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    padding-bottom: calc(10px - 20%);
+    text-align: right;
+    color: #4C495A;
+    background-color: #FFFFFF;
+}
+
+.direct-debit-name-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: calc(50px - 20%);
+    text-align: left;
+    width: 100%;
+}
+
+.direct-debit-price-col {
+    border-bottom: 1px solid #ddd;
+    padding-left: calc(25px - 0%);
+    padding-bottom: calc(5px - 0%);
+    text-align: right;
+    width: 100%;
+}
+
+.direct-debit-name-div {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    color: #4C495A;
+    text-align: right;
+    padding: 5px;
+    width: auto;
+}
+
+.direct-debit-price-div {
+    font-family: 'Gan', sans-serif;
+    font-size: calc(18px - 20%);
+    color: #4C495A;
+    text-align: left;
+    width: auto;
+}
+
+}
 /* ----------------- Quick OverView Doughnut-Pie CSS ----------------- */
-
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .quick-overview-doughnut-pie canvas {
 position: initial;
 
@@ -1838,6 +2064,188 @@ display: block;
 
 #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-left-arrow[for=quick-overview-doughnut-pie-slide2], #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-right-arrow[for=quick-overview-doughnut-pie-slide4] {
 display: block;
+}
+
+}
+
+@media only screen and (max-width: 1366px) and (max-height: 768px) {
+.quick-overview-doughnut-pie canvas {
+position: initial;
+
+width: 100%; /* Set desired width */
+height: 100%; /* Set desired height */
+
+}
+
+.quick-overview-doughnut-pie-section {
+margin-right: 1px;
+}
+
+
+.quick-overview-doughnut-pie-line, .quick-overview-doughnut-pie-carousel, .quick-overview-doughnut-pie-carousel li, .quick-overview-doughnut-pie-carousel li img {
+width: 100%;
+}
+
+.quick-overview-doughnut-pie-flex, .quick-overview-doughnut-pie-center, .quick-overview-doughnut-pie-carousel ul, .quick-overview-doughnut-pie-carousel-wrapper {
+display: flex;
+}
+
+.quick-overview-doughnut-pie-center, .quick-overview-doughnut-pie-carousel ul {
+align-items: center;
+justify-content: center;
+}
+
+.quick-overview-doughnut-pie-carousel-wrapper {
+position: relative;
+max-width: 307px;
+}
+
+.quick-overview-doughnut-pie-carousel-wrapper input {
+display: none;
+}
+
+.quick-overview-doughnut-pie-carousel {
+overflow: hidden;
+border-radius: 12px;
+}
+
+.quick-overview-doughnut-pie-carousel ul {
+position: relative;
+list-style: none;
+overflow: hidden;
+margin: 0;
+padding: 0;
+height: 100%;
+width: 400%;
+transition: left 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.quick-overview-doughnut-pie-carousel li img {
+border-radius: 12px;
+}
+
+.quick-overview-doughnut-pie-nav-dot {
+position: absolute;
+cursor: pointer;
+margin-left: 35.0px;
+bottom: -10.5px;
+width: 12px;
+height: 12px;
+opacity: 0.5;
+background-color: #cccccc;
+border-radius: 40%;
+transition: 0.4s;
+}
+
+.quick-overview-doughnut-pie-nav-dot:hover {
+opacity: 0.8;
+transform: scale(1.2);
+}
+
+.quick-overview-doughnut-pie-nav-dot:active {
+transform: scale(0.9);
+}
+
+.quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide1] {
+left: 32%;
+}
+
+#quick-overview-doughnut-pie-slide1:checked ~ .quick-overview-doughnut-pie-carousel ul {
+left: 0;
+}
+
+#quick-overview-doughnut-pie-slide1:checked ~ .quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide1] {
+opacity: 1;
+}
+
+.quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide2] {
+left: 36%;
+}
+
+#quick-overview-doughnut-pie-slide2:checked ~ .quick-overview-doughnut-pie-carousel ul {
+left: -136%;
+}
+
+#quick-overview-doughnut-pie-slide2:checked ~ .quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide2] {
+opacity: 1;
+}
+
+.quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide3] {
+left: 40%;
+}
+
+#quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-carousel ul {
+left: -272%;
+}
+
+#quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-nav-dot[for=quick-overview-doughnut-pie-slide3] {
+opacity: 1;
+}
+
+.quick-overview-doughnut-pie-left-arrow, .quick-overview-doughnut-pie-right-arrow {
+display: none;
+position: absolute;
+cursor: pointer;
+font-weight: bolder;
+text-shadow: 0 0 7.5px rgba(0, 0, 0, .7);
+top:50%;
+z-index: 1;
+opacity: 0.7;
+height: 20px;
+font-size: 30px;
+transition: 0.2s;
+color: #4C495A;
+}
+
+.quick-overview-doughnut-pie-left-arrow:hover, .quick-overview-doughnut-pie-right-arrow:hover {
+opacity: 1;
+transform: scale(1.2);
+}
+
+.quick-overview-doughnut-pie-left-arrow:active, .quick-overview-doughnut-pie-right-arrow:active {
+transform: scale(0.9);
+}
+
+.quick-overview-doughnut-pie-left-arrow {
+left: 12px;
+}
+
+.quick-overview-doughnut-pie-right-arrow {
+right: 12px;
+}
+
+#quick-overview-doughnut-pie-slide1:checked ~ .quick-overview-doughnut-pie-left-arrow[for=quick-overview-doughnut-pie-slide5], #quick-overview-doughnut-pie-slide1:checked ~ .quick-overview-doughnut-pie-right-arrow[for=quick-overview-doughnut-pie-slide2] {
+display: block;
+}
+
+#quick-overview-doughnut-pie-slide2:checked ~ .quick-overview-doughnut-pie-left-arrow[for=quick-overview-doughnut-pie-slide1], #quick-overview-doughnut-pie-slide2:checked ~ .quick-overview-doughnut-pie-right-arrow[for=quick-overview-doughnut-pie-slide3] {
+display: block;
+}
+
+#quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-left-arrow[for=quick-overview-doughnut-pie-slide2], #quick-overview-doughnut-pie-slide3:checked ~ .quick-overview-doughnut-pie-right-arrow[for=quick-overview-doughnut-pie-slide4] {
+display: block;
+}
+
+#quick-overview-earned-by-category{
+width: 350px;
+height: 350px;
+}
+
+#quick-overview-spent-by-category {
+width: 350px;
+height: 350px;
+}
+
+  #quick-overview-spent-by-card {
+width: 350px;
+height: 350px;
+}
+
+  #quick-overview-earned-by-category {
+width: 350px;
+height: 350px;
+}
+
 }
 
 /* ----------------- Scrollbar CSS ----------------- */
