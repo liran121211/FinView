@@ -945,3 +945,25 @@
 2024-03-09 18:34:03,128 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-03-12 18:55:28,271 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-03-15 09:22:50,771 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-18 06:50:30,851 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-18 06:55:21,362 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-18 07:05:17,746 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-18 07:06:18,131 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-18 07:16:01,866 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-18 07:16:56,358 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-19 07:07:30,703 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-19 07:12:17,047 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-19 07:19:13,792 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-19 07:20:59,576 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-19 07:23:25,359 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:26,848 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:29,670 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:31,176 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:32,631 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:35,293 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:36,520 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:39,310 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:43,591 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:46,315 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:47,682 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-19 07:23:47,782 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214

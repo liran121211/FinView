@@ -458,6 +458,9 @@ class Application:
         # identify files structure
         statements_list = self.find_statements_providers(folder_path=folder_path)
 
+        if len(statements_list.keys()) == 0:
+            return []
+
         # TOTAL / ADDED / FAILED / EXIST
         total, added, failed, exist = 0, 1, 2, 3
         statements_stats = [0, 0, 0, 0]

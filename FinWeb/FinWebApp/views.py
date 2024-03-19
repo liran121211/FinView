@@ -15,7 +15,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_WRONG_TYPE, FILE_VALIDATION_ERROR, \
-    FILE_UPLOAD_SUCCESS, FIN_CORE
+    FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
@@ -519,6 +519,15 @@ def handle_uploaded_file(file: UploadedFile, username: Text) -> int:
     """
     Function to handle uploaded securely.
     """
+
+    try:
+        for file_name in os.listdir(os.path.join(settings.MEDIA_ROOT, username)):
+            file_path = os.path.join(os.path.join(settings.MEDIA_ROOT, username), file_name)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+    except Exception as e:
+        Logger.critical(e)
+
     try:
         # Validate file size
         if file.size > settings.MAX_UPLOAD_SIZE:
@@ -558,8 +567,14 @@ def handle_uploaded_file(file: UploadedFile, username: Text) -> int:
         return FILE_UPLOAD_ERROR
 
 
-def handle_processed_file(file: UploadedFile, username: Text) -> List:
-    return FIN_CORE.load_statements_to_db(username, folder_path=os.path.join(settings.MEDIA_ROOT, username))
+def handle_processed_file(file: UploadedFile, username: Text) -> Any:
+    result = FIN_CORE.load_statements_to_db(username, folder_path=os.path.join(settings.MEDIA_ROOT, username))
+
+    if len(result) == 0:
+        return FILE_WRONG_STRUCTURE
+    return result
+
+
 
 
 def upload_post(request):
@@ -569,16 +584,9 @@ def upload_post(request):
         if request.method == 'POST' and request.FILES:
             file = request.FILES['upload-file-input']
 
-            # Process the uploaded file
+            # process the uploaded file
             upload_status = handle_uploaded_file(file, logged_in_user)
             process_status = handle_processed_file(file, logged_in_user)
-
-            if upload_status == FILE_UPLOAD_SUCCESS:
-                return JsonResponse(
-                    {
-                        'statusText': 'הקובץ הועלה בהצלחה',
-                        'Statistics': process_status
-                    }, status=FILE_UPLOAD_SUCCESS)
 
             if upload_status == FILE_WRONG_TYPE:
                 return JsonResponse({'statusText': 'סוג קובץ אינו נתמך'}, status=FILE_WRONG_TYPE)
@@ -588,6 +596,12 @@ def upload_post(request):
 
             if upload_status == FILE_VALIDATION_ERROR:
                 return JsonResponse({'statusText': 'קובץ אינו תקין'}, status=FILE_VALIDATION_ERROR)
+
+            if process_status == FILE_WRONG_STRUCTURE:
+                return JsonResponse({'statusText': 'הקובץ אינו במבנה תקין'}, status=FILE_WRONG_STRUCTURE)
+
+            if upload_status == FILE_UPLOAD_SUCCESS:
+                return JsonResponse({'statusText': 'הקובץ הועלה בהצלחה','Statistics': process_status}, status=FILE_UPLOAD_SUCCESS)
 
         return JsonResponse({'statusText': 'שגיאת העלאה כללית'}, status=FILE_UPLOAD_ERROR)
 

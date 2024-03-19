@@ -33,3 +33,11 @@
 2024-03-08 22:03:56,395 - WARNING - ValidationError: File type not allowed
 2024-03-08 23:29:30,907 - WARNING - ValidationError: File type not allowed
 2024-03-08 23:30:53,857 - INFO - upload folder for user liran121214 has been created successfully.
+2024-03-19 07:11:37,821 - WARNING - ValidationError: File type not allowed
+2024-03-19 07:15:56,545 - WARNING - ValidationError: File type not allowed
+2024-03-19 07:16:15,467 - WARNING - ValidationError: File type not allowed
+2024-03-19 07:16:21,634 - WARNING - ValidationError: File type not allowed
+2024-03-19 07:16:38,367 - WARNING - ValidationError: File type not allowed
+2024-03-19 07:17:19,621 - WARNING - ValidationError: File size exceeds the allowed limit
+2024-03-19 07:22:19,723 - WARNING - ValidationError: File type not allowed
+2024-03-19 07:22:26,813 - WARNING - ValidationError: File type not allowed
