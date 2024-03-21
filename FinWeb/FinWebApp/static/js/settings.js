@@ -23,6 +23,71 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+/* ----------------------- Personal Details ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to handle portrait file selection and preview
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        const canvas = document.getElementById('profile-pic');
+        const ctx = canvas.getContext('2d');
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+                drawImageOnCanvas(ctx, canvas.width, canvas.height, img);
+                updateProfilePic(canvas);
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function drawImageOnCanvas(ctx, width, height, img) {
+        ctx.clearRect(0, 0, width, height);
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.clip(); // Clip the canvas to the circular path
+        ctx.drawImage(img, 0, 0, width, height); // Draw the image within the circular path
+        ctx.restore(); // Restore the previous canvas state
+    }
+
+    async function updateProfilePic(canvas) {
+        const imageData = canvas.toDataURL();
+        try {
+            const response = await fetch('/settings/submit_personal_information', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token in the headers
+                },
+                body: JSON.stringify({image_data: imageData}),
+            });
+            if (response.ok) {
+                console.log('Image uploaded successfully');
+            } else {
+                console.error('Image upload failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Add click event listener to the upload button
+    document.getElementById('portrait-change-btn').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        document.getElementById('portrait-change-input').click(); // Trigger file input click event
+    });
+
+    // Add onchange event listener to file input
+    document.getElementById('portrait-change-input').addEventListener('change', handleFileSelect, false);
+
+});
+
+
 /* ----------------------- Credit Cards Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     // check if [user_outcome] was empty

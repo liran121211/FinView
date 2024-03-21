@@ -2,8 +2,8 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig host="157.230.28.132" id="fb381e07-2147-45ab-b621-c0dce3365950" keyPath="C:\Dev\FinView_13_01_24\DigitalOceanSSH" port="22" customName="DigitalOcean - FinTuT" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
-        <option name="customName" value="DigitalOcean - FinTuT" />
+      <sshConfig host="24.199.84.149" id="9c053728-2114-4f38-9a52-da22d564e606" keyPath="C:\Dev\FinView_13_01_24\DigitalOceanSSH" port="22" customName="DigitalOcean - FinTuTApp" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="DigitalOcean - FinTuTApp" />
       </sshConfig>
     </configs>
   </component>

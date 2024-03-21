@@ -68,6 +68,7 @@ class UserPersonalInformation(models.Model):
     email = models.EmailField(max_length=9, db_column='email')
     active_user = models.BooleanField(max_length=9, db_column='is_active')
     date_joined = models.DateField(max_length=9, db_column='date_joined')
+    portrait = models.CharField(max_length=100, db_column='portrait')
 
     class Meta:
         # Specify the table name here

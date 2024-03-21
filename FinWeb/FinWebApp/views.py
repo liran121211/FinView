@@ -1,7 +1,14 @@
+import base64
+import binascii
+import io
+import json
 import os
+import time
+
+from PIL import Image
 from datetime import datetime
 from random import randint
-from typing import Text, Any, List
+from typing import Text, Any
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -128,7 +135,10 @@ def settings_view(request):
             'user_personal_information_instance': user_personal_information_object,
             'user_cards': retrieve_user_cards(logged_in_user),
             'credit_cards_transactions': retrieve_user_credit_card_transactions(logged_in_user),
-            'bank_transactions': retrieve_user_bank_transactions(logged_in_user, positive_only=False)
+            'bank_transactions': retrieve_user_bank_transactions(logged_in_user, positive_only=False),
+            'full_name': f"{request.user.first_name} {request.user.last_name}",
+            'account_status': "משתמש פעיל" if request.user.is_active == True else "משתמש לא פעיל",
+            'portrait': UserPersonalInformation.objects.filter(username=logged_in_user).first().portrait
         })
 
     return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -142,6 +152,51 @@ def settings_personal_information_post(request):
     except Http404 as e:
         Logger.logger.critical(e)
         raise Http404("This page does not exist")
+
+    try:
+        if request.content_type == 'application/json':
+            # JSON decoding exception
+            try:
+                image_data = json.loads(request.body).get('image_data', None)
+            except json.JSONDecodeError as e:
+                Logger.critical(e)
+                # Handle the JSON decoding error
+            else:
+                if image_data is not None:
+                    # Decode base64-encoded image data
+                    try:
+                        # Remove the 'data:image/png;base64,' prefix
+                        format, imgstr = image_data.split(';base64,')
+                        # Decode base64 data
+                        image_binary_data = base64.b64decode(imgstr)
+
+                    except binascii.Error as e:
+                        Logger.critical("Base64 decoding error:", e)
+                        # Handle the Base64 decoding error
+                    else:
+                        # File operations exceptions
+                        try:
+                            # Create a file path for saving the image
+                            local_image_path = os.path.join(settings.STATIC_ROOT, 'images', 'portraits', f"{request.user.username}_portrait.png")
+                            global_image_path = os.path.join(settings.BASE_DIR, 'FinWebApp', 'static', 'images', 'portraits',f"{request.user.username}_portrait.png")
+
+                            # Create a PIL Image object from the original image data
+                            original_image = Image.open(io.BytesIO(image_binary_data))
+
+                            # Convert the image format to PNG
+                            converted_image = original_image.convert('RGB')  # Convert to RGB mode if necessary
+                            converted_image.save(local_image_path, format='PNG')
+                            converted_image.save(global_image_path, format='PNG')
+
+                        except IOError as e:
+                            Logger.critical("File operation error:", e)
+                            # Handle the file operation error
+    except Exception as e:
+        Logger.critical("An unexpected error occurred while changing portrait picture:", e)
+        # Handle any other unexpected errors
+
+    user_personal_information_object.portrait = f"{request.user.username}_portrait.png"
+    handle_instance_modification(user_personal_information_object)
 
     if request.method == 'POST':
         user_personal_information_object.first_name = request.POST.get('first_name',user_personal_information_object.first_name)

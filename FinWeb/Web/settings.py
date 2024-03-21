@@ -121,12 +121,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # files upload settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'FinWebApp/static/uploads')
 MAX_UPLOAD_SIZE = 10000000  # maximum size of file is 10Mb
 ALLOWED_UPLOAD_TYPES = ['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
 
 STATICFILES_DIRS = [
-    BASE_DIR / "FinWebApp/static",
+    os.path.join(BASE_DIR, 'FinWebApp', 'static'),
 ]
 
 # List of finder classes that know how to find static uploads in

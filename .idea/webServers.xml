@@ -2,10 +2,10 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="75f6755b-afad-4e9f-a936-40079b30558f" name="DigitalOcean - FinTuT" url="157.230.28.132">
-        <fileTransfer accessType="SFTP" host="157.230.28.132" port="22" sshConfigId="fb381e07-2147-45ab-b621-c0dce3365950" sshConfig="DigitalOcean - FinTuT" keyPair="true">
+      <webServer id="67b4adbf-faec-43c1-88c5-37993fe32872" name="FinTuTApp">
+        <fileTransfer accessType="SFTP" host="24.199.84.149" port="22" sshConfigId="9c053728-2114-4f38-9a52-da22d564e606" sshConfig="DigitalOcean - FinTuTApp" keyPair="true">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

@@ -205,12 +205,32 @@
                     </nav>
                     <div class="home-profile">
                         <div class="home-container2">
-                            <span class="home-text16">לירן סמדג'ה</span>
-                            <span class="home-text17">משתמש פעיל</span>
+                            <span class="home-text16">{{ full_name }}</span>
+                            <span class="home-text17">{{ account_status }}</span>
                         </div>
-                        <img alt="image"
-                             src="https://images.unsplash.com/photo-1562159278-1253a58da141?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDIyfHxtYW4lMjBwb3J0dHJhaXR8ZW58MHx8fHwxNjI3MjkzNTM1&amp;ixlib=rb-1.2.1&amp;w=200"
-                             class="home-image1"/>
+                        <canvas id="profile-pic" width="60" height="60"></canvas>
+
+                        <script>
+                            // Get the canvas element
+                            let portrait_canvas = document.getElementById('profile-pic');
+                            let portrait_ctx = portrait_canvas.getContext('2d');
+
+                            // Create an image element
+                            let image = new Image();
+                            image.onload = function () {
+                                // Draw the image onto the canvas
+                                portrait_ctx.save();
+                                portrait_ctx.beginPath();
+                                portrait_ctx.arc(portrait_canvas.width / 2, portrait_canvas.height / 2, portrait_canvas.width / 2, 0, Math.PI * 2, true);
+                                portrait_ctx.closePath();
+                                portrait_ctx.clip();
+                                portrait_ctx.drawImage(image, 0, 0, portrait_canvas.width, portrait_canvas.height);
+                                portrait_ctx.restore();
+                            };
+
+                            // Set the source of the image
+                            image.src = "{% static 'images/portraits/' %}" + '{{ portrait }}'; // Replace 'your_image.jpg' with the path to your image
+                        </script>
                     </div>
                 </div>
             </div>
@@ -267,6 +287,13 @@
                             <label id="date-joined-label" for="date-joined">תאריך הצטרפות:</label>
                             <label id="date-joined-data"
                                    for="date-joined">{{ user_personal_information_instance.date_joined|date:"d.m.Y H:i" }}</label>
+                        </div>
+
+                        <div id="portrait-change-div-sub">
+                            <!-- Button styled as upload button -->
+                            <button id="portrait-change-btn">שנה תמונת פרופיל</button>
+                            <!-- File input for selecting image -->
+                            <input type="file" id="portrait-change-input" accept="image/*" style="display: none;">
                         </div>
                     </fieldset>
 
