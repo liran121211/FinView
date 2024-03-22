@@ -124,7 +124,6 @@ align-items: center;
 justify-content: flex-start;
 }
 
-@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .home-navbar-interactive {
 width: 100%;
 display: flex;
@@ -232,119 +231,6 @@ animation-direction: normal;
 animation-iteration-count: 1;
 animation-timing-function: ease;
 }
-}
-
-
-@media only screen and (max-width: 1280px) and (max-height: 720px) {
-.home-navbar-interactive {
-width: 100%;
-display: flex;
-align-items: center;
-padding: 18px var(--dl-space-space-threeunits);
-justify-content: space-between;
-background-color: #3498db;
-}
-
-.home-image {
-height: 2rem;
-}
-
-.home-desktop-menu {
-flex: 1;
-display: flex;
-justify-content: space-between;
-}
-
-.home-links {
-flex: 1;
-display: flex;
-align-items: center;
-flex-direction: row;
-justify-content: center;
-font-family: 'Gan', sans-serif;
-font-size: 16px;
-}
-
-.home-text {
-color: #ffffff;
-transition: 0.3s;
-animation-name: none;
-animation-delay: 0s;
-animation-duration: 300ms;
-animation-direction: normal;
-animation-iteration-count: 100;
-margin-left: var(--dl-space-space-twounits);
-}
-
-.home-text:hover {
-font-size: 20px;
-animation-name: none;
-animation-direction: normal;
-}
-
-.home-text01 {
-color: #ffffff;
-transition: 0.3s;
-margin-left: var(--dl-space-space-twounits);
-}
-
-.home-text01:hover {
-font-size: 20px;
-}
-
-.home-text02 {
-color: #ffffff;
-transition: 0.3s;
-margin-left: var(--dl-space-space-twounits);
-}
-
-.home-text02:hover {
-font-size: 20px;
-}
-
-.home-text03 {
-color: #ffffff;
-transition: 0.3s;
-margin-left: var(--dl-space-space-twounits);
-}
-
-.home-text03:hover {
-font-size: 20px;
-}
-
-.home-text04 {
-color: #ffffff;
-transition: 0.3s;
-margin-left: var(--dl-space-space-twounits);
-}
-
-.home-text04:hover {
-font-size: 20px;
-}
-
-.home-buttons {
-display: flex;
-align-items: center;
-flex-direction: row;
-justify-content: space-between;
-}
-
-.home-login {
-transition: 0.3s;
-border-width: 0;
-width: 100px;
-}
-
-.home-login:hover {
-animation-name: pulse;
-animation-delay: 0s;
-animation-duration: 300ms;
-animation-direction: normal;
-animation-iteration-count: 1;
-animation-timing-function: ease;
-}
-}
-
 
 .home-register {
 transition: 0.3s;
