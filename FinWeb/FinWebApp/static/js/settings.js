@@ -225,11 +225,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
                         } else {
                             // Handle the case where the server indicates success
-                            showSuccessStatus('השינויים עודכנו בהצלחה', "'.settings-modification-block-success-status'");
+                            showSuccessStatus('השינויים עודכנו בהצלחה', ".settings-modification-block-success-status");
                         }
                     })
                     .catch(_ => {
-                        showFailStatus("עדכון מידע נכשל", "'.settings-modification-block-fail-status'");
+                        showFailStatus("עדכון מידע נכשל", ".settings-modification-block-fail-status");
                     });
             });
         }
@@ -274,9 +274,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = document.createElement('tr');
 
             row.appendChild(createTableCell(credit_cards_transactions.last_4_digits[i], 'last-4-digits-col'));
-            row.appendChild(createTableCell(credit_cards_transactions.transaction_category[i], 'transaction-category-col'));
+            row.appendChild(createTableCell(credit_cards_transactions.transaction_category[i], 'credit-card-transaction-category-col'));
             row.appendChild(createTableCell(credit_cards_transactions.transaction_type[i], 'transaction-type-col'));
-            row.appendChild(createTableCell(credit_cards_transactions.transaction_provider[i], 'transaction-provider-col'));
+            row.appendChild(createTableCell(credit_cards_transactions.transaction_provider[i], 'credit-card-transaction-provider-col'));
             row.appendChild(createTableCell(credit_cards_transactions.total_amount[i], 'total-amount-col'));
             row.appendChild(createTableCell(credit_cards_transactions.charge_amount[i], 'charge-amount-col'));
             row.appendChild(createTableCell(credit_cards_transactions.business_name[i], 'business-name-col'));
@@ -408,9 +408,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = document.createElement('tr');
 
             row.appendChild(createTableCell(bank_transactions.account_number[i], 'account-number-col'));
-            row.appendChild(createTableCell(bank_transactions.transaction_category[i], 'transaction-category-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_category[i], 'bank-transaction-category-col'));
             row.appendChild(createTableCell(bank_transactions.transaction_reference[i], 'transaction-reference-col'));
-            row.appendChild(createTableCell(bank_transactions.transaction_provider[i], 'transaction-provider-col'));
+            row.appendChild(createTableCell(bank_transactions.transaction_provider[i], 'bank-transaction-provider-col'));
             row.appendChild(createTableCell(bank_transactions.current_balance[i], 'current-balance-col'));
             row.appendChild(createTableCell(bank_transactions.outcome_balance[i], 'outcome-balance-col'));
             row.appendChild(createTableCell(bank_transactions.income_balance[i], 'income-balance-col'));

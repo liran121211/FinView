@@ -1,5 +1,5 @@
 *{
-/* border:1px solid black; */
+ border:1px solid black; */
 }
 .home-container {
 width: 100%;
@@ -17,6 +17,8 @@ display: flex;
 align-items: flex-start;
 flex-direction: column;
 }
+
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .home-navbar-interactive {
 width: 100%;
 display: flex;
@@ -87,6 +89,83 @@ transition: 0.3s;
 margin-left: var(--dl-space-space-twounits);
 }
 .home-text04:hover {
+}
+.home-buttons {
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: space-between;
+}
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.home-navbar-interactive {
+width: 100%;
+display: flex;
+align-items: center;
+padding: var(--dl-space-space-twounits) var(--dl-space-space-threeunits);
+justify-content: space-between;
+background-color: #3498db;
+}
+.home-desktop-menu {
+flex: 1;
+display: flex;
+justify-content: space-between;
+}
+.home-links {
+flex: 1;
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: center;
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+}
+.home-text {
+color: #ffffff;
+transition: 0.3s;
+animation-name: none;
+animation-delay: 0s;
+animation-duration: 300ms;
+animation-direction: normal;
+animation-iteration-count: 100;
+margin-left: var(--dl-space-space-twounits);
+}
+.home-text:hover {
+font-size: 20px;
+animation-name: none;
+animation-direction: normal;
+}
+.home-text01 {
+color: #ffffff;
+transition: 0.3s;
+margin-left: var(--dl-space-space-twounits);
+}
+.home-text01:hover {
+font-size: 20px;
+}
+.home-text02 {
+color: #ffffff;
+transition: 0.3s;
+margin-left: var(--dl-space-space-twounits);
+}
+.home-text02:hover {
+font-size: 20px;
+}
+.home-text03 {
+color: #ffffff;
+transition: 0.3s;
+margin-left: var(--dl-space-space-twounits);
+}
+.home-text03:hover {
+font-size: 20px;
+}
+.home-text04 {
+color: #ffffff;
+transition: 0.3s;
+margin-left: var(--dl-space-space-twounits);
+}
+.home-text04:hover {
 font-size: 20px;
 }
 .home-buttons {
@@ -95,6 +174,8 @@ align-items: center;
 flex-direction: row;
 justify-content: space-between;
 }
+}
+
 .home-login {
 transition: 0.3s;
 border-width: 0;
@@ -229,11 +310,13 @@ align-items: flex-end;
 flex-direction: column;
 background-color: #f7f7f7;
 }
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .home-nav1 {
 flex: 0 0 auto;
 display: flex;
 align-items: flex-end;
 flex-direction: column;
+  font-size: 16px;
 height: 75vh;
 }
 .home-icon10 {
@@ -295,6 +378,80 @@ height: var(--dl-size-size-small);
 object-fit: cover;
 border-radius: var(--dl-radius-radius-round);
 }
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.home-nav1 {
+flex: 0 0 auto;
+display: flex;
+align-items: flex-end;
+flex-direction: column;
+  font-size: 14px;
+height: 75vh;
+}
+.home-icon10 {
+width: var(--dl-size-size-xsmall);
+height: var(--dl-size-size-xsmall);
+align-self: flex-end;
+margin-bottom: var(--dl-space-space-twounits);
+}
+.nav-span {
+transition: 0.1s;
+border-color: var(--dl-color-gray-black);
+margin-bottom: var(--dl-space-space-twounits);
+font-family: 'Gan', sans-serif;
+}
+.nav-span:hover {
+font-weight: bold; /* Bold the text on hover */
+cursor: pointer;
+}
+
+.home-profile {
+width: 100%;
+display: flex;
+align-items: center;
+padding-top: var(--dl-space-space-unit);
+border-color: var(--dl-color-gray-900);
+border-width: 1px;
+flex-direction: row;
+justify-content: flex-end;
+border-left-width: 0px;
+border-right-width: 0px;
+border-bottom-width: 0px;
+font-family: 'Gan', sans-serif;
+cursor: pointer;
+}
+.home-container2 {
+padding: 5px;
+display: flex;
+align-items: flex-end;
+margin-left: var(--dl-space-space-halfunit);
+flex-direction: column;
+justify-content: space-between;
+font-family: 'Gan', sans-serif;
+cursor: pointer;
+}
+.home-text16 {
+font-size: 1.15rem;
+align-self: flex-start;
+font-style: normal;
+font-weight: 600;
+margin-bottom: 0.25rem;
+font-size: 15px;
+}
+.home-text17 {
+color: var(--dl-color-gray-500);
+font-size: 0.6rem;
+}
+.home-image1 {
+width: var(--dl-size-size-small);
+height: var(--dl-size-size-small);
+object-fit: cover;
+border-radius: var(--dl-radius-radius-round);
+}
+}
+
+
 @media(max-width: 991px) {
 .home-profile {
 padding-left: var(--dl-space-space-halfunit);
@@ -444,7 +601,7 @@ text-transform: none;
 text-decoration: none;
 }
 
-
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .settings-modification-block {
 flex: 0 0 auto;
 width: 100%;
@@ -567,9 +724,136 @@ margin-top: 10px;
 #portrait-change-btn:hover {
 background-color: #76B947; /* Change background color on hover */
 }
+}
 
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.settings-modification-block {
+flex: 0 0 auto;
+width: 100%;
+height: 100vh;;
+display: flex;
+align-self: flex-end;
+align-items: flex-end;
+flex-direction: column;
+justify-content: flex-start;
+margin-right: 180px;
+font-family: 'Gan', sans-serif;
+}
+
+.settings-modification-block-status{
+margin: 0 auto; /* Center horizontally */
+}
+
+.settings-modification-block-success-status{
+background-color: #d4edda; /* Greenish background color */
+border: 1px solid #c3e6cb; /* Greenish border color */
+color: #155724; /* Dark green text color */
+padding: 8px 16px; /* Padding around the text */
+border-radius: 4px; /* Rounded corners */
+margin-bottom: 16px; /* Margin at the bottom to separate from other content */
+display: none;
+}
+
+.settings-modification-block-fail-status{
+background-color: #f8d7da; /* Redish background color */
+border: 1px solid #f5c6cb; /* Redish border color */
+color: #721c24; /* Dark red text color */
+padding: 8px 16px; /* Padding around the text */
+border-radius: 4px; /* Rounded corners */
+margin-bottom: 16px; /* Margin at the bottom to separate from other content */
+display: none;
+}
+
+.personal-details-div{
+display: block;
+}
+.personal-details-div form {
+display: flex;
+flex-direction: column; /* Stack fieldsets vertically */
+margin-top: -20px;
+}
+
+.personal-details-div h3 {
+color: #c5c5c5;
+margin-bottom: 8px;
+font-size: 18px;
+direction: rtl;
+}
+
+.personal-details-div fieldset {
+margin-bottom: 16px; /* Add space between fieldsets */
+background-color: #f7f7f7;
+display: flex;
+direction: rtl;
+}
+
+.personal-details-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+margin: 0 auto; /* Center horizontally */
+}
+
+.personal-details-div input {
+margin-left: 40px;
+font-size: 15px;
+color: #4C495A;
+}
+
+.personal-details-div label {
+margin-left: 40px;
+margin-bottom: 4px;
+color: #3498db;
+}
+
+#active-user-data, #date-joined-data, #username-data{
+font-size: 16px;
+}
+
+#personal-details-div-sub{
+display: flex;
+flex-direction: column; /* Stack fieldsets vertically */
+}
+
+#personal-details-div-button {
+background-color: #3498db; /* Set button background color */
+color: white; /* Set text color */
+border: none; /* Remove border */
+padding: 8px 16px; /* Add padding */
+text-align: center; /* Center text */
+text-decoration: none; /* Remove underline */
+display:flex; /* Display as inline block */
+font-size: 13px; /* Set font size */
+cursor: pointer; /* Add cursor on hover */
+border-radius: 3px; /* Add rounded corners */
+}
+
+#personal-details-div-button:hover {
+background-color: #2980b9; /* Change background color on hover */
+}
+
+
+#portrait-change-btn {
+background-color: #94C973; /* Set button background color */
+color: white; /* Set text color */
+border: none; /* Remove border */
+padding: 8px 16px; /* Add padding */
+text-align: center; /* Center text */
+text-decoration: none; /* Remove underline */
+display:flex; /* Display as inline block */
+font-size: 15px; /* Set font size */
+cursor: pointer; /* Add cursor on hover */
+border-radius: 3px; /* Add rounded corners */
+margin-top: 8px;
+
+}
+
+#portrait-change-btn:hover {
+background-color: #76B947; /* Change background color on hover */
+}
+}
 
 /* ----------------- Credit Cards Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .credit-cards-details-div  {
 padding-top: 100px;
 padding-bottom: 50px;
@@ -639,8 +923,82 @@ color: #4C495A;
 text-align: center;
 margin: 10px;
 }
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+  .credit-cards-details-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#credit-cards-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#credit-cards-table th {
+font-family: 'Gan', sans-serif;
+font-size: 14px;
+padding-bottom: 4px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#credit-cards-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 13px;
+color: #C6C6C6;
+margin: 40px 0px 54px 0px;
+}
+
+.credit-card_type-col {
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card_issuer-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card-last-4-digits-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card-type {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.credit-card-issuer-name {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align:center;
+margin: 8px;
+}
+
+.credit-card-last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+}
 
 /* ----------------- Credit Card Transactions Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .credit-cards-transactions-div  {
 padding-top: 100px;
 padding-bottom: 50px;
@@ -692,7 +1050,7 @@ background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
 
-.transaction-provider-col {
+.credit-card-transaction-provider-col {
 background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
@@ -702,7 +1060,7 @@ background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
 
-.transaction-category-col {
+.credit-card-transaction-category-col {
 background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
@@ -744,7 +1102,7 @@ text-align: center;
 margin: 10px;
 }
 
-.transaction-provider {
+.credit-card-transaction-provider {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 color: #4C495A;
@@ -760,7 +1118,7 @@ text-align: center;
 margin: 10px;
 }
 
-.transaction-category {
+.credit-card-transaction-category {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 color: #4C495A;
@@ -802,8 +1160,175 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+  .credit-cards-transactions-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+padding-left: 100px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#credit-cards-transactions-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#credit-cards-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding: 8px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#credit-cards-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 13px;
+color: #C6C6C6;
+margin: 40px 0px 54px 0px;
+}
+
+.date-of-transaction-col {
+border-bottom: 1px solid #ddd;
+}
+
+.business-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.charge-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.total-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card-transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-type-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.credit-card-transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.last-4-digits-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.date-of-transaction {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.business-name {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align:center;
+margin: 8px;
+}
+
+.charge-amount {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.total-amount {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.credit-card-transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.transaction-type {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.credit-card-transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+#credit-cards-transactions-pagination {
+margin-top: 16px;
+text-align: center;
+}
+
+#credit-cards-transactions-pagination a {
+display: inline-block;
+padding: 4px 8px;
+margin: 0 3px;
+color: #333;
+background-color: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 3px;
+text-decoration: none;
+transition: background-color 0.3s ease;
+}
+
+#credit-cards-transactions-pagination a:hover {
+background-color: #e0e0e0;
+}
+
+#credit-cards-transactions-pagination a.active {
+background-color: #007bff;
+color: #fff;
+border-color: #007bff;
+}
+}
 
 /* ----------------- Bank Transactions Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .bank-transactions-div  {
 padding-top: 100px;
 padding-bottom: 50px;
@@ -860,7 +1385,7 @@ background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
 
-.transaction-provider-col {
+.bank-transaction-provider-col {
 background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
@@ -870,7 +1395,7 @@ background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
 
-.transaction-category-col {
+.bank-transaction-category-col {
 background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
@@ -920,7 +1445,7 @@ text-align: center;
 margin: 10px;
 }
 
-.transaction-provider {
+.bank-transaction-provider {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 color: #4C495A;
@@ -936,7 +1461,7 @@ text-align: center;
 margin: 10px;
 }
 
-.transaction-category {
+.bank-transaction-category {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 color: #4C495A;
@@ -978,8 +1503,187 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+}
 
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+  .bank-transactions-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+    padding-left: 100px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#bank-transactions-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#bank-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding: 8px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#bank-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 14px;
+color: #C6C6C6;
+margin: 40px 0px 54px 0px;
+}
+
+.transaction-date-col {
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-description-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.income-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.outcome-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.current-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.bank-transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-reference-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.bank-transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.account-number-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-date {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.transaction-description {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.income-balance {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.outcome-balance {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.current-balance {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.bank-transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.transaction-reference {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.bank-transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.account-number {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+#bank-transactions-pagination {
+margin-top: 16px;
+text-align: center;
+}
+
+#bank-transactions-pagination a {
+display: inline-block;
+padding: 4px 8px;
+margin: 0 3px;
+color: #333;
+background-color: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 3px;
+text-decoration: none;
+transition: background-color 0.3s ease;
+}
+
+#bank-transactions-pagination a:hover {
+background-color: #e0e0e0;
+}
+
+#bank-transactions-pagination a.active {
+background-color: #007bff;
+color: #fff;
+border-color: #007bff;
+}
+}
 /* ----------------- File Upload CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .upload-files-div  {
 padding-top: 100px;
 padding-bottom: 50px;
@@ -1103,6 +1807,134 @@ display: none;
 font-size: 13px;
 width: 500px;
 }
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.upload-files-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+direction: rtl;
+}
+
+.upload-file-container{
+width: 424px;
+background: #fff;
+border-radius: 4px;
+padding: 24px;
+box-shadow: 6px 6px 10px rgba(0,0,0,0.05);
+font-family: 'Gan', sans-serif;
+}
+.upload-file-container header{
+color: #3498db;
+font-size: 22px;
+font-weight: 600;
+text-align: center;
+}
+.upload-file-container form{
+height: 133px;
+display: flex;
+cursor: pointer;
+margin: 24px 0;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+border-radius: 4px;
+border: 2px dashed #3498db;
+}
+#upload-file-form :where(i, p){
+color: #3498db;
+}
+#upload-file-form i{
+font-size: 40px;
+}
+#upload-file-form p{
+margin-top: 12px;
+font-size: 13px;
+}
+section .upload-file-row{
+margin-bottom: 8px;
+background: #e6e6e6;
+list-style: none;
+padding: 12px 16px;
+border-radius: 4px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+section .upload-file-row i{
+color: #3498db;
+font-size: 24px;
+}
+section .upload-file-details span{
+font-size: 11px;
+}
+.upload-file-progress-area .upload-file-row .upload-file-content{
+width: 100%;
+margin-left: 12px;
+}
+.upload-file-progress-area .upload-file-details{
+display: flex;
+align-items: center;
+margin-bottom: 6px;
+justify-content: space-between;
+}
+.upload-file-progress-area .upload-file-content .upload-file-progress-bar{
+height: 5px;
+width: 100%;
+margin-bottom: 4px;
+background: #fff;
+border-radius: 24px;
+}
+.upload-file-content .upload-file-progress-bar .upload-file-progress{
+height: 100%;
+width: 0%;
+background: #3498db;
+border-radius: inherit;
+}
+.uploaded-file-area{
+max-height: 185px;
+overflow-y: scroll;
+overflow-y:hidden;
+}
+.uploaded-file-area.onprogress{
+max-height: 120px;
+}
+.uploaded-file-area::-webkit-scrollbar{
+scrollbar-width: thin;
+}
+.uploaded-file-area .upload-file-row .upload-file-content{
+display: flex;
+align-items: center;
+}
+.uploaded-file-area .upload-file-row .upload-file-details{
+display: flex;
+margin-left: 12px;
+flex-direction: column;
+}
+.uploaded-file-area .upload-file-row .upload-file-details .upload-file-size{
+color: #404040;
+font-size: 10px;
+}
+.uploaded-file-area i.fa-check{
+font-size: 12px;
+}
+
+.upload-file-statistics{
+background-color: #d4edda; /* Greenish background color */
+border: 1px solid #c3e6cb; /* Greenish border color */
+color: #155724; /* Dark green text color */
+padding: 8px 216px; /* Padding around the text */
+border-radius: 4px; /* Rounded corners */
+margin-top: 16px;
+margin-bottom: 16px; /* Margin at the bottom to separate from other content */
+display: none;
+font-size: 12px;
+width: 400px;
+}
+}
+
 
 /* ----------------- Footer CSS ----------------- */
 
