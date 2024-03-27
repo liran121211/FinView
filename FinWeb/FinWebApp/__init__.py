@@ -26,8 +26,9 @@ Logger.addHandler(FILE_HANDLER)
 Logger.setLevel(logging.DEBUG)
 
 # Define
-INVALID_ANSWER = -1
-INVALID_KEY = 'None'
+FIRST_IDX =              0
+INVALID_ANSWER =        -1
+INVALID_KEY             = 'None'
 FILE_UPLOAD_SUCCESS =   200
 FILE_SIZE_TOO_BIG =     201
 FILE_WRONG_TYPE =       202

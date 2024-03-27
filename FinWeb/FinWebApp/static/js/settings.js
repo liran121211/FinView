@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.nav-span').forEach(function (span) {
         span.addEventListener('click', function () {
 
-            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-div',]
+            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-div', 'direct-debit-subscription-div']
 
             // Iterate over each class name
             navDivClasses.forEach(function (navDivClass) {
@@ -505,6 +505,123 @@ document.addEventListener('DOMContentLoaded', function () {
         columnHeader.addEventListener('click', handleColumnHeaderClick);
     });
 });
+
+
+/* ----------------------- Direct Debit Subscription Table ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+    // Check if user_cards is empty
+    const emptyDirectDebitSubscriptionTitle = document.querySelector('#empty-direct-debit-subscription');
+    if (Object.keys(direct_debit_subscriptions).length === 0) {
+        emptyDirectDebitSubscriptionTitle.textContent = 'לא נמצאו הוראות קבע או תשלומים';
+        return;
+    }
+
+    const tableBody = document.querySelector('#direct-debit-subscription-table tbody');
+    const itemsPerPage = 5;
+    let currentPage = 1;
+
+    const colName = Object.keys(direct_debit_subscriptions)[0];
+    const numberOfDuplicates = direct_debit_subscriptions[colName].length;
+    const totalPages = Math.ceil(numberOfDuplicates / itemsPerPage);
+
+    function createTableCell(content, className) {
+        const cell = document.createElement('td');
+        cell.classList.add(className);
+        const div = document.createElement('div');
+        div.textContent = content;
+        div.classList.add(className.replace('-col', ''));
+        cell.appendChild(div);
+        return cell;
+    }
+
+    function renderTable(page) {
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, numberOfDuplicates);
+        tableBody.innerHTML = '';
+
+        for (let i = startIndex; i < endIndex; i++) {
+            const row = document.createElement('tr');
+
+            row.appendChild(createTableCell(direct_debit_subscriptions.payment_type[i], 'direct-debit-subscription-payment-type-col'));
+            row.appendChild(createTableCell(direct_debit_subscriptions.amount[i], 'direct-debit-subscription-amount-col'));
+            row.appendChild(createTableCell(direct_debit_subscriptions.provider_name[i], 'direct-debit-subscription-provider-name-col'));
+            tableBody.appendChild(row);
+        }
+    }
+
+    function renderPagination() {
+        const pagination = document.getElementById("direct-debit-subscription-pagination");
+        pagination.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = '#';
+            pageLink.textContent = i;
+            if (i === currentPage) {
+                pageLink.classList.add('active');
+            }
+            pageLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                currentPage = i;
+                renderTable(currentPage);
+                renderPagination();
+            });
+            pagination.appendChild(pageLink);
+        }
+    }
+
+    renderTable(currentPage);
+    renderPagination();
+
+
+    // Object to track sort state for each column
+    const sortState = {
+        payment_type: 'asc',
+        amount: 'asc',
+        provider_name: 'asc',
+    };
+
+    const name_conversion = {
+        'סוג עסקה': 'payment_type',
+        'סכום': 'amount',
+        'שם בית העסק': 'provider_name',
+    }
+
+    // Function to sort transactions based on a column
+    function sortByColumn(column) {
+        const isAscending = sortState[column] === 'asc';
+        const multiplier = isAscending ? 1 : -1;
+
+        // Sort the data array based on the selected column
+        direct_debit_subscriptions[column].sort((valueA, valueB) => {
+            // Check if both values are numbers
+            if (!isNaN(valueA) && !isNaN(valueB)) {
+                return (valueA - valueB) * multiplier; // Numeric comparison
+            } else {
+                // Use localeCompare for string comparison
+                return valueA.localeCompare(valueB) * multiplier;
+            }
+        });
+
+        // Reverse the sort order for the column
+        sortState[column] = isAscending ? 'desc' : 'asc';
+    }
+
+    // Function to handle click events on column headers
+    function handleColumnHeaderClick(event) {
+        const columnHeader = event.target;
+        const column = name_conversion[columnHeader.textContent];
+        sortByColumn(column);
+        renderTable(currentPage);
+    }
+
+    // Add click event listeners to column headers
+    const columnHeaderElements = document.querySelectorAll('#direct-debit-subscription-table th');
+    columnHeaderElements.forEach(columnHeader => {
+        columnHeader.addEventListener('click', handleColumnHeaderClick);
+    });
+});
+
 
 /* ----------------------- File Upload Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {

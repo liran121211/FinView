@@ -114,6 +114,7 @@
         let user_cards = {{ user_cards|safe }};
         let credit_cards_transactions = {{ credit_cards_transactions|safe }};
         let bank_transactions = {{ bank_transactions|safe }};
+        let direct_debit_subscriptions = {{ direct_debit_subscriptions|safe }};
     </script>
 
 </head>
@@ -198,7 +199,7 @@
                         <span class="nav-span" data-div="personal-details-div">פרטים אישיים</span>
                         <span class="nav-span" data-div="credit-cards-details-div">כרטיסים בחשבון</span>
                         <span class="nav-span" data-div="personal-details-div1">הלוואות</span>
-                        <span class="nav-span" data-div="personal-details-div2">הוראות קבע ותשלומים</span>
+                        <span class="nav-span" data-div="direct-debit-subscription-div">הוראות קבע ותשלומים</span>
                         <span class="nav-span" data-div="credit-cards-transactions-div">עסקאות בכרטיסי אשראי</span>
                         <span class="nav-span" data-div="bank-transactions-div">תנועות בבנק</span>
                         <span class="nav-span" data-div="upload-files-div">העלאת מידע</span>
@@ -354,7 +355,6 @@
                 <div id="credit-cards-transactions-pagination"></div>
             </div>
             <div class="bank-transactions-div">
-
                 <table id="bank-transactions-table">
                     <thead>
                     <tr>
@@ -386,6 +386,25 @@
                     </tbody>
                 </table>
                 <div id="bank-transactions-pagination"></div>
+            </div>
+             <div class="direct-debit-subscription-div">
+                <table id="direct-debit-subscription-table">
+                    <thead>
+                    <tr>
+                        <th>סוג עסקה</th>
+                        <th>סכום</th>
+                        <th>שם בית העסק</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="direct-debit-subscription-payment-type-col">
+                        <p id="empty-direct-debit-subscription"></p>
+                    </td>
+                    <td class="direct-debit-subscription-amount-col"></td>
+                    <td class="direct-debit-subscription-provider-name-col"></td>
+                    </tbody>
+                </table>
+                <div id="direct-debit-subscription-pagination"></div>
             </div>
             <div class="upload-files-div">
                 <div class="upload-file-container">

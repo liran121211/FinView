@@ -22,7 +22,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_WRONG_TYPE, FILE_VALIDATION_ERROR, \
-    FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE
+    FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE, FIRST_IDX
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
@@ -44,6 +44,7 @@ def home_view(request):
             'spent_by_card': SpentByCardNumberQuery(logged_in_user),  # Pie-Chart view
             'income_by_month': IncomeByMonthQuery(logged_in_user),
             'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
+            'avatar_title': "!" + "ברוך הבא, " + retrieve_user_personal_information(logged_in_user)['first_name']
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -136,9 +137,10 @@ def settings_view(request):
             'user_cards': retrieve_user_cards(logged_in_user),
             'credit_cards_transactions': retrieve_user_credit_card_transactions(logged_in_user),
             'bank_transactions': retrieve_user_bank_transactions(logged_in_user, positive_only=False),
+            'direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
             'full_name': f"{request.user.first_name} {request.user.last_name}",
             'account_status': "משתמש פעיל" if request.user.is_active == True else "משתמש לא פעיל",
-            'portrait': UserPersonalInformation.objects.filter(username=logged_in_user).first().portrait
+            'portrait': retrieve_user_personal_information(logged_in_user)['portrait']
         })
 
     return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -486,6 +488,61 @@ def retrieve_user_bank_transactions(username: Text, positive_only: bool) -> dict
             dict_data['transaction_category'] = [data.transaction_category]
         else:
             dict_data['transaction_category'].append(data.transaction_category)
+
+    return dict_data
+
+
+def retrieve_user_personal_information(username: Text) -> dict:
+    filtered_data = UserPersonalInformation.objects.filter(username=username).first()
+
+    # if query was invalid or empty.
+    if filtered_data is None:
+        filtered_data = {
+            'username': 'N/A',
+            'first_name': 'N/A',
+            'last_name': 'N/A',
+            'email': 'N/A',
+            'date_joined': 'N/A',
+            'active_user': 'N/A',
+            'portrait': 'N/A',
+        }
+        return filtered_data
+
+    dict_data = dict()
+    if dict_data.get('username', None) is None:
+        dict_data['username'] = filtered_data.username
+    else:
+        dict_data['username'].append(filtered_data.username)
+
+    if dict_data.get('first_name', None) is None:
+        dict_data['first_name'] = filtered_data.first_name
+    else:
+        dict_data['first_name'].append(filtered_data.first_name)
+
+    if dict_data.get('last_name', None) is None:
+        dict_data['last_name'] = filtered_data.last_name
+    else:
+        dict_data['last_name'].append(filtered_data.last_name)
+
+    if dict_data.get('email', None) is None:
+        dict_data['email'] = filtered_data.email
+    else:
+        dict_data['email'].append(filtered_data.email)
+
+    if dict_data.get('date_joined', None) is None:
+        dict_data['date_joined'] = filtered_data.date_joined
+    else:
+        dict_data['date_joined'].append(filtered_data.date_joined)
+
+    if dict_data.get('active_user', None) is None:
+        dict_data['active_user'] = filtered_data.active_user
+    else:
+        dict_data['active_user'].append(filtered_data.active_user)
+
+    if dict_data.get('portrait', None) is None:
+        dict_data['portrait'] = filtered_data.portrait
+    else:
+        dict_data['portrait'].append(filtered_data.portrait)
 
     return dict_data
 

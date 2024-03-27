@@ -1679,6 +1679,214 @@ color: #fff;
 border-color: #007bff;
 }
 }
+
+/* ----------------- Direct Debit Subscriptions Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+.direct-debit-subscription-div  {
+padding-top: 100px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#direct-debit-subscription-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#direct-debit-subscription-table th {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+padding: 10px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#direct-debit-subscription-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-direct-debit-subscription{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 0px 70px 0px;
+}
+
+.direct-debit-subscription-payment-type-col {
+border-bottom: 1px solid #ddd;
+}
+
+.direct-debit-subscription-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.direct-debit-subscription-provider-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.direct-debit-subscription-payment-type {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align:center;
+margin: 10px;
+}
+
+.direct-debit-subscription-amount {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.income-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.direct-debit-subscription-provider-name {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+#direct-debit-subscription-pagination {
+margin-top: 20px;
+text-align: center;
+}
+
+#direct-debit-subscription-pagination a {
+display: inline-block;
+padding: 5px 10px;
+margin: 0 3px;
+color: #333;
+background-color: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 3px;
+text-decoration: none;
+transition: background-color 0.3s ease;
+}
+
+#direct-debit-subscription-pagination a:hover {
+background-color: #e0e0e0;
+}
+
+#direct-debit-subscription-pagination a.active {
+background-color: #007bff;
+color: #fff;
+border-color: #007bff;
+}
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.direct-debit-subscription-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+padding-left: 100px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+}
+#direct-debit-subscription-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+#direct-debit-subscription-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding: 8px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#direct-debit-subscription-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-direct-debit-subscription{
+font-family: 'Gan', sans-serif;
+font-size: 14px;
+color: #C6C6C6;
+margin: 40px 0px 54px 0px;
+}
+
+.direct-debit-subscription-payment-type-col {
+border-bottom: 1px solid #ddd;
+}
+
+.direct-debit-subscription-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.direct-debit-subscription-provider-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.direct-debit-subscription-payment-type {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.direct-debit-subscription-amount {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.direct-debit-subscription-provider-name {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+#direct-debit-subscription-pagination {
+margin-top: 16px;
+text-align: center;
+}
+
+#direct-debit-subscription-pagination a {
+display: inline-block;
+padding: 4px 8px;
+margin: 0 3px;
+color: #333;
+background-color: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 3px;
+text-decoration: none;
+transition: background-color 0.3s ease;
+}
+
+#direct-debit-subscription-pagination a:hover {
+background-color: #e0e0e0;
+}
+
+#direct-debit-subscription-pagination a.active {
+background-color: #007bff;
+color: #fff;
+border-color: #007bff;
+}
+}
 /* ----------------- File Upload CSS ----------------- */
 @media only screen and (max-width: 2560px) and (max-height: 1080px) {
 .upload-files-div  {
