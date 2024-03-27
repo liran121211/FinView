@@ -119,6 +119,16 @@ def register_post(request):
         return redirect('login_page')
 
 
+def analytics_and_trends_view(request):
+    if request.user.is_authenticated:
+        logged_in_user = request.user.username
+
+        return render(request, 'analytics_and_trends.html', {
+            'user_information': retrieve_user_information(logged_in_user),
+        })
+    else:
+        return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
+
 def settings_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username

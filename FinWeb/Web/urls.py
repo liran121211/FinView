@@ -18,7 +18,7 @@ import os
 
 from django.contrib import admin
 from django.urls import path
-from FinWebApp.views import login_view, home_view, settings_view, settings_personal_information_post, settings_user_cards_post, register_post, login_post, logout_view, upload_post
+from FinWebApp.views import login_view, home_view, settings_view, settings_personal_information_post, settings_user_cards_post, register_post, login_post, logout_view, upload_post, analytics_and_trends_view
 
 urlpatterns = [
     path('', home_view, name='home_page'),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('login/', login_view, name='login_page'),
     path('logout/', logout_view, name='logout_page'),
     path('settings/', settings_view, name='settings_page'),
+    path('analytics_and_trends/', analytics_and_trends_view, name='analytics_and_trends_page'),
 
 
     # post paths
