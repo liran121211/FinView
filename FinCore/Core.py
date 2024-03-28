@@ -740,13 +740,26 @@ class Application:
                 if len(result) > 0:
                     return result
 
-        def how_much_spent_in_specific_month(selected_month: Text, selected_year: int, username: Text):
+        def how_much_spent_in_specific_month_bank(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT SUM(outcome_balance) AS total_sum " \
                     f"FROM (" \
                     f"SELECT outcome_balance" \
                     f" FROM user_bank_transactions" \
                     f" WHERE EXTRACT(MONTH FROM transaction_date) = {num_to_month(selected_month)}" \
                     f" AND EXTRACT(YEAR FROM transaction_date) =  {selected_year}" \
+                    f" AND username='{username}')" \
+                    f" AS subquery;"
+
+            result = self.__manage_bank_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_much_spent_in_specific_month_card(selected_month: Text, selected_year: int, username: Text):
+            query = f"SELECT SUM(total_amount) AS total_sum " \
+                    f"FROM (" \
+                    f"SELECT total_amount" \
+                    f" FROM user_credit_card_transactions" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {num_to_month(selected_month)}" \
+                    f" AND EXTRACT(YEAR FROM date_of_transaction) =  {selected_year}" \
                     f" AND username='{username}')" \
                     f" AS subquery;"
 
@@ -869,7 +882,8 @@ class Application:
             return result
 
         return {
-            'how_much_spent_in_specific_month': how_much_spent_in_specific_month,
+            'how_much_spent_in_specific_month_bank': how_much_spent_in_specific_month_bank,
+            'how_much_spent_in_specific_month_card': how_much_spent_in_specific_month_card,
             'how_much_earned_in_specific_month': how_much_earned_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,

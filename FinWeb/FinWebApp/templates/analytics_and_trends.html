@@ -121,16 +121,10 @@
 
     <!-- Load data into variables from View -->
     <script>
-        let user_information = {{ user_information|safe }};
-        let user_cards = {{ user_cards|safe }};
-        let user_direct_debit_subscriptions = {{ user_direct_debit_subscriptions|safe }};
-        let user_income = {{ user_income|safe }};
-        let user_outcome = {{ user_outcome|safe }};
-        let spent_by_category = {{ spent_by_category|safe }};
-        let bank_transaction_by_category = {{ bank_transaction_by_category|safe }};
-        let spent_by_card = {{ spent_by_card|safe }};
-        let income_by_month = {{ income_by_month|safe }};
-        let income_against_outcome = {{ income_against_outcome|safe }};
+        const user_information =          {{ user_information|safe }};
+        const spent_by_month_monthly =    {{ spent_by_month_monthly|safe }};
+        const spent_by_month_quarterly =  {{ spent_by_month_quarterly|safe }};
+        const spent_by_month_yearly =     {{ spent_by_month_yearly|safe }};
     </script>
 
 </head>
@@ -197,7 +191,27 @@
 
         <!-- 1st (Vertical) -->
         <div class="home-double-vertical-layout1">
-
+            <div class="first-row-horizontal">
+                <h3>הוצאות בכרטיסי אשראי לפי תקופות זמן</h3>
+                <div class="first-column-vertical">
+                    <div class="button-container">
+                        <button class="canvas-button" data-canvas="spent_by_month_card">חודשי</button>
+                        <button class="canvas-button" data-canvas="spent_by_quarter_card">רבעוני</button>
+                        <button class="canvas-button" data-canvas="spent_by_year_card">שנתי</button>
+                    </div>
+                    <canvas id="spent_by_month_card" width="500" height="250" style="display: block;"></canvas>
+                    <canvas id="spent_by_quarter_card" width="500" height="250" style="display: none;"></canvas>
+                    <canvas id="spent_by_year_card" width="500" height="250" style="display: none;"></canvas>
+                </div>
+                <div class="second-column-vertical">
+                    <div class="button-container">
+                        <button class="canvas-button" data-canvas="spent_by_month_card1">חודשי</button>
+                        <button class="canvas-button" data-canvas="spent_by_quarter_card1">רבעוני</button>
+                        <button class="canvas-button" data-canvas="spent_by_year_card1">שנתי</button>
+                    </div>
+                    <canvas id="spent_by_merchant" width="500" height="250"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1057,3 +1057,361 @@
 2024-03-27 20:37:26,202 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-03-27 20:54:54,554 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-03-27 20:56:23,218 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-27 20:59:38,177 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:39,927 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:42,221 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:43,509 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:45,950 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:47,188 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:49,436 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:51,904 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:54,113 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:55,344 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:56,483 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:57,597 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:58,715 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 20:59:59,874 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:02,156 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:03,376 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:04,576 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:05,744 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:07,950 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:09,287 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:10,522 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:11,637 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:12,740 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:15,226 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:17,667 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:20,116 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:21,428 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:23,795 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:26,188 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:28,590 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:30,817 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:33,220 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:35,580 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:37,993 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:40,351 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:42,836 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:45,227 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-27 21:00:47,580 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:20:55,800 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:21:56,429 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:27:10,736 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:27:30,748 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:29:09,256 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:29:30,277 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-03-28 07:37:03,609 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:38:41,603 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:48:15,625 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 07:53:00,563 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:02,954 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:05,233 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:06,537 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:07,679 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:08,866 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:11,119 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:13,331 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:15,589 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:16,812 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:17,964 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:19,130 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:20,260 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:21,445 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:23,696 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:24,855 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:25,961 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:28,579 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:30,809 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:32,058 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:34,331 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:35,464 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:37,822 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:40,643 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:42,843 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:43,992 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:45,094 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:47,369 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:49,559 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:51,830 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:53,987 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:55,195 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:56,485 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:57,623 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:53:58,816 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:01,196 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:03,507 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:05,635 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:06,730 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:07,831 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:09,015 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:10,187 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:11,417 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:12,687 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:13,897 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:16,055 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:17,255 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:18,433 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:19,567 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:20,746 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:22,821 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:25,226 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:27,417 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:29,633 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:31,783 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:32,974 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:34,635 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:35,713 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:36,911 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:39,131 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:40,222 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:41,406 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:42,495 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:43,660 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:44,738 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:45,927 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:48,082 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:50,328 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:51,713 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:53,854 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:55,321 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:57,515 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:58,672 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:54:59,887 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:02,236 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:03,367 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:04,544 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:05,717 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:06,962 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:08,040 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:10,190 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:12,353 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:14,565 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:16,849 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:17,980 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:19,132 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:20,281 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:21,362 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:22,432 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:23,752 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:24,893 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:26,061 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:28,279 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:30,460 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:32,732 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:35,010 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:36,091 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:37,266 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:38,469 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:39,778 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:40,932 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:43,471 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:44,606 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:45,894 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:48,209 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:50,582 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:51,790 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:52,886 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:55,171 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:57,486 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:55:58,709 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:00,846 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:02,976 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:04,186 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:06,430 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:07,604 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:09,764 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:10,850 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:12,110 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:13,205 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:14,284 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:16,514 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:18,677 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:19,852 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:22,229 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:24,495 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:25,641 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:26,852 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:29,134 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:30,309 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:32,511 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:33,771 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:34,994 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:36,145 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:38,376 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:40,552 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:41,706 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:42,862 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:43,956 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:45,143 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:47,282 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:48,486 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:49,597 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:51,862 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:54,054 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:55,157 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:56,280 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:57,389 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:58,629 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:56:59,839 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:57:02,029 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:57:04,308 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:57:06,487 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:57:08,661 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:57:09,823 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 07:57:09,828 - INFO - Successfully modified a record in PostgreSQL database, Table: user_information | Key: liran121214
+2024-03-28 08:57:05,827 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 09:27:44,873 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 09:28:02,306 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 09:32:10,668 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 09:37:15,928 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:22,358 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:23,590 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:24,822 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:26,122 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:27,372 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:28,658 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:29,881 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:31,131 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:32,388 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:48,442 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:49,677 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:50,924 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:52,257 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:53,445 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:54,827 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:37:55,967 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:20,263 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:21,427 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:22,558 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:23,845 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:25,070 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:26,286 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:27,452 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:28,632 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:29,926 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:31,162 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:32,456 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 09:38:33,717 - INFO - Successfully added a new record to PostgreSQL database.
+2024-03-28 13:14:15,187 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 13:46:09,904 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 13:50:34,695 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 13:55:24,329 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 13:56:23,525 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 13:57:43,824 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 14:00:35,652 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 14:01:23,745 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 14:01:35,052 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:12,226 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 14:02:18,568 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:26,733 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:27,984 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:29,049 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:29,434 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:29,775 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:30,131 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:34,083 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:02:34,904 - ERROR - column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
+                                                             ^
+
+2024-03-28 14:03:10,162 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 14:04:45,990 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 14:59:46,814 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:00:26,295 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:01:02,609 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:01:59,038 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:05:48,446 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:12:12,267 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:20:44,262 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:22:13,676 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:24:29,722 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:25:17,543 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 15:42:15,392 - INFO - Successfully connected to PostgreSQL database - localhost:5432

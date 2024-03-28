@@ -664,6 +664,11 @@ class BankLeumiParser(Parser, ABC):
             return 0.0
         except ValueError:
             return 0.0
+        except TypeError:
+            if isinstance(float(df.iloc[5, 0]), (float, int)):
+                return float(df.iloc[5, 0])
+            else:
+                return 0.0
 
 
 class BankMizrahiTefahotParser(Parser, ABC):

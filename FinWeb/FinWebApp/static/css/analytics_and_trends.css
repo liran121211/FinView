@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
+*{
+{#border: 1px solid black;#}
+}
+
 :root {
 --dl-color-gray-500: #595959;
 --dl-color-gray-700: #999999;
@@ -101,18 +105,6 @@ font-weight: 700;
 line-height: 1.15;
 text-transform: none;
 text-decoration: none;
-}
-
-
-uhyiv
-.home-container {
-width: 100%;
-display: flex;
-overflow: auto;
-min-height: 100vh;
-align-items: flex-start;
-flex-direction: column;
-justify-content: flex-start;
 }
 
 .home-container1 {
@@ -466,27 +458,9 @@ height: 100%;
 display: flex;
 position: relative;
 align-items: flex-start;
-flex-direction: column;
+flex-direction: row;
 justify-content: center;
-}
-
-.home-double-horizontal-layout1 {
-flex: 0 0 auto;
-width: 100%;
-height: 100%;
-display: flex;
-align-self: flex-start;
-align-items: center;
-justify-content: right;
-}
-
-.home-double-horizontal-layout2 {
-flex: 0 0 auto;
-width: 100%;
-height: 100%;
-display: flex;
-align-items: flex-start;
-justify-content: center;
+direction: rtl;
 }
 
 @media (max-width: 767px) {
@@ -538,6 +512,43 @@ padding: var(--dl-space-space-unit);
 .home-mobile-menu {
 padding: 16px;
 }
+}
+
+
+/* ----------------- First Row Section CSS ----------------- */
+.first-row-horizontal {
+display: flex;
+}
+.first-column-vertical {
+margin: 10px;
+justify-content: center; /* Center horizontally */
+}
+
+.second-column-vertical {
+margin: 10px;
+justify-content: center; /* Center horizontally */
+}
+
+.button-container {
+justify-content: center;
+display: flex;
+margin: 5px;
+}
+
+.canvas-button {
+font-family: 'Gan', sans-serif;
+background-color: #FFFFFF;
+border: 1px solid gray;
+color: black;
+padding: 5px 15px;
+border-radius: 5px;
+cursor: pointer;
+margin: 5px;
+}
+
+.canvas-button:hover {
+background-color: #3498db;
+color: white;
 }
 
 /* ----------------- Scrollbar CSS ----------------- */

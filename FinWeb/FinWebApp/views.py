@@ -8,7 +8,8 @@ import time
 from PIL import Image
 from datetime import datetime
 from random import randint
-from typing import Text, Any
+from typing import Text, Any, List
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -26,7 +27,7 @@ from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
     SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
-    BankTransactionByCategoryQuery, UserPersonalInformation
+    BankTransactionByCategoryQuery, UserPersonalInformation, SpentByMonthQuery
 
 
 def home_view(request):
@@ -125,9 +126,13 @@ def analytics_and_trends_view(request):
 
         return render(request, 'analytics_and_trends.html', {
             'user_information': retrieve_user_information(logged_in_user),
+            'spent_by_month_monthly': SpentByMonthQuery(dates=get_last_12_months(), username=logged_in_user, sort='Monthly'),
+            'spent_by_month_quarterly': SpentByMonthQuery(dates=get_last_12_months(), username=logged_in_user, sort='Quarterly'),
+            'spent_by_month_yearly': SpentByMonthQuery(dates=get_last_12_months(), username=logged_in_user, sort='Yearly')
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
+
 
 def settings_view(request):
     if request.user.is_authenticated:
@@ -345,7 +350,7 @@ def retrieve_user_direct_debit_subscription_records(username: Text) -> dict:
 
 def retrieve_user_credit_card_transactions(username: Text) -> dict:
     # Retrieve all rows from the table
-    filtered_data = UserCreditCardsTransactions.objects.filter(username=username).all()
+    filtered_data = UserCreditCardsTransactions.objects.filter(username=username).order_by('-date_of_transaction')
 
     # if query was invalid or empty.
     if filtered_data is None:
@@ -420,10 +425,10 @@ def retrieve_user_credit_card_transactions(username: Text) -> dict:
 
 def retrieve_user_bank_transactions(username: Text, positive_only: bool) -> dict:
     if positive_only:
-        filtered_data = UserBankTransactions.objects.filter(username=username, income_balance__gt=0).all()
+        filtered_data = UserBankTransactions.objects.filter(username=username, income_balance__gt=0).order_by('-transaction_date')
     else:
         # Retrieve all rows from the table
-        filtered_data = UserBankTransactions.objects.filter(username=username).all()
+        filtered_data = UserBankTransactions.objects.filter(username=username).order_by('-transaction_date')
 
     # if query was invalid or empty.
     if filtered_data is None:
@@ -577,6 +582,24 @@ def slice_dictionary(obj: dict, start_idx: int = 0, end_idx: int = -1) -> dict:
                     temp_dict[k].append(value)
 
     return temp_dict
+
+
+def get_last_12_months() -> List[List]:
+    # Get the current date
+    current_date = datetime.now()
+
+    # List to store month/year strings
+    months_list = [[current_date.strftime('%m'), current_date.strftime('%Y')]]
+
+    # Iterate over the last 11 months
+    for i in range(0, 11):
+        # Subtract i months from the current date
+        month_year = current_date - timedelta(days=current_date.day)
+        month_year = month_year.replace(day=1)
+        month_year -= timedelta(days=30.5 * i)  # Approximate months
+        months_list.append([month_year.strftime('%m'), month_year.strftime('%Y')])
+
+    return months_list
 
 
 def handle_instance_modification(instance: Any) -> bool:

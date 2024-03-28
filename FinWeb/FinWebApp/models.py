@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Text
+from typing import Text, List
 
 import pandas as pd
 from django.db import models
@@ -11,7 +11,7 @@ def IncomeAgainstOutcome(username: Text):
     month, year = datetime.now().month, datetime.now().year
 
     income_query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=month, selected_year=2023, username=username)
-    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month'](selected_month=month, selected_year=2023, username=username)
+    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month_bank'](selected_month=month, selected_year=2023, username=username)
 
     # handle case of missing data from specific date.
     if income_query is None or outcome_query is None:
@@ -45,6 +45,55 @@ def SpentByCategoryQuery(username: Text):
     query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
     return pd.DataFrame(query, columns=cols_names).to_dict()
 
+
+def SpentByMonthQuery(username: Text, dates: List, sort: Text = 'Monthly'):
+    cols_names = ['date_of_transaction', 'total_amount', ]
+    result = dict()
+    for date in dates:
+        query = FIN_CORE.ask['how_much_spent_in_specific_month_card'](int(date[0]), int(date[1]), username)
+        result['/'.join(date)] = round(query, 2) if query is not None else 0.0
+
+    if sort == 'Monthly':
+        return result
+
+    if sort == 'Quarterly':
+        # Check if the length of the list is divisible by 3
+        if len(result) % 3 != 0:
+            return [0.0 for _ in range(12)]
+
+        # List to store the sums of chunks
+        quarters_sums = {
+            'רבעון 1': 0.0,
+            'רבעון 2': 0.0,
+            'רבעון 3': 0.0,
+            'רבעון 4': 0.0
+        }
+
+        # Iterate over the list in chunks of three
+        result_vals = [sum(list(result.values())[i:i+3]) for i in range(0, len(result), 3)]
+        for i, (k,v) in enumerate(quarters_sums.items()):
+            quarters_sums[k] = round(result_vals[i], 2)
+        return quarters_sums
+
+    if sort == 'Yearly':
+        try:
+            extract_years = {x.split('/')[1] for x in result.keys()}
+            yearly_sums = {
+                extract_years.pop(): 0.0,
+                extract_years.pop(): 0.0,
+            }
+
+            for current_year in yearly_sums.keys():
+                yearly_sums[current_year] = round(sum([v for (k,v) in result.items() if current_year in k]), 2)
+        except IndexError:
+            return [0.0 for _ in range(12)]
+        except ValueError:
+            return [0.0 for _ in range(12)]
+
+        return yearly_sums
+
+    # invalid sort selection
+    return [0.0 for _ in range(12)]
 
 def BankTransactionByCategoryQuery(username: Text):
     cols_names = ['transaction_category', 'total_amount', ]
