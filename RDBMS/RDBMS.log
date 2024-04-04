@@ -1415,3 +1415,1480 @@ LINE 1: ...ions WHERE EXTRACT(MONTH FROM transaction_date) = None AND E...
 2024-03-28 15:24:29,722 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-03-28 15:25:17,543 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-03-28 15:42:15,392 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 17:53:41,346 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 17:57:35,626 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 17:57:52,254 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:29:08,387 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:31:24,040 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:32:49,083 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:37:59,351 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:39:49,909 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:43:56,832 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:46:52,769 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:47:16,357 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:48:19,608 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:50:03,069 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:50:35,007 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:52:18,796 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:52:36,672 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 19:56:10,951 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 20:03:17,306 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-28 20:09:11,582 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 11:29:00,968 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 11:29:43,734 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 11:30:07,322 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 11:32:06,437 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 11:34:57,579 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 11:49:16,501 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:02:51,831 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:03:51,263 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:04:37,760 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:12:22,074 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:16:08,454 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:16:31,881 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 12:17:26,372 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:27:43,306 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:28:59,457 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:29:51,324 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:30:14,555 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:30:26,973 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:32:04,688 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:33:07,784 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:36:22,348 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:42:07,759 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:45:46,560 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 17:49:41,150 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 18:11:20,950 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-29 18:12:30,108 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 09:36:15,020 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 09:41:31,238 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 10:23:58,892 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 10:27:36,072 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 11:21:11,679 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:06:41,293 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:11:21,811 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:12:37,437 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:13:28,845 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:14:01,004 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:15:21,825 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:15:51,588 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:16:02,923 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:16:52,847 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 12:58:55,136 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:00:36,631 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:08:30,721 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:08:58,301 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:09:18,520 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:09:32,323 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:18:04,119 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 13:26:26,205 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 19:11:48,006 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-03-30 19:18:39,909 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 07:07:55,607 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 18:42:33,188 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 18:43:30,208 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 18:46:23,105 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 18:52:19,405 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 18:56:05,399 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 19:01:11,740 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 19:01:39,162 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 19:04:46,601 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 19:34:25,647 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 19:34:35,391 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-01 19:57:03,391 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-02 18:39:33,295 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 07:13:45,352 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 07:20:56,010 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 07:22:21,147 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 07:23:44,600 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 07:25:14,210 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 19:03:27,884 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 19:03:45,048 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,052 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,053 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,054 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,055 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,056 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,057 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,058 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,059 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,059 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,060 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,062 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,063 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,064 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,064 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,065 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,066 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,067 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,068 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,068 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,069 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,070 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,071 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,072 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,072 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,073 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,074 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,075 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,075 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,076 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,077 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,077 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,078 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:03:45,080 - ERROR - invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+
+2024-04-03 19:05:50,483 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 19:10:19,494 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 19:13:33,181 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 19:13:35,835 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,841 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,842 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,843 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,844 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,846 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,847 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,848 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,849 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,850 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,851 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,852 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,853 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,854 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,856 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,857 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,858 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,859 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,860 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,861 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,862 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,863 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,864 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,865 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,866 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,867 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,868 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,869 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,870 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,872 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,873 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,875 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,876 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:35,878 - ERROR - invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+
+2024-04-03 19:13:37,766 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,767 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,768 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,769 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,770 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,772 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,773 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,774 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,775 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,776 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,777 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,778 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,779 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,780 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,781 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,782 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,783 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,784 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,784 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,785 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,786 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,786 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,789 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,790 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,791 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,792 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,793 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,794 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,794 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,795 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,796 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,797 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,798 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:37,799 - ERROR - invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+
+2024-04-03 19:13:46,202 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,204 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,205 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,206 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,207 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,208 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,209 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,210 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,211 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,212 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,213 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,214 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,215 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,216 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,217 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,218 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,219 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,220 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,222 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,223 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,224 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,225 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,226 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,227 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,228 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,229 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,230 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,231 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,232 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,232 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,233 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,234 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,235 - ERROR - column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.UndefinedColumn: column "none" does not exist
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = None AND E...
+                                                             ^
+
+2024-04-03 19:13:46,287 - ERROR - invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type numeric: "None"
+LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
+                                                             ^
+
+2024-04-03 19:14:28,957 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 19:15:00,393 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 20:54:14,237 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-03 20:56:40,930 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 07:34:59,630 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 07:36:05,337 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 07:50:37,922 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 07:53:51,810 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 07:59:23,677 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 08:00:06,237 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 08:00:55,077 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 08:05:58,120 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 09:13:28,031 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:13:56,685 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:15:01,524 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:17:51,648 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:19:41,583 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:23:22,927 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:24:57,434 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 10:46:50,051 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 11:32:33,550 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 11:37:13,314 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 11:37:30,603 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 11:37:38,855 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 11:38:29,655 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-04 11:47:08,462 - INFO - Successfully connected to PostgreSQL database - localhost:5432

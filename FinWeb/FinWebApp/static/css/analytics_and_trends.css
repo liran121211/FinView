@@ -455,12 +455,6 @@ height: var(--dl-size-size-xsmall);
 .home-double-vertical-layout1 {
 width: 100%;
 height: 100%;
-display: flex;
-position: relative;
-align-items: flex-start;
-flex-direction: row;
-justify-content: center;
-direction: rtl;
 }
 
 @media (max-width: 767px) {
@@ -518,7 +512,37 @@ padding: 16px;
 /* ----------------- First Row Section CSS ----------------- */
 .first-row-horizontal {
 display: flex;
+justify-content: center; /* Centers the entire div element */
 }
+
+.second-row-horizontal {
+display: flex;
+justify-content: center; /* Centers the entire div element */
+}
+
+
+.first-row-title{
+justify-content: center;
+display: flex;
+font-family: 'Gan', sans-serif;
+margin: 10px;
+}
+
+.first-row-title h3{
+color: #3c3a3a;
+font-style: italic;
+margin: 40px 10px 0px 0px;
+}
+.section-separator-horizontal {
+display: flex;
+margin: 0 auto;  /* Centers the element with fixed width */
+margin-top: 10px;
+margin-bottom: 10px;
+width: 600px; /* Maintains fixed width */
+height: 2px;
+background-color: #ccc;
+}
+
 .first-column-vertical {
 margin: 10px;
 justify-content: center; /* Center horizontally */

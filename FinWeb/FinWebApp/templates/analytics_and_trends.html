@@ -118,13 +118,21 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"
+            integrity="sha512-lGnVsh3WK0YJ7NX7rQmUu6kqF7vqELuDrUTnxpI2iD86VwI+OlQhi3EAJJZbrBUOfDFOAYAkigxkApHGM2IZTg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     <!-- Load data into variables from View -->
     <script>
-        const user_information =          {{ user_information|safe }};
-        const spent_by_month_monthly =    {{ spent_by_month_monthly|safe }};
-        const spent_by_month_quarterly =  {{ spent_by_month_quarterly|safe }};
-        const spent_by_month_yearly =     {{ spent_by_month_yearly|safe }};
+        const user_information =                {{ user_information|safe }};
+        const spent_by_date_monthly =           {{ spent_by_date_monthly|safe }};
+        const spent_by_date_quarterly =         {{ spent_by_date_quarterly|safe }};
+        const spent_by_date_yearly =            {{ spent_by_date_yearly|safe }};
+        const spent_by_category_monthly =       {{ spent_by_category_monthly|safe }};
+        const spent_by_category_quarterly =     {{ spent_by_category_quarterly|safe }};
+        const spent_by_business =               {{ spent_by_business|safe }};
+
     </script>
 
 </head>
@@ -191,25 +199,49 @@
 
         <!-- 1st (Vertical) -->
         <div class="home-double-vertical-layout1">
+            <div class="first-row-title">
+                <h3>ניתוח מידע מכרטיסי אשראי</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100"
+                     zoomAndPan="magnify"
+                     viewBox="0 0 375 374.999991" height="100" preserveAspectRatio="xMidYMid meet" version="1.0">
+                    <path fill="#3498db"
+                          d="M 355.890625 174.089844 L 346.042969 188.691406 L 132.808594 45.074219 L 142.65625 30.472656 C 147.171875 23.757812 156.324219 21.964844 163.019531 26.480469 L 351.898438 153.703125 C 358.617188 158.21875 360.410156 167.371094 355.890625 174.089844 Z M 287.203125 276.070312 L 298.027344 198.800781 L 326.375 217.898438 Z M 267.125 343.085938 C 266.003906 351.09375 258.570312 356.710938 250.5625 355.585938 L 25.042969 323.988281 C 17.035156 322.867188 11.394531 315.410156 12.542969 307.402344 L 26.382812 208.578125 L 280.988281 244.285156 Z M 33.71875 156.28125 C 34.839844 148.253906 42.273438 142.660156 50.28125 143.785156 L 275.800781 175.402344 C 283.832031 176.503906 289.449219 183.933594 288.300781 191.964844 L 285.863281 209.390625 L 31.257812 173.707031 Z M 113.164062 74.28125 L 239.976562 159.699219 L 71.527344 136.0625 Z M 357.804688 144.953125 L 168.945312 17.734375 C 157.402344 9.96875 141.675781 13.003906 133.882812 24.570312 L 59.863281 134.4375 L 51.761719 133.316406 C 37.972656 131.378906 25.1875 141.035156 23.25 154.824219 L 2.097656 305.921875 C 0.136719 319.710938 9.792969 332.5 23.5625 334.433594 L 249.082031 366.054688 C 262.871094 367.988281 275.660156 358.308594 277.59375 344.542969 L 283.855469 299.945312 L 364.640625 179.96875 C 372.429688 168.449219 369.347656 152.722656 357.804688 144.953125 "
+                          fill-opacity="1" fill-rule="nonzero"></path>
+                    <path fill="#3498db"
+                          d="M 148.128906 253.175781 L 256.875 268.445312 L 258.066406 259.816406 L 149.347656 244.570312 L 148.128906 253.175781 "
+                          fill-opacity="1" fill-rule="nonzero"></path>
+                    <path fill="#3498db"
+                          d="M 145.546875 271.816406 L 254.269531 287.039062 L 255.464844 278.414062 L 146.742188 263.164062 L 145.546875 271.816406 "
+                          fill-opacity="1" fill-rule="nonzero"></path>
+                </svg>
+            </div>
+            <div class="section-separator-horizontal"></div>
+
             <div class="first-row-horizontal">
-                <h3>הוצאות בכרטיסי אשראי לפי תקופות זמן</h3>
                 <div class="first-column-vertical">
                     <div class="button-container">
-                        <button class="canvas-button" data-canvas="spent_by_month_card">חודשי</button>
-                        <button class="canvas-button" data-canvas="spent_by_quarter_card">רבעוני</button>
-                        <button class="canvas-button" data-canvas="spent_by_year_card">שנתי</button>
+                        <button class="canvas-button" data-canvas="spent_by_date_month">חודשי</button>
+                        <button class="canvas-button" data-canvas="spent_by_date_quarter">רבעוני</button>
+                        <button class="canvas-button" data-canvas="spent_by_date_year">שנתי</button>
                     </div>
-                    <canvas id="spent_by_month_card" width="500" height="250" style="display: block;"></canvas>
-                    <canvas id="spent_by_quarter_card" width="500" height="250" style="display: none;"></canvas>
-                    <canvas id="spent_by_year_card" width="500" height="250" style="display: none;"></canvas>
+                    <canvas id="spent_by_date_month" width="500" height="250" style="display: block;"></canvas>
+                    <canvas id="spent_by_date_quarter" width="500" height="250" style="display: none;"></canvas>
+                    <canvas id="spent_by_date_year" width="500" height="250" style="display: none;"></canvas>
                 </div>
                 <div class="second-column-vertical">
+                    <canvas id="wordcloud-canvas" width="500" height="250"></canvas>
+                </div>
+            </div>
+            <div class="second-row-horizontal">
+                <div class="first-column-vertical">
                     <div class="button-container">
-                        <button class="canvas-button" data-canvas="spent_by_month_card1">חודשי</button>
-                        <button class="canvas-button" data-canvas="spent_by_quarter_card1">רבעוני</button>
-                        <button class="canvas-button" data-canvas="spent_by_year_card1">שנתי</button>
+                        <button class="canvas-button" data-canvas="spent_by_category_month">חודשי</button>
+                        <button class="canvas-button" data-canvas="spent_by_category_quarter">רבעוני</button>
+                        <button class="canvas-button" data-canvas="spent_by_category_year">שנתי</button>
                     </div>
-                    <canvas id="spent_by_merchant" width="500" height="250"></canvas>
+                    <canvas id="spent_by_category_month" width="1000" height="350" style="display: none;"></canvas>
+                    <canvas id="spent_by_category_quarter" width="1000" height="350" style="display: block;"></canvas>
+                    <canvas id="spent_by_category_year" width="1000" height="350" style="display: none;"></canvas>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
+import math
 from datetime import datetime
 from typing import Text, List
-
 import pandas as pd
 from django.db import models
 from . import FIN_CORE, INVALID_ANSWER
@@ -25,8 +25,7 @@ def IncomeAgainstOutcome(username: Text):
 
 def IncomeByMonthQuery(username: Text):
     cols_names = ['month_name', 'total_amount', ]
-    hebrew_months = ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר',
-                     'דצמבר']
+    hebrew_months = ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
 
     income_by_month = []
     for i, _ in enumerate(hebrew_months, start=1):
@@ -39,19 +38,121 @@ def IncomeByMonthQuery(username: Text):
     return pd.DataFrame(zip(hebrew_months, income_by_month), columns=cols_names).to_dict()
 
 
-def SpentByCategoryQuery(username: Text):
+def SpentByBusinessQuery(username: Text, mode: Text = 'Simple'):
+    if mode == 'Simple':
+        cols_names = ['transaction_category', 'total_amount', ]
+
+        query = FIN_CORE.ask['which_records_by_business_name'](business_name='', username=username)
+        return pd.DataFrame(query, columns=cols_names).to_dict()
+
+    else:
+        business_name_query_idx, charge_amount_query_idx = 1, 2
+        charge_amount_dict_idx, purchases_quantity_dict_idx = 0, 1
+        record_structure = dict()
+
+        query = FIN_CORE.ask['which_records_by_business_name'](business_name='', username=username)
+        for record in query:
+            if record[business_name_query_idx] in record_structure.keys():
+                record_structure[record[business_name_query_idx]][charge_amount_dict_idx] += record[charge_amount_query_idx]
+                record_structure[record[business_name_query_idx]][purchases_quantity_dict_idx] += 1
+            else:
+                record_structure[record[business_name_query_idx]] = [record[charge_amount_query_idx], 1]
+
+        chart_data = []
+        for business_name, (charge_amount, num_of_purchases) in record_structure.items():
+            data_point = {
+                'x': num_of_purchases,  # Average charge amount per merchant (replace if needed)
+                'y': round(charge_amount, 2),  # Number of transactions (can be adjusted based on your data)
+                'label': business_name
+            }
+            chart_data.append(data_point)
+
+        return sorted(chart_data, key=lambda x: x['x'], reverse=True)
+
+
+def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List = None, sort: Text = 'Monthly'):
     cols_names = ['transaction_category', 'total_amount', ]
 
-    query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
-    return pd.DataFrame(query, columns=cols_names).to_dict()
+    if mode == 'Simple':
+        query = FIN_CORE.ask['how_much_spent_by_category'](username=username)
+        return pd.DataFrame(query, columns=cols_names).to_dict()
+
+    else:
+        result = dict()
+        for (month, year) in dates:
+            query = FIN_CORE.ask['how_much_spent_by_category_specific_month'](month, year, username)
+
+            date_yo_string = str(month) + '/' + str(year)
+            if len(query) == 0:
+                result[date_yo_string] = []
+
+            for (category, charge_amount) in query:
+                record_charge_amount = round(float(charge_amount), 2)
+                record_category = category
+
+                if date_yo_string not in result.keys():
+                    result[date_yo_string] = [[record_category, record_charge_amount]]
+                else:
+                    result[date_yo_string].append([record_category, charge_amount])
+
+        if sort == 'Monthly':
+            return result
+
+        if sort == 'Quarterly':
+            QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4 = 2, 5, 8, 11
+            # Check if the length of the list is divisible by 3
+            if len(result) % 3 != 0:
+                for date_yo_string, categories_list in result.items():
+                    for idx, (category, charge_amount) in enumerate(categories_list):
+                        result[date_yo_string][idx] = [0.0, category]
+
+            quarter_categories  = list()
+            quarters_sums       = dict()
+            for idx, (date_yo_string, categories_list) in enumerate(result.items()):
+                if idx % 3 == 0:
+                    quarter_categories = list()
+
+                for category, charge_amount in categories_list:
+                    quarter_categories.append([category, charge_amount])
+
+                # List to store the sums of chunks
+                if idx == QUARTER_1:
+                    quarters_sums['רבעון 1'] = quarter_categories
+                if idx == QUARTER_2:
+                    quarters_sums['רבעון 2'] = quarter_categories
+                if idx == QUARTER_3:
+                    quarters_sums['רבעון 3'] = quarter_categories
+                if idx == QUARTER_4:
+                    quarters_sums['רבעון 4'] = quarter_categories
+
+            return quarters_sums
+
+        if sort == 'Yearly':
+            try:
+                extract_years = {x.split('/')[1] for x in result.keys()}
+                yearly_sums = {
+                    extract_years.pop(): 0.0,
+                    extract_years.pop(): 0.0,
+                }
+
+                for current_year in yearly_sums.keys():
+                    yearly_sums[current_year] = round(sum([v for (k, v) in result.items() if current_year in k]), 2)
+            except IndexError:
+                return [0.0 for _ in range(12)]
+            except ValueError:
+                return [0.0 for _ in range(12)]
+
+            return yearly_sums
+
+        # invalid sort selection
+        return [0.0 for _ in range(12)]
 
 
-def SpentByMonthQuery(username: Text, dates: List, sort: Text = 'Monthly'):
-    cols_names = ['date_of_transaction', 'total_amount', ]
+def spent_by_date_query(username: Text, dates: List, sort: Text = 'Monthly'):
     result = dict()
-    for date in dates:
-        query = FIN_CORE.ask['how_much_spent_in_specific_month_card'](int(date[0]), int(date[1]), username)
-        result['/'.join(date)] = round(query, 2) if query is not None else 0.0
+    for (month, year) in dates:
+        query = FIN_CORE.ask['how_much_spent_in_specific_month_card'](month, year, username)
+        result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
 
     if sort == 'Monthly':
         return result

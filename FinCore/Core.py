@@ -857,6 +857,14 @@ class Application:
                     f" WHERE username='{username}'" \
                     f" GROUP BY transaction_category;"
 
+        def how_much_spent_by_category_specific_month(selected_month: Text, selected_year: int, username: Text):
+            query = f"SELECT transaction_category, SUM(charge_amount) AS total_category_sum" \
+                    f" FROM user_credit_card_transactions" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = '{num_to_month(selected_month)}'" \
+                    f" AND EXTRACT(YEAR FROM date_of_transaction) = '{selected_year}'" \
+                    f" AND username='{username}'" \
+                    f" GROUP BY transaction_category;"
+
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return result
 
@@ -884,6 +892,7 @@ class Application:
         return {
             'how_much_spent_in_specific_month_bank': how_much_spent_in_specific_month_bank,
             'how_much_spent_in_specific_month_card': how_much_spent_in_specific_month_card,
+            'how_much_spent_by_category_specific_month': how_much_spent_by_category_specific_month,
             'how_much_earned_in_specific_month': how_much_earned_in_specific_month,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,

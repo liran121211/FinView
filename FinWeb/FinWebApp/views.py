@@ -3,14 +3,13 @@ import binascii
 import io
 import json
 import os
-import time
 
 from PIL import Image
-from datetime import datetime
 from random import randint
 from typing import Text, Any, List
 from datetime import datetime, timedelta
 
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -26,8 +25,8 @@ from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_
     FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE, FIRST_IDX
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
-    SpentByCategoryQuery, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
-    BankTransactionByCategoryQuery, UserPersonalInformation, SpentByMonthQuery
+    spent_by_category_query, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
+    BankTransactionByCategoryQuery, UserPersonalInformation, spent_by_date_query, SpentByBusinessQuery
 
 
 def home_view(request):
@@ -40,7 +39,7 @@ def home_view(request):
             'user_direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
             'user_income': slice_dictionary(retrieve_user_bank_transactions(logged_in_user, True), -5, 0),
             'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
-            'spent_by_category': SpentByCategoryQuery(logged_in_user),  # Pie-Chart view
+            'spent_by_category': spent_by_category_query(logged_in_user, mode='Simple'),  # Pie-Chart view
             'bank_transaction_by_category': BankTransactionByCategoryQuery(logged_in_user),  # Pie-Chart view
             'spent_by_card': SpentByCardNumberQuery(logged_in_user),  # Pie-Chart view
             'income_by_month': IncomeByMonthQuery(logged_in_user),
@@ -123,12 +122,16 @@ def register_post(request):
 def analytics_and_trends_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
+        latest_12_months = get_last_12_months()
 
         return render(request, 'analytics_and_trends.html', {
             'user_information': retrieve_user_information(logged_in_user),
-            'spent_by_month_monthly': SpentByMonthQuery(dates=get_last_12_months(), username=logged_in_user, sort='Monthly'),
-            'spent_by_month_quarterly': SpentByMonthQuery(dates=get_last_12_months(), username=logged_in_user, sort='Quarterly'),
-            'spent_by_month_yearly': SpentByMonthQuery(dates=get_last_12_months(), username=logged_in_user, sort='Yearly')
+            'spent_by_date_monthly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Monthly'),
+            'spent_by_date_quarterly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Quarterly'),
+            'spent_by_date_yearly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Yearly'),
+            'spent_by_category_monthly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort='Monthly'),
+            'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort='Quarterly'),
+            'spent_by_business': SpentByBusinessQuery(username=logged_in_user, mode='Analytics')
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -584,22 +587,20 @@ def slice_dictionary(obj: dict, start_idx: int = 0, end_idx: int = -1) -> dict:
     return temp_dict
 
 
-def get_last_12_months() -> List[List]:
+def get_last_12_months() -> List[List[int]]:
     # Get the current date
     current_date = datetime.now()
 
     # List to store month/year strings
-    months_list = [[current_date.strftime('%m'), current_date.strftime('%Y')]]
+    months_list = []
 
     # Iterate over the last 11 months
-    for i in range(0, 11):
-        # Subtract i months from the current date
-        month_year = current_date - timedelta(days=current_date.day)
-        month_year = month_year.replace(day=1)
-        month_year -= timedelta(days=30.5 * i)  # Approximate months
-        months_list.append([month_year.strftime('%m'), month_year.strftime('%Y')])
+    for i in range(0, 12):
+        relative_date = current_date + relativedelta(months=-i)
+        months_list.append([relative_date.month, relative_date.year])
 
     return months_list
+
 
 
 def handle_instance_modification(instance: Any) -> bool:
