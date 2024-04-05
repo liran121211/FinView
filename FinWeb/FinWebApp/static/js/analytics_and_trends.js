@@ -71,9 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create a new div element for the credit card selection box
         let newBox = document.createElement('div');
         newBox.classList.add('credit-card-selection-box');
+        newBox.style.height = (200 - (15 * numberOfBoxes)).toString() + 'px';
 
         // Create a paragraph element for the text
         let paragraph = document.createElement('p');
+        paragraph.style.fontSize = (18 - (1.01 * numberOfBoxes)).toString() + 'px';
         paragraph.textContent = user_cards.issuer_name[i] + ' - ' + user_cards.last_4_digits[i]; // Set your dynamic content here
 
         // Append the paragraph element to the new box
@@ -81,6 +83,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the new box to the container
         container.appendChild(newBox);
+
+// Add click event listener to each button
+        let divs = document.querySelectorAll('.credit-card-selection-box');
+        divs.forEach(function (div) {
+            div.addEventListener('click', function () {
+                // Remove 'clicked' class from all buttons
+                divs.forEach(function (btn) {
+                    btn.classList.remove('clicked');
+                });
+
+                // Add 'clicked' class to the clicked button
+                div.classList.add('clicked');
+            });
+        });
     }
 });
 

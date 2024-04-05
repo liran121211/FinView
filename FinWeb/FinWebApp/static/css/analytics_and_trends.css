@@ -545,9 +545,12 @@ writing-mode: vertical-lr; /* For vertical writing mode (optional) */
 text-orientation: mixed; /* For vertical text orientation (optional) */
 }
 
-.credit-card-selection-box:hover {
+
+
+.credit-card-selection-box.clicked{
 background-color: #3498db;
 color: white;
+cursor: pointer; /* Ensure pointer cursor on hover */
 }
 
 .root-vertical-layout-1{
