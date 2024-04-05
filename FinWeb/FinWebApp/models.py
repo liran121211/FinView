@@ -106,46 +106,67 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
                     for idx, (category, charge_amount) in enumerate(categories_list):
                         result[date_yo_string][idx] = [0.0, category]
 
-            quarter_categories  = list()
+            quarter_categories  = dict()
             quarters_sums       = dict()
             for idx, (date_yo_string, categories_list) in enumerate(result.items()):
                 if idx % 3 == 0:
-                    quarter_categories = list()
+                    quarter_categories = dict()
 
                 for category, charge_amount in categories_list:
-                    quarter_categories.append([category, charge_amount])
+                    if category not in quarter_categories.keys():
+                        quarter_categories[category] = charge_amount
+                    else:
+                        quarter_categories[category] += charge_amount
 
                 # List to store the sums of chunks
                 if idx == QUARTER_1:
-                    quarters_sums['רבעון 1'] = quarter_categories
+                    quarters_sums['רבעון 1'] = [[k,v] for k,v in quarter_categories.items()]
                 if idx == QUARTER_2:
-                    quarters_sums['רבעון 2'] = quarter_categories
+                    quarters_sums['רבעון 2'] = [[k,v] for k,v in quarter_categories.items()]
                 if idx == QUARTER_3:
-                    quarters_sums['רבעון 3'] = quarter_categories
+                    quarters_sums['רבעון 3'] = [[k,v] for k,v in quarter_categories.items()]
                 if idx == QUARTER_4:
-                    quarters_sums['רבעון 4'] = quarter_categories
+                    quarters_sums['רבעון 4'] = [[k,v] for k,v in quarter_categories.items()]
 
             return quarters_sums
 
         if sort == 'Yearly':
             try:
+                yearly_sums = dict()
                 extract_years = {x.split('/')[1] for x in result.keys()}
-                yearly_sums = {
-                    extract_years.pop(): 0.0,
-                    extract_years.pop(): 0.0,
-                }
 
-                for current_year in yearly_sums.keys():
-                    yearly_sums[current_year] = round(sum([v for (k, v) in result.items() if current_year in k]), 2)
+                for year in extract_years:
+                    year_categories = dict()
+
+                    for idx, (date_yo_string, categories_list) in enumerate(result.items()):
+                        if year in date_yo_string:
+
+                            for category, charge_amount in categories_list:
+                                if category not in year_categories.keys():
+                                    year_categories[category] = charge_amount
+                                else:
+                                    year_categories[category] += charge_amount
+
+                    # List to store the sums of chunks
+                    yearly_sums[year] = [[k,v] for k,v in year_categories.items()]
+
             except IndexError:
-                return [0.0 for _ in range(12)]
+                extract_years = {x.split('/')[1] for x in result.keys()}
+                err_result = dict()
+
+                for year in extract_years:
+                    err_result[year] = [[]]
+                return err_result
+
             except ValueError:
-                return [0.0 for _ in range(12)]
+                extract_years = {x.split('/')[1] for x in result.keys()}
+                err_result = dict()
+
+                for year in extract_years:
+                    err_result[year] = [[]]
+                return err_result
 
             return yearly_sums
-
-        # invalid sort selection
-        return [0.0 for _ in range(12)]
 
 
 def spent_by_date_query(username: Text, dates: List, sort: Text = 'Monthly'):
@@ -179,10 +200,9 @@ def spent_by_date_query(username: Text, dates: List, sort: Text = 'Monthly'):
     if sort == 'Yearly':
         try:
             extract_years = {x.split('/')[1] for x in result.keys()}
-            yearly_sums = {
-                extract_years.pop(): 0.0,
-                extract_years.pop(): 0.0,
-            }
+            yearly_sums = dict()
+            for year in extract_years:
+                yearly_sums[year] = 0.0
 
             for current_year in yearly_sums.keys():
                 yearly_sums[current_year] = round(sum([v for (k,v) in result.items() if current_year in k]), 2)
@@ -195,6 +215,7 @@ def spent_by_date_query(username: Text, dates: List, sort: Text = 'Monthly'):
 
     # invalid sort selection
     return [0.0 for _ in range(12)]
+
 
 def BankTransactionByCategoryQuery(username: Text):
     cols_names = ['transaction_category', 'total_amount', ]

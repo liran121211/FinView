@@ -452,11 +452,6 @@ width: var(--dl-size-size-xsmall);
 height: var(--dl-size-size-xsmall);
 }
 
-.home-double-vertical-layout1 {
-width: 100%;
-height: 100%;
-}
-
 @media (max-width: 767px) {
 .home-navbar-interactive {
 padding-left: var(--dl-space-space-twounits);
@@ -510,6 +505,70 @@ padding: 16px;
 
 
 /* ----------------- First Row Section CSS ----------------- */
+.analytics-and-trends-horizontal-layout{
+display:flex;
+justify-content: center; /* Center horizontally */
+}
+
+.root-vertical-layout-2{
+display: flex;
+flex-direction: column;
+justify-content: center; /* Aligns items vertically */
+margin: 10px;
+}
+
+.credit-card-selection {
+display: flex;
+flex-direction: column;  /* Stacks boxes vertically */
+gap: 10px;               /* Adds spacing between boxes */
+margin-top:105px;
+}
+
+.credit-card-selection-box {
+display: flex; /* Use flexbox */
+align-items: center; /* Vertically center items */
+justify-content: center; /* Horizontally center items */
+width: 40px;
+height: 200px;
+padding: 5px 15px;
+margin: 5px;
+background-color: #FFFFFF;
+border: 1px solid gray;
+border-radius: 5px;
+cursor: pointer;
+}
+.credit-card-selection-box p {
+font-family: 'Gan', sans-serif;
+transform: rotate(-180deg); /* Rotate text by 90 degrees */
+/* Optional: adjust width and height to fit rotated text */
+writing-mode: vertical-lr; /* For vertical writing mode (optional) */
+text-orientation: mixed; /* For vertical text orientation (optional) */
+}
+
+.credit-card-selection-box:hover {
+background-color: #3498db;
+color: white;
+}
+
+.root-vertical-layout-1{
+}
+
+
+.credit-cards-icons-section {
+display:flex;
+justify-content: center; /* Centers the entire div element */
+}
+
+.credit-cards-icons-section p {
+font-family: 'Gan', sans-serif;
+margin: 7px;
+}
+
+.credit-cards-icons-section img {
+width: 40px;
+height: 40px;
+}
+
 .first-row-horizontal {
 display: flex;
 justify-content: center; /* Centers the entire div element */

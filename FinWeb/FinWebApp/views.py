@@ -125,12 +125,14 @@ def analytics_and_trends_view(request):
         latest_12_months = get_last_12_months()
 
         return render(request, 'analytics_and_trends.html', {
-            'user_information': retrieve_user_information(logged_in_user),
+            'user_information': retrieve_user_information(username=logged_in_user),
+            'user_cards': retrieve_user_cards(username=logged_in_user),
             'spent_by_date_monthly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Monthly'),
             'spent_by_date_quarterly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Quarterly'),
             'spent_by_date_yearly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Yearly'),
             'spent_by_category_monthly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort='Monthly'),
             'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort='Quarterly'),
+            'spent_by_category_yearly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort='Yearly'),
             'spent_by_business': SpentByBusinessQuery(username=logged_in_user, mode='Analytics')
         })
     else:

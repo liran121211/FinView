@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     canvasElement.style.width = '500px';
                     canvasElement.style.height = '250px';
                 } else {
-                    if (button.getAttribute('data-canvas').includes('spent_by_date') )
+                    if (button.getAttribute('data-canvas').includes('spent_by_date'))
                         canvasElement.style.display = 'none';
                 }
             });
@@ -59,6 +59,32 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /* ----------------------- Credit Cards Analytics & Trends Section ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+// Select the container div
+    let container = document.querySelector('.credit-card-selection');
+
+// Define the number of credit card selection boxes to add
+    let numberOfBoxes = Object.keys(user_cards).length; // You can set this dynamically
+
+// Loop to create and append the required number of credit card selection boxes
+    for (let i = 0; i < numberOfBoxes; i++) {
+        // Create a new div element for the credit card selection box
+        let newBox = document.createElement('div');
+        newBox.classList.add('credit-card-selection-box');
+
+        // Create a paragraph element for the text
+        let paragraph = document.createElement('p');
+        paragraph.textContent = user_cards.issuer_name[i] + ' - ' + user_cards.last_4_digits[i]; // Set your dynamic content here
+
+        // Append the paragraph element to the new box
+        newBox.appendChild(paragraph);
+
+        // Append the new box to the container
+        container.appendChild(newBox);
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // Spent By Month Chart
@@ -198,6 +224,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const spent_by_category_quarter_data = createDatasetsForCategories(spent_by_category_quarterly);
     createBarChart(spent_by_category_quarterly, spent_by_category_quarter_ctx, spent_by_category_quarter_data, ColorPalette);
 
+    const spent_by_category_year_ctx = document.getElementById('spent_by_category_year').getContext('2d');
+    const spent_by_category_year_data = createDatasetsForCategories(spent_by_category_yearly);
+    createBarChart(spent_by_category_yearly, spent_by_category_year_ctx, spent_by_category_year_data, ColorPalette);
+
     const words = [];
     for (const word of Object.values(spent_by_business)) {
         words.push([word.label, word.x])
@@ -207,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
         list: words, // List of words with sizes
         fontFamily: "Gan", // Font family
         weightFactor: 18, // Set the weightFactor to 18 for consistent font size
-        color: function (word, weight, fontSize, distance, theta) { // Function to define color based on word index
+        color: function (word, weight) { // Function to define color based on word index
             // Assign different colors based on the index
             return ColorPalette[weight % ColorPalette.length]; // Use modulo to loop through colors
         },
