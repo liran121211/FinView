@@ -2908,3 +2908,87 @@ LINE 1: ...s WHERE EXTRACT(MONTH FROM date_of_transaction) = 'None' AND...
 2024-04-04 14:32:17,606 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-04-05 08:30:29,495 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-04-05 10:25:49,801 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:15:48,646 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:17:23,136 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:18:26,070 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:20:05,498 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:20:07,626 - ERROR - syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+
+2024-04-06 12:20:09,968 - ERROR - syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+
+2024-04-06 12:21:31,822 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:24:02,272 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:24:31,301 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:24:33,799 - ERROR - syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+
+2024-04-06 12:24:40,927 - ERROR - syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+
+2024-04-06 12:24:48,041 - ERROR - syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\RDBMS\PostgreSQL.py", line 269, in create_query
+    cursor.execute(sql_query)
+psycopg2.errors.SyntaxError: syntax error at or near "BY"
+LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
+                                                             ^
+
+2024-04-06 12:28:32,915 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:34:06,382 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:36:18,002 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 12:38:43,491 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 13:07:48,151 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 13:08:58,026 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 13:12:07,191 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:44:51,084 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:47:11,819 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:48:19,776 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:50:50,559 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:51:16,803 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:51:37,367 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:52:16,279 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:53:34,291 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:54:19,439 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 17:58:09,602 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 18:10:27,864 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 18:34:02,083 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 19:10:07,354 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 19:56:09,934 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 20:04:09,116 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 20:05:19,530 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 20:05:59,178 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 20:06:19,758 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 20:07:33,837 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-06 20:10:12,696 - INFO - Successfully connected to PostgreSQL database - localhost:5432

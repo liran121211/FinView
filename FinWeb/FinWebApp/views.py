@@ -123,21 +123,30 @@ def analytics_and_trends_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
         latest_12_months = get_last_12_months()
+        cards_4_digits = [card for card in retrieve_user_cards(username=logged_in_user)['last_4_digits']]
 
         return render(request, 'analytics_and_trends.html', {
             'user_information': retrieve_user_information(username=logged_in_user),
             'user_cards': retrieve_user_cards(username=logged_in_user),
-            'spent_by_date_monthly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Monthly'),
-            'spent_by_date_quarterly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Quarterly'),
-            'spent_by_date_yearly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort='Yearly'),
-            'spent_by_category_monthly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort='Monthly'),
-            'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort='Quarterly'),
-            'spent_by_category_yearly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort='Yearly'),
+            'spent_by_date_monthly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly'),
+            'spent_by_date_monthly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user,sort_period='Monthly', sort_card=card) for card in cards_4_digits],
+            'spent_by_date_quarterly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly',sort_card=card) for card in cards_4_digits],
+            'spent_by_date_yearly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly',sort_card=card) for card in cards_4_digits],
+            'spent_by_date_quarterly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly'),
+            'spent_by_date_yearly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly'),
+            'spent_by_category_monthly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort_period='Monthly'),
+            'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort_period='Quarterly'),
+            'spent_by_category_yearly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort_period='Yearly'),
+            'spent_by_category_monthly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly',sort_card=card) for card in cards_4_digits],
+            'spent_by_category_quarterly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly',sort_card=card) for card in cards_4_digits],
+            'spent_by_category_yearly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly', sort_card=card) for card in cards_4_digits],
             'spent_by_business': SpentByBusinessQuery(username=logged_in_user, mode='Analytics')
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
 
+def analytics_and_trends_post():
+    pass
 
 def settings_view(request):
     if request.user.is_authenticated:

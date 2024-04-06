@@ -10,8 +10,8 @@ def IncomeAgainstOutcome(username: Text):
     # Get the current date
     month, year = datetime.now().month, datetime.now().year
 
-    income_query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=month, selected_year=2023, username=username)
-    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_month_bank'](selected_month=month, selected_year=2023, username=username)
+    income_query = FIN_CORE.ask['how_much_earned_in_specific_date'](selected_month=month, selected_year=2023, username=username)
+    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](selected_month=month, selected_year=2023, username=username)
 
     # handle case of missing data from specific date.
     if income_query is None or outcome_query is None:
@@ -29,7 +29,7 @@ def IncomeByMonthQuery(username: Text):
 
     income_by_month = []
     for i, _ in enumerate(hebrew_months, start=1):
-        query = FIN_CORE.ask['how_much_earned_in_specific_month'](selected_month=i, selected_year=2023, username=username)
+        query = FIN_CORE.ask['how_much_earned_in_specific_date'](selected_month=i, selected_year=2023, username=username)
         if query is None:
             income_by_month.append(0.)
         else:
@@ -70,7 +70,7 @@ def SpentByBusinessQuery(username: Text, mode: Text = 'Simple'):
         return sorted(chart_data, key=lambda x: x['x'], reverse=True)
 
 
-def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List = None, sort: Text = 'Monthly'):
+def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List = None, sort_period: Text = 'Monthly', sort_card: Text = 'All'):
     cols_names = ['transaction_category', 'total_amount', ]
 
     if mode == 'Simple':
@@ -80,7 +80,10 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
     else:
         result = dict()
         for (month, year) in dates:
-            query = FIN_CORE.ask['how_much_spent_by_category_specific_month'](month, year, username)
+            if sort_card == 'All':
+                query = FIN_CORE.ask['how_much_spent_by_category_specific_date'](month, year, username)
+            else:
+                query = FIN_CORE.ask['how_much_spent_by_category_specific_date_card'](month, year, int(sort_card), username)
 
             date_yo_string = str(month) + '/' + str(year)
             if len(query) == 0:
@@ -95,10 +98,10 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
                 else:
                     result[date_yo_string].append([record_category, charge_amount])
 
-        if sort == 'Monthly':
+        if sort_period == 'Monthly':
             return result
 
-        if sort == 'Quarterly':
+        if sort_period == 'Quarterly':
             QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4 = 2, 5, 8, 11
             # Check if the length of the list is divisible by 3
             if len(result) % 3 != 0:
@@ -130,7 +133,7 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
 
             return quarters_sums
 
-        if sort == 'Yearly':
+        if sort_period == 'Yearly':
             try:
                 yearly_sums = dict()
                 extract_years = {x.split('/')[1] for x in result.keys()}
@@ -169,16 +172,20 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
             return yearly_sums
 
 
-def spent_by_date_query(username: Text, dates: List, sort: Text = 'Monthly'):
+def spent_by_date_query(username: Text, dates: List, sort_period: Text = 'Monthly', sort_card: Text = 'All'):
     result = dict()
     for (month, year) in dates:
-        query = FIN_CORE.ask['how_much_spent_in_specific_month_card'](month, year, username)
-        result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
+        if sort_card == 'All':
+            query = FIN_CORE.ask['how_much_spent_in_specific_date_card'](month, year, username)
+            result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
+        else:
+            query = FIN_CORE.ask['how_much_spent_in_specific_date_specific_card'](month, year, int(sort_card), username)
+            result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
 
-    if sort == 'Monthly':
+    if sort_period == 'Monthly':
         return result
 
-    if sort == 'Quarterly':
+    if sort_period == 'Quarterly':
         # Check if the length of the list is divisible by 3
         if len(result) % 3 != 0:
             return [0.0 for _ in range(12)]
@@ -197,7 +204,7 @@ def spent_by_date_query(username: Text, dates: List, sort: Text = 'Monthly'):
             quarters_sums[k] = round(result_vals[i], 2)
         return quarters_sums
 
-    if sort == 'Yearly':
+    if sort_period == 'Yearly':
         try:
             extract_years = {x.split('/')[1] for x in result.keys()}
             yearly_sums = dict()

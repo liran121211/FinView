@@ -740,7 +740,7 @@ class Application:
                 if len(result) > 0:
                     return result
 
-        def how_much_spent_in_specific_month_bank(selected_month: Text, selected_year: int, username: Text):
+        def how_much_spent_in_specific_date_bank(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT SUM(outcome_balance) AS total_sum " \
                     f"FROM (" \
                     f"SELECT outcome_balance" \
@@ -753,20 +753,34 @@ class Application:
             result = self.__manage_bank_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
-        def how_much_spent_in_specific_month_card(selected_month: Text, selected_year: int, username: Text):
+        def how_much_spent_in_specific_date_card(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT SUM(total_amount) AS total_sum " \
-                    f"FROM (" \
-                    f"SELECT total_amount" \
+                    f" FROM (" \
+                    f" SELECT total_amount" \
                     f" FROM user_credit_card_transactions" \
                     f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {num_to_month(selected_month)}" \
                     f" AND EXTRACT(YEAR FROM date_of_transaction) =  {selected_year}" \
-                    f" AND username='{username}')" \
-                    f" AS subquery;"
+                    f" AND username = '{username}'"\
+                    ") AS subquery; "\
 
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
-        def how_much_earned_in_specific_month(selected_month: Text, selected_year: int, username: Text):
+        def how_much_spent_in_specific_date_specific_card(selected_month: Text, selected_year: int, selected_card: int, username: Text):
+            query = f"SELECT SUM(total_amount) AS total_sum " \
+                    f" FROM (" \
+                    f" SELECT total_amount" \
+                    f" FROM user_credit_card_transactions" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = {num_to_month(selected_month)}" \
+                    f" AND EXTRACT(YEAR FROM date_of_transaction) =  {selected_year}" \
+                    f" AND username = '{username}'" \
+                    f" AND last_4_digits = '{selected_card}'" \
+                    ") AS subquery;"\
+
+            result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
+        def how_much_earned_in_specific_date(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT SUM(income_balance) AS total_sum " \
                     f"FROM (" \
                     f"SELECT income_balance" \
@@ -857,12 +871,24 @@ class Application:
                     f" WHERE username='{username}'" \
                     f" GROUP BY transaction_category;"
 
-        def how_much_spent_by_category_specific_month(selected_month: Text, selected_year: int, username: Text):
+        def how_much_spent_by_category_specific_date(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT transaction_category, SUM(charge_amount) AS total_category_sum" \
                     f" FROM user_credit_card_transactions" \
                     f" WHERE EXTRACT(MONTH FROM date_of_transaction) = '{num_to_month(selected_month)}'" \
                     f" AND EXTRACT(YEAR FROM date_of_transaction) = '{selected_year}'" \
                     f" AND username='{username}'" \
+                    f" GROUP BY transaction_category;"
+
+            result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
+            return result
+
+        def how_much_spent_by_category_specific_date_card(selected_month: Text, selected_year: int, selected_card: int, username: Text):
+            query = f"SELECT transaction_category, SUM(charge_amount) AS total_category_sum" \
+                    f" FROM user_credit_card_transactions" \
+                    f" WHERE EXTRACT(MONTH FROM date_of_transaction) = '{num_to_month(selected_month)}'" \
+                    f" AND EXTRACT(YEAR FROM date_of_transaction) = '{selected_year}'" \
+                    f" AND username='{username}'" \
+                    f" AND last_4_digits='{selected_card}'" \
                     f" GROUP BY transaction_category;"
 
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
@@ -890,10 +916,12 @@ class Application:
             return result
 
         return {
-            'how_much_spent_in_specific_month_bank': how_much_spent_in_specific_month_bank,
-            'how_much_spent_in_specific_month_card': how_much_spent_in_specific_month_card,
-            'how_much_spent_by_category_specific_month': how_much_spent_by_category_specific_month,
-            'how_much_earned_in_specific_month': how_much_earned_in_specific_month,
+            'how_much_spent_in_specific_date_bank': how_much_spent_in_specific_date_bank,
+            'how_much_spent_in_specific_date_card': how_much_spent_in_specific_date_card,
+            'how_much_spent_in_specific_date_specific_card': how_much_spent_in_specific_date_specific_card,
+            'how_much_spent_by_category_specific_date': how_much_spent_by_category_specific_date,
+            'how_much_spent_by_category_specific_date_card': how_much_spent_by_category_specific_date_card,
+            'how_much_earned_in_specific_date': how_much_earned_in_specific_date,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
             'which_records_by_transaction_type': which_records_by_transaction_type,

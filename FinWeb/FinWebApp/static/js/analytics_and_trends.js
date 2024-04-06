@@ -1,4 +1,4 @@
-// Spent Merchant per specific period
+// Palette of colors in Analytics and Trends
 const ColorPalette = [
     'rgba(222, 48, 48, 0.5)',      // Red
     'rgba(224, 122, 52, 0.5)',      // Green
@@ -10,6 +10,18 @@ const ColorPalette = [
     'rgba(219, 43, 125, 0.5)'     // Purple
 ];
 
+// hold global usage of created chart instances.
+let chartInstances = {
+    'SpentByDateMonthly': null,
+    'SpentByDateQuarterly': null,
+    'SpentByDateYearly': null,
+    'SpentByCategoryMonthly': null,
+    'SpentByCategoryQuarterly': null,
+    'SpentByCategoryYearly': null,
+    'wordCloud': null,
+}
+
+// define the behaviour of graphs when clicking on the buttons above the graph.
 document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.canvas-button').forEach(function (button) {
@@ -60,17 +72,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- Credit Cards Analytics & Trends Section ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-// Select the container div
+    // Select the container div
     let container = document.querySelector('.credit-card-selection');
 
-// Define the number of credit card selection boxes to add
+    // Define the number of credit card selection boxes to add
     let numberOfBoxes = Object.keys(user_cards).length; // You can set this dynamically
 
-// Loop to create and append the required number of credit card selection boxes
+    // Loop to create and append the required number of credit card selection boxes
     for (let i = 0; i < numberOfBoxes; i++) {
         // Create a new div element for the credit card selection box
         let newBox = document.createElement('div');
         newBox.classList.add('credit-card-selection-box');
+        newBox.setAttribute('card-idx', i);
         newBox.style.height = (200 - (15 * numberOfBoxes)).toString() + 'px';
 
         // Create a paragraph element for the text
@@ -83,108 +96,176 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the new box to the container
         container.appendChild(newBox);
-
-// Add click event listener to each button
-        let divs = document.querySelectorAll('.credit-card-selection-box');
-        divs.forEach(function (div) {
-            div.addEventListener('click', function () {
-                // Remove 'clicked' class from all buttons
-                divs.forEach(function (btn) {
-                    btn.classList.remove('clicked');
-                });
-
-                // Add 'clicked' class to the clicked button
-                div.classList.add('clicked');
-            });
-        });
     }
+
+    // Select all divs with the class 'credit-card-selection-box'
+    const divs = document.querySelectorAll('.credit-card-selection-box');
+
+    // Add click event listener to each div
+    divs.forEach(div => {
+        div.addEventListener('click', () => {
+            // Check if the div already has 'clicked' class
+            const alreadyClicked = div.classList.contains('clicked');
+
+            // Remove 'clicked' class from all divs
+            divs.forEach(divElement => {
+                divElement.classList.remove('clicked');
+            });
+
+            // If the div was already clicked, do nothing
+            if (!alreadyClicked) {
+                // Add 'clicked' class to the clicked div
+                div.classList.add('clicked');
+
+                // destroy latest graph before attaching a new one
+                chartInstances['SpentByDateMonthly'].destroy();
+                chartInstances['SpentByDateQuarterly'].destroy();
+                chartInstances['SpentByDateYearly'].destroy();
+
+                chartInstances['SpentByCategoryMonthly'].destroy();
+                chartInstances['SpentByCategoryQuarterly'].destroy();
+                chartInstances['SpentByCategoryYearly'].destroy();
+
+                // add Spent By Month for specific card, Graph.
+                const cardIdx = div.getAttribute('card-idx');
+                spentByDateGraph('Monthly', spent_by_date_monthly_specific_card[cardIdx]);
+                spentByDateGraph('Quarterly', spent_by_date_quarterly_specific_card[cardIdx]);
+                spentByDateGraph('Yearly', spent_by_date_yearly_specific_card[cardIdx]);
+
+                // add Spent By Category for specific card, Graph.
+                spentByCategoryGraph('Monthly', spent_by_category_monthly_specific_card[cardIdx]);
+                spentByCategoryGraph('Quarterly', spent_by_category_quarterly_specific_card[cardIdx]);
+                spentByCategoryGraph('Yearly', spent_by_category_yearly_specific_card[cardIdx]);
+            }
+        });
+    });
+
 });
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    spentByDateGraph('Monthly', spent_by_date_monthly);
+    spentByDateGraph('Quarterly', spent_by_date_quarterly);
+    spentByDateGraph('Yearly', spent_by_date_yearly);
 
-    // Spent By Month Chart
-    const spent_by_date_monthly_data = {
-        labels: Object.keys(spent_by_date_monthly),
-        datasets: [{
-            label: "הוצאות לפי חודש",
-            data: Object.values(spent_by_date_monthly),
-            backgroundColor: 'rgba(222, 74, 74, 0.4)',
-            borderColor: 'rgba(222, 74, 74, 1)',
-            borderWidth: 1
-        }]
+    spentByCategoryGraph('Monthly', spent_by_category_monthly);
+    spentByCategoryGraph('Quarterly', spent_by_category_quarterly);
+    spentByCategoryGraph('Yearly', spent_by_category_yearly);
+
+
+    // wordcloud of businesses names of transactions
+    const wordcloud_words = [];
+    for (const word of Object.values(spent_by_business)) {
+        wordcloud_words.push([word.label, word.x])
+    }
+
+    const wordcloud_options = {
+        list: wordcloud_words, // List of words with sizes
+        fontFamily: "Gan", // Font family
+        weightFactor: 18, // Set the weightFactor to 18 for consistent font size
+        color: function (word, weight) { // Function to define color based on word index
+            // Assign different colors based on the index
+            return ColorPalette[weight % ColorPalette.length]; // Use modulo to loop through colors
+        },
     };
 
-    const spent_by_date_month_ctx = document.getElementById('spent_by_date_month').getContext('2d');
-    new Chart(spent_by_date_month_ctx, {
-        type: 'bar',
-        data: spent_by_date_monthly_data,
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+    const wordcloud_ctx = document.getElementById('wordcloud-canvas');
+    chartInstances['wordCloud'] = new WordCloud(wordcloud_ctx, wordcloud_options);
+
+
+});
+
+
+function spentByDateGraph(period, data) {
+    if (period === 'Monthly') {
+        // Spent By Month Chart
+        const spent_by_date_monthly_data = {
+            labels: Object.keys(data),
+            datasets: [{
+                label: "הוצאות לפי חודש",
+                data: Object.values(data),
+                backgroundColor: 'rgba(222, 74, 74, 0.4)',
+                borderColor: 'rgba(222, 74, 74, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const spent_by_date_month_ctx = document.getElementById('spent_by_date_month').getContext('2d');
+        chartInstances['SpentByDateMonthly'] = new Chart(spent_by_date_month_ctx, {
+            type: 'bar',
+            data: spent_by_date_monthly_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-        }
-    });
+        });
+    }
 
-    // Spent By Quarter Chart
-    const spent_by_date_quarter_ctx_data = {
-        labels: Object.keys(spent_by_date_quarterly),
-        datasets: [{
-            label: "הוצאות לפי רבעון",
-            data: Object.values(spent_by_date_quarterly),
-            backgroundColor: 'rgba(222, 74, 74, 0.4)',
-            borderColor: 'rgba(222, 74, 74, 1)',
-            borderWidth: 1
-        }]
-    };
+    if (period === 'Quarterly') {
+        // Spent By Quarter Chart
+        const spent_by_date_quarter_ctx_data = {
+            labels: Object.keys(data),
+            datasets: [{
+                label: "הוצאות לפי רבעון",
+                data: Object.values(data),
+                backgroundColor: 'rgba(222, 74, 74, 0.4)',
+                borderColor: 'rgba(222, 74, 74, 1)',
+                borderWidth: 1
+            }]
+        };
 
-    const spent_by_date_quarter_ctx = document.getElementById('spent_by_date_quarter').getContext('2d');
-    new Chart(spent_by_date_quarter_ctx, {
-        type: 'bar',
-        data: spent_by_date_quarter_ctx_data,
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+        const spent_by_date_quarter_ctx = document.getElementById('spent_by_date_quarter').getContext('2d');
+        chartInstances['SpentByDateQuarterly'] = new Chart(spent_by_date_quarter_ctx, {
+            type: 'bar',
+            data: spent_by_date_quarter_ctx_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-        }
-    });
+        });
+    }
 
-    // Spent By Year Chart
-    const spent_by_date_year_ctx_data = {
-        labels: Object.keys(spent_by_date_yearly),
-        datasets: [{
-            label: "הוצאות לפי שנה",
-            data: Object.values(spent_by_date_yearly),
-            backgroundColor: 'rgba(222, 74, 74, 0.4)',
-            borderColor: 'rgba(222, 74, 74, 1)',
-            borderWidth: 1
-        }]
-    };
+    if (period === 'Yearly') {
+        // Spent By Year Chart
+        const spent_by_date_year_ctx_data = {
+            labels: Object.keys(data),
+            datasets: [{
+                label: "הוצאות לפי שנה",
+                data: Object.values(data),
+                backgroundColor: 'rgba(222, 74, 74, 0.4)',
+                borderColor: 'rgba(222, 74, 74, 1)',
+                borderWidth: 1
+            }]
+        };
 
-    const spent_by_date_year_ctx = document.getElementById('spent_by_date_year').getContext('2d');
-    new Chart(spent_by_date_year_ctx, {
-        type: 'bar',
-        data: spent_by_date_year_ctx_data,
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+        const spent_by_date_year_ctx = document.getElementById('spent_by_date_year').getContext('2d');
+        chartInstances['SpentByDateYearly'] = new Chart(spent_by_date_year_ctx, {
+            type: 'bar',
+            data: spent_by_date_year_ctx_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-        }
-    });
+        });
+    }
+}
 
-
+function spentByCategoryGraph(period, data) {
     // Function to create datasets for merchants from data
     function createDatasetsForCategories(data) {
         const categoryData = {};
@@ -201,14 +282,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to configure and create a bar chart
-    function createBarChart(raw_data, ctx, data, colorPalette) {
+    function createBarChart(barChartRaw, barChart_ctx, barChart_data, colorPalette) {
         const chartData = {
-            labels: Object.keys(raw_data),
+            labels: Object.keys(barChartRaw),
             datasets: []
         };
 
         let idx = 0;
-        for (const [name, values] of Object.entries(data)) {
+        for (const [name, values] of Object.entries(barChart_data)) {
             chartData.datasets.push({
                 label: name,
                 backgroundColor: colorPalette[idx],
@@ -225,42 +306,48 @@ document.addEventListener('DOMContentLoaded', function () {
             responsive: false
         };
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: chartData,
-            options: options
-        });
+
+        if (period === 'Monthly') {
+            chartInstances['SpentByCategoryMonthly'] = new Chart(barChart_ctx, {
+                type: 'bar',
+                data: chartData,
+                options: options
+            });
+        }
+
+        if (period === 'Quarterly') {
+            chartInstances['SpentByCategoryQuarterly'] = new Chart(barChart_ctx, {
+                type: 'bar',
+                data: chartData,
+                options: options
+            });
+        }
+
+        if (period === 'Yearly') {
+            chartInstances['SpentByCategoryYearly'] = new Chart(barChart_ctx, {
+                type: 'bar',
+                data: chartData,
+                options: options
+            });
+        }
     }
 
-    const spent_by_category_month_ctx = document.getElementById('spent_by_category_month').getContext('2d');
-    const spent_by_category_monthly_data = createDatasetsForCategories(spent_by_category_monthly);
-    createBarChart(spent_by_category_monthly, spent_by_category_month_ctx, spent_by_category_monthly_data, ColorPalette);
-
-    const spent_by_category_quarter_ctx = document.getElementById('spent_by_category_quarter').getContext('2d');
-    const spent_by_category_quarter_data = createDatasetsForCategories(spent_by_category_quarterly);
-    createBarChart(spent_by_category_quarterly, spent_by_category_quarter_ctx, spent_by_category_quarter_data, ColorPalette);
-
-    const spent_by_category_year_ctx = document.getElementById('spent_by_category_year').getContext('2d');
-    const spent_by_category_year_data = createDatasetsForCategories(spent_by_category_yearly);
-    createBarChart(spent_by_category_yearly, spent_by_category_year_ctx, spent_by_category_year_data, ColorPalette);
-
-    const words = [];
-    for (const word of Object.values(spent_by_business)) {
-        words.push([word.label, word.x])
+    if (period === 'Monthly') {
+        // spent by category graph, monthly.
+        const spent_by_category_month_ctx = document.getElementById('spent_by_category_month').getContext('2d');
+        const spent_by_category_monthly_data = createDatasetsForCategories(data);
+        createBarChart(data, spent_by_category_month_ctx, spent_by_category_monthly_data, ColorPalette);
     }
-
-    const options = {
-        list: words, // List of words with sizes
-        fontFamily: "Gan", // Font family
-        weightFactor: 18, // Set the weightFactor to 18 for consistent font size
-        color: function (word, weight) { // Function to define color based on word index
-            // Assign different colors based on the index
-            return ColorPalette[weight % ColorPalette.length]; // Use modulo to loop through colors
-        },
-        // Other options: https://wordcloud2-js.timdream.org/
-    };
-
-    new WordCloud(document.getElementById('wordcloud-canvas'), options);
-
-
-});
+    if (period === 'Quarterly') {
+        // spent by category graph, quarterly.
+        const spent_by_category_quarter_ctx = document.getElementById('spent_by_category_quarter').getContext('2d');
+        const spent_by_category_quarter_data = createDatasetsForCategories(data);
+        createBarChart(data, spent_by_category_quarter_ctx, spent_by_category_quarter_data, ColorPalette);
+    }
+    if (period === 'Yearly') {
+        // spent by category graph, yearly.
+        const spent_by_category_year_ctx = document.getElementById('spent_by_category_year').getContext('2d');
+        const spent_by_category_year_data = createDatasetsForCategories(data);
+        createBarChart(data, spent_by_category_year_ctx, spent_by_category_year_data, ColorPalette);
+    }
+}
