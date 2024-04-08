@@ -1,5 +1,5 @@
 from typing import Text
-from AI import CREDIT_CARD_TRANSACTIONS_CATEGORIES, BANK_TRANSACTIONS_CATEGORIES
+from AI import CREDIT_CARD_TRANSACTIONS_CATEGORIES, BANK_TRANSACTIONS_CATEGORIES, Logger
 import google.generativeai as genai
 
 
@@ -34,6 +34,7 @@ class GeminiModel():
 
         try:
             response = self.model.generate_content(define_role).text.strip()
+            Logger.critical(response)
         except ValueError:
             response = ' '.join([keyword.text.strip() for keyword in self.model.generate_content(define_role).parts])
 

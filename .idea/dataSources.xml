@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/FinView</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="fintut@24.199.84.149" uuid="8222e127-c83e-4224-a1e4-8da8721d6dfc">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://24.199.84.149:5432/fintut</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

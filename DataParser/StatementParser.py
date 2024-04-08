@@ -68,6 +68,10 @@ class Parser:
         pass
 
     @abstractmethod
+    def validate_file_structure(self):
+        pass
+
+    @abstractmethod
     def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
         pass
 
@@ -175,6 +179,42 @@ class LeumiParser(Parser, ABC):
     def parse(self) -> pd.DataFrame:
         return self.extract_base_data().reset_index(drop=True)
 
+    def validate_file_structure(self):
+        valid_statement = True
+
+        try:
+            if 'בנק לאומי' not in self.data.columns[0]:
+                valid_statement = False
+            if "מס' חשבון" not in self.data.iat[0, 0]:
+                valid_statement = False
+
+        except ValueError:
+            Logger.critical('Invalid date string in LeumiParser: validate_file_structure().')
+        except IndexError:
+            Logger.critical('Invalid data indexes in LeumiParser: validate_file_structure().')
+
+        date_of_transaction_idx, business_name_idx, charge_amount_idx = 0, 1, 2
+        transaction_type_idx, transaction_note_idx, total_amount_idx = 3, 4, 5
+
+        try:
+            columns_idx = 9
+            if not self.data.iat[columns_idx, date_of_transaction_idx] == 'תאריך העסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, business_name_idx] == 'שם בית העסק':
+                valid_statement = False
+            if not self.data.iat[columns_idx, charge_amount_idx] == 'סכום העסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_type_idx] == 'סוג העסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_note_idx] == 'פרטים':
+                valid_statement = False
+            if not self.data.iat[columns_idx, total_amount_idx] == 'סכום חיוב':
+                valid_statement = False
+
+        except IndexError:
+            return False
+
+        return valid_statement
 
 class CalOnlineParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):
@@ -253,6 +293,36 @@ class CalOnlineParser(Parser, ABC):
 
         return UNDETERMINED_PAYMENT_TYPE
 
+    def validate_file_structure(self):
+        valid_statement = True
+
+        try:
+            if not 'פירוט עסקאות לחשבו' in self.data.columns[0]:
+                valid_statement = False
+
+            date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx = 0, 1, 3, 4
+            total_amount_idx, transaction_category_idx, transaction_note_idx = 2, 5, 6
+            columns_idx = 0
+            if not self.data.iat[columns_idx, date_of_transaction_idx] == 'תאריך עסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, business_name_idx] == 'שם בית עסק':
+                valid_statement = False
+            if not self.data.iat[columns_idx, charge_amount_idx] == 'סכום חיוב':
+                valid_statement = False
+            if not self.data.iat[columns_idx, total_amount_idx] == 'סכום עסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_type_idx] == 'סוג עסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_category_idx] == 'ענף':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_note_idx] == 'הערות':
+                valid_statement = False
+
+        except IndexError:
+            return False
+
+        return valid_statement
+
 
 class MaxParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):
@@ -319,6 +389,41 @@ class MaxParser(Parser, ABC):
             return DIRECT_DEBIT
 
         return UNDETERMINED_PAYMENT_TYPE
+
+    def validate_file_structure(self):
+        valid_statement = True
+
+        try:
+            if not pd.to_datetime(self.data.iat[1, 0], format='%m/%Y') or pd.isna(self.data.iat[1, 0]):
+                valid_statement = False
+        except ValueError:
+            Logger.critical('Invalid date string in MaxParser: validate_file_structure().')
+        except IndexError:
+            Logger.critical('Invalid data indexes in MaxParser: validate_file_structure().')
+
+        try:
+            date_of_transaction_idx, business_name_idx, transaction_category_idx, last_4_digits_idx = 0, 1, 2, 3
+            transaction_type_idx, charge_amount_idx, total_amount_idx, transaction_note_idx = 4, 5, 7, 10
+            columns_idx = 2
+            if not self.data.iat[columns_idx, date_of_transaction_idx] == 'תאריך עסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, business_name_idx] == 'שם בית העסק':
+                valid_statement = False
+            if not self.data.iat[columns_idx, charge_amount_idx] == 'סכום חיוב':
+                valid_statement = False
+            if not self.data.iat[columns_idx, total_amount_idx] == 'סכום עסקה מקורי':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_type_idx] == 'סוג עסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_category_idx] == 'קטגוריה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_note_idx] == 'הערות':
+                valid_statement = False
+
+        except IndexError:
+            return False
+
+        return valid_statement
 
 
 class IsracardParser(Parser, ABC):
@@ -409,6 +514,42 @@ class IsracardParser(Parser, ABC):
 
         return UNDETERMINED_PAYMENT_TYPE
 
+    def validate_file_structure(self):
+        valid_statement = True
+
+        try:
+            if not pd.to_datetime(self.data.iat[2, 2], format='%d/%m/%y') or pd.isna(self.data.iat[2, 2]):
+                valid_statement = False
+            if self.data.iat[2, 1] != 'מועד חיוב':
+                valid_statement = False
+        except ValueError:
+            Logger.critical('Invalid date string in IsracardParser: validate_file_structure().')
+        except IndexError:
+            Logger.critical('Invalid data indexes in IsracardParser: validate_file_structure().')
+
+        date_of_transaction_idx, business_name_idx, total_amount_idx, charge_amount_idx = 0, 1, 2, 4
+        transaction_identifier_idx, transaction_note_idx = 6, 7
+
+        try:
+            columns_idx = 4
+            if not self.data.iat[columns_idx, date_of_transaction_idx] == 'תאריך רכישה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, business_name_idx] == 'שם בית עסק':
+                valid_statement = False
+            if not self.data.iat[columns_idx, total_amount_idx] == 'סכום עסקה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, charge_amount_idx] == 'סכום חיוב':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_identifier_idx] == 'מספר שובר':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_note_idx] == 'פירוט נוסף':
+                valid_statement = False
+
+        except IndexError:
+            return False
+
+        return valid_statement
+
 
 class BankLeumiParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):
@@ -464,6 +605,48 @@ class BankLeumiParser(Parser, ABC):
     def parse(self) -> pd.DataFrame:
         return self.extract_base_data().reset_index(drop=True)
 
+    def validate_file_structure(self):
+        valid_statement = True
+
+        try:
+            if 'בנק לאומי' not in self.data.columns[0]:
+                valid_statement = False
+
+            if "מס' חשבון" not in self.data.iat[0, 0]:
+                valid_statement = False
+
+            if self.data.iat[3, 0] != "היתרה" and self.data.iat[3, 2] != "מסגרת האשראי" and self.data.iat[3, 4] != "נכון לתאריך":
+                valid_statement = False
+
+        except ValueError:
+            Logger.critical('Invalid date string in BankLeumiParser: validate_file_structure().')
+        except IndexError:
+            Logger.critical('Invalid data indexes in BankLeumiParser: validate_file_structure().')
+
+        try:
+            date_of_transaction_idx, date_of_transaction_value_idx, transaction_description_idx = 0, 1, 2
+            transaction_identifier_idx, transaction_outcome_idx, transaction_income_idx, transaction_current_idx = 3, 4, 5, 6
+            columns_idx = 10
+            if not self.data.iat[columns_idx, date_of_transaction_idx] == 'תאריך':
+                valid_statement = False
+            if not self.data.iat[columns_idx, date_of_transaction_value_idx] == 'תאריך ערך':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_description_idx] == 'תיאור':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_identifier_idx] == 'אסמכתא':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_outcome_idx] == 'בחובה':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_income_idx] == 'בזכות':
+                valid_statement = False
+            if not self.data.iat[columns_idx, transaction_current_idx] == 'היתרה בש"ח':
+                valid_statement = False
+
+        except IndexError:
+            return False
+
+        return valid_statement
+
     def extract_bank_leumi_account_number(self) -> AnyStr:
         try:
             bank_account_number = re.findall(r'[0-9/-]+', str(self.data.iloc[0, 0]))
@@ -481,6 +664,11 @@ class BankLeumiParser(Parser, ABC):
             return 0.0
         except ValueError:
             return 0.0
+        except TypeError:
+            if isinstance(float(df.iloc[5, 0]), (float, int)):
+                return float(df.iloc[5, 0])
+            else:
+                return 0.0
 
 
 class BankMizrahiTefahotParser(Parser, ABC):
@@ -552,6 +740,28 @@ class BankMizrahiTefahotParser(Parser, ABC):
 
     def parse(self) -> pd.DataFrame:
         return self.extract_base_data().reset_index(drop=True)
+
+    def validate_file_structure(self):
+        required_tokens = {
+            'חשבון מספר': False,
+            'תנועות בחשבון': False,
+            'תאריך': False,
+            'תאריך ערך': False,
+            'סוג תנועה': False,
+            'זכות/חובה': False,
+            'יתרה בש"ח': False,
+            'אסמכתה': False,
+        }
+
+        # extract data from pdf file
+        if not self.file_absolute_path.endswith('xlsx'):
+            pdf_text = self.extract_text_from_pdf(self.file_absolute_path)
+            for line in pdf_text.split('\n'):
+                for key in required_tokens.keys():
+                    if key in line:
+                        required_tokens[key] = True
+
+        return True if False not in required_tokens.values() else False
 
     @staticmethod
     def is_valid_date(date_string: AnyStr) -> bool:

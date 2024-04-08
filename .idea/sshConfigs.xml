@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="24.199.84.149" id="9c053728-2114-4f38-9a52-da22d564e606" keyPath="C:\Dev\FinView_13_01_24\DigitalOceanSSH" port="22" customName="DigitalOcean - FinTuTApp" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="DigitalOcean - FinTuTApp" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

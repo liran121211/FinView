@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="67b4adbf-faec-43c1-88c5-37993fe32872" name="FinTuTApp">
+        <fileTransfer accessType="SFTP" host="24.199.84.149" port="22" sshConfigId="9c053728-2114-4f38-9a52-da22d564e606" sshConfig="DigitalOcean - FinTuTApp" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

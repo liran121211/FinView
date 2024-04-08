@@ -29,8 +29,9 @@ Logger.setLevel(logging.DEBUG)
 PostgreSQL_DB = PostgreSQL()
 
 # Defines
-RECORD_EXIST = 0
+RECORD_ADDED =      1
+RECORD_EXIST =      0
 RECORD_NOT_EXIST = -1
 SQL_QUERY_FAILED = -1
-SINGLE_LIST = 0
-SINGLE_TUPLE = 0
+SINGLE_LIST =       0
+SINGLE_TUPLE =      0

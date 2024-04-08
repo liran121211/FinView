@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTuT - תות הלך לאיבוד</title>
+    <style>
+        /* Center the GIF */
+        .gif-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw; /* Full width of viewport */
+            height: 100vh; /* Full height of viewport */
+            cursor: pointer; /* Set cursor style to pointer */
+        }
+    </style>
+
+    <!-- Local CSS Files -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+<!-- GIF Container -->
+<div class="gif-container">
+    <!-- Add your GIF here -->
+    <a href="{% url 'home_page' %}">
+        <img src="{% static 'images/404_strawberry.gif' %}" alt="OOPS...404 Page">
+    </a>
+</div>
+
+<!-- Content after the GIF -->
+</body>
+</html>
