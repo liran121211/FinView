@@ -25,8 +25,10 @@ from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_
     FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE, FIRST_IDX
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
-    spent_by_category_query, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, IncomeAgainstOutcome, \
-    BankTransactionByCategoryQuery, UserPersonalInformation, spent_by_date_query, SpentByBusinessQuery
+    spent_by_category_query, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, \
+    IncomeAgainstOutcome, \
+    BankTransactionByCategoryQuery, UserPersonalInformation, spent_by_date_query, \
+    spent_by_business_query, credit_card_line_query
 
 
 def home_view(request):
@@ -137,10 +139,11 @@ def analytics_and_trends_view(request):
             'spent_by_category_monthly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort_period='Monthly'),
             'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort_period='Quarterly'),
             'spent_by_category_yearly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort_period='Yearly'),
-            'spent_by_category_monthly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly',sort_card=card) for card in cards_4_digits],
-            'spent_by_category_quarterly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly',sort_card=card) for card in cards_4_digits],
-            'spent_by_category_yearly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly', sort_card=card) for card in cards_4_digits],
-            'spent_by_business': SpentByBusinessQuery(username=logged_in_user, mode='Analytics')
+            'spent_by_category_monthly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly',sort_card=card, mode='Analytics') for card in cards_4_digits],
+            'spent_by_category_quarterly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly',sort_card=card, mode='Analytics') for card in cards_4_digits],
+            'spent_by_category_yearly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly', sort_card=card, mode='Analytics') for card in cards_4_digits],
+            'spent_by_business': spent_by_business_query(username=logged_in_user, mode='Analytics'),
+            'spent_by_business_specific_card': [spent_by_business_query(username=logged_in_user, mode='Analytics', sort_card=card) for card in cards_4_digits],
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -296,6 +299,7 @@ def retrieve_user_cards(username: Text) -> dict:
             'card_type': [],
             'full_name': [],
             'sha1_identifier': [],
+            'credit_line': [],
         }
         return filtered_data
 
@@ -325,6 +329,11 @@ def retrieve_user_cards(username: Text) -> dict:
             dict_data['sha1_identifier'] = [data.sha1_identifier]
         else:
             dict_data['sha1_identifier'].append(data.sha1_identifier)
+
+        if dict_data.get('credit_line', None) is None:
+            dict_data['credit_line'] = [data.credit_line]
+        else:
+            dict_data['credit_line'].append(data.credit_line)
 
     return dict_data
 

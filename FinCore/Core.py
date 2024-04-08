@@ -396,7 +396,7 @@ class UserCards:
                 return SQL_QUERY_FAILED
 
         # calculate sha1 value for new added record.
-        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data, excluded_keys=['card_type'])
+        record_data['sha1_identifier'] = PostgreSQL_DB.calc_sha1(record_data, excluded_keys=['card_type', 'credit_line'])
 
         if self.is_primary_key_exist(primary_key=record_data['sha1_identifier']):
             return RECORD_EXIST
@@ -443,6 +443,9 @@ class UserCards:
 
     def is_primary_key_exist(self, primary_key: Any) -> int:
         return self.db.is_value_exists(table_name='user_cards', column_name='sha1_identifier', value=primary_key)
+
+    def transaction_query(self, sql_query: Text) -> List:
+        return self.db.create_query(sql_query)
 
 
 class Application:
@@ -505,6 +508,7 @@ class Application:
                         'last_4_digits':            row['last_4_digits'],
                         'card_type':                row['card_type'],
                         'issuer_name':              row['transaction_provider'],
+                        'credit_line':              0.0,
                         'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
                         }
                     self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
@@ -548,6 +552,7 @@ class Application:
                         'last_4_digits':            row['last_4_digits'],
                         'card_type':                row['card_type'],
                         'issuer_name':              row['transaction_provider'],
+                        'credit_line':              0.0,
                         'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
                         }
                     self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
@@ -591,6 +596,7 @@ class Application:
                         'last_4_digits':            row['last_4_digits'],
                         'card_type':                row['card_type'],
                         'issuer_name':              row['transaction_provider'],
+                        'credit_line':              0.0,
                         'full_name':                ' '.join(self.__manage_users.retrieve_user_record(current_user)),
                         }
                     self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
@@ -634,6 +640,7 @@ class Application:
                         'last_4_digits':    row['last_4_digits'],
                         'card_type':        row['card_type'],
                         'issuer_name':      row['transaction_provider'],
+                        'credit_line':      0.0,
                         'full_name': ' '.join(self.__manage_users.retrieve_user_record(current_user)),
                     }
                     self.__manage_user_cards.add_card(record_data=current_card_record, username=current_user)
@@ -835,6 +842,16 @@ class Application:
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
+        def which_records_by_business_name_specific_card(business_name: Text, selected_card: int, username: Text):
+            query = f"SELECT * " \
+                    f"FROM user_credit_card_transactions" \
+                    f" WHERE business_name ILIKE '%{business_name}%'" \
+                    f" AND username='{username}'"\
+                    f" AND last_4_digits='{selected_card}';"
+
+            result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
+            return format_result(result)
+
         def which_records_above_amount(amount: float, username: Text):
             query = f"SELECT * " \
                     f"FROM user_credit_card_transactions" \
@@ -915,6 +932,23 @@ class Application:
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return result
 
+        def total_credit_cards_line_available(username: Text):
+            query = f"SELECT SUM(credit_line)" \
+                    f" FROM user_cards" \
+                    f" WHERE username='{username}';"
+
+            result = self.__manage_user_cards.transaction_query(sql_query=query)
+            return result
+
+        def total_credit_cards_line_available_specific_card(selected_card: int, username: Text):
+            query = f"SELECT SUM(credit_line)" \
+                    f" FROM user_cards" \
+                    f" WHERE username='{username}'" \
+                    f" AND last_4_digits='{selected_card}';"
+
+            result = self.__manage_user_cards.transaction_query(sql_query=query)
+            return result
+
         return {
             'how_much_spent_in_specific_date_bank': how_much_spent_in_specific_date_bank,
             'how_much_spent_in_specific_date_card': how_much_spent_in_specific_date_card,
@@ -926,12 +960,15 @@ class Application:
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
             'which_records_by_transaction_type': which_records_by_transaction_type,
             'which_records_by_business_name': which_records_by_business_name,
+            'which_records_by_business_name_specific_card': which_records_by_business_name_specific_card,
             'which_records_above_amount': which_records_above_amount,
             'which_records_of_transaction_provider': which_records_of_transaction_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
             'how_much_spent_by_category': how_much_spent_by_category,
             'total_transaction_amount_by_bank_category': total_transaction_amount_by_bank_category,
             'how_much_spent_by_card_number': how_much_spent_by_card_number,
+            'total_credit_cards_line_available': total_credit_cards_line_available,
+            'total_credit_cards_line_available_specific_card': total_credit_cards_line_available_specific_card,
         }
 
 

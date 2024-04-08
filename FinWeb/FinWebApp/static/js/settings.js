@@ -112,16 +112,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const credit_card_type_col = document.createElement('td');
         const credit_card_issuer_name_col = document.createElement('td');
         const credit_card_last_4_digits_col = document.createElement('td');
+        const credit_card_line_of_credit_col = document.createElement('td');
+
 
         // Add the class name "outcome_description/outcome_amount" to the new <td> element
         credit_card_type_col.classList.add('credit-card_type-col');
         credit_card_issuer_name_col.classList.add('credit-card_issuer-name-col');
         credit_card_last_4_digits_col.classList.add('credit-card-last-4-digits-col');
+        credit_card_line_of_credit_col.classList.add('credit-card-line-of-credit-col');
 
         // Create div elements for word1 and word2
         const credit_card_type = document.createElement('div');
         const credit_card_issuer_name = document.createElement('div');
         const credit_card_last_4_digits = document.createElement('div');
+        const credit_card_line_of_credit = document.createElement('div');
 
 
         // Set content and styling
@@ -136,20 +140,25 @@ document.addEventListener('DOMContentLoaded', function () {
         credit_card_last_4_digits.textContent = user_cards.last_4_digits[i];
         credit_card_last_4_digits.classList.add('credit-card-last-4-digits'); // Add the class for styling
 
+        credit_card_line_of_credit.textContent = user_cards.credit_line[i];
+        credit_card_line_of_credit.classList.add('credit-card-line-of-credit'); // Add the class for styling
+
         // Add word1 and word2 divs to the cell
         credit_card_type_col.appendChild(credit_card_type);
         credit_card_issuer_name_col.appendChild(credit_card_issuer_name);
         credit_card_last_4_digits_col.appendChild(credit_card_last_4_digits);
+        credit_card_line_of_credit_col.appendChild(credit_card_line_of_credit);
 
 
         // Append the cell to the row
+        credit_card_row.appendChild(credit_card_line_of_credit_col);
         credit_card_row.appendChild(credit_card_last_4_digits_col);
         credit_card_row.appendChild(credit_card_issuer_name_col);
         credit_card_row.appendChild(credit_card_type_col);
 
+
         // Append the row to the table body
         tableBody.appendChild(credit_card_row);
-
     }
 
 

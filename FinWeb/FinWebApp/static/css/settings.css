@@ -866,6 +866,7 @@ border-collapse: collapse;
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 padding-bottom: 5px;
+padding-left: 15px;
 direction: rtl;
 color: #4C495A;
 background-color: initial;
@@ -897,6 +898,12 @@ background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
 
+
+.credit-card-line-of-credit-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
 .credit-card-type {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
@@ -914,6 +921,14 @@ margin: 10px;
 }
 
 .credit-card-last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.credit-card-line-of-credit {
 font-family: 'Gan', sans-serif;
 font-size: 18px;
 color: #4C495A;
@@ -938,6 +953,7 @@ border-collapse: collapse;
 font-family: 'Gan', sans-serif;
 font-size: 14px;
 padding-bottom: 4px;
+padding-left: 15px;
 direction: rtl;
 color: #4C495A;
 background-color: initial;
@@ -969,6 +985,11 @@ background-repeat: no-repeat; /* Do not repeat the background image */
 border-bottom: 1px solid #ddd;
 }
 
+.credit-card-line-of-credit-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
 .credit-card-type {
 font-family: 'Gan', sans-serif;
 font-size: 15px;
@@ -991,6 +1012,14 @@ font-size: 15px;
 color: #4C495A;
 text-align: center;
 margin: 8px;
+}
+
+.credit-card-line-of-credit {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
 }
 }
 

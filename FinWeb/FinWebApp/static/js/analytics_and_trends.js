@@ -18,11 +18,43 @@ let chartInstances = {
     'SpentByCategoryMonthly': null,
     'SpentByCategoryQuarterly': null,
     'SpentByCategoryYearly': null,
-    'wordCloud': null,
+    'SpentByBusiness': null,
 }
 
 // define the behaviour of graphs when clicking on the buttons above the graph.
 document.addEventListener('DOMContentLoaded', function () {
+
+    //set current due amount
+    if (Object.keys(spent_by_date_monthly).length > 0) {
+        if (isCurrentDate(Object.keys(spent_by_date_monthly)[0]))
+            document.getElementById('current-card-due').textContent = "החיוב הקרוב: ".concat(Object.values(spent_by_date_monthly)[0]).concat(' ש"ח');
+    }
+
+    //set latest due amount
+    if (Object.keys(spent_by_date_monthly).length > 1)
+        document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly)[1]).concat(' ש"ח');
+
+    //set credit line usage
+    let totalCreditLineAvailable = 0.0;
+    let totalCreditLineUsage = 0.0;
+    const currentDate = Object.keys(spent_by_date_monthly)[0];
+
+    if (Object.keys(spent_by_date_monthly).length > 0 && isCurrentDate(currentDate)) {
+        if (Object.keys(user_cards).length > 0) {
+            const cardKeys = Object.keys(user_cards);
+            const totalCards = user_cards[cardKeys[0]].length; // Assuming all cards have the same length
+
+            for (let i = 0; i < totalCards; i++) {
+                totalCreditLineAvailable += user_cards.credit_line[i];
+            }
+
+            totalCreditLineUsage = (spent_by_date_monthly[currentDate] / totalCreditLineAvailable) * 100;
+        }
+
+        const utilizationRatioElement = document.getElementById('utilization-ratio');
+        utilizationRatioElement.textContent = `ניצול מסגרת: 100%/${totalCreditLineUsage.toFixed(2).toLocaleString()}%`;
+    }
+
 
     document.querySelectorAll('.canvas-button').forEach(function (button) {
         button.addEventListener('click', function () {
@@ -76,20 +108,24 @@ document.addEventListener('DOMContentLoaded', function () {
     let container = document.querySelector('.credit-card-selection');
 
     // Define the number of credit card selection boxes to add
-    let numberOfBoxes = Object.keys(user_cards).length; // You can set this dynamically
+    let numberOfBoxes = 0;
+    if (Object.keys(user_cards).length > 0) {
+        const col_name = Object.keys(user_cards)[0];
+        numberOfBoxes = user_cards[col_name].length; // You can set this dynamically
+    }
 
     // Loop to create and append the required number of credit card selection boxes
     for (let i = 0; i < numberOfBoxes; i++) {
         // Create a new div element for the credit card selection box
-        let newBox = document.createElement('div');
+        const newBox = document.createElement('div');
         newBox.classList.add('credit-card-selection-box');
         newBox.setAttribute('card-idx', i);
-        newBox.style.height = (200 - (15 * numberOfBoxes)).toString() + 'px';
+        newBox.style.height = `${200 - (15 * numberOfBoxes)}px`;
 
         // Create a paragraph element for the text
-        let paragraph = document.createElement('p');
-        paragraph.style.fontSize = (18 - (1.01 * numberOfBoxes)).toString() + 'px';
-        paragraph.textContent = user_cards.issuer_name[i] + ' - ' + user_cards.last_4_digits[i]; // Set your dynamic content here
+        const paragraph = document.createElement('p');
+        paragraph.style.fontSize = `${18 - (1.01 * numberOfBoxes)}px`;
+        paragraph.textContent = `${user_cards.issuer_name[i]} - ${user_cards.last_4_digits[i]}`;
 
         // Append the paragraph element to the new box
         newBox.appendChild(paragraph);
@@ -117,14 +153,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Add 'clicked' class to the clicked div
                 div.classList.add('clicked');
 
+                chartInstances['x'] = null;
                 // destroy latest graph before attaching a new one
-                chartInstances['SpentByDateMonthly'].destroy();
-                chartInstances['SpentByDateQuarterly'].destroy();
-                chartInstances['SpentByDateYearly'].destroy();
-
-                chartInstances['SpentByCategoryMonthly'].destroy();
-                chartInstances['SpentByCategoryQuarterly'].destroy();
-                chartInstances['SpentByCategoryYearly'].destroy();
+                for (const instanceName in chartInstances) {
+                    if (chartInstances[instanceName] !== null && typeof chartInstances[instanceName].destroy == 'function')
+                        chartInstances[instanceName].destroy();
+                }
 
                 // add Spent By Month for specific card, Graph.
                 const cardIdx = div.getAttribute('card-idx');
@@ -136,6 +170,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 spentByCategoryGraph('Monthly', spent_by_category_monthly_specific_card[cardIdx]);
                 spentByCategoryGraph('Quarterly', spent_by_category_quarterly_specific_card[cardIdx]);
                 spentByCategoryGraph('Yearly', spent_by_category_yearly_specific_card[cardIdx]);
+
+                // add Spent By Business wordcloud.
+                spentByBusinessWordCloud(spent_by_business_specific_card[cardIdx]);
+
+                // update bill due and credit line usage
+                //set current due amount
+                if (Object.keys(spent_by_date_monthly_specific_card[cardIdx]).length > 0) {
+                    if (isCurrentDate(Object.keys(spent_by_date_monthly_specific_card[cardIdx])[0]))
+                        document.getElementById('current-card-due').textContent = "החיוב הקרוב: ".concat(Object.values(spent_by_date_monthly_specific_card[cardIdx])[0]).concat(' ש"ח');
+                }
+
+                //set latest due amount
+                if (Object.keys(spent_by_date_monthly).length > 1)
+                    document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly_specific_card[cardIdx])[1]).concat(' ש"ח');
+
+                //set credit line usage
+                let totalCreditLineAvailable = 0.0;
+                let totalCreditLineUsage = 0.0;
+                const currentDate = Object.keys(spent_by_date_monthly_specific_card[cardIdx])[0];
+
+                if (Object.keys(spent_by_date_monthly_specific_card[cardIdx]).length > 0 && isCurrentDate(currentDate)) {
+                    if (Object.keys(user_cards).length > 0) {
+                        totalCreditLineAvailable += user_cards.credit_line[cardIdx];
+                        totalCreditLineUsage = (spent_by_date_monthly_specific_card[cardIdx][currentDate] / totalCreditLineAvailable) * 100;
+                    }
+
+                    const utilizationRatioElement = document.getElementById('utilization-ratio');
+                    utilizationRatioElement.textContent = `ניצול מסגרת: 100%/${totalCreditLineUsage.toFixed(2).toLocaleString()}%`;
+                }
+
+
             }
         });
     });
@@ -152,25 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
     spentByCategoryGraph('Quarterly', spent_by_category_quarterly);
     spentByCategoryGraph('Yearly', spent_by_category_yearly);
 
-
-    // wordcloud of businesses names of transactions
-    const wordcloud_words = [];
-    for (const word of Object.values(spent_by_business)) {
-        wordcloud_words.push([word.label, word.x])
-    }
-
-    const wordcloud_options = {
-        list: wordcloud_words, // List of words with sizes
-        fontFamily: "Gan", // Font family
-        weightFactor: 18, // Set the weightFactor to 18 for consistent font size
-        color: function (word, weight) { // Function to define color based on word index
-            // Assign different colors based on the index
-            return ColorPalette[weight % ColorPalette.length]; // Use modulo to loop through colors
-        },
-    };
-
-    const wordcloud_ctx = document.getElementById('wordcloud-canvas');
-    chartInstances['wordCloud'] = new WordCloud(wordcloud_ctx, wordcloud_options);
+    spentByBusinessWordCloud(spent_by_business);
 
 
 });
@@ -350,4 +397,42 @@ function spentByCategoryGraph(period, data) {
         const spent_by_category_year_data = createDatasetsForCategories(data);
         createBarChart(data, spent_by_category_year_ctx, spent_by_category_year_data, ColorPalette);
     }
+}
+
+function spentByBusinessWordCloud(data) {
+    // wordcloud of businesses names of transactions
+    const wordcloud_words = [];
+    for (const word of Object.values(data)) {
+        wordcloud_words.push([word.label, word.x])
+    }
+
+    const wordcloud_options = {
+        list: wordcloud_words, // List of words with sizes
+        fontFamily: "Gan", // Font family
+        weightFactor: 18, // Set the weightFactor to 18 for consistent font size
+        color: function (word, weight) { // Function to define color based on word index
+            // Assign different colors based on the index
+            return ColorPalette[weight % ColorPalette.length]; // Use modulo to loop through colors
+        },
+    };
+
+    const wordcloud_ctx = document.getElementById('wordcloud-canvas');
+    chartInstances['SpentByBusiness'] = new WordCloud(wordcloud_ctx, wordcloud_options);
+}
+
+function isCurrentDate(date) {
+    // Get the current date
+    let currentDate = new Date();
+
+// Extract month and year from the current date
+    let currentMonth = currentDate.getMonth() + 1; // Months are 0-indexed, so add 1
+    let currentYear = currentDate.getFullYear();
+
+// Extract month and year from the string date
+    let parts = date.split('/');
+    let monthToCompare = parseInt(parts[0], 10);
+    let yearToCompare = parseInt(parts[1], 10);
+
+// Compare the month and year
+    return currentMonth === monthToCompare && currentYear === yearToCompare;
 }

@@ -38,7 +38,7 @@ def IncomeByMonthQuery(username: Text):
     return pd.DataFrame(zip(hebrew_months, income_by_month), columns=cols_names).to_dict()
 
 
-def SpentByBusinessQuery(username: Text, mode: Text = 'Simple'):
+def spent_by_business_query(username: Text, mode: Text = 'Simple', sort_card: Text = 'All'):
     if mode == 'Simple':
         cols_names = ['transaction_category', 'total_amount', ]
 
@@ -50,7 +50,11 @@ def SpentByBusinessQuery(username: Text, mode: Text = 'Simple'):
         charge_amount_dict_idx, purchases_quantity_dict_idx = 0, 1
         record_structure = dict()
 
-        query = FIN_CORE.ask['which_records_by_business_name'](business_name='', username=username)
+        if sort_card == 'All':
+            query = FIN_CORE.ask['which_records_by_business_name'](business_name='', username=username)
+        else:
+            query = FIN_CORE.ask['which_records_by_business_name_specific_card'](business_name='', selected_card=int(sort_card), username=username)
+
         for record in query:
             if record[business_name_query_idx] in record_structure.keys():
                 record_structure[record[business_name_query_idx]][charge_amount_dict_idx] += record[charge_amount_query_idx]
@@ -224,6 +228,13 @@ def spent_by_date_query(username: Text, dates: List, sort_period: Text = 'Monthl
     return [0.0 for _ in range(12)]
 
 
+def credit_card_line_query(username: Text, sort_card: Text = 'All'):
+    if sort_card == 'All':
+        return FIN_CORE.ask['total_credit_cards_line_available'](username)
+    else:
+        return FIN_CORE.ask['total_credit_cards_line_available_specific_card'](int(sort_card), username)
+
+
 def BankTransactionByCategoryQuery(username: Text):
     cols_names = ['transaction_category', 'total_amount', ]
 
@@ -278,6 +289,7 @@ class UserCards(models.Model):
     issuer_name = models.CharField(max_length=50, db_column='issuer_name')
     full_name = models.CharField(max_length=50, db_column='full_name')
     username = models.CharField(max_length=50, db_column='username')
+    credit_line = models.FloatField(max_length=10, db_column='credit_line')
     sha1_identifier = models.CharField(max_length=40, primary_key=True)
 
     class Meta:
@@ -296,7 +308,8 @@ class UserCards(models.Model):
             'issuer_name': self.issuer_name,
             'full_name': self.full_name,
             'username': self.username,
-            'sha1_identifier': self.sha1_identifier
+            'sha1_identifier': self.sha1_identifier,
+            'credit_line': self.credit_line
         }
 
 

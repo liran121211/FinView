@@ -510,7 +510,14 @@ display:flex;
 justify-content: center; /* Center horizontally */
 }
 
-.root-vertical-layout-2{
+.root-horizontal-layout{
+display: flex;
+flex-direction: row;
+justify-content: center; /* Aligns items vertically */
+margin: 10px;
+}
+
+.root-vertical-layout{
 display: flex;
 flex-direction: column;
 justify-content: center; /* Aligns items vertically */
@@ -545,17 +552,11 @@ writing-mode: vertical-lr; /* For vertical writing mode (optional) */
 text-orientation: mixed; /* For vertical text orientation (optional) */
 }
 
-
-
 .credit-card-selection-box.clicked{
 background-color: #3498db;
 color: white;
 cursor: pointer; /* Ensure pointer cursor on hover */
 }
-
-.root-vertical-layout-1{
-}
-
 
 .credit-cards-icons-section {
 display:flex;
