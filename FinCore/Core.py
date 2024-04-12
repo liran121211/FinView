@@ -787,7 +787,7 @@ class Application:
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return format_result(result)
 
-        def how_much_earned_in_specific_date(selected_month: Text, selected_year: int, username: Text):
+        def how_much_earned_in_specific_date_bank(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT SUM(income_balance) AS total_sum " \
                     f"FROM (" \
                     f"SELECT income_balance" \
@@ -955,7 +955,7 @@ class Application:
             'how_much_spent_in_specific_date_specific_card': how_much_spent_in_specific_date_specific_card,
             'how_much_spent_by_category_specific_date': how_much_spent_by_category_specific_date,
             'how_much_spent_by_category_specific_date_card': how_much_spent_by_category_specific_date_card,
-            'how_much_earned_in_specific_date': how_much_earned_in_specific_date,
+            'how_much_earned_in_specific_date_bank': how_much_earned_in_specific_date_bank,
             'how_much_spent_in_specific_year': how_much_spent_in_specific_year,
             'how_much_spent_in_specific_business': how_much_spent_in_specific_business,
             'which_records_by_transaction_type': which_records_by_transaction_type,

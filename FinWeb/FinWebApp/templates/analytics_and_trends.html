@@ -141,6 +141,8 @@
         const spent_by_business =                           {{ spent_by_business|safe }};
         const spent_by_business_specific_card =             {{ spent_by_business_specific_card|safe }};
         const user_cards =                                  {{ user_cards|safe }};
+        const bank_income_by_year =                         {{ bank_income_by_year|safe }};
+        const bank_outcome_by_year =                        {{ bank_outcome_by_year|safe }};
     </script>
 
 </head>
@@ -230,7 +232,7 @@
                                 </svg>
                             </div>
 
-                            <div class="section-separator-horizontal"></div>
+                            <div class="credit-card-section-separator-horizontal"></div>
                             <div class="credit-cards-icons-section">
                                 <p id="utilization-ratio">ניצול מסגרת: --%/--%</p>
                                 <img src="{% static 'images/credit_card_usage.svg' %}" alt="Credit Card Usage">
@@ -241,7 +243,7 @@
                                 <img src="{% static 'images/latest_credit_card_bill.svg' %}"
                                      alt="Next Credit Card Bill Due">
                             </div>
-                            <div class="section-separator-horizontal"></div>
+                            <div class="credit-card-section-separator-horizontal"></div>
                         </div>
                         <div class="first-row-horizontal">
                             <div class="first-column-vertical">
@@ -287,7 +289,7 @@
                     </div>
                 </div>
                 <div class="root-horizontal-layout">
-                    <div class="credit-card-header-vertical-layout">
+                    <div class="bank-header-vertical-layout">
                         <div class="first-row-title">
                             <h3>ניתוח מידע מחשבונות בנק</h3>
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -307,18 +309,21 @@
                             </svg>
                         </div>
 
-                        <div class="section-separator-horizontal"></div>
-                        <div class="credit-cards-icons-section">
-                            <p id="utilization-ratio">ניצול מסגרת: --%/--%</p>
-                            <img src="{% static 'images/credit_card_usage.svg' %}" alt="Credit Card Usage">
-                            <p id="current-card-due">חיוב קרוב: 0.0 ש"ח</p>
-                            <img src="{% static 'images/next_credit_card_bill.svg' %}"
-                                 alt="Latest Credit Card Bill Due">
-                            <p id="last-card-due">חיוב אחרון: 0.0 ש"ח</p>
-                            <img src="{% static 'images/latest_credit_card_bill.svg' %}"
-                                 alt="Next Credit Card Bill Due">
+                        <div class="bank-section-separator-horizontal"></div>
+                        <div class="bank-icons-section">
+                            <p id="utilization-ratio">מסגרת אשראי: 1000 ש"ח</p>
+                            <img src="{% static 'images/bank_credit_line.svg' %}" alt="Bank Credit Line Usage">
+                            <p id="last-bank-account-due">סה"כ הוצאות אחרונות: 0.0 ש"ח</p>
+                            <img src="{% static 'images/outcome_bank_balance.svg' %}" alt="Last Bank Due">
+                            <p id="last-bank-fund">סה"כ הכנסות אחרונות: 0.0 ש"ח</p>
+                            <img src="{% static 'images/income_bank_balance.svg' %}" alt="Last Bank Fund">
+                            <p id="current-bank-balance">יתרה נוכחית: 0.0 ש"ח</p>
+                            <img src="{% static 'images/current_bank_balance.svg' %}" alt="Current Bank Balance">
                         </div>
-                        <div class="section-separator-horizontal"></div>
+                        <div class="bank-section-separator-horizontal"></div>
+                        <div class="first-row-horizontal">
+                            <canvas id="income_outcome_by_year_bank" width="1000" height="350" style="display: block;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>

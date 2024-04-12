@@ -21,6 +21,8 @@ let chartInstances = {
     'SpentByBusiness': null,
 }
 
+/* ----------------------- Credit Cards Analytics & Trends Section ----------------------- */
+
 // define the behaviour of graphs when clicking on the buttons above the graph.
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -31,8 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     //set latest due amount
-    if (Object.keys(spent_by_date_monthly).length > 1)
-        document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly)[1]).concat(' ש"ח');
+    if (Object.keys(spent_by_date_monthly).length > 1) {
+        if (isCurrentDate(Object.keys(spent_by_date_monthly)[0]))
+            document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly)[1]).concat(' ש"ח');
+    }
 
     //set credit line usage
     let totalCreditLineAvailable = 0.0;
@@ -102,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/* ----------------------- Credit Cards Analytics & Trends Section ----------------------- */
+
 document.addEventListener('DOMContentLoaded', function () {
     // Select the container div
     let container = document.querySelector('.credit-card-selection');
@@ -419,6 +423,69 @@ function spentByBusinessWordCloud(data) {
     const wordcloud_ctx = document.getElementById('wordcloud-canvas');
     chartInstances['SpentByBusiness'] = new WordCloud(wordcloud_ctx, wordcloud_options);
 }
+
+/* ----------------------- Bank Analytics & Trends Section ----------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+
+    //set current balance amount
+    if (Object.keys(bank_income_by_year).length > 0) {
+        if (isCurrentDate(Object.keys(bank_income_by_year)[0]))
+            document.getElementById('last-bank-fund').textContent = "סה\"כ הכנסות אחרונות: ".concat(Object.values(bank_income_by_year)[0]).concat(' ש"ח');
+    }
+
+    //set current due amount
+    if (Object.keys(bank_income_by_year).length > 0) {
+        if (isCurrentDate(Object.keys(bank_income_by_year)[0]))
+            document.getElementById('last-bank-fund').textContent = "סה\"כ הכנסות אחרונות: ".concat(Object.values(bank_income_by_year)[0]).concat(' ש"ח');
+    }
+
+    //set latest due amount
+    if (Object.keys(bank_outcome_by_year).length > 1) {
+        if (isCurrentDate(Object.keys(bank_outcome_by_year)[0]))
+            document.getElementById('last-bank-account-due').textContent = "סה\"כ הוצאות אחרונות: ".concat(Object.values(bank_outcome_by_year)[1]).concat(' ש"ח');
+    }
+
+    const ctx = document.getElementById('income_outcome_by_year_bank').getContext('2d');
+    const labels = Object.keys(bank_income_by_year);
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'הכנסות',
+                data: Object.values(bank_income_by_year),
+                backgroundColor: 'rgba(157, 189, 61, 0.5)', // Red
+            },
+            {
+                label: 'הוצאות',
+                data: Object.values(bank_outcome_by_year),
+                backgroundColor: 'rgba(222, 48, 48, 0.5)', // Blue
+            },
+        ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            interaction: {
+                intersect: false,
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    };
+
+    const myChart = new Chart(ctx, config);
+
+});
+
 
 function isCurrentDate(date) {
     // Get the current date

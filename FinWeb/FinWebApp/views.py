@@ -28,7 +28,7 @@ from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDir
     spent_by_category_query, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, \
     IncomeAgainstOutcome, \
     BankTransactionByCategoryQuery, UserPersonalInformation, spent_by_date_query, \
-    spent_by_business_query, credit_card_line_query
+    spent_by_business_query, credit_card_line_query, income_by_bank_query, outcome_by_bank_query
 
 
 def home_view(request):
@@ -144,6 +144,8 @@ def analytics_and_trends_view(request):
             'spent_by_category_yearly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly', sort_card=card, mode='Analytics') for card in cards_4_digits],
             'spent_by_business': spent_by_business_query(username=logged_in_user, mode='Analytics'),
             'spent_by_business_specific_card': [spent_by_business_query(username=logged_in_user, mode='Analytics', sort_card=card) for card in cards_4_digits],
+            'bank_income_by_year': income_by_bank_query(dates=latest_12_months, username=logged_in_user),
+            'bank_outcome_by_year': outcome_by_bank_query(dates=latest_12_months, username=logged_in_user),
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})

@@ -596,7 +596,7 @@ color: #3c3a3a;
 font-style: italic;
 margin: 40px 10px 0px 0px;
 }
-.section-separator-horizontal {
+.credit-card-section-separator-horizontal {
 display: flex;
 margin: 0 auto;  /* Centers the element with fixed width */
 margin-top: 10px;
@@ -637,6 +637,33 @@ margin: 5px;
 background-color: #3498db;
 color: white;
 }
+
+/* ----------------- Second Row Section CSS ----------------- */
+.bank-section-separator-horizontal {
+display: flex;
+margin: 0 auto;  /* Centers the element with fixed width */
+margin-top: 10px;
+margin-bottom: 10px;
+width: 900px; /* Maintains fixed width */
+height: 2px;
+background-color: #ccc;
+}
+
+.bank-icons-section {
+display:flex;
+justify-content: center; /* Centers the entire div element */
+}
+
+.bank-icons-section p {
+font-family: 'Gan', sans-serif;
+margin: 7px;
+}
+
+.bank-icons-section img {
+width: 40px;
+height: 40px;
+}
+
 
 /* ----------------- Scrollbar CSS ----------------- */
 .scroll-bar {

@@ -234,6 +234,34 @@ def credit_card_line_query(username: Text, sort_card: Text = 'All'):
     else:
         return FIN_CORE.ask['total_credit_cards_line_available_specific_card'](int(sort_card), username)
 
+def income_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
+    result = dict()
+    for (month, year) in dates:
+        if sort_bank == 'All':
+            query = FIN_CORE.ask['how_much_earned_in_specific_date_bank'](month, year, username)
+            result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
+        else:
+            pass
+            # TODO: in future add by bank sort
+            # query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](month, year, int(sort_bank), username)
+            # result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
+
+    return  result
+
+
+def outcome_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
+    result = dict()
+    for (month, year) in dates:
+        if sort_bank == 'All':
+            query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](month, year, username)
+            result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
+        else:
+            pass
+            # TODO: in future add by bank sort
+            # query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](month, year, int(sort_bank), username)
+            # result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
+
+    return  result
 
 def BankTransactionByCategoryQuery(username: Text):
     cols_names = ['transaction_category', 'total_amount', ]
