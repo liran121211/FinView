@@ -3045,3 +3045,4 @@ LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
 2024-04-13 18:01:05,174 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-04-13 18:01:14,279 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-04-13 18:02:25,147 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-13 18:58:08,592 - INFO - Successfully connected to PostgreSQL database - localhost:5432

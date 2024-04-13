@@ -413,8 +413,16 @@ function spentByCategoryGraph(period, data) {
 }
 
 function spentByBusinessWordCloud(data) {
+    let wordcloud_words = [];
+    if (data.length === 0)
+        wordcloud_words = [
+            ["לא קיימים נתונים", 1],
+            ["לא קיימים נתונים", 2],
+            ["לא קיימים נתונים", 3],
+            ["לא קיימים נתונים", 4],
+            ["לא קיימים נתונים", 5],
+        ]
     // wordcloud of businesses names of transactions
-    const wordcloud_words = [];
     for (const word of Object.values(data)) {
         wordcloud_words.push([word.label, word.x])
     }

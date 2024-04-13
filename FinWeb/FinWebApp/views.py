@@ -6,7 +6,7 @@ import os
 
 from PIL import Image
 from random import randint
-from typing import Text, Any, List
+from typing import Text, Any, List, Dict
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -127,24 +127,6 @@ def analytics_and_trends_view(request):
         latest_12_months = get_last_12_months()
         cards_4_digits = [card.get('last_4_digits', None) for card in retrieve_user_cards(username=logged_in_user)]
 
-        try:
-            bank_current_balance = {
-                'record_date': retrieve_user_bank_transactions(username=logged_in_user, positive_only=True)['transaction_date'][FIRST_IDX],
-                'amount': retrieve_user_bank_transactions(username=logged_in_user, positive_only=True)['current_balance'][FIRST_IDX],
-            }
-
-        except KeyError:
-            bank_current_balance = {
-                'record_date': 'לא קיים מידע',
-                'amount': '0.0'
-            }
-
-        except IndexError:
-            bank_current_balance = {
-                'record_date': 'לא קיים מידע',
-                'amount' : '0.0'
-            }
-
         return render(request, 'analytics_and_trends.html', {
             'user_information': retrieve_user_information(username=logged_in_user),
             'user_cards': retrieve_user_cards(username=logged_in_user),
@@ -164,7 +146,7 @@ def analytics_and_trends_view(request):
             'spent_by_business_specific_card': [spent_by_business_query(username=logged_in_user, mode='Analytics', sort_card=card) for card in cards_4_digits],
             'bank_income_by_year': income_by_bank_query(dates=latest_12_months, username=logged_in_user),
             'bank_outcome_by_year': outcome_by_bank_query(dates=latest_12_months, username=logged_in_user),
-            'bank_current_balance': bank_current_balance,
+            'bank_current_balance': get_bank_current_balance(retrieve_user_bank_transactions(username=logged_in_user, positive_only=True)),
             'bank_credit_line': [0.0],
         })
     else:
@@ -802,3 +784,25 @@ def user_portrait_or_default(img_name: Text) -> Text:
     if os.path.exists(os.path.join(os.getcwd(), 'static','images', 'portraits', img_name)):
         return img_name
     return 'default_portrait.svg'
+
+
+def get_bank_current_balance(query: Dict)-> Dict:
+    try:
+        bank_current_balance = {
+            'record_date':  query['transaction_date'][FIRST_IDX],
+            'amount':       query['current_balance'][FIRST_IDX],
+        }
+
+    except KeyError:
+        bank_current_balance = {
+            'record_date': 'לא קיים מידע',
+            'amount': '0.0'
+        }
+
+    except IndexError:
+        bank_current_balance = {
+            'record_date': 'לא קיים מידע',
+            'amount': '0.0'
+        }
+
+    return bank_current_balance
