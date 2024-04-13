@@ -21,6 +21,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
     });
+
+    // dynamically change user full name in settings sidebar according to first name length
+    let settingsSideBarFullName = document.querySelector('.settings-side-bar-full-name');
+    if ((full_name.value.length) > 10) {
+        const newFontSize = 16 * (1 - ((full_name.value.length - 10) * 2.5) / 100)
+        settingsSideBarFullName.style.fontSize = `${newFontSize}px`;
+    }
+    if ((full_name.value.length) > 13) {
+        settingsSideBarFullName.textContent = full_name.value.slice(0, 9).concat('...');
+        settingsSideBarFullName.style.fontSize = `16px`;
+    }
+
+
 });
 
 
@@ -91,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ----------------------- Credit Cards Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     // check if [user_outcome] was empty
-    const empty_credit_cards_title = document.querySelector('#empty-transactions-description');
+    const empty_credit_cards_title = document.querySelector('#empty-credit-cards-list-description');
     if (Object.keys(user_cards).length === 0) {
         empty_credit_cards_title.textContent = 'לא נמצאו כרטיסים בחשבון';
         return;
@@ -250,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ----------------------- Credit Cards Transactions Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     // Check if user_cards is empty
-    const emptyCreditCardsTitle = document.querySelector('#empty-transactions-description');
+    const emptyCreditCardsTitle = document.querySelector('#empty-credit-cards-transactions-description');
     if (Object.keys(user_cards).length === 0) {
         emptyCreditCardsTitle.textContent = 'לא נמצאו עסקאות אשראי';
         return;
@@ -384,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ----------------------- Bank Transactions Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
     // Check if user_cards is empty
-    const emptyBankTitle = document.querySelector('#empty-transactions-description');
+    const emptyBankTitle = document.querySelector('#empty-bank-transactions-description');
     if (Object.keys(user_cards).length === 0) {
         emptyBankTitle.textContent = 'לא נמצאו תנועות בנק';
         return;

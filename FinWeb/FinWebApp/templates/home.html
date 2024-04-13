@@ -121,16 +121,17 @@
 
     <!-- Load data into variables from View -->
     <script>
-        let user_information = {{ user_information|safe }};
-        let user_cards = {{ user_cards|safe }};
-        let user_direct_debit_subscriptions = {{ user_direct_debit_subscriptions|safe }};
-        let user_income = {{ user_income|safe }};
-        let user_outcome = {{ user_outcome|safe }};
-        let spent_by_category = {{ spent_by_category|safe }};
-        let bank_transaction_by_category = {{ bank_transaction_by_category|safe }};
-        let spent_by_card = {{ spent_by_card|safe }};
-        let income_by_month = {{ income_by_month|safe }};
-        let income_against_outcome = {{ income_against_outcome|safe }};
+        let user_information =                  {{ user_information|safe }};
+        let user_personal_information =         {{ user_personal_information|safe }};
+        let user_cards =                        {{ user_cards|safe }};
+        let user_direct_debit_subscriptions =   {{ user_direct_debit_subscriptions|safe }};
+        let user_income =                       {{ user_income|safe }};
+        let user_outcome =                      {{ user_outcome|safe }};
+        let spent_by_category =                 {{ spent_by_category|safe }};
+        let bank_transaction_by_category =      {{ bank_transaction_by_category|safe }};
+        let spent_by_card =                     {{ spent_by_card|safe }};
+        let income_by_month =                   {{ income_by_month|safe }};
+        let income_against_outcome =            {{ income_against_outcome|safe }};
     </script>
 
 </head>
@@ -402,7 +403,7 @@
                             <path fill="#555ce4"
                                   d="M 257.339844 26.40625 C 257.339844 26.40625 257.910156 23.433594 252.796875 20.828125 C 247.71875 18.242188 241.578125 19.042969 238.082031 20.195312 C 235.40625 21.078125 220.164062 27.003906 232.679688 30.085938 C 234.171875 30.453125 236.855469 30.453125 239.683594 30.25 C 239.1875 30.542969 238.917969 30.804688 238.96875 31 C 239.109375 31.535156 241.621094 31.34375 244.578125 30.570312 C 246.652344 30.027344 248.390625 29.34375 249.199219 28.796875 C 249.445312 28.722656 249.6875 28.636719 249.921875 28.53125 C 250.5 30.714844 254.582031 33.535156 255.5 33.1875 C 256.421875 32.84375 261.59375 28.992188 257.339844 26.40625 Z M 257.339844 26.40625 "
                                   fill-opacity="1" fill-rule="nonzero"></path>
-                            <text x="60" y="45" id="profile-avatar-text" direction="ltr">{{ avatar_title }}</text>
+                            <text x="210" y="45" id="profile-avatar-text" direction="rtl">ברוך הבא, משתמש!</text>
                             <style type="text/css">
                                 text {
                                     font-family: 'Gan', sans-serif;

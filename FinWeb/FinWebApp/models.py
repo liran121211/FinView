@@ -1,4 +1,3 @@
-import math
 from datetime import datetime
 from typing import Text, List
 import pandas as pd
@@ -6,12 +5,12 @@ from django.db import models
 from . import FIN_CORE, INVALID_ANSWER
 
 
-def IncomeAgainstOutcome(username: Text):
+def income_against_outcome(username: Text):
     # Get the current date
     month, year = datetime.now().month, datetime.now().year
 
-    income_query = FIN_CORE.ask['how_much_earned_in_specific_date'](selected_month=month, selected_year=2023, username=username)
-    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](selected_month=month, selected_year=2023, username=username)
+    income_query = FIN_CORE.ask['how_much_earned_in_specific_date_bank'](month, 2023, username=username)
+    outcome_query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](month, 2023,username=username)
 
     # handle case of missing data from specific date.
     if income_query is None or outcome_query is None:
@@ -23,13 +22,14 @@ def IncomeAgainstOutcome(username: Text):
         return INVALID_ANSWER
 
 
-def IncomeByMonthQuery(username: Text):
+def income_by_month(username: Text):
     cols_names = ['month_name', 'total_amount', ]
-    hebrew_months = ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
+    hebrew_months = ["ינואר", "פבואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר',
+                     'דצמבר']
 
     income_by_month = []
     for i, _ in enumerate(hebrew_months, start=1):
-        query = FIN_CORE.ask['how_much_earned_in_specific_date'](selected_month=i, selected_year=2023, username=username)
+        query = FIN_CORE.ask['how_much_earned_in_specific_date_bank'](i, 2023, username=username)
         if query is None:
             income_by_month.append(0.)
         else:
@@ -53,11 +53,12 @@ def spent_by_business_query(username: Text, mode: Text = 'Simple', sort_card: Te
         if sort_card == 'All':
             query = FIN_CORE.ask['which_records_by_business_name'](business_name='', username=username)
         else:
-            query = FIN_CORE.ask['which_records_by_business_name_specific_card'](business_name='', selected_card=int(sort_card), username=username)
+            query = FIN_CORE.ask['which_records_by_business_name_specific_card'](business_name='', selected_card=int(sort_card),username=username)
 
         for record in query:
             if record[business_name_query_idx] in record_structure.keys():
-                record_structure[record[business_name_query_idx]][charge_amount_dict_idx] += record[charge_amount_query_idx]
+                record_structure[record[business_name_query_idx]][charge_amount_dict_idx] += record[
+                    charge_amount_query_idx]
                 record_structure[record[business_name_query_idx]][purchases_quantity_dict_idx] += 1
             else:
                 record_structure[record[business_name_query_idx]] = [record[charge_amount_query_idx], 1]
@@ -74,7 +75,8 @@ def spent_by_business_query(username: Text, mode: Text = 'Simple', sort_card: Te
         return sorted(chart_data, key=lambda x: x['x'], reverse=True)
 
 
-def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List = None, sort_period: Text = 'Monthly', sort_card: Text = 'All'):
+def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List = None, sort_period: Text = 'Monthly',
+                            sort_card: Text = 'All'):
     cols_names = ['transaction_category', 'total_amount', ]
 
     if mode == 'Simple':
@@ -87,7 +89,7 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
             if sort_card == 'All':
                 query = FIN_CORE.ask['how_much_spent_by_category_specific_date'](month, year, username)
             else:
-                query = FIN_CORE.ask['how_much_spent_by_category_specific_date_card'](month, year, int(sort_card), username)
+                query = FIN_CORE.ask['how_much_spent_by_category_specific_date_card'](month, year, int(sort_card),username)
 
             date_yo_string = str(month) + '/' + str(year)
             if len(query) == 0:
@@ -113,8 +115,8 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
                     for idx, (category, charge_amount) in enumerate(categories_list):
                         result[date_yo_string][idx] = [0.0, category]
 
-            quarter_categories  = dict()
-            quarters_sums       = dict()
+            quarter_categories = dict()
+            quarters_sums = dict()
             for idx, (date_yo_string, categories_list) in enumerate(result.items()):
                 if idx % 3 == 0:
                     quarter_categories = dict()
@@ -127,13 +129,13 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
 
                 # List to store the sums of chunks
                 if idx == QUARTER_1:
-                    quarters_sums['רבעון 1'] = [[k,v] for k,v in quarter_categories.items()]
+                    quarters_sums['רבעון 1'] = [[k, v] for k, v in quarter_categories.items()]
                 if idx == QUARTER_2:
-                    quarters_sums['רבעון 2'] = [[k,v] for k,v in quarter_categories.items()]
+                    quarters_sums['רבעון 2'] = [[k, v] for k, v in quarter_categories.items()]
                 if idx == QUARTER_3:
-                    quarters_sums['רבעון 3'] = [[k,v] for k,v in quarter_categories.items()]
+                    quarters_sums['רבעון 3'] = [[k, v] for k, v in quarter_categories.items()]
                 if idx == QUARTER_4:
-                    quarters_sums['רבעון 4'] = [[k,v] for k,v in quarter_categories.items()]
+                    quarters_sums['רבעון 4'] = [[k, v] for k, v in quarter_categories.items()]
 
             return quarters_sums
 
@@ -155,7 +157,7 @@ def spent_by_category_query(username: Text, mode: Text = 'Simple', dates: List =
                                     year_categories[category] += charge_amount
 
                     # List to store the sums of chunks
-                    yearly_sums[year] = [[k,v] for k,v in year_categories.items()]
+                    yearly_sums[year] = [[k, v] for k, v in year_categories.items()]
 
             except IndexError:
                 extract_years = {x.split('/')[1] for x in result.keys()}
@@ -203,8 +205,8 @@ def spent_by_date_query(username: Text, dates: List, sort_period: Text = 'Monthl
         }
 
         # Iterate over the list in chunks of three
-        result_vals = [sum(list(result.values())[i:i+3]) for i in range(0, len(result), 3)]
-        for i, (k,v) in enumerate(quarters_sums.items()):
+        result_vals = [sum(list(result.values())[i:i + 3]) for i in range(0, len(result), 3)]
+        for i, (k, v) in enumerate(quarters_sums.items()):
             quarters_sums[k] = round(result_vals[i], 2)
         return quarters_sums
 
@@ -216,7 +218,7 @@ def spent_by_date_query(username: Text, dates: List, sort_period: Text = 'Monthl
                 yearly_sums[year] = 0.0
 
             for current_year in yearly_sums.keys():
-                yearly_sums[current_year] = round(sum([v for (k,v) in result.items() if current_year in k]), 2)
+                yearly_sums[current_year] = round(sum([v for (k, v) in result.items() if current_year in k]), 2)
         except IndexError:
             return [0.0 for _ in range(12)]
         except ValueError:
@@ -234,6 +236,7 @@ def credit_card_line_query(username: Text, sort_card: Text = 'All'):
     else:
         return FIN_CORE.ask['total_credit_cards_line_available_specific_card'](int(sort_card), username)
 
+
 def income_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
     result = dict()
     for (month, year) in dates:
@@ -246,7 +249,7 @@ def income_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
             # query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](month, year, int(sort_bank), username)
             # result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
 
-    return  result
+    return result
 
 
 def outcome_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
@@ -261,7 +264,8 @@ def outcome_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
             # query = FIN_CORE.ask['how_much_spent_in_specific_date_bank'](month, year, int(sort_bank), username)
             # result[str(month) + '/' + str(year)] = round(query, 2) if query is not None else 0.0
 
-    return  result
+    return result
+
 
 def BankTransactionByCategoryQuery(username: Text):
     cols_names = ['transaction_category', 'total_amount', ]

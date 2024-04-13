@@ -268,7 +268,7 @@ border-bottom-width: 0px;
 font-family: 'Gan', sans-serif;
 cursor: pointer;
 }
-.home-container2 {
+.settings-side-bar-avatar-section {
 padding: 5px;
 display: flex;
 align-items: flex-end;
@@ -278,14 +278,14 @@ justify-content: space-between;
 font-family: 'Gan', sans-serif;
 cursor: pointer;
 }
-.home-text16 {
+.settings-side-bar-full-name {
 font-size: 1.15rem;
 align-self: flex-start;
 font-style: normal;
 font-weight: 600;
 margin-bottom: 0.25rem;
 }
-.home-text17 {
+.settings-side-bar-account-status {
 color: var(--dl-color-gray-500);
 font-size: 0.75rem;
 }

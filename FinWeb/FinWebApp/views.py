@@ -7,7 +7,7 @@ import os
 from PIL import Image
 from random import randint
 from typing import Text, Any, List
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -25,10 +25,10 @@ from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_
     FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE, FIRST_IDX
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
-    spent_by_category_query, SpentByCardNumberQuery, IncomeByMonthQuery, UserCreditCardsTransactions, \
-    IncomeAgainstOutcome, \
+    spent_by_category_query, SpentByCardNumberQuery, income_by_month, UserCreditCardsTransactions, \
+    income_against_outcome, \
     BankTransactionByCategoryQuery, UserPersonalInformation, spent_by_date_query, \
-    spent_by_business_query, credit_card_line_query, income_by_bank_query, outcome_by_bank_query
+    spent_by_business_query, income_by_bank_query, outcome_by_bank_query
 
 
 def home_view(request):
@@ -44,9 +44,9 @@ def home_view(request):
             'spent_by_category': spent_by_category_query(logged_in_user, mode='Simple'),  # Pie-Chart view
             'bank_transaction_by_category': BankTransactionByCategoryQuery(logged_in_user),  # Pie-Chart view
             'spent_by_card': SpentByCardNumberQuery(logged_in_user),  # Pie-Chart view
-            'income_by_month': IncomeByMonthQuery(logged_in_user),
-            'income_against_outcome': IncomeAgainstOutcome(logged_in_user),
-            'avatar_title': "!" + "ברוך הבא, " + retrieve_user_personal_information(logged_in_user)['first_name']
+            'income_by_month': income_by_month(logged_in_user),
+            'income_against_outcome': income_against_outcome(logged_in_user),
+            'user_personal_information': retrieve_user_personal_information(logged_in_user),
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -125,33 +125,55 @@ def analytics_and_trends_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
         latest_12_months = get_last_12_months()
-        cards_4_digits = [card for card in retrieve_user_cards(username=logged_in_user)['last_4_digits']]
+        cards_4_digits = [card.get('last_4_digits', None) for card in retrieve_user_cards(username=logged_in_user)]
+
+        try:
+            bank_current_balance = {
+                'record_date': retrieve_user_bank_transactions(username=logged_in_user, positive_only=True)['transaction_date'][FIRST_IDX],
+                'amount': retrieve_user_bank_transactions(username=logged_in_user, positive_only=True)['current_balance'][FIRST_IDX],
+            }
+
+        except KeyError:
+            bank_current_balance = {
+                'record_date': 'לא קיים מידע',
+                'amount': '0.0'
+            }
+
+        except IndexError:
+            bank_current_balance = {
+                'record_date': 'לא קיים מידע',
+                'amount' : '0.0'
+            }
 
         return render(request, 'analytics_and_trends.html', {
             'user_information': retrieve_user_information(username=logged_in_user),
             'user_cards': retrieve_user_cards(username=logged_in_user),
             'spent_by_date_monthly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly'),
-            'spent_by_date_monthly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user,sort_period='Monthly', sort_card=card) for card in cards_4_digits],
-            'spent_by_date_quarterly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly',sort_card=card) for card in cards_4_digits],
-            'spent_by_date_yearly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly',sort_card=card) for card in cards_4_digits],
+            'spent_by_date_monthly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly', sort_card=card) for card in cards_4_digits],
+            'spent_by_date_quarterly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly', sort_card=card) for card in cards_4_digits],
+            'spent_by_date_yearly_specific_card': [spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly', sort_card=card) for card in cards_4_digits],
             'spent_by_date_quarterly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly'),
             'spent_by_date_yearly': spent_by_date_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly'),
             'spent_by_category_monthly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort_period='Monthly'),
-            'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort_period='Quarterly'),
-            'spent_by_category_yearly': spent_by_category_query(username=logged_in_user, mode='Analytics',dates=latest_12_months, sort_period='Yearly'),
-            'spent_by_category_monthly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly',sort_card=card, mode='Analytics') for card in cards_4_digits],
-            'spent_by_category_quarterly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly',sort_card=card, mode='Analytics') for card in cards_4_digits],
+            'spent_by_category_quarterly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort_period='Quarterly'),
+            'spent_by_category_yearly': spent_by_category_query(username=logged_in_user, mode='Analytics', dates=latest_12_months, sort_period='Yearly'),
+            'spent_by_category_monthly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Monthly', sort_card=card, mode='Analytics') for card in cards_4_digits],
+            'spent_by_category_quarterly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Quarterly', sort_card=card, mode='Analytics') for card in cards_4_digits],
             'spent_by_category_yearly_specific_card': [spent_by_category_query(dates=latest_12_months, username=logged_in_user, sort_period='Yearly', sort_card=card, mode='Analytics') for card in cards_4_digits],
             'spent_by_business': spent_by_business_query(username=logged_in_user, mode='Analytics'),
             'spent_by_business_specific_card': [spent_by_business_query(username=logged_in_user, mode='Analytics', sort_card=card) for card in cards_4_digits],
             'bank_income_by_year': income_by_bank_query(dates=latest_12_months, username=logged_in_user),
             'bank_outcome_by_year': outcome_by_bank_query(dates=latest_12_months, username=logged_in_user),
+            'bank_current_balance': bank_current_balance,
+            'bank_credit_line': [0.0],
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
 
+
 def analytics_and_trends_post():
     pass
+
 
 def settings_view(request):
     if request.user.is_authenticated:
@@ -172,9 +194,9 @@ def settings_view(request):
             'credit_cards_transactions': retrieve_user_credit_card_transactions(logged_in_user),
             'bank_transactions': retrieve_user_bank_transactions(logged_in_user, positive_only=False),
             'direct_debit_subscriptions': retrieve_user_direct_debit_subscription_records(logged_in_user),
-            'full_name': f"{request.user.first_name} {request.user.last_name}",
-            'account_status': "משתמש פעיל" if request.user.is_active == True else "משתמש לא פעיל",
-            'portrait': retrieve_user_personal_information(logged_in_user)['portrait']
+            'full_name': {'value': f"{request.user.first_name} {request.user.last_name}"},
+            'account_status': {'value': "משתמש פעיל" if request.user.is_active is True else "משתמש לא פעיל"},
+            'portrait': {'value': user_portrait_or_default(retrieve_user_personal_information(logged_in_user)['portrait'])},
         })
 
     return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -202,9 +224,9 @@ def settings_personal_information_post(request):
                     # Decode base64-encoded image data
                     try:
                         # Remove the 'data:image/png;base64,' prefix
-                        format, imgstr = image_data.split(';base64,')
+                        _, img_string = image_data.split(';base64,')
                         # Decode base64 data
-                        image_binary_data = base64.b64decode(imgstr)
+                        image_binary_data = base64.b64decode(img_string)
 
                     except binascii.Error as e:
                         Logger.critical("Base64 decoding error:", e)
@@ -214,7 +236,7 @@ def settings_personal_information_post(request):
                         try:
                             # Create a file path for saving the image
                             local_image_path = os.path.join(settings.STATIC_ROOT, 'images', 'portraits', f"{request.user.username}_portrait.png")
-                            global_image_path = os.path.join(settings.BASE_DIR, 'FinWebApp', 'static', 'images', 'portraits',f"{request.user.username}_portrait.png")
+                            global_image_path = os.path.join(settings.BASE_DIR, 'FinWebApp', 'static', 'images', 'portraits', f"{request.user.username}_portrait.png")
 
                             # Create a PIL Image object from the original image data
                             original_image = Image.open(io.BytesIO(image_binary_data))
@@ -235,10 +257,10 @@ def settings_personal_information_post(request):
     handle_instance_modification(user_personal_information_object)
 
     if request.method == 'POST':
-        user_personal_information_object.first_name = request.POST.get('first_name',user_personal_information_object.first_name)
-        user_personal_information_object.last_name = request.POST.get('last_name',user_personal_information_object.last_name)
+        user_personal_information_object.first_name = request.POST.get('first_name', user_personal_information_object.first_name)
+        user_personal_information_object.last_name = request.POST.get('last_name', user_personal_information_object.last_name)
         user_personal_information_object.email = request.POST.get('email', user_personal_information_object.email)
-        user_personal_information_object.password = request.POST.get('password',user_personal_information_object.password)
+        user_personal_information_object.password = request.POST.get('password', user_personal_information_object.password)
 
         # check if modification of instance cause an exception
         if handle_instance_modification(user_personal_information_object):
@@ -570,14 +592,14 @@ def retrieve_user_personal_information(username: Text) -> dict:
         dict_data['email'].append(filtered_data.email)
 
     if dict_data.get('date_joined', None) is None:
-        dict_data['date_joined'] = filtered_data.date_joined
+        dict_data['date_joined'] = str(filtered_data.date_joined)
     else:
-        dict_data['date_joined'].append(filtered_data.date_joined)
+        dict_data['date_joined'].append(str(filtered_data.date_joined))
 
     if dict_data.get('active_user', None) is None:
-        dict_data['active_user'] = filtered_data.active_user
+        dict_data['active_user'] = str(filtered_data.active_user)
     else:
-        dict_data['active_user'].append(filtered_data.active_user)
+        dict_data['active_user'].append(str(filtered_data.active_user))
 
     if dict_data.get('portrait', None) is None:
         dict_data['portrait'] = filtered_data.portrait
@@ -622,7 +644,6 @@ def get_last_12_months() -> List[List[int]]:
         months_list.append([relative_date.month, relative_date.year])
 
     return months_list
-
 
 
 def handle_instance_modification(instance: Any) -> bool:
@@ -704,14 +725,14 @@ def handle_uploaded_file(file: UploadedFile, username: Text) -> int:
 
         # Validate file type
         allowed_types = settings.ALLOWED_UPLOAD_TYPES
-        if not file.content_type in allowed_types:
+        if file.content_type not in allowed_types:
             Logger.warning("ValidationError: File type not allowed")
             return FILE_WRONG_TYPE
 
         # Generate a unique filename
         filename = str(username) + '_' + datetime.now().strftime("%d_%m_%y_%H_%M_%S") + '___' + file.name
         while os.path.exists(os.path.join(settings.MEDIA_ROOT, filename)):
-            filename = str(username) + '_' + datetime.now().strftime("%d_%m_%y_%H_%M_%S") + '___'  + filename + '_' + randint(1, 100)
+            filename = str(username) + '_' + datetime.now().strftime("%d_%m_%y_%H_%M_%S") + '___' + filename + '_' + randint(1, 100)
 
         # Save the file to the media directory
         try:
@@ -743,8 +764,6 @@ def handle_processed_file(file: UploadedFile, username: Text) -> Any:
     return result
 
 
-
-
 def upload_post(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
@@ -769,7 +788,7 @@ def upload_post(request):
                 return JsonResponse({'statusText': 'הקובץ אינו במבנה תקין'}, status=FILE_WRONG_STRUCTURE)
 
             if upload_status == FILE_UPLOAD_SUCCESS:
-                return JsonResponse({'statusText': 'הקובץ הועלה בהצלחה','Statistics': process_status}, status=FILE_UPLOAD_SUCCESS)
+                return JsonResponse({'statusText': 'הקובץ הועלה בהצלחה', 'Statistics': process_status}, status=FILE_UPLOAD_SUCCESS)
 
         return JsonResponse({'statusText': 'שגיאת העלאה כללית'}, status=FILE_UPLOAD_ERROR)
 
@@ -777,3 +796,9 @@ def upload_post(request):
 def handler404(request, exception):
     # Handle the 404 error and render the custom 404 template
     return render(request, '404.html', status=404)
+
+
+def user_portrait_or_default(img_name: Text) -> Text:
+    if os.path.exists(os.path.join(os.getcwd(), 'static','images', 'portraits', img_name)):
+        return img_name
+    return 'default_portrait.svg'

@@ -13,7 +13,7 @@ class Users:
         self.logger = Logger
         self.db = PostgreSQL_DB
 
-    def add_user(self, username: Text, password: Text, first_name: Text, last_name: Text, email:Text) -> int:
+    def add_user(self, username: Text, password: Text, first_name: Text, last_name: Text, email: Text) -> int:
         if self.is_user_exist(username=username):
             return RECORD_EXIST
 
@@ -102,7 +102,6 @@ class CreditCardsTransactions:
         except InvalidDatetimeFormat as e:
             self.logger.exception(e)
             return SQL_QUERY_FAILED
-
 
     def modify_transaction(self, record_data: Dict, transaction_id: Text) -> int:
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
@@ -675,7 +674,7 @@ class Application:
 
                 # extract current bank balance (last loaded statement)
                 current_debit = BankLeumiParser.extract_current_bank_debit(bank_leumi_data.data)
-                self.__manage_user_financial_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
+                self.__manage_user_financial_information.modify_information(username=current_user, record_data={'current_debit': current_debit})
 
             if statement_provider == 'BankMizrahiTefahot':
                 # create instance & validate statement
@@ -708,7 +707,7 @@ class Application:
 
                 # extract current bank balance (last loaded statement)
                 current_debit = BankMizrahiTefahotParser.extract_current_bank_debit(bank_mizrahi_tefahot_data)
-                self.__manage_user_financial_information.modify_information(username=current_user,record_data={'current_debit': current_debit})
+                self.__manage_user_financial_information.modify_information(username=current_user, record_data={'current_debit': current_debit})
 
         return statements_stats
 
@@ -887,6 +886,9 @@ class Application:
                     f" FROM user_credit_card_transactions" \
                     f" WHERE username='{username}'" \
                     f" GROUP BY transaction_category;"
+
+            result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
+            return result
 
         def how_much_spent_by_category_specific_date(selected_month: Text, selected_year: int, username: Text):
             query = f"SELECT transaction_category, SUM(charge_amount) AS total_category_sum" \

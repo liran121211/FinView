@@ -1,4 +1,3 @@
-import base64
 import hashlib
 from typing import Text, Dict, List
 
@@ -25,24 +24,6 @@ class PostgreSQL:
 
         # Get the hexadecimal representation of the hash
         return result
-
-    @staticmethod
-    def calc_pbkdf2_hash(password, salt=None, iterations=180000, hash_algorithm='sha256', hash_length=32):
-        if salt is None:
-            salt = os.urandom(16)  # Generate a random salt
-
-        # Create the PBKDF2 hash
-        pbkdf2_hash = hashlib.pbkdf2_hmac(hash_algorithm, password.encode('utf-8'), salt, iterations, dklen=hash_length)
-
-        # Encode the hash using Base64
-        pbkdf2_hash_base64 = base64.b64encode(pbkdf2_hash).decode('utf-8')
-
-        # Return the salt and hash as strings
-        salt_str = base64.b64encode(salt).decode('utf-8')
-
-        # Return the salt and hash as bytes
-        django_encryption_scheme = ['pbkdf2_sha256', '600000', salt_str, pbkdf2_hash_base64]
-        return '$'.join(django_encryption_scheme)
 
     def __init__(self):
         self.connection = None

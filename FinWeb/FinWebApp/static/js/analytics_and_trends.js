@@ -19,7 +19,12 @@ let chartInstances = {
     'SpentByCategoryQuarterly': null,
     'SpentByCategoryYearly': null,
     'SpentByBusiness': null,
+    'IncomeOutcomeBank': null,
 }
+
+// defines
+    const firstIdx = 0;
+    const secondIdx = 1;
 
 /* ----------------------- Credit Cards Analytics & Trends Section ----------------------- */
 
@@ -28,25 +33,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //set current due amount
     if (Object.keys(spent_by_date_monthly).length > 0) {
-        if (isCurrentDate(Object.keys(spent_by_date_monthly)[0]))
-            document.getElementById('current-card-due').textContent = "החיוב הקרוב: ".concat(Object.values(spent_by_date_monthly)[0]).concat(' ש"ח');
+        if (isCurrentDate(Object.keys(spent_by_date_monthly)[firstIdx])) {
+            const nextDue = Object.values(spent_by_date_monthly)[firstIdx];
+            document.getElementById('current-card-due').textContent = `₪ החיוב הקרוב: ${nextDue}`;
+        }
     }
 
     //set latest due amount
     if (Object.keys(spent_by_date_monthly).length > 1) {
-        if (isCurrentDate(Object.keys(spent_by_date_monthly)[0]))
-            document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly)[1]).concat(' ש"ח');
+        if (isCurrentDate(Object.keys(spent_by_date_monthly)[firstIdx])) {
+            const latestDue = Object.values(spent_by_date_monthly)[secondIdx];
+            document.getElementById('last-card-due').textContent = `₪ החיוב האחרון: ${latestDue}`;
+        }
     }
 
     //set credit line usage
     let totalCreditLineAvailable = 0.0;
     let totalCreditLineUsage = 0.0;
-    const currentDate = Object.keys(spent_by_date_monthly)[0];
+    const currentDate = Object.keys(spent_by_date_monthly)[firstIdx];
 
     if (Object.keys(spent_by_date_monthly).length > 0 && isCurrentDate(currentDate)) {
         if (Object.keys(user_cards).length > 0) {
             const cardKeys = Object.keys(user_cards);
-            const totalCards = user_cards[cardKeys[0]].length; // Assuming all cards have the same length
+            const totalCards = user_cards[cardKeys[firstIdx]].length; // Assuming all cards have the same length
 
             for (let i = 0; i < totalCards; i++) {
                 totalCreditLineAvailable += user_cards.credit_line[i];
@@ -55,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
             totalCreditLineUsage = (spent_by_date_monthly[currentDate] / totalCreditLineAvailable) * 100;
         }
 
-        const utilizationRatioElement = document.getElementById('utilization-ratio');
+        const utilizationRatioElement = document.getElementById('credit-card-utilization-ratio');
         utilizationRatioElement.textContent = `ניצול מסגרת: 100%/${totalCreditLineUsage.toFixed(2).toLocaleString()}%`;
     }
 
@@ -114,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Define the number of credit card selection boxes to add
     let numberOfBoxes = 0;
     if (Object.keys(user_cards).length > 0) {
-        const col_name = Object.keys(user_cards)[0];
+        const col_name = Object.keys(user_cards)[firstIdx];
         numberOfBoxes = user_cards[col_name].length; // You can set this dynamically
     }
 
@@ -181,18 +190,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 // update bill due and credit line usage
                 //set current due amount
                 if (Object.keys(spent_by_date_monthly_specific_card[cardIdx]).length > 0) {
-                    if (isCurrentDate(Object.keys(spent_by_date_monthly_specific_card[cardIdx])[0]))
-                        document.getElementById('current-card-due').textContent = "החיוב הקרוב: ".concat(Object.values(spent_by_date_monthly_specific_card[cardIdx])[0]).concat(' ש"ח');
+                    if (isCurrentDate(Object.keys(spent_by_date_monthly_specific_card[cardIdx])[firstIdx]))
+                        document.getElementById('current-card-due').textContent = "החיוב הקרוב: ".concat(Object.values(spent_by_date_monthly_specific_card[cardIdx])[firstIdx]).concat(' ש"ח');
                 }
 
                 //set latest due amount
                 if (Object.keys(spent_by_date_monthly).length > 1)
-                    document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly_specific_card[cardIdx])[1]).concat(' ש"ח');
+                    document.getElementById('last-card-due').textContent = "החיוב האחרון: ".concat(Object.values(spent_by_date_monthly_specific_card[cardIdx])[secondIdx]).concat(' ש"ח');
 
                 //set credit line usage
                 let totalCreditLineAvailable = 0.0;
                 let totalCreditLineUsage = 0.0;
-                const currentDate = Object.keys(spent_by_date_monthly_specific_card[cardIdx])[0];
+                const currentDate = Object.keys(spent_by_date_monthly_specific_card[cardIdx])[firstIdx];
 
                 if (Object.keys(spent_by_date_monthly_specific_card[cardIdx]).length > 0 && isCurrentDate(currentDate)) {
                     if (Object.keys(user_cards).length > 0) {
@@ -426,23 +435,31 @@ function spentByBusinessWordCloud(data) {
 
 /* ----------------------- Bank Analytics & Trends Section ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-
     //set current balance amount
-    if (Object.keys(bank_income_by_year).length > 0) {
-        if (isCurrentDate(Object.keys(bank_income_by_year)[0]))
-            document.getElementById('last-bank-fund').textContent = "סה\"כ הכנסות אחרונות: ".concat(Object.values(bank_income_by_year)[0]).concat(' ש"ח');
+    if (Object.keys(bank_current_balance).length > 0) {
+        document.getElementById('current-bank-balance-amount').textContent = `₪ יתרה נוכחית: ${bank_current_balance.amount}`;
+        document.getElementById('current-bank-balance-date').textContent = `(${bank_current_balance.record_date}*)`;
     }
 
     //set current due amount
     if (Object.keys(bank_income_by_year).length > 0) {
-        if (isCurrentDate(Object.keys(bank_income_by_year)[0]))
-            document.getElementById('last-bank-fund').textContent = "סה\"כ הכנסות אחרונות: ".concat(Object.values(bank_income_by_year)[0]).concat(' ש"ח');
+        const lastIncome = Object.values(bank_income_by_year)[firstIdx];
+        if (isCurrentDate(Object.keys(bank_income_by_year)[firstIdx]))
+            document.getElementById('last-bank-fund').textContent = `₪ סה"כ הכנסות אחרונות: ${lastIncome}`;
     }
 
     //set latest due amount
     if (Object.keys(bank_outcome_by_year).length > 1) {
-        if (isCurrentDate(Object.keys(bank_outcome_by_year)[0]))
-            document.getElementById('last-bank-account-due').textContent = "סה\"כ הוצאות אחרונות: ".concat(Object.values(bank_outcome_by_year)[1]).concat(' ש"ח');
+        if (isCurrentDate(Object.keys(bank_outcome_by_year)[firstIdx])) {
+            const lastExpense = Object.values(bank_outcome_by_year)[secondIdx];
+            document.getElementById('last-bank-account-due').textContent = `₪ סה"כ הוצאות אחרונות: ${lastExpense}`;
+        }
+    }
+
+    //set bank credit line
+    if (Object.keys(bank_credit_line).length > 0) {
+        const bankCreditLine = Object.values(bank_credit_line)[firstIdx];
+            document.getElementById('bank-utilization-ratio').textContent = `₪ מסגרת חשבון: ${bankCreditLine}`;
     }
 
     const ctx = document.getElementById('income_outcome_by_year_bank').getContext('2d');
@@ -453,12 +470,12 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 label: 'הכנסות',
                 data: Object.values(bank_income_by_year),
-                backgroundColor: 'rgba(157, 189, 61, 0.5)', // Red
+                backgroundColor: 'rgba(157, 189, 61, 0.5)',
             },
             {
                 label: 'הוצאות',
                 data: Object.values(bank_outcome_by_year),
-                backgroundColor: 'rgba(222, 48, 48, 0.5)', // Blue
+                backgroundColor: 'rgba(222, 48, 48, 0.5)',
             },
         ]
     };
@@ -482,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    const myChart = new Chart(ctx, config);
+    chartInstances['IncomeOutcomeBank'] = new Chart(ctx, config);
 
 });
 
@@ -497,9 +514,16 @@ function isCurrentDate(date) {
 
 // Extract month and year from the string date
     let parts = date.split('/');
-    let monthToCompare = parseInt(parts[0], 10);
-    let yearToCompare = parseInt(parts[1], 10);
+    let monthToCompare = parseInt(parts[firstIdx], 10);
+    let yearToCompare = parseInt(parts[secondIdx], 10);
 
 // Compare the month and year
     return currentMonth === monthToCompare && currentYear === yearToCompare;
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero if necessary
+    const year = date.getFullYear();
+    return `${month}/${year}`;
 }

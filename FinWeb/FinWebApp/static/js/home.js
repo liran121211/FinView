@@ -3,6 +3,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".income-outcome-half-doughnut").style.display = 'none';
         document.querySelector(".dashboard-separator-2").style.display = 'none';
     }
+
+    // dynamically change user avatar name according to first name length
+    let welcomeAvatarSvg = document.querySelector('#profile-avatar-text');
+    welcomeAvatarSvg.textContent = `ברוך הבא, ${user_personal_information.first_name}!`;
+    if ((user_personal_information.first_name.length) > 7) {
+        const newFontSize = 24 * (1 - ((user_personal_information.first_name.length - 7) * 7.5) / 100)
+        welcomeAvatarSvg.style.fontSize = `${newFontSize}px`;
+    }
+    if ((user_personal_information.first_name.length) > 10) {
+        const newAvatarName = user_personal_information.first_name.slice(0,9).concat('...');
+        welcomeAvatarSvg.textContent = `ברוך הבא, ${newAvatarName}!`;
+        welcomeAvatarSvg.style.fontSize = `18px`;
+    }
+
 });
 /* ----------------------- Outcome Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
@@ -257,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.width = 520; // Set your desired width
         canvas.height = 224; // Set your desired height
     }
-    const _ = new Chart(canvas, balance_history_config);
+    new Chart(canvas, balance_history_config);
 });
 
 

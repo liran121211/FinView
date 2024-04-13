@@ -111,10 +111,13 @@
 
     <!-- Load data into variables from View -->
     <script>
-        let user_cards = {{ user_cards|safe }};
-        let credit_cards_transactions = {{ credit_cards_transactions|safe }};
-        let bank_transactions = {{ bank_transactions|safe }};
-        let direct_debit_subscriptions = {{ direct_debit_subscriptions|safe }};
+        let user_cards =                    {{ user_cards|safe }};
+        let credit_cards_transactions =     {{ credit_cards_transactions|safe }};
+        let bank_transactions =             {{ bank_transactions|safe }};
+        let direct_debit_subscriptions =    {{ direct_debit_subscriptions|safe }};
+        let full_name =                     {{ full_name|safe }};
+        let account_status =                {{ account_status|safe }};
+        let portrait =                      {{ portrait|safe }};
     </script>
 
 </head>
@@ -207,9 +210,9 @@
                         <span class="nav-span" data-div="upload-files-div">העלאת מידע</span>
                     </nav>
                     <div class="home-profile">
-                        <div class="home-container2">
-                            <span class="home-text16">{{ full_name }}</span>
-                            <span class="home-text17">{{ account_status }}</span>
+                        <div class="settings-side-bar-avatar-section">
+                            <span class="settings-side-bar-full-name">{{ full_name.value }}</span>
+                            <span class="settings-side-bar-account-status">{{ account_status.value }}</span>
                         </div>
                         <canvas id="profile-pic" width="60" height="60"></canvas>
 
@@ -232,7 +235,7 @@
                             };
 
                             // Set the source of the image
-                            image.src = "{% static 'images/portraits/' %}" + '{{ portrait }}'; // Replace 'your_image.jpg' with the path to your image
+                            image.src = "{% static 'images/portraits/' %}" + '{{ portrait.value }}'; // Replace 'your_image.jpg' with the path to your image
                         </script>
                     </div>
                 </div>
@@ -314,21 +317,23 @@
                         <th>4 ספרות אחרונות</th>
                         <th>שם המנפיק</th>
                         <th>סוג כרטיס</th>
-
                     </tr>
                     </thead>
                     <tbody>
                     <td class="credit-card-type-col">
-                        <p id="empty-transactions-description"></p>
+
                     </td>
                     <td class="credit-card-line-of-credit-col"></td>
                     <td class="credit-card-issuer-name-col"></td>
-                    <td class="credit-card-last-4-digits-col"></td>
+                    <td class="credit-card-last-4-digits-col">
+                    </td>
                     </tbody>
                 </table>
+                <div>
+                    <p id="empty-credit-cards-list-description"></p>
+                </div>
             </div>
             <div class="credit-cards-transactions-div">
-
                 <table id="credit-cards-transactions-table">
                     <thead>
                     <tr>
@@ -343,9 +348,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <td class="date-of-transaction-col">
-                        <p id="empty-transactions-description"></p>
-                    </td>
+                    <td class="date-of-transaction-col"></td>
                     <td class="last-4-digits-col"></td>
                     <td class="transaction-category-col"></td>
                     <td class="transaction-type-col"></td>
@@ -354,9 +357,11 @@
                     <td class="charge-amount-col"></td>
                     <td class="business-name-col"></td>
                     <td class="date-of-transaction-col"></td>
-
                     </tbody>
                 </table>
+                <div>
+                    <p id="empty-credit-cards-transactions-description"></p>
+                </div>
                 <div id="credit-cards-transactions-pagination"></div>
             </div>
             <div class="bank-transactions-div">
@@ -375,9 +380,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <td class="date-of-transaction-col">
-                        <p id="empty-transactions-description"></p>
-                    </td>
+                    <td class="date-of-transaction-col"></td>
                     <td class="account-number-col"></td>
                     <td class="transaction-category-col"></td>
                     <td class="transaction-reference-col"></td>
@@ -387,9 +390,11 @@
                     <td class="income-balance-col"></td>
                     <td class="transaction-description-col"></td>
                     <td class="transaction-date-col"></td>
-
                     </tbody>
                 </table>
+                <div>
+                    <p id="empty-bank-transactions-description"></p>
+                </div>
                 <div id="bank-transactions-pagination"></div>
             </div>
             <div class="direct-debit-subscription-div">
@@ -402,13 +407,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <td class="direct-debit-subscription-payment-type-col">
-                        <p id="empty-direct-debit-subscription"></p>
-                    </td>
+                    <td class="direct-debit-subscription-payment-type-col"></td>
                     <td class="direct-debit-subscription-amount-col"></td>
                     <td class="direct-debit-subscription-provider-name-col"></td>
                     </tbody>
                 </table>
+                <div>
+                    <p id="empty-direct-debit-subscription"></p>
+                </div>
                 <div id="direct-debit-subscription-pagination"></div>
             </div>
             <div class="upload-files-div">

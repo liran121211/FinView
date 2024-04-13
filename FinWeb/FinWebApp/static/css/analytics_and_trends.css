@@ -658,6 +658,13 @@ justify-content: center; /* Centers the entire div element */
 font-family: 'Gan', sans-serif;
 margin: 7px;
 }
+#current-bank-balance-date {
+font-family: 'Gan', sans-serif;
+margin-top: 10px;
+  margin-right: -2px;
+  font-size: 12px;
+  color: #aaaaaa;
+}
 
 .bank-icons-section img {
 width: 40px;
