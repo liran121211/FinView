@@ -6,6 +6,7 @@ import os.path
 import re
 from abc import ABC, abstractmethod
 from typing import AnyStr, Any
+
 from PyPDF2 import PdfReader
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
@@ -71,10 +72,6 @@ class Parser:
     def validate_file_structure(self):
         pass
 
-    @abstractmethod
-    def extract_transaction_type(self, transaction_type: AnyStr) -> AnyStr:
-        pass
-
     @property
     def data(self):
         return self.__df
@@ -107,7 +104,7 @@ class LeumiParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
-            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
 
         # extract last 4 digits
@@ -216,13 +213,14 @@ class LeumiParser(Parser, ABC):
 
         return valid_statement
 
+
 class CalOnlineParser(Parser, ABC):
     def __init__(self, file_path: AnyStr):
         super().__init__(file_path)
 
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
-            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type' 'category'])
 
         # Check if the required columns exist in the DataFrame
@@ -297,7 +295,7 @@ class CalOnlineParser(Parser, ABC):
         valid_statement = True
 
         try:
-            if not 'פירוט עסקאות לחשבו' in self.data.columns[0]:
+            if 'פירוט עסקאות לחשבו' not in self.data.columns[0]:
                 valid_statement = False
 
             date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx = 0, 1, 3, 4
@@ -330,7 +328,7 @@ class MaxParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
-            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type', 'category'])
 
         # Check if the required columns exist in the DataFrame
@@ -432,7 +430,7 @@ class IsracardParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
-            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['date_of_transaction', 'business_name', 'charge_amount', 'total_amount', 'transaction_type', 'transaction_provider', 'last_4_digits', 'card_type' 'category'])
 
         # Check if the required columns exist in the DataFrame
@@ -557,7 +555,7 @@ class BankLeumiParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
-            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
 
         # Check if the required columns exist in the DataFrame
@@ -677,7 +675,7 @@ class BankMizrahiTefahotParser(Parser, ABC):
 
     def extract_base_data(self) -> pd.DataFrame:
         if not self.is_valid:
-            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx.")
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['transaction_date', 'transaction_description', 'transaction_reference', 'income_balance', 'outcome_balance', 'current_balance', 'account_number', 'transaction_provider', 'transaction_category'])
 
         # Check if the required columns exist in the DataFrame
@@ -833,3 +831,325 @@ class BankMizrahiTefahotParser(Parser, ABC):
             return 0.0
         except ValueError:
             return 0.0
+
+
+class HilanParser(Parser, ABC):
+
+    def __init__(self, file_path: AnyStr):
+        super().__init__(file_path)
+
+    def parse(self) -> pd.DataFrame:
+        pass
+
+    def extract_base_data(self) -> pd.DataFrame:
+        def str_to_float(value):
+            if is_float_or_int(value):
+                return float(value)
+            return 0.0
+
+        def is_float_or_int(value):
+            try:
+                # Attempt to convert the text to a float
+                float_value = float(value)
+                # If successful, check if the float is equal to its integer representation
+                if float_value == int(float_value):
+                    return True  # It's an integer
+                else:
+                    return True  # It's a float
+            except ValueError:
+                return False  # Not a float or integer
+
+        if not self.is_valid:
+            self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
+            return pd.DataFrame(columns=['normal_hours_value', 'vacation_hours_value', 'completion_hours_value', 'global_hours_value', 'total_payment_value', 'holidays_hours_value', 'transport_value', 'ssn_value',
+                                         'marriage_status_value', 'hmo_value', 'working_since_value', 'job_workload_value', 'marginal_tax_rate_value', 'tax_credit_points_value', 'internal_revenue_service_value',
+                                         'national_insurance_institute_value', 'health_insurance_value', 'total_taxes_value', 'education_fund_value', 'pension_fund_value', 'total_payment_value'])
+
+        extracted_data = {
+            'gross_salary':
+                {
+                    'normal_hours_value': 0.0,  # code 101
+                    'vacation_hours_value': 0.0,  # code 105
+                    'completion_hours_value': 0.0,  # code 110
+                    'global_hours_value': 0.0,  # code 120
+                    'total_payment_value': 0.0,  # code 2097
+                    'holidays_hours_value': 0.0,  # code 106
+                },
+            'other_payments':
+                {  # each X items
+                    'transport_value': 0.0,  # code 112
+                },
+            'additional_information':
+                {  # each X items
+                    'ssn_value': 'None',
+                    'marriage_status_value': 'None',
+                    'hmo_value': 'None',
+                    'working_since_value': 'None',
+                    'job_workload_value': 'None',
+                    'marginal_tax_rate_value': 'None',
+                    'tax_credit_points_value': 'None',
+                },
+            'mandatory_taxes':
+                {  # each X items
+                    'internal_revenue_service_value': 0.0,
+                    'national_insurance_institute_value': 0.0,
+                    'health_insurance_value': 0.0,
+                    'total_taxes_value': 0.0,
+                },
+            'savings_and_retirement_fund':
+                {  # each X items
+                    'education_fund_value': 0.0,  # code 302
+                    'pension_fund_value': 0.0,  # code 420
+                },
+            'net_salary': {
+                'total_net_payment_value': 0.0
+            }
+        }
+
+        extracted_indexes = {
+            'gross_salary':
+                {  # each 4 items
+                    'total_payment_idx': 2,
+                    'global_hours_idx': 3,  # code 120
+                    'completion_hours_idx': 4,  # code 110
+                    'vacation_hours_idx': 4,  # code 105
+                    'normal_hours_idx': 4,  # code 101
+                    'holidays_hours_idx': 4,  # code 106
+                    'is_data_extracted': False
+                },
+            'other_payments':
+                {  # each X items
+                    'transport_idx': 2,  # code 112
+                    'is_data_extracted': False
+                },
+            'additional_information':
+                {  # each X items
+                    'ssn_idx': 2,
+                    'marriage_status_idx': 2,
+                    'hmo_idx': 1,
+                    'working_since_idx': 2,
+                    'job_workload_idx': 2,
+                    'marginal_tax_rate_idx': 3,
+                    'tax_credit_points_idx': 2,
+                    'is_data_extracted': False
+                },
+            'mandatory_taxes':
+                {  # each X items
+                    'internal_revenue_service_idx': -4,  # code 112
+                    'national_insurance_institute_idx': -5,
+                    'health_insurance_idx': -8,
+                    'total_taxes_idx': -11,
+                    'is_data_extracted': False
+                },
+            'savings_and_retirement_fund':
+                {  # each X items
+                    'education_fund_idx': [7, 9],  # code 112
+                    'pension_fund_compensation_idx': 6,
+                    'pension_fund_ration_idx': [7, 9],
+                    'is_data_extracted': False
+                },
+            'net_salary': {
+                'total_payment_idx': 2,
+                'is_data_extracted': False
+            }
+        }
+
+        fixed_text = []
+        ignore_chars = r'[,]'
+        ignore_date = r'^\d{2}/\d{2}/\d{4}$'
+        for idx, token in enumerate(self.convert_to_hebrew().split()):
+            cleaned_token = re.sub(ignore_chars, '', str(token))
+            if is_float_or_int(cleaned_token):
+                fixed_text.append(cleaned_token)
+            elif re.match(ignore_date, str(token)):
+                fixed_text.append(cleaned_token)
+            else:
+                fixed_text.append(cleaned_token[::-1])
+        fixed_text.reverse()
+
+        for idx, token in enumerate(fixed_text):
+            # gross salary section
+            if not extracted_indexes['gross_salary']['is_data_extracted']:
+                if fixed_text[idx] == '101':
+                    current_idx = idx + extracted_indexes['gross_salary']['normal_hours_idx']
+                    extracted_data['gross_salary']['normal_hours_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == '105':
+                    current_idx = idx + extracted_indexes['gross_salary']['vacation_hours_idx']
+                    extracted_data['gross_salary']['vacation_hours_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == '106':
+                    current_idx = idx + extracted_indexes['gross_salary']['holidays_hours_idx']
+                    extracted_data['gross_salary']['holidays_hours_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == '120':
+                    current_idx = idx + extracted_indexes['gross_salary']['global_hours_idx']
+                    extracted_data['gross_salary']['global_hours_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == '110':
+                    current_idx = idx + extracted_indexes['gross_salary']['completion_hours_idx']
+                    extracted_data['gross_salary']['completion_hours_value'] = str_to_float(
+                        str_to_float(fixed_text[current_idx]))
+
+                if fixed_text[idx] == 'סה"כ' and fixed_text[idx + 1] == 'תשלומים' and fixed_text[idx + 2] != 'אחרים':
+                    current_idx = idx + extracted_indexes['gross_salary']['total_payment_idx']
+                    extracted_data['gross_salary']['total_payment_value'] = str_to_float(fixed_text[current_idx])
+
+            # other payments section
+            if fixed_text[idx] == 'תשלומים' and fixed_text[idx + 1] == 'אחרים':
+                if not extracted_indexes['other_payments']['is_data_extracted']:
+                    current_idx = idx + extracted_indexes['other_payments']['transport_idx']
+                    extracted_data['other_payments']['transport_value'] = str_to_float(fixed_text[current_idx])
+
+                    # close extraction data
+                    extracted_indexes['other_payments']['is_data_extracted'] = True
+
+            # other payments section
+            if not extracted_indexes['additional_information']['is_data_extracted']:
+                if fixed_text[idx] == 'מספר' and fixed_text[idx + 1] == 'זהות':
+                    current_idx = idx + extracted_indexes['additional_information']['ssn_idx']
+                    extracted_data['additional_information']['ssn_value'] = fixed_text[current_idx]
+
+                if fixed_text[idx] == 'מצב' and fixed_text[idx + 1] == 'משפחתי':
+                    current_idx = idx + extracted_indexes['additional_information']['marriage_status_idx']
+                    extracted_data['additional_information']['marriage_status_value'] = fixed_text[current_idx]
+
+                if fixed_text[idx] == 'קופת-חולים':
+                    current_idx = idx + extracted_indexes['additional_information']['hmo_idx']
+                    extracted_data['additional_information']['hmo_value'] = fixed_text[current_idx]
+
+                if fixed_text[idx] == 'התחלת' and fixed_text[idx + 1] == 'עבודה':
+                    current_idx = idx + extracted_indexes['additional_information']['working_since_idx']
+                    extracted_data['additional_information']['working_since_value'] = fixed_text[current_idx]
+
+                if fixed_text[idx] == 'אחוז' and fixed_text[idx + 1] == 'משרה':
+                    current_idx = idx + extracted_indexes['additional_information']['job_workload_idx']
+                    extracted_data['additional_information']['job_workload_value'] = fixed_text[current_idx].replace('%', '')[::-1]
+
+                if fixed_text[idx] == 'אחוז' and fixed_text[idx + 1] == 'מס' and fixed_text[idx + 2] == 'שולי':
+                    current_idx = idx + extracted_indexes['additional_information']['marginal_tax_rate_idx']
+                    extracted_data['additional_information']['marginal_tax_rate_value'] = fixed_text[current_idx].replace('%', '')
+
+                if fixed_text[idx] == 'נקודות' and fixed_text[idx + 1] == 'זיכוי':
+                    current_idx = idx + extracted_indexes['additional_information']['tax_credit_points_idx']
+                    extracted_data['additional_information']['tax_credit_points_value'] = fixed_text[current_idx]
+
+            # mandatory taxes section
+            if not extracted_indexes['mandatory_taxes']['is_data_extracted']:
+                if fixed_text[idx] == 'מס' and fixed_text[idx + 1] == 'הכנסה' and fixed_text[idx + 2] == 'ביטוח':
+                    current_idx = idx + extracted_indexes['mandatory_taxes']['internal_revenue_service_idx']
+                    extracted_data['mandatory_taxes']['internal_revenue_service_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == 'ביטוח' and fixed_text[idx + 1] == 'לאומי' and fixed_text[idx + 2] == 'הפרשי':
+                    current_idx = idx + extracted_indexes['mandatory_taxes']['national_insurance_institute_idx']
+                    extracted_data['mandatory_taxes']['national_insurance_institute_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == 'ביטוח' and fixed_text[idx + 1] == 'בריאות' and fixed_text[idx + 2] == 'הפרשי':
+                    current_idx = idx + extracted_indexes['mandatory_taxes']['health_insurance_idx']
+                    extracted_data['mandatory_taxes']['health_insurance_value'] = str_to_float(fixed_text[current_idx])
+
+                if fixed_text[idx] == 'סה"כ' and fixed_text[idx + 1] == 'נכויי' and fixed_text[idx + 2] == 'חובה':
+                    current_idx = idx + extracted_indexes['mandatory_taxes']['total_taxes_idx']
+                    extracted_data['mandatory_taxes']['total_taxes_value'] = str_to_float(fixed_text[current_idx])
+
+            # pension and education funds
+            if not extracted_indexes['savings_and_retirement_fund']['is_data_extracted']:
+                if fixed_text[idx] == '302':
+                    current_idx_1 = idx + extracted_indexes['savings_and_retirement_fund']['education_fund_idx'][0]
+                    current_idx_2 = idx + extracted_indexes['savings_and_retirement_fund']['education_fund_idx'][1]
+                    value_1 = str_to_float(fixed_text[current_idx_1])
+                    value_2 = str_to_float(fixed_text[current_idx_2])
+                    extracted_data['savings_and_retirement_fund']['education_fund_value'] = value_1 + value_2
+
+                if fixed_text[idx] == '420' and fixed_text[idx + 3] == 'קצבה':
+                    current_idx_1 = idx + extracted_indexes['savings_and_retirement_fund']['pension_fund_ration_idx'][0]
+                    current_idx_2 = idx + extracted_indexes['savings_and_retirement_fund']['pension_fund_ration_idx'][1]
+                    value_1 = str_to_float(fixed_text[current_idx_1])
+                    value_2 = str_to_float(fixed_text[current_idx_2])
+                    extracted_data['savings_and_retirement_fund']['pension_fund_value'] += value_1 + value_2
+
+                if fixed_text[idx] == '420' and fixed_text[idx + 3] == 'פיצויים':
+                    current_idx = idx + extracted_indexes['savings_and_retirement_fund']['pension_fund_compensation_idx']
+                    value_idx = str_to_float(fixed_text[current_idx])
+                    extracted_data['savings_and_retirement_fund']['pension_fund_value'] += value_idx
+
+            # net salary funds
+            if not extracted_indexes['net_salary']['is_data_extracted']:
+                if fixed_text[idx] == 'שכר' and fixed_text[idx + 1] == 'נטו':
+                    current_idx = idx + extracted_indexes['net_salary']['total_payment_idx']
+                    extracted_data['net_salary']['total_net_payment_value'] = str_to_float(fixed_text[current_idx])
+
+        dict_to_df = pd.DataFrame()
+        df_row = {
+            'normal_hours_value': extracted_data['gross_salary']['normal_hours_value'],
+            'vacation_hours_value': extracted_data['gross_salary']['vacation_hours_value'],
+            'holidays_hours_value': extracted_data['gross_salary']['holidays_hours_value'],
+            'completion_hours_value': extracted_data['gross_salary']['completion_hours_value'],
+            'total_payment_value': extracted_data['gross_salary']['total_payment_value'],
+            'transport_value': extracted_data['other_payments']['transport_value'],
+            'ssn_value': extracted_data['additional_information']['ssn_value'],
+            'marriage_status_value': extracted_data['additional_information']['marriage_status_value'],
+            'hmo_value': extracted_data['additional_information']['hmo_value'],
+            'working_since_value': extracted_data['additional_information']['working_since_value'],
+            'job_workload_value': extracted_data['additional_information']['job_workload_value'],
+            'marginal_tax_rate_value': extracted_data['additional_information']['marginal_tax_rate_value'],
+            'tax_credit_points_value': extracted_data['additional_information']['tax_credit_points_value'],
+            'internal_revenue_service_value': extracted_data['mandatory_taxes']['internal_revenue_service_value'],
+            'national_insurance_institute_value': extracted_data['mandatory_taxes']['national_insurance_institute_value'],
+            'health_insurance_value': extracted_data['mandatory_taxes']['health_insurance_value'],
+            'total_taxes_value': extracted_data['mandatory_taxes']['total_taxes_value'],
+            'education_fund_value': extracted_data['savings_and_retirement_fund']['education_fund_value'],
+            'pension_fund_value': extracted_data['savings_and_retirement_fund']['pension_fund_value'],
+            'total_net_payment_value': extracted_data['net_salary']['total_net_payment_value'],
+            }
+
+        dict_to_df[len(dict_to_df)] = pd.Series(df_row)
+        return dict_to_df
+
+    def validate_file_structure(self):
+        pass
+
+    def convert_to_hebrew(self):
+        ansi_table = {
+            'à': 'א',
+            'á': 'ב',
+            'â': 'ג',
+            'ã': 'ד',
+            'ä': 'ה',
+            'å': 'ו',
+            'æ': 'ז',
+            'ç': 'ח',
+            'è': 'ט',
+            'é': 'י',
+            'ë': 'כ',
+            'ì': 'ל',
+            'î': 'מ',
+            'ð': 'נ',
+            'ñ': 'ס',
+            'ò': 'ע',
+            'ô': 'פ',
+            'ö': 'צ',
+            '÷': 'ק',
+            'ø': 'ר',
+            'ù': 'ש',
+            'ú': 'ת',
+            'õ': 'ץ',
+            'ê': 'ך',
+            'ï': 'ן',
+            'í': 'ם',
+            'ó': 'ף',
+        }
+
+        pdf_text = self.extract_text_from_pdf(self.file_absolute_path)
+        for idx, char in enumerate(pdf_text):
+            if 0 <= idx < len(pdf_text):
+                pdf_text = pdf_text[:idx] + ansi_table.get(char, char) + pdf_text[idx + 1:]
+            else:
+                Logger.critical("Convert text into hebrew encountered an error.")
+        return pdf_text
+
+
+x1 = HilanParser(r"C:/Users/MyPC/Downloads/Documents/PaySlip2024-03_3.pdf").extract_base_data()
+x2 = HilanParser(r"C:/Users/MyPC/Downloads/Documents/PaySlip2023-10.pdf").extract_base_data()
+x3 = HilanParser(r"C:/Users/MyPC/Downloads/Documents/PaySlip2023-04.pdf").extract_base_data()
+x4 = 0
