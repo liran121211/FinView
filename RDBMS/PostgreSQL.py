@@ -88,6 +88,10 @@ class PostgreSQL:
             # If there's an error, print the error message
             self.logger.exception(e)
 
+        except psycopg2.errors.InvalidTextRepresentation as e:
+            # If there's an error, print the error message
+            self.logger.exception(e)
+
     def modify_record(self, table_name: Text, record_data: Dict, key: Text, column_key: Text):
 
         #  check connection before using sql instance
@@ -201,6 +205,10 @@ class PostgreSQL:
         except psycopg2.OperationalError as e:
             # If there's an error, print the error message
             self.logger.exception(e)
+            self.connection.rollback()
+
+        except psycopg2.Error as e:
+            # Rollback the transaction if an error occurs
             self.connection.rollback()
 
     def is_value_exists(self, table_name: Text, column_name: Text, value: Text) -> int:

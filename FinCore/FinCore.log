@@ -1,0 +1,28 @@
+2024-04-27 11:34:28,057 - ERROR - invalid input syntax for type date: "06/2023"
+LINE 1: ...ension_fund, total_net_payment, username) VALUES ('06/2023',...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\FinCore\Core.py", line 475, in add_payslip
+    self.db.add_record(table_name='user_payslips', record_data=record_data)
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidDatetimeFormat: invalid input syntax for type date: "06/2023"
+LINE 1: ...ension_fund, total_net_payment, username) VALUES ('06/2023',...
+                                                             ^
+
+2024-04-27 11:44:13,314 - ERROR - invalid input syntax for type date: "06/2023"
+LINE 1: ...ension_fund, total_net_payment, username) VALUES ('06/2023',...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\FinCore\Core.py", line 475, in add_payslip
+    self.db.add_record(table_name='user_payslips', record_data=record_data)
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidDatetimeFormat: invalid input syntax for type date: "06/2023"
+LINE 1: ...ension_fund, total_net_payment, username) VALUES ('06/2023',...
+                                                             ^
+
+2024-04-27 17:08:59,922 - CRITICAL - Column: [global_hours], is not part of the [user_payslips] required_columns.
+2024-04-27 17:09:29,777 - CRITICAL - Column: [global_hours], is not part of the [user_payslips] required_columns.
+2024-04-27 17:11:46,278 - CRITICAL - Column: [global_hours], is not part of the [user_payslips] required_columns.
+2024-04-27 17:17:48,379 - CRITICAL - Column: [global_hours], is not part of the [user_payslips] required_columns.

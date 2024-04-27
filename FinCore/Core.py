@@ -4,7 +4,7 @@ from django.utils.timezone import datetime
 from django.contrib.auth.hashers import make_password
 from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser, IsracardParser, \
-    BankMizrahiTefahotParser
+    BankMizrahiTefahotParser, HilanParser
 from FinCore import *
 
 
@@ -447,6 +447,60 @@ class UserCards:
         return self.db.create_query(sql_query)
 
 
+class UserPayslips:
+    def __init__(self):
+        self.logger = Logger
+        self.db = PostgreSQL_DB
+
+    def add_payslip(self, record_data: Dict, username: Text) -> int:
+        required_columns = self.db.fetch_columns('user_payslips')
+
+        # validate username existence upon adding.
+        if not self.db.is_value_exists(table_name='auth_user', column_name='username', value=username):
+            return RECORD_NOT_EXIST
+
+        # add username as foreign key ( Many->One).
+        if 'username' not in required_columns:
+            required_columns.append('username')
+        record_data['username'] = username
+
+        # validate transaction columns
+        for k, _ in record_data.items():
+            if k not in required_columns:
+                self.logger.critical(f"Column: [{k}], is not part of the [user_payslips] required_columns.")
+                return SQL_QUERY_FAILED
+
+        if self.is_primary_key_exist(primary_key=record_data['payslip_date']):
+            return RECORD_EXIST
+        try:
+            self.db.add_record(table_name='user_payslips', record_data=record_data)
+        except InvalidDatetimeFormat as e:
+            self.logger.exception(e)
+            return SQL_QUERY_FAILED
+
+    def modify_payslip(self, record_data: dict) -> int:
+        pass
+
+    def delete_payslip(self, payslip_date: Text) -> int:
+        required_columns = self.db.fetch_columns('user_payslips')
+
+        # validate transaction columns
+        if 'payslip_date' not in required_columns:
+            self.logger.critical(f"Column: [payslip_date], is not part of the [user_payslip] required_columns.")
+            return SQL_QUERY_FAILED
+
+        if not self.is_primary_key_exist(primary_key=payslip_date):
+            return RECORD_NOT_EXIST
+
+        self.db.delete_record(table_name='user_payslips',
+                              column_key='payslip_date',
+                              key=payslip_date
+                              )
+
+    def is_primary_key_exist(self, primary_key: Any) -> int:
+        return self.db.is_value_exists(table_name='user_payslips', column_name='payslip_date', value=primary_key)
+
+
 class Application:
     def __init__(self):
         self.__manage_users = Users()
@@ -455,6 +509,7 @@ class Application:
         self.__manage_bank_transactions = BankTransactions()
         self.__manage_user_financial_information = UserFinancialInformation()
         self.__manage_user_direct_debit_subscriptions = UserDirectDebitSubscriptions()
+        self.__manage_user_payslips = UserPayslips()
 
     def load_statements_to_db(self, current_user: Text, folder_path: Text) -> List:
         # identify files structure
@@ -709,6 +764,48 @@ class Application:
                 current_debit = BankMizrahiTefahotParser.extract_current_bank_debit(bank_mizrahi_tefahot_data)
                 self.__manage_user_financial_information.modify_information(username=current_user, record_data={'current_debit': current_debit})
 
+            if statement_provider == 'Hilan':
+                # create instance & validate statement
+                hilan_data = HilanParser(file_path=os.path.join(folder_path, filename))
+                hilan_data.validate_file_structure()
+
+                # add records from statements to database
+                for idx, row in hilan_data.parse().iterrows():
+                    current_payslip_record = {
+                        'payslip_date':                     row.iloc[0],
+                        'normal_hours':                     row.iloc[1],
+                        'vacation_hours':                   row.iloc[2],
+                        'completion_hours':                 row.iloc[3],
+                        'global_hours':                     row.iloc[4],
+                        'total_payment':                    row.iloc[5],
+                        'holidays_hours':                   row.iloc[6],
+                        'transport':                        row.iloc[7],
+                        'ssn':                              row.iloc[8],
+                        'marriage_status':                  row.iloc[9],
+                        'hmo':                              row.iloc[10],
+                        'working_since':                    row.iloc[11],
+                        'job_workload':                     row.iloc[12],
+                        'marginal_tax_rate':                row.iloc[13],
+                        'tax_credit_points':                row.iloc[14],
+                        'internal_revenue_service':         row.iloc[15],
+                        'national_insurance_institute':     row.iloc[16],
+                        'health_insurance':                 row.iloc[17],
+                        'total_taxes':                      row.iloc[18],
+                        'education_fund':                   row.iloc[19],
+                        'pension_fund':                     row.iloc[20],
+                        'total_net_payment':                row.iloc[21],
+                    }
+                    result = self.__manage_user_payslips.add_payslip(record_data=current_payslip_record, username=current_user)
+
+                    # statements statistics
+                    if result == RECORD_ADDED:
+                        statements_stats[added] += 1
+                    if result == SQL_QUERY_FAILED or result == RECORD_NOT_EXIST:
+                        statements_stats[failed] += 1
+                    if result == RECORD_EXIST:
+                        statements_stats[exist] += 1
+                    statements_stats[total] += 1
+
         return statements_stats
 
     @staticmethod
@@ -728,6 +825,8 @@ class Application:
                     result[filename] = 'BankLeumi'
                 if BankMizrahiTefahotParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'BankMizrahiTefahot'
+                if HilanParser(file_path=os.path.join(root, filename)).validate_file_structure():
+                    result[filename] = 'Hilan'
         return result
 
     @property

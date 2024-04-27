@@ -839,26 +839,28 @@ class HilanParser(Parser, ABC):
         super().__init__(file_path)
 
     def parse(self) -> pd.DataFrame:
-        pass
+        return self.extract_base_data().reset_index(drop=True)
+
+    @classmethod
+    def is_float_or_int(cls, value):
+        try:
+            # Attempt to convert the text to a float
+            float_value = float(value)
+            # If successful, check if the float is equal to its integer representation
+            if float_value == int(float_value):
+                return True  # It's an integer
+            else:
+                return True  # It's a float
+        except ValueError:
+            return False  # Not a float or integer
+
+    @classmethod
+    def str_to_float(cls, value):
+        if cls.is_float_or_int(value):
+            return float(value)
+        return 0.0
 
     def extract_base_data(self) -> pd.DataFrame:
-        def str_to_float(value):
-            if is_float_or_int(value):
-                return float(value)
-            return 0.0
-
-        def is_float_or_int(value):
-            try:
-                # Attempt to convert the text to a float
-                float_value = float(value)
-                # If successful, check if the float is equal to its integer representation
-                if float_value == int(float_value):
-                    return True  # It's an integer
-                else:
-                    return True  # It's a float
-            except ValueError:
-                return False  # Not a float or integer
-
         if not self.is_valid:
             self.logger.critical(f"Provided file: {self.filename} is not a valid xlsx/pdf")
             return pd.DataFrame(columns=['normal_hours_value', 'vacation_hours_value', 'completion_hours_value', 'global_hours_value', 'total_payment_value', 'holidays_hours_value', 'transport_value', 'ssn_value',
@@ -866,6 +868,10 @@ class HilanParser(Parser, ABC):
                                          'national_insurance_institute_value', 'health_insurance_value', 'total_taxes_value', 'education_fund_value', 'pension_fund_value', 'total_payment_value'])
 
         extracted_data = {
+            'payslip_date': {
+                'month_of_payment_value': 'None',
+                'year_of_payment_value': 'None',
+            },
             'gross_salary':
                 {
                     'normal_hours_value': 0.0,  # code 101
@@ -907,6 +913,11 @@ class HilanParser(Parser, ABC):
         }
 
         extracted_indexes = {
+            'payslip_date': {
+                'month_of_payment_idx': -1,
+                'year_of_payment_idx': -2,
+                'is_data_extracted': False
+            },
             'gross_salary':
                 {  # each 4 items
                     'total_payment_idx': 2,
@@ -919,7 +930,7 @@ class HilanParser(Parser, ABC):
                 },
             'other_payments':
                 {  # each X items
-                    'transport_idx': 2,  # code 112
+                    'transport_idx': 4,  # code 112
                     'is_data_extracted': False
                 },
             'additional_information':
@@ -954,12 +965,27 @@ class HilanParser(Parser, ABC):
             }
         }
 
+        hebrew_month_to_num = {
+            'ינואר' :   '01/01',
+            'פבואר':    '01/02',
+            'מרץ':      '01/03',
+            'אפריל':    '01/04',
+            'מאי':      '01/05',
+            'יוני':     '01/06',
+            'יולי':     '01/07',
+            'אוגוסט':   '01/08',
+            'ספטמבר':   '01/09',
+            'אוקטובר':  '01/10',
+            'נובמבר':   '01/11',
+            'דצמבר':    '01/12',
+        }
+
         fixed_text = []
         ignore_chars = r'[,]'
         ignore_date = r'^\d{2}/\d{2}/\d{4}$'
         for idx, token in enumerate(self.convert_to_hebrew().split()):
             cleaned_token = re.sub(ignore_chars, '', str(token))
-            if is_float_or_int(cleaned_token):
+            if self.is_float_or_int(cleaned_token):
                 fixed_text.append(cleaned_token)
             elif re.match(ignore_date, str(token)):
                 fixed_text.append(cleaned_token)
@@ -968,38 +994,46 @@ class HilanParser(Parser, ABC):
         fixed_text.reverse()
 
         for idx, token in enumerate(fixed_text):
+            # payslip date section
+            if not extracted_indexes['payslip_date']['is_data_extracted']:
+                if fixed_text[idx] == 'תלוש' and fixed_text[idx + 1] == 'שכר' and fixed_text[idx + 2] == 'לחודש:':
+                    current_idx = idx + extracted_indexes['payslip_date']['month_of_payment_idx']
+                    extracted_data['payslip_date']['month_of_payment_value'] = hebrew_month_to_num.get(fixed_text[current_idx], INVALID_KEY)
+                    current_idx = idx + extracted_indexes['payslip_date']['year_of_payment_idx']
+                    extracted_data['payslip_date']['year_of_payment_value'] = fixed_text[current_idx]
+
             # gross salary section
             if not extracted_indexes['gross_salary']['is_data_extracted']:
                 if fixed_text[idx] == '101':
                     current_idx = idx + extracted_indexes['gross_salary']['normal_hours_idx']
-                    extracted_data['gross_salary']['normal_hours_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['gross_salary']['normal_hours_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == '105':
                     current_idx = idx + extracted_indexes['gross_salary']['vacation_hours_idx']
-                    extracted_data['gross_salary']['vacation_hours_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['gross_salary']['vacation_hours_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == '106':
                     current_idx = idx + extracted_indexes['gross_salary']['holidays_hours_idx']
-                    extracted_data['gross_salary']['holidays_hours_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['gross_salary']['holidays_hours_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == '120':
                     current_idx = idx + extracted_indexes['gross_salary']['global_hours_idx']
-                    extracted_data['gross_salary']['global_hours_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['gross_salary']['global_hours_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == '110':
                     current_idx = idx + extracted_indexes['gross_salary']['completion_hours_idx']
-                    extracted_data['gross_salary']['completion_hours_value'] = str_to_float(
-                        str_to_float(fixed_text[current_idx]))
+                    extracted_data['gross_salary']['completion_hours_value'] = self.str_to_float(
+                        self.str_to_float(fixed_text[current_idx]))
 
                 if fixed_text[idx] == 'סה"כ' and fixed_text[idx + 1] == 'תשלומים' and fixed_text[idx + 2] != 'אחרים':
                     current_idx = idx + extracted_indexes['gross_salary']['total_payment_idx']
-                    extracted_data['gross_salary']['total_payment_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['gross_salary']['total_payment_value'] = self.str_to_float(fixed_text[current_idx])
 
             # other payments section
-            if fixed_text[idx] == 'תשלומים' and fixed_text[idx + 1] == 'אחרים':
+            if fixed_text[idx] == '112':
                 if not extracted_indexes['other_payments']['is_data_extracted']:
                     current_idx = idx + extracted_indexes['other_payments']['transport_idx']
-                    extracted_data['other_payments']['transport_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['other_payments']['transport_value'] = self.str_to_float(fixed_text[current_idx])
 
                     # close extraction data
                     extracted_indexes['other_payments']['is_data_extracted'] = True
@@ -1038,53 +1072,57 @@ class HilanParser(Parser, ABC):
             if not extracted_indexes['mandatory_taxes']['is_data_extracted']:
                 if fixed_text[idx] == 'מס' and fixed_text[idx + 1] == 'הכנסה' and fixed_text[idx + 2] == 'ביטוח':
                     current_idx = idx + extracted_indexes['mandatory_taxes']['internal_revenue_service_idx']
-                    extracted_data['mandatory_taxes']['internal_revenue_service_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['mandatory_taxes']['internal_revenue_service_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == 'ביטוח' and fixed_text[idx + 1] == 'לאומי' and fixed_text[idx + 2] == 'הפרשי':
                     current_idx = idx + extracted_indexes['mandatory_taxes']['national_insurance_institute_idx']
-                    extracted_data['mandatory_taxes']['national_insurance_institute_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['mandatory_taxes']['national_insurance_institute_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == 'ביטוח' and fixed_text[idx + 1] == 'בריאות' and fixed_text[idx + 2] == 'הפרשי':
                     current_idx = idx + extracted_indexes['mandatory_taxes']['health_insurance_idx']
-                    extracted_data['mandatory_taxes']['health_insurance_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['mandatory_taxes']['health_insurance_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == 'סה"כ' and fixed_text[idx + 1] == 'נכויי' and fixed_text[idx + 2] == 'חובה':
                     current_idx = idx + extracted_indexes['mandatory_taxes']['total_taxes_idx']
-                    extracted_data['mandatory_taxes']['total_taxes_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['mandatory_taxes']['total_taxes_value'] = self.str_to_float(fixed_text[current_idx])
 
             # pension and education funds
             if not extracted_indexes['savings_and_retirement_fund']['is_data_extracted']:
                 if fixed_text[idx] == '302':
                     current_idx_1 = idx + extracted_indexes['savings_and_retirement_fund']['education_fund_idx'][0]
                     current_idx_2 = idx + extracted_indexes['savings_and_retirement_fund']['education_fund_idx'][1]
-                    value_1 = str_to_float(fixed_text[current_idx_1])
-                    value_2 = str_to_float(fixed_text[current_idx_2])
+                    value_1 = self.str_to_float(fixed_text[current_idx_1])
+                    value_2 = self.str_to_float(fixed_text[current_idx_2])
                     extracted_data['savings_and_retirement_fund']['education_fund_value'] = value_1 + value_2
 
                 if fixed_text[idx] == '420' and fixed_text[idx + 3] == 'קצבה':
                     current_idx_1 = idx + extracted_indexes['savings_and_retirement_fund']['pension_fund_ration_idx'][0]
                     current_idx_2 = idx + extracted_indexes['savings_and_retirement_fund']['pension_fund_ration_idx'][1]
-                    value_1 = str_to_float(fixed_text[current_idx_1])
-                    value_2 = str_to_float(fixed_text[current_idx_2])
+                    value_1 = self.str_to_float(fixed_text[current_idx_1])
+                    value_2 = self.str_to_float(fixed_text[current_idx_2])
                     extracted_data['savings_and_retirement_fund']['pension_fund_value'] += value_1 + value_2
 
                 if fixed_text[idx] == '420' and fixed_text[idx + 3] == 'פיצויים':
                     current_idx = idx + extracted_indexes['savings_and_retirement_fund']['pension_fund_compensation_idx']
-                    value_idx = str_to_float(fixed_text[current_idx])
+                    value_idx = self.str_to_float(fixed_text[current_idx])
                     extracted_data['savings_and_retirement_fund']['pension_fund_value'] += value_idx
 
             # net salary funds
             if not extracted_indexes['net_salary']['is_data_extracted']:
                 if fixed_text[idx] == 'שכר' and fixed_text[idx + 1] == 'נטו':
                     current_idx = idx + extracted_indexes['net_salary']['total_payment_idx']
-                    extracted_data['net_salary']['total_net_payment_value'] = str_to_float(fixed_text[current_idx])
+                    extracted_data['net_salary']['total_net_payment_value'] = self.str_to_float(fixed_text[current_idx])
 
-        dict_to_df = pd.DataFrame()
+        dict_to_df = pd.DataFrame(columns=['payslip_date', 'normal_hours_value', 'vacation_hours_value', 'completion_hours_value', 'global_hours_value', 'total_payment_value', 'holidays_hours_value', 'transport_value', 'ssn_value',
+                                         'marriage_status_value', 'hmo_value', 'working_since_value', 'job_workload_value', 'marginal_tax_rate_value', 'tax_credit_points_value', 'internal_revenue_service_value',
+                                         'national_insurance_institute_value', 'health_insurance_value', 'total_taxes_value', 'education_fund_value', 'pension_fund_value', 'total_net_payment_value'])
         df_row = {
+            'payslip_date': extracted_data['payslip_date']['month_of_payment_value'] + '/' + extracted_data['payslip_date']['year_of_payment_value'],
             'normal_hours_value': extracted_data['gross_salary']['normal_hours_value'],
             'vacation_hours_value': extracted_data['gross_salary']['vacation_hours_value'],
             'holidays_hours_value': extracted_data['gross_salary']['holidays_hours_value'],
             'completion_hours_value': extracted_data['gross_salary']['completion_hours_value'],
+            'global_hours_value': extracted_data['gross_salary']['global_hours_value'],
             'total_payment_value': extracted_data['gross_salary']['total_payment_value'],
             'transport_value': extracted_data['other_payments']['transport_value'],
             'ssn_value': extracted_data['additional_information']['ssn_value'],
@@ -1103,11 +1141,43 @@ class HilanParser(Parser, ABC):
             'total_net_payment_value': extracted_data['net_salary']['total_net_payment_value'],
             }
 
-        dict_to_df[len(dict_to_df)] = pd.Series(df_row)
+        dict_to_df.loc[len(dict_to_df)] = pd.Series(df_row)
         return dict_to_df
 
     def validate_file_structure(self):
-        pass
+        fixed_text = []
+        ignore_chars = r'[,]'
+        ignore_date = r'^\d{2}/\d{2}/\d{4}$'
+        for idx, token in enumerate(self.convert_to_hebrew().split()):
+            cleaned_token = re.sub(ignore_chars, '', str(token))
+            if self.is_float_or_int(cleaned_token):
+                fixed_text.append(cleaned_token)
+            elif re.match(ignore_date, str(token)):
+                fixed_text.append(cleaned_token)
+            else:
+                fixed_text.append(cleaned_token[::-1])
+        fixed_text.reverse()
+
+        validators_tokens = {
+            'פרוט': False,
+            'התשלומים': False,
+            'ניכויי': False,
+            'חובה': False,
+            'מסים': False,
+            'התחייבות': False,
+            'ריכוז': False,
+            'נתונים': False,
+            'בתלוש': False,
+            'שכר': False,
+        }
+
+        for idx, token in enumerate(fixed_text):
+            if token in validators_tokens.keys():
+                validators_tokens[token] = True
+
+        if False in validators_tokens.values():
+            return False
+        return True
 
     def convert_to_hebrew(self):
         ansi_table = {
@@ -1147,9 +1217,3 @@ class HilanParser(Parser, ABC):
             else:
                 Logger.critical("Convert text into hebrew encountered an error.")
         return pdf_text
-
-
-x1 = HilanParser(r"C:/Users/MyPC/Downloads/Documents/PaySlip2024-03_3.pdf").extract_base_data()
-x2 = HilanParser(r"C:/Users/MyPC/Downloads/Documents/PaySlip2023-10.pdf").extract_base_data()
-x3 = HilanParser(r"C:/Users/MyPC/Downloads/Documents/PaySlip2023-04.pdf").extract_base_data()
-x4 = 0

@@ -3046,3 +3046,80 @@ LINE 1: ...2024 AND username='liran121214') AS subqueryGROUP BY(last_4_...
 2024-04-13 18:01:14,279 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-04-13 18:02:25,147 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-04-13 18:58:08,592 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:10:55,382 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:12:29,972 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:17:39,740 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:20:06,261 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:20:40,622 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:21:49,311 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:24:55,940 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:27:43,957 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:29:18,460 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:30:06,481 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:31:09,780 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:32:55,991 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:34:28,052 - ERROR - invalid input syntax for type date: "06/2023"
+LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 221, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidDatetimeFormat: invalid input syntax for type date: "06/2023"
+LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
+                                                             ^
+
+2024-04-27 11:44:09,108 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:44:13,310 - ERROR - invalid input syntax for type date: "06/2023"
+LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 221, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidDatetimeFormat: invalid input syntax for type date: "06/2023"
+LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
+                                                             ^
+
+2024-04-27 11:46:26,523 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 11:47:01,307 - ERROR - invalid input syntax for type date: "06/2023"
+LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 225, in is_value_exists
+    cursor.execute(query, (value,))
+psycopg2.errors.InvalidDatetimeFormat: invalid input syntax for type date: "06/2023"
+LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
+                                                             ^
+
+2024-04-27 11:49:29,464 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 12:02:13,715 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 16:50:07,743 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 16:50:38,175 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:01:20,324 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:04:34,234 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:04:55,009 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:05:27,766 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:05:39,864 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:05:51,044 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:06:02,323 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:06:13,913 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:06:24,999 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:07:13,429 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:07:40,635 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:16:30,318 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:16:52,404 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:20:21,542 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 17:21:35,431 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:22:13,114 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:24:06,989 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:24:17,781 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:27:23,912 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:27:28,210 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:27:38,431 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:27:46,137 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:06,806 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:14,075 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:17,697 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:24,517 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:28,460 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:32,718 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 17:28:44,121 - INFO - Successfully added a new record to PostgreSQL database.
