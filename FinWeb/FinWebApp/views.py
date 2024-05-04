@@ -25,10 +25,10 @@ from FinWeb.FinWebApp import Logger, FILE_UPLOAD_ERROR, FILE_SIZE_TOO_BIG, FILE_
     FILE_UPLOAD_SUCCESS, FIN_CORE, FILE_WRONG_STRUCTURE, FIRST_IDX
 from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDirectDebitSubscriptions, \
     UserBankTransactions, \
-    spent_by_category_query, SpentByCardNumberQuery, income_by_month, UserCreditCardsTransactions, \
+    spent_by_category_query, spent_by_card_number_query, income_by_month, UserCreditCardsTransactions, \
     income_against_outcome, \
-    BankTransactionByCategoryQuery, UserPersonalInformation, spent_by_date_query, \
-    spent_by_business_query, income_by_bank_query, outcome_by_bank_query
+    bank_income_by_category_query, UserPersonalInformation, spent_by_date_query, \
+    spent_by_business_query, income_by_bank_query, outcome_by_bank_query, bank_outcome_by_category_query
 
 
 def home_view(request):
@@ -42,8 +42,8 @@ def home_view(request):
             'user_income': slice_dictionary(retrieve_user_bank_transactions(logged_in_user, True), -5, 0),
             'user_outcome': slice_dictionary(retrieve_user_credit_card_transactions(logged_in_user), -5, 0),
             'spent_by_category': spent_by_category_query(logged_in_user, mode='Simple'),  # Pie-Chart view
-            'bank_transaction_by_category': BankTransactionByCategoryQuery(logged_in_user),  # Pie-Chart view
-            'spent_by_card': SpentByCardNumberQuery(logged_in_user),  # Pie-Chart view
+            'bank_income_by_category': bank_income_by_category_query(logged_in_user),  # Pie-Chart view
+            'spent_by_card': spent_by_card_number_query(logged_in_user),  # Pie-Chart view
             'income_by_month': income_by_month(logged_in_user),
             'income_against_outcome': income_against_outcome(logged_in_user),
             'user_personal_information': retrieve_user_personal_information(logged_in_user),
@@ -93,27 +93,27 @@ def register_post(request):
 
             except IntegrityError as e:
                 # Handle field-related errors
-                Logger.logger.critical(e)
+                Logger.critical(e)
                 return render(request, 'login.html', {'failure_registration': 'הרישום נכשל, אנא נסה שוב'})
             except ValidationError as e:
                 # Handle validation errors
-                Logger.logger.critical(e)
+                Logger.critical(e)
                 return render(request, 'login.html', {'failure_registration': 'הרישום נכשל, אנא נסה שוב'})
             except DatabaseError as e:
                 # Handle database-related errors
-                Logger.logger.critical(e)
+                Logger.critical(e)
                 return render(request, 'login.html', {'failure_registration': 'הרישום נכשל, אנא נסה שוב'})
             except KeyError as e:
                 # Handle dictionary errors
-                Logger.logger.critical(e)
+                Logger.critical(e)
                 return render(request, 'login.html', {'failure_registration': 'הרישום נכשל, אנא נסה שוב'})
             except IndexError as e:
                 # Handle out of bound errors
-                Logger.logger.critical(e)
+                Logger.critical(e)
                 return render(request, 'login.html', {'failure_registration': 'הרישום נכשל, אנא נסה שוב'})
             except Exception as e:
                 # Handle other unexpected exceptions
-                Logger.logger.critical(e)
+                Logger.critical(e)
                 return render(request, 'login.html', {'failure_registration': 'הרישום נכשל, אנא נסה שוב'})
 
             return render(request, 'login.html', {'success_registration': 'הרישום בוצע בהצלחה'})
@@ -125,7 +125,7 @@ def analytics_and_trends_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
         latest_12_months = get_last_12_months()
-        cards_4_digits = [card.get('last_4_digits', None) for card in retrieve_user_cards(username=logged_in_user)]
+        cards_4_digits = [card for card in retrieve_user_cards(username=logged_in_user)['last_4_digits']]
 
         return render(request, 'analytics_and_trends.html', {
             'user_information': retrieve_user_information(username=logged_in_user),
@@ -148,6 +148,7 @@ def analytics_and_trends_view(request):
             'bank_outcome_by_year': outcome_by_bank_query(dates=latest_12_months, username=logged_in_user),
             'bank_current_balance': get_bank_current_balance(retrieve_user_bank_transactions(username=logged_in_user, positive_only=True)),
             'bank_credit_line': [0.0],
+            'bank_outcome_by_category': bank_outcome_by_category_query(logged_in_user),
         })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
@@ -167,7 +168,7 @@ def settings_view(request):
             user_personal_information_object = get_object_or_404(UserPersonalInformation, pk=request.user.id)
             user_personal_information_object.active_user = 'פעיל' if user_personal_information_object.active_user is True else 'לא פעיל'
         except Http404 as e:
-            Logger.logger.critical(e)
+            Logger.critical(e)
             raise Http404("This page does not exist")
 
         return render(request, 'settings.html', {
@@ -190,7 +191,7 @@ def settings_personal_information_post(request):
         # Retrieve user from the database
         user_personal_information_object = get_object_or_404(UserPersonalInformation, pk=request.user.id)
     except Http404 as e:
-        Logger.logger.critical(e)
+        Logger.critical(e)
         raise Http404("This page does not exist")
 
     try:
@@ -257,14 +258,81 @@ def settings_user_cards_post(request):
         try:
             current_user_credit_cards_instance = get_object_or_404(UserCards, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards from the database  # Retrieve user from the database
         except Http404 as e:
-            Logger.logger.critical(e)
+            Logger.critical(e)
             raise Http404("This page does not exist")
 
         # perform database update operation here
-        current_user_credit_cards_instance.card_type = request.POST.get('selected_card_type', current_user_credit_cards_instance.card_type)
+        if request.POST.get('selected_card_type', None) is not None:
+            current_user_credit_cards_instance.card_type = request.POST.get('selected_card_type', current_user_credit_cards_instance.card_type)
+        if request.POST.get('credit_card_line', None) is not None:
+            current_user_credit_cards_instance.credit_line = request.POST.get('credit_card_line', current_user_credit_cards_instance.credit_line)
+
+        # delete old instance that can cause duplication
+        if not handle_instance_deletion(current_user_credit_cards_instance):
+            return JsonResponse({'success': False})
+
+        # calc and update sha1_identifier due to changed data column (creates a new record due to new key)
+        current_user_credit_cards_instance.sha1_identifier = current_user_credit_cards_instance.calc_sha1()
 
         # check if modification instance can cause an exception
         if handle_instance_modification(current_user_credit_cards_instance):
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False})
+
+    else:
+        return redirect('settings_page')
+
+
+def settings_user_cards_transactions_post(request):
+    # handle credit cards editing
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        try:
+            current_user_credit_cards_transactions_instance = get_object_or_404(UserCreditCardsTransactions, pk=request.POST.get('sha1_identifier'))  # Retrieve credit cards transactions records from the database
+        except Http404 as e:
+            Logger.critical(e)
+            raise Http404("This page does not exist")
+
+        # perform database update operation here
+        current_user_credit_cards_transactions_instance.transaction_category = request.POST.get('selected_transaction_category', current_user_credit_cards_transactions_instance.transaction_category)
+
+        # delete old instance that can cause duplication
+        if not handle_instance_deletion(current_user_credit_cards_transactions_instance):
+            return JsonResponse({'success': False})
+
+        # calc and update sha1_identifier due to changed data column (creates a new record due to new key)
+        current_user_credit_cards_transactions_instance.sha1_identifier = current_user_credit_cards_transactions_instance.calc_sha1()
+
+        # check if modification instance can cause an exception
+        if handle_instance_modification(current_user_credit_cards_transactions_instance):
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'success': False})
+
+    else:
+        return redirect('settings_page')
+
+
+def settings_user_bank_transactions_post(request):
+    # handle credit cards editing
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        try:
+            current_user_bank_transactions_instance = get_object_or_404(UserBankTransactions, pk=request.POST.get('sha1_identifier'))  # Retrieve bank transactions records from the database
+        except Http404 as e:
+            Logger.critical(e)
+            raise Http404("This page does not exist")
+
+        # perform database update operation here
+        current_user_bank_transactions_instance.transaction_category = request.POST.get('selected_transaction_category', current_user_bank_transactions_instance.transaction_category)
+
+        # delete old instance that can cause duplication
+        if not handle_instance_deletion(current_user_bank_transactions_instance):
+            return JsonResponse({'success': False})
+
+        # calc and update sha1_identifier due to changed data column (creates a new record due to new key)
+        current_user_bank_transactions_instance.sha1_identifier = current_user_bank_transactions_instance.calc_sha1()
+
+        # check if modification instance can cause an exception
+        if handle_instance_modification(current_user_bank_transactions_instance):
             return JsonResponse({'success': True})
 
         return JsonResponse({'success': False})
@@ -635,27 +703,27 @@ def handle_instance_modification(instance: Any) -> bool:
 
     except IntegrityError as e:
         # Handle database integrity errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except ValidationError as e:
         # Handle validation errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except ObjectDoesNotExist as e:
         # Handle object not found errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except FieldError as e:
         # Handle field-related errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except DataError as e:
         # Handle data-related errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except Exception as e:
         # Handle other unexpected exceptions
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
 
 
@@ -666,23 +734,23 @@ def handle_instance_deletion(instance: Any) -> bool:
 
     except ObjectDoesNotExist as e:
         # Handle database integrity errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except ProtectedError as e:
         # Handle validation errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except PermissionDenied as e:
         # Handle object not found errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except IntegrityError as e:
         # Handle field-related errors
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
     except Exception as e:
         # Handle other unexpected exceptions
-        Logger.logger.critical(e)
+        Logger.critical(e)
         return False
 
 

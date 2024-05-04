@@ -967,7 +967,7 @@ class HilanParser(Parser, ABC):
 
         hebrew_month_to_num = {
             'ינואר' :   '01/01',
-            'פבואר':    '01/02',
+            'פברואר':    '01/02',
             'מרץ':      '01/03',
             'אפריל':    '01/04',
             'מאי':      '01/05',
@@ -1009,7 +1009,10 @@ class HilanParser(Parser, ABC):
                     extracted_data['gross_salary']['normal_hours_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == '105':
-                    current_idx = idx + extracted_indexes['gross_salary']['vacation_hours_idx']
+                    if fixed_text[idx] == '105' and fixed_text[idx + 2] == 'הפרש':
+                        current_idx = idx + extracted_indexes['gross_salary']['vacation_hours_idx'] + 1 # offset +1 for new word
+                    else:
+                        current_idx = idx + extracted_indexes['gross_salary']['vacation_hours_idx']
                     extracted_data['gross_salary']['vacation_hours_value'] = self.str_to_float(fixed_text[current_idx])
 
                 if fixed_text[idx] == '106':

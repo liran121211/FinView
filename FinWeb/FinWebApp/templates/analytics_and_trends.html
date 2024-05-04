@@ -145,6 +145,8 @@
         const bank_outcome_by_year =                        {{ bank_outcome_by_year|safe }};
         const bank_current_balance =                        {{ bank_current_balance|safe }};
         const bank_credit_line =                            {{ bank_credit_line|safe }};
+        const bank_outcome_by_category =                    {{ bank_outcome_by_category|safe }};
+
 
     </script>
 
@@ -325,6 +327,10 @@
                         <div class="bank-section-separator-horizontal"></div>
                         <div class="first-row-horizontal">
                             <canvas id="income_outcome_by_year_bank" width="1000" height="350" style="display: block;"></canvas>
+                        </div>
+                        <div class="second-row-horizontal">
+                            <canvas id="outcome_by_category_bank" width="400" height="400" style="display: block;"></canvas>
+                            <canvas id="outcome_by_category_bank1" width="400" height="400" style="display: block;"></canvas>
                         </div>
                     </div>
                 </div>

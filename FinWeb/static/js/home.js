@@ -277,8 +277,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let spent_by_card_labels = [];
 
     // Earned by Category
-    let bank_transaction_by_category_labels = Object.values(bank_transaction_by_category['transaction_category']);
-    let bank_transaction_by_category_items = Object.values(bank_transaction_by_category['total_amount']);
+    let bank_income_by_category_labels = Object.values(bank_income_by_category['transaction_category']);
+    let bank_income_by_category_items = Object.values(bank_income_by_category['total_amount']);
 
     // Iterate over one of the lists
     for (let i = 0; i < spent_by_card_labels_last_4_digits.length; i++) {
@@ -386,32 +386,32 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
 
-    const bank_transaction_by_category_data = {
-        labels: bank_transaction_by_category_labels,
+    const bank_income_by_category_data = {
+        labels: bank_income_by_category_labels,
         datasets: [{
-            data: bank_transaction_by_category_items,
-            backgroundColor: getRandomColors(bank_transaction_by_category_items.length),
+            data: bank_income_by_category_items,
+            backgroundColor: getRandomColors(bank_income_by_category_items.length),
         }]
     };
 
-    let bank_transaction_by_category_title = 'תנועות בנק לפי קטגוריה';
-    let bank_transaction_by_category_font_color = '#4C495A';
-    let bank_transaction_by_category_font_size = scaleValueByScreenSize(22);
+    let bank_income_by_category_title = 'תנועות בנק לפי קטגוריה';
+    let bank_income_by_category_font_color = '#4C495A';
+    let bank_income_by_category_font_size = scaleValueByScreenSize(22);
     if (Object.keys(spent_by_category['transaction_category']).length === 0) {
-        bank_transaction_by_category_title = bank_transaction_by_category_title + ' (מידע לא זמין)';
-        bank_transaction_by_category_font_color = '#C6C6C6';
-        bank_transaction_by_category_font_size = scaleValueByScreenSize(18);
+        bank_income_by_category_title = bank_income_by_category_title + ' (מידע לא זמין)';
+        bank_income_by_category_font_color = '#C6C6C6';
+        bank_income_by_category_font_size = scaleValueByScreenSize(18);
     }
 
-    const bank_transaction_by_category_config = {
+    const bank_income_by_category_config = {
         type: 'outlabeledPie',
-        data: bank_transaction_by_category_data,
+        data: bank_income_by_category_data,
         options: {
             title: {
                 display: true,
-                text: bank_transaction_by_category_title,
-                fontSize: bank_transaction_by_category_font_size,
-                fontColor: bank_transaction_by_category_font_color,
+                text: bank_income_by_category_title,
+                fontSize: bank_income_by_category_font_size,
+                fontColor: bank_income_by_category_font_color,
                 fontFamily: "'Gan', sans-serif",
             },
             responsive: false,
@@ -453,15 +453,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create the doughnut chart with the provided configuration
     new Chart(spent_by_card_canvas, spent_by_card_config);
 
-    const bank_transaction_by_category_canvas = document.getElementById('quick-overview-earned-by-category');
+    const bank_income_by_category_canvas = document.getElementById('quick-overview-earned-by-category');
     if (scaleValueByScreenSize(1) !== 1) {
         // Set the width and height of the canvas
-        bank_transaction_by_category_canvas.width = 400; // Set your desired width
-        bank_transaction_by_category_canvas.height = 400; // Set your desired height
+        bank_income_by_category_canvas.width = 400; // Set your desired width
+        bank_income_by_category_canvas.height = 400; // Set your desired height
     }
 
     // Create the doughnut chart with the provided configuration
-    new Chart(bank_transaction_by_category_canvas, bank_transaction_by_category_config);
+    new Chart(bank_income_by_category_canvas, bank_income_by_category_config);
 });
 
 /* ----------------------- Income & Outcome Ratio Dashboard Doughnut Pie ----------------------- */

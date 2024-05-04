@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         credit_card_last_4_digits.classList.add('credit-card-last-4-digits'); // Add the class for styling
 
         credit_card_line_of_credit.textContent = user_cards.credit_line[i];
+        credit_card_line_of_credit.id = user_cards.sha1_identifier[i];
         credit_card_line_of_credit.classList.add('credit-card-line-of-credit'); // Add the class for styling
 
         // Add word1 and word2 divs to the cell
@@ -255,7 +256,74 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             });
         }
+
+
+        // Check if the clicked element is a table cell (td) with the class 'credit-card-line-of-credit'
+        if (target.classList.contains('credit-card-line-of-credit')) {
+            const originalContent = target.innerHTML; // Store the original content
+
+            // Create a combo box (select element)
+            const inputBox = document.createElement('input');
+
+            // Set the initial selected option
+            inputBox.value = originalContent.trim();
+
+            // Add event listener to save changes when an option is selected
+            inputBox.addEventListener('change', () => {
+                target.innerHTML = inputBox.value;
+            });
+
+            // Add event listener to cancel editing on pressing Escape
+            inputBox.addEventListener('keyup', e => {
+                if (e.key === 'Escape') {
+                    // Cancel editing and restore the original content
+                    target.innerHTML = originalContent;
+                }
+            });
+
+            // Replace the cell content with the combo box
+            target.innerHTML = '';
+            target.appendChild(inputBox);
+
+            // Focus on the combo box
+            inputBox.focus();
+
+
+            // Add event listener to the combo box
+            inputBox.addEventListener('change', () => {
+                const newTextValue = inputBox.value;
+                const url = '/settings/submit_user_cards';
+                const data = new FormData();
+                data.append('credit_card_line', newTextValue);
+                data.append('sha1_identifier', target.id);
+
+                // Make an AJAX POST request
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                        'X-Requested-With': 'XMLHttpRequest' // Custom header to indicate AJAX request
+                    },
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            // Handle the case where the server indicates failure
+                            showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
+                        } else {
+                            // Handle the case where the server indicates success
+                            showSuccessStatus('השינויים עודכנו בהצלחה', ".settings-modification-block-success-status");
+                        }
+                    })
+                    .catch(_ => {
+                        showFailStatus("עדכון מידע נכשל", ".settings-modification-block-fail-status");
+                    });
+            });
+        }
+
     });
+
 
 });
 
@@ -281,6 +349,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const cell = document.createElement('td');
         cell.classList.add(className);
         const div = document.createElement('div');
+
+
         div.textContent = content;
         div.classList.add(className.replace('-col', ''));
         cell.appendChild(div);
@@ -294,7 +364,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (let i = startIndex; i < endIndex; i++) {
             const row = document.createElement('tr');
-
             row.appendChild(createTableCell(credit_cards_transactions.last_4_digits[i], 'last-4-digits-col'));
             row.appendChild(createTableCell(credit_cards_transactions.transaction_category[i], 'credit-card-transaction-category-col'));
             row.appendChild(createTableCell(credit_cards_transactions.transaction_type[i], 'transaction-type-col'));
@@ -303,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function () {
             row.appendChild(createTableCell(credit_cards_transactions.charge_amount[i], 'charge-amount-col'));
             row.appendChild(createTableCell(credit_cards_transactions.business_name[i], 'business-name-col'));
             row.appendChild(createTableCell(credit_cards_transactions.date_of_transaction[i], 'date-of-transaction-col'));
-
+            row.getElementsByClassName('credit-card-transaction-category')[0].id = credit_cards_transactions.sha1_identifier[i];
             tableBody.appendChild(row);
         }
     }
@@ -391,6 +460,88 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    // Define the options for the combo box
+    const creditCardCategories = ['ביטוח', 'מזון וצריכה', 'שרותי תקשורת', 'רפואה וקוסמטיקה', 'מחשבים, תוכנות וחשמל', 'פנאי ובידור', 'עירייה וממשלה', 'תחבורה', 'שונות',]
+
+    // Select the table
+    const creditCardsTransactionsTable = document.getElementById('credit-cards-transactions-table');
+
+    // Add event listener to the table
+    creditCardsTransactionsTable.addEventListener('dblclick', event => {
+        const target = event.target; // Get the clicked element
+
+        // Check if the clicked element is a table cell (td) with the class 'credit-card-type'
+        if (target.classList.contains('credit-card-transaction-category')) {
+            const originalContent = target.innerHTML; // Store the original content
+
+            // Create a combo box (select element)
+            const selectBox = document.createElement('select');
+
+            // Populate the combo box with options
+            creditCardCategories.forEach(transactionCategory => {
+                const optionElement = document.createElement('option');
+                optionElement.textContent = transactionCategory;
+                selectBox.appendChild(optionElement);
+            });
+
+            // Set the initial selected option
+            selectBox.value = originalContent.trim();
+
+            // Add event listener to save changes when an option is selected
+            selectBox.addEventListener('change', () => {
+                target.innerHTML = selectBox.value;
+            });
+
+            // Add event listener to cancel editing on pressing Escape
+            selectBox.addEventListener('keyup', e => {
+                if (e.key === 'Escape') {
+                    // Cancel editing and restore the original content
+                    target.innerHTML = originalContent;
+                }
+            });
+
+            // Replace the cell content with the combo box
+            target.innerHTML = '';
+            target.appendChild(selectBox);
+
+            // Focus on the combo box
+            selectBox.focus();
+
+
+            // Add event listener to the combo box
+            selectBox.addEventListener('change', () => {
+                const selectedOption = selectBox.value;
+                const url = '/settings/submit_user_cards_transactions';
+                const data = new FormData();
+                data.append('selected_transaction_category', selectedOption);
+                data.append('sha1_identifier', target.id);
+
+                // Make an AJAX POST request
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                        'X-Requested-With': 'XMLHttpRequest' // Custom header to indicate AJAX request
+                    },
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            // Handle the case where the server indicates failure
+                            showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
+                        } else {
+                            // Handle the case where the server indicates success
+                            showSuccessStatus('השינויים עודכנו בהצלחה', ".settings-modification-block-success-status");
+                        }
+                    })
+                    .catch(_ => {
+                        showFailStatus("עדכון מידע נכשל", ".settings-modification-block-fail-status");
+                    });
+            });
+        }
+    });
+
 });
 
 
@@ -438,7 +589,7 @@ document.addEventListener('DOMContentLoaded', function () {
             row.appendChild(createTableCell(bank_transactions.income_balance[i], 'income-balance-col'));
             row.appendChild(createTableCell(bank_transactions.transaction_description[i], 'transaction-description-col'));
             row.appendChild(createTableCell(bank_transactions.transaction_date[i], 'transaction-date-col'));
-
+            row.getElementsByClassName('bank-transaction-category')[0].id = bank_transactions.sha1_identifier[i];
             tableBody.appendChild(row);
         }
     }
@@ -525,6 +676,88 @@ document.addEventListener('DOMContentLoaded', function () {
     const columnHeaderElements = document.querySelectorAll('#bank-transactions-table th');
     columnHeaderElements.forEach(columnHeader => {
         columnHeader.addEventListener('click', handleColumnHeaderClick);
+    });
+
+    // Define the options for the combo box
+    const bankCategories = ['הכנסה', 'הוצאה', 'חיסכון והשקעות', 'הלוואות', 'עמלות', 'העברות ומשיכות', 'מיסים', 'שונות', 'כרטיסי אשראי']
+
+    // Select the table
+    const bankTransactionsTable = document.getElementById('bank-transactions-table');
+
+    // Add event listener to the table
+    bankTransactionsTable.addEventListener('dblclick', event => {
+        const target = event.target; // Get the clicked element
+
+        // Check if the clicked element is a table cell (td) with the class 'credit-card-type'
+        if (target.classList.contains('bank-transaction-category')) {
+            const originalContent = target.innerHTML; // Store the original content
+
+            // Create a combo box (select element)
+            const selectBox = document.createElement('select');
+
+            // Populate the combo box with options
+            bankCategories.forEach(transactionCategory => {
+                const optionElement = document.createElement('option');
+                optionElement.textContent = transactionCategory;
+                selectBox.appendChild(optionElement);
+            });
+
+            // Set the initial selected option
+            selectBox.value = originalContent.trim();
+
+            // Add event listener to save changes when an option is selected
+            selectBox.addEventListener('change', () => {
+                target.innerHTML = selectBox.value;
+            });
+
+            // Add event listener to cancel editing on pressing Escape
+            selectBox.addEventListener('keyup', e => {
+                if (e.key === 'Escape') {
+                    // Cancel editing and restore the original content
+                    target.innerHTML = originalContent;
+                }
+            });
+
+            // Replace the cell content with the combo box
+            target.innerHTML = '';
+            target.appendChild(selectBox);
+
+            // Focus on the combo box
+            selectBox.focus();
+
+
+            // Add event listener to the combo box
+            selectBox.addEventListener('change', () => {
+                const selectedOption = selectBox.value;
+                const url = '/settings/submit_user_bank_transactions';
+                const data = new FormData();
+                data.append('selected_transaction_category', selectedOption);
+                data.append('sha1_identifier', target.id);
+
+                // Make an AJAX POST request
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                        'X-Requested-With': 'XMLHttpRequest' // Custom header to indicate AJAX request
+                    },
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            // Handle the case where the server indicates failure
+                            showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
+                        } else {
+                            // Handle the case where the server indicates success
+                            showSuccessStatus('השינויים עודכנו בהצלחה', ".settings-modification-block-success-status");
+                        }
+                    })
+                    .catch(_ => {
+                        showFailStatus("עדכון מידע נכשל", ".settings-modification-block-fail-status");
+                    });
+            });
+        }
     });
 });
 

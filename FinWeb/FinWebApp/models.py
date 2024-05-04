@@ -2,6 +2,8 @@ from datetime import datetime
 from typing import Text, List
 import pandas as pd
 from django.db import models
+
+from FinCore import PostgreSQL_DB
 from . import FIN_CORE, INVALID_ANSWER
 
 
@@ -267,14 +269,21 @@ def outcome_by_bank_query(username: Text, dates: List, sort_bank: Text = 'All'):
     return result
 
 
-def BankTransactionByCategoryQuery(username: Text):
+def bank_income_by_category_query(username: Text):
     cols_names = ['transaction_category', 'total_amount', ]
 
-    query = FIN_CORE.ask['total_transaction_amount_by_bank_category'](username=username)
+    query = FIN_CORE.ask['total_income_amount_by_bank_category'](username=username)
     return pd.DataFrame(query, columns=cols_names).to_dict()
 
 
-def SpentByCardNumberQuery(username: Text):
+def bank_outcome_by_category_query(username: Text):
+    cols_names = ['transaction_category', 'total_amount', ]
+
+    query = FIN_CORE.ask['total_outcome_amount_by_bank_category'](username=username)
+    return pd.DataFrame(query, columns=cols_names).to_dict()
+
+
+def spent_by_card_number_query(username: Text):
     cols_names = ['last_4_digits', 'issuer_name', 'total_amount', ]
 
     query = FIN_CORE.ask['how_much_spent_by_card_number'](username=username)
@@ -323,6 +332,16 @@ class UserCards(models.Model):
     username = models.CharField(max_length=50, db_column='username')
     credit_line = models.FloatField(max_length=10, db_column='credit_line')
     sha1_identifier = models.CharField(max_length=40, primary_key=True)
+
+    def calc_sha1(self):
+        raw_data = {
+            'last_4_digits':    self.last_4_digits,
+            'card_type':        self.card_type,
+            'issuer_name':      self.issuer_name,
+            'full_name':        self.full_name,
+            'credit_line':      self.credit_line,
+        }
+        return PostgreSQL_DB.calc_sha1(raw_data, excluded_keys=['sha1_identifier', 'username', ])
 
     class Meta:
         # Specify the table name here
@@ -373,6 +392,19 @@ class UserCreditCardsTransactions(models.Model):
     transaction_category = models.CharField(max_length=50, db_column='transaction_category')
     last_4_digits = models.CharField(max_length=4, db_column='last_4_digits')
 
+    def calc_sha1(self):
+        raw_data = {
+            'date_of_transaction':  self.date_of_transaction,
+            'business_name':        self.business_name,
+            'charge_amount':        self.charge_amount,
+            'total_amount':         self.total_amount,
+            'transaction_provider': self.transaction_provider,
+            'transaction_type':     self.transaction_type,
+            'transaction_category': self.transaction_category,
+            'last_4_digits':        self.last_4_digits,
+        }
+        return PostgreSQL_DB.calc_sha1(raw_data, excluded_keys=['sha1_identifier', 'username', ])
+
     class Meta:
         # Specify the table name here
         db_table = 'user_credit_card_transactions'
@@ -394,6 +426,20 @@ class UserBankTransactions(models.Model):
     account_number = models.CharField(max_length=50, db_column='account_number')
     transaction_reference = models.CharField(max_length=50, db_column='transaction_reference')
     transaction_category = models.CharField(max_length=50, db_column='transaction_category')
+
+    def calc_sha1(self):
+        raw_data = {
+            'transaction_date':             self.transaction_date,
+            'transaction_description':      self.transaction_description,
+            'income_balance':               self.income_balance,
+            'outcome_balance':              self.outcome_balance,
+            'current_balance':              self.current_balance,
+            'transaction_provider':         self.transaction_provider,
+            'account_number':               self.account_number,
+            'transaction_reference':        self.transaction_reference,
+            'transaction_category':         self.transaction_category,
+        }
+        return PostgreSQL_DB.calc_sha1(raw_data, excluded_keys=['sha1_identifier', 'username', ])
 
     class Meta:
         # Specify the table name here

@@ -20,11 +20,12 @@ let chartInstances = {
     'SpentByCategoryYearly': null,
     'SpentByBusiness': null,
     'IncomeOutcomeBank': null,
+    'OutcomeByCategoryBank': null,
 }
 
 // defines
-    const firstIdx = 0;
-    const secondIdx = 1;
+const firstIdx = 0;
+const secondIdx = 1;
 
 /* ----------------------- Credit Cards Analytics & Trends Section ----------------------- */
 
@@ -467,13 +468,13 @@ document.addEventListener('DOMContentLoaded', function () {
     //set bank credit line
     if (Object.keys(bank_credit_line).length > 0) {
         const bankCreditLine = Object.values(bank_credit_line)[firstIdx];
-            document.getElementById('bank-utilization-ratio').textContent = `₪ מסגרת חשבון: ${bankCreditLine}`;
+        document.getElementById('bank-utilization-ratio').textContent = `₪ מסגרת חשבון: ${bankCreditLine}`;
     }
 
-    const ctx = document.getElementById('income_outcome_by_year_bank').getContext('2d');
-    const labels = Object.keys(bank_income_by_year);
-    const data = {
-        labels: labels,
+    const IncomeOutcomeByYearCtx = document.getElementById('income_outcome_by_year_bank').getContext('2d');
+    const IncomeOutcomeByYearLabels = Object.keys(bank_income_by_year);
+    const IncomeOutcomeByYearData = {
+        labels: IncomeOutcomeByYearLabels,
         datasets: [
             {
                 label: 'הכנסות',
@@ -488,9 +489,9 @@ document.addEventListener('DOMContentLoaded', function () {
         ]
     };
 
-    const config = {
+    const IncomeOutcomeByYearConfig = {
         type: 'bar',
-        data: data,
+        data: IncomeOutcomeByYearData,
         options: {
             interaction: {
                 intersect: false,
@@ -507,7 +508,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    chartInstances['IncomeOutcomeBank'] = new Chart(ctx, config);
+    chartInstances['IncomeOutcomeBank'] = new Chart(IncomeOutcomeByYearCtx, IncomeOutcomeByYearConfig);
+
+    // create platte of colors to Doughnut Chart
+    const OutcomeByCategoryBankColors = new Array(Object.keys(bank_outcome_by_category.total_amount).length);
+    for (let i = 0; i < Object.keys(bank_outcome_by_category.total_amount).length; i++) {
+        OutcomeByCategoryBankColors[i] = ColorPalette[i];
+    }
+
+
+    const OutcomeByCategoryBankCtx = document.getElementById('outcome_by_category_bank').getContext('2d');
+    const OutcomeByCategoryBankData = {
+        labels: Object.values(bank_outcome_by_category.transaction_category),
+        datasets: [{
+            label: 'הוצאות לפי קטגוריה',
+            data: Object.values(bank_outcome_by_category.total_amount),
+            backgroundColor: OutcomeByCategoryBankColors,
+            hoverOffset: 4
+        }]
+    };
+
+    // Configuration options for the chart
+    const OutcomeByCategoryBankConfig = {
+        type: 'doughnut',
+        data: OutcomeByCategoryBankData,
+        options: {
+            responsive: false // Prevent the chart from resizing
+        }
+    };
+
+    chartInstances['OutcomeByCategoryBank'] = new Chart(OutcomeByCategoryBankCtx, OutcomeByCategoryBankConfig);
 
 });
 

@@ -3123,3 +3123,32 @@ LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
 2024-04-27 17:28:28,460 - INFO - Successfully added a new record to PostgreSQL database.
 2024-04-27 17:28:32,718 - INFO - Successfully added a new record to PostgreSQL database.
 2024-04-27 17:28:44,121 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 22:57:27,075 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 23:00:36,134 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-27 23:00:47,366 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-27 23:01:25,704 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-28 09:34:16,037 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 09:37:45,273 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 09:39:48,200 - INFO - Successfully added a new record to PostgreSQL database.
+2024-04-28 09:50:09,550 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 10:45:30,224 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 10:51:24,309 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 10:57:10,125 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 10:59:27,525 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-04-28 11:08:06,501 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 09:35:06,718 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 10:00:22,312 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 10:10:17,319 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 10:19:33,832 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:01:18,041 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:01:31,426 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:06:35,900 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:10:10,816 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:14:17,600 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:52:36,735 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:53:25,826 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:55:55,889 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 11:57:30,232 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 12:04:31,367 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 12:07:05,986 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-04 12:32:27,321 - INFO - Successfully connected to PostgreSQL database - localhost:5432

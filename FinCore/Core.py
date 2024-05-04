@@ -1012,8 +1012,17 @@ class Application:
             result = self.__manage_credit_cards_transactions.transaction_query(sql_query=query)
             return result
 
-        def total_transaction_amount_by_bank_category(username: Text):
+        def total_income_amount_by_bank_category(username: Text):
             query = f"SELECT transaction_category, SUM(income_balance)" \
+                    f" FROM user_bank_transactions" \
+                    f" WHERE username='{username}'" \
+                    f" GROUP BY transaction_category;"
+
+            result = self.__manage_bank_transactions.transaction_query(sql_query=query)
+            return result
+
+        def total_outcome_amount_by_bank_category(username: Text):
+            query = f"SELECT transaction_category, SUM(outcome_balance)" \
                     f" FROM user_bank_transactions" \
                     f" WHERE username='{username}'" \
                     f" GROUP BY transaction_category;"
@@ -1066,7 +1075,8 @@ class Application:
             'which_records_of_transaction_provider': which_records_of_transaction_provider,
             'how_many_records_from_specific_business': how_many_records_from_specific_business,
             'how_much_spent_by_category': how_much_spent_by_category,
-            'total_transaction_amount_by_bank_category': total_transaction_amount_by_bank_category,
+            'total_income_amount_by_bank_category': total_income_amount_by_bank_category,
+            'total_outcome_amount_by_bank_category': total_outcome_amount_by_bank_category,
             'how_much_spent_by_card_number': how_much_spent_by_card_number,
             'total_credit_cards_line_available': total_credit_cards_line_available,
             'total_credit_cards_line_available_specific_card': total_credit_cards_line_available_specific_card,
