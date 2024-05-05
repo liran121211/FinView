@@ -158,6 +158,15 @@ def analytics_and_trends_post():
     pass
 
 
+def transactions_view(request):
+    if request.user.is_authenticated:
+        logged_in_user = request.user.username
+
+        return render(request, 'transactions.html', {})
+    else:
+        return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
+
+
 def settings_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
@@ -341,6 +350,35 @@ def settings_user_bank_transactions_post(request):
         return redirect('settings_page')
 
 
+def settings_direct_debit_subscriptions_post(request):
+    # handle credit cards editing
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        try:
+            current_direct_debit_and_subscriptions_instance = get_object_or_404(UserDirectDebitSubscriptions, pk=request.POST.get('sha1_identifier'))  # Retrieve direct debit and subscriptions records from the database
+        except Http404 as e:
+            Logger.critical(e)
+            raise Http404("This page does not exist")
+
+        # perform database update operation here
+        current_direct_debit_and_subscriptions_instance.payment_type = request.POST.get('selected_direct_debit_subscription_payment_type', current_direct_debit_and_subscriptions_instance.payment_type)
+
+        # delete old instance that can cause duplication
+        if not handle_instance_deletion(current_direct_debit_and_subscriptions_instance):
+            return JsonResponse({'success': False})
+
+        # calc and update sha1_identifier due to changed data column (creates a new record due to new key)
+        current_direct_debit_and_subscriptions_instance.sha1_identifier = current_direct_debit_and_subscriptions_instance.calc_sha1()
+
+        # check if modification instance can cause an exception
+        if handle_instance_modification(current_direct_debit_and_subscriptions_instance):
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'success': False})
+
+    else:
+        return redirect('settings_page')
+
+
 def retrieve_user_information(username: Text) -> dict:
     # Retrieve all rows from the table
     filtered_data = UserFinancialInformation.objects.filter(username=username).first()
@@ -419,6 +457,7 @@ def retrieve_user_direct_debit_subscription_records(username: Text) -> dict:
     # if query was invalid or empty.
     if filtered_data is None:
         filtered_data = {
+            'sha1_identifier': [],
             'payment_type': [],
             'amount': [],
             'provider_name': [],
@@ -427,6 +466,11 @@ def retrieve_user_direct_debit_subscription_records(username: Text) -> dict:
 
     dict_data = dict()
     for data in filtered_data:
+        if dict_data.get('sha1_identifier', None) is None:
+            dict_data['sha1_identifier'] = [data.sha1_identifier]
+        else:
+            dict_data['sha1_identifier'].append(data.sha1_identifier)
+
         if dict_data.get('payment_type', None) is None:
             dict_data['payment_type'] = [data.payment_type]
         else:

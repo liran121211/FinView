@@ -937,6 +937,13 @@ color: #4C495A;
 text-align: center;
 margin: 10px;
 }
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
+}
 }
 
 @media only screen and (max-width: 1280px) and (max-height: 720px) {
@@ -1023,6 +1030,13 @@ font-size: 18px;
 color: #4C495A;
 text-align: center;
 margin: 10px;
+}
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
 }
 }
 
@@ -1190,6 +1204,13 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
+}
 }
 
 @media only screen and (max-width: 1280px) and (max-height: 720px) {
@@ -1355,6 +1376,13 @@ background-color: #e0e0e0;
 background-color: #007bff;
 color: #fff;
 border-color: #007bff;
+}
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
 }
 }
 
@@ -1535,6 +1563,13 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
+}
 }
 
 @media only screen and (max-width: 1280px) and (max-height: 720px) {
@@ -1714,6 +1749,13 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
+}
 }
 
 /* ----------------- Direct Debit Subscriptions Table CSS ----------------- */
@@ -1823,6 +1865,13 @@ background-color: #007bff;
 color: #fff;
 border-color: #007bff;
 }
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
+}
 }
 
 @media only screen and (max-width: 1280px) and (max-height: 720px) {
@@ -1923,6 +1972,13 @@ background-color: #e0e0e0;
 background-color: #007bff;
 color: #fff;
 border-color: #007bff;
+}
+
+.table-modification-column-description{
+direction: rtl;
+font-family: 'Gan', sans-serif;
+margin: 6px;
+font-size: 14px;
 }
 }
 /* ----------------- File Upload CSS ----------------- */

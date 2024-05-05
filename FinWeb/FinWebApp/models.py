@@ -365,11 +365,19 @@ class UserCards(models.Model):
 
 
 class UserDirectDebitSubscriptions(models.Model):
-    sha1_identifier = models.IntegerField(max_length=40, primary_key=True)
+    sha1_identifier = models.CharField(max_length=40, primary_key=True)
     username = models.CharField(max_length=50, db_column='username')
     payment_type = models.CharField(max_length=50, db_column='payment_type')
     amount = models.FloatField(max_length=50, db_column='amount')
     provider_name = models.CharField(max_length=50, db_column='provider_name')
+
+    def calc_sha1(self):
+        raw_data = {
+            'payment_type':     self.payment_type,
+            'amount':           self.amount,
+            'provider_name':    self.provider_name,
+        }
+        return PostgreSQL_DB.calc_sha1(raw_data, excluded_keys=['sha1_identifier', 'username', ])
 
     class Meta:
         # Specify the table name here

@@ -137,7 +137,9 @@
                         <a href="{% url 'analytics_and_trends_page' %}" class="home-link">
                             <span class="home-text02">ניתוח אנליטיקות/טרנדים</span>
                         </a>
-                        <span class="home-text01">עסקאות</span>
+                        <a href="{% url 'transactions_page' %}" class="home-link">
+                            <span class="home-text01">עסקאות</span>
+                        </a>
                         <a href="{% url 'home_page' %}" class="home-link">
                             <span class="home-text">מבט על</span>
                         </a>
@@ -329,6 +331,8 @@
                     </td>
                     </tbody>
                 </table>
+                <p class="table-modification-column-description">*סוג כרטיס - ניתן לשנות.</p>
+                <p class="table-modification-column-description">*מסגרת אשראי - ניתן לשנות.</p>
                 <div>
                     <p id="empty-credit-cards-list-description"></p>
                 </div>
@@ -359,6 +363,7 @@
                     <td class="date-of-transaction-col"></td>
                     </tbody>
                 </table>
+                <p class="table-modification-column-description">*קטגוריה - ניתן לשנות.</p>
                 <div>
                     <p id="empty-credit-cards-transactions-description"></p>
                 </div>
@@ -392,6 +397,7 @@
                     <td class="transaction-date-col"></td>
                     </tbody>
                 </table>
+                <p class="table-modification-column-description">*קטגוריה - ניתן לשנות.</p>
                 <div>
                     <p id="empty-bank-transactions-description"></p>
                 </div>
@@ -412,6 +418,7 @@
                     <td class="direct-debit-subscription-provider-name-col"></td>
                     </tbody>
                 </table>
+                <p class="table-modification-column-description">*סוג עסקה - ניתן לשנות.</p>
                 <div>
                     <p id="empty-direct-debit-subscription"></p>
                 </div>

@@ -725,7 +725,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Focus on the combo box
             selectBox.focus();
 
-
             // Add event listener to the combo box
             selectBox.addEventListener('change', () => {
                 const selectedOption = selectBox.value;
@@ -800,6 +799,7 @@ document.addEventListener('DOMContentLoaded', function () {
             row.appendChild(createTableCell(direct_debit_subscriptions.payment_type[i], 'direct-debit-subscription-payment-type-col'));
             row.appendChild(createTableCell(direct_debit_subscriptions.amount[i], 'direct-debit-subscription-amount-col'));
             row.appendChild(createTableCell(direct_debit_subscriptions.provider_name[i], 'direct-debit-subscription-provider-name-col'));
+            row.getElementsByClassName('direct-debit-subscription-payment-type')[0].id = direct_debit_subscriptions.sha1_identifier[i];
             tableBody.appendChild(row);
         }
     }
@@ -875,6 +875,89 @@ document.addEventListener('DOMContentLoaded', function () {
     columnHeaderElements.forEach(columnHeader => {
         columnHeader.addEventListener('click', handleColumnHeaderClick);
     });
+
+
+        // Define the options for the combo box
+    const paymentTypeCategories = ['עסקת תשלומים', 'הוראת קבע']
+
+    // Select the table
+    const directDebitAndSubscriptionsTable = document.getElementById('direct-debit-subscription-table');
+
+    // Add event listener to the table
+    directDebitAndSubscriptionsTable.addEventListener('dblclick', event => {
+        const target = event.target; // Get the clicked element
+
+        // Check if the clicked element is a table cell (td) with the class 'credit-card-type'
+        if (target.classList.contains('direct-debit-subscription-payment-type')) {
+            const originalContent = target.innerHTML; // Store the original content
+
+            // Create a combo box (select element)
+            const selectBox = document.createElement('select');
+
+            // Populate the combo box with options
+            paymentTypeCategories.forEach(transactionType => {
+                const optionElement = document.createElement('option');
+                optionElement.textContent = transactionType;
+                selectBox.appendChild(optionElement);
+            });
+
+            // Set the initial selected option
+            selectBox.value = originalContent.trim();
+
+            // Add event listener to save changes when an option is selected
+            selectBox.addEventListener('change', () => {
+                target.innerHTML = selectBox.value;
+            });
+
+            // Add event listener to cancel editing on pressing Escape
+            selectBox.addEventListener('keyup', e => {
+                if (e.key === 'Escape') {
+                    // Cancel editing and restore the original content
+                    target.innerHTML = originalContent;
+                }
+            });
+
+            // Replace the cell content with the combo box
+            target.innerHTML = '';
+            target.appendChild(selectBox);
+
+            // Focus on the combo box
+            selectBox.focus();
+
+            // Add event listener to the combo box
+            selectBox.addEventListener('change', () => {
+                const selectedOption = selectBox.value;
+                const url = '/settings/submit_direct_debit_subscriptions';
+                const data = new FormData();
+                data.append('selected_direct_debit_subscription_payment_type', selectedOption);
+                data.append('sha1_identifier', target.id);
+
+                // Make an AJAX POST request
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                        'X-Requested-With': 'XMLHttpRequest' // Custom header to indicate AJAX request
+                    },
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            // Handle the case where the server indicates failure
+                            showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
+                        } else {
+                            // Handle the case where the server indicates success
+                            showSuccessStatus('השינויים עודכנו בהצלחה', ".settings-modification-block-success-status");
+                        }
+                    })
+                    .catch(_ => {
+                        showFailStatus("עדכון מידע נכשל", ".settings-modification-block-fail-status");
+                    });
+            });
+        }
+    });
+
 });
 
 
