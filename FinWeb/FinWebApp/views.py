@@ -162,7 +162,10 @@ def transactions_view(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
 
-        return render(request, 'transactions.html', {})
+        return render(request, 'transactions.html', {
+            'credit_cards_transactions': retrieve_user_credit_card_transactions(logged_in_user),
+            'bank_transactions': retrieve_user_bank_transactions(logged_in_user, positive_only=False),
+        })
     else:
         return render(request, 'login.html', {'failure_login': 'אנא התחבר לפני הגישה לעמוד המבוקש'})
 

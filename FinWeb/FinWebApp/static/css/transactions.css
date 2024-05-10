@@ -503,7 +503,698 @@ padding: 16px;
 }
 }
 
+/* ----------------- Search Box Section CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+.custom-textbox input {
+font-size: 18px;
+padding: 10px 10px;
+width: 980px;
+height: 40px;
+border: 2px solid #adadad;
+margin-top: 5px;
+direction: rtl;
+}
 
+.transactions-mode-selection {
+display: flex;
+flex-direction: row;  /* Stacks boxes vertically */
+gap: 5px;               /* Adds spacing between boxes */
+}
+
+.mode-selection {
+display: flex; /* Use flexbox */
+align-items: center; /* Vertically center items */
+justify-content: center; /* Horizontally center items */
+width: 200px;
+height: 40px;
+padding: 5px 15px;
+margin: 5px;
+background-color: #FFFFFF;
+border: 1px solid gray;
+border-radius: 5px;
+cursor: pointer;
+}
+.mode-selection p {
+font-family: 'Gan', sans-serif;
+}
+
+.mode-selection.clicked{
+background-color: #3498db;
+color: white;
+cursor: pointer; /* Ensure pointer cursor on hover */
+}
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.custom-textbox input {
+font-size: 15px;
+padding: 10px 10px;
+width: 580px;
+height: 30px;
+border: 2px solid #adadad;
+margin-top: 5px;
+margin-left: 100px;
+direction: rtl;
+}
+
+.transactions-mode-selection {
+display: flex;
+flex-direction: row;  /* Stacks boxes vertically */
+gap: 5px;               /* Adds spacing between boxes */
+
+}
+
+.mode-selection {
+display: flex; /* Use flexbox */
+align-items: center; /* Vertically center items */
+justify-content: center; /* Horizontally center items */
+width: 150px;
+height: 30px;
+padding: 5px 15px;
+margin: 5px;
+background-color: #FFFFFF;
+border: 1px solid gray;
+border-radius: 5px;
+cursor: pointer;
+}
+.mode-selection p {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+}
+
+.mode-selection.clicked{
+background-color: #3498db;
+color: white;
+cursor: pointer; /* Ensure pointer cursor on hover */
+}
+}
+/* ----------------- Credit Card Transactions Table CSS ----------------- */
+.root-vertical-layout{
+display: flex;
+flex-direction: column;
+justify-content: center; /* Aligns items vertically */
+margin: 10px;
+}
+
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+.custom-textbox {
+margin: 0 auto; /* Center horizontally */
+display: flex;
+flex-direction: row;  /* Stacks boxes vertically */
+}
+
+.credit-cards-transactions-div  {
+padding-top: 10px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+overflow-y: auto; /* Add vertical scrollbar */
+scrollbar-width: thin;
+height: 80vh;
+display: block;
+}
+
+
+#credit-cards-transactions-table {
+width: 80vw;
+border-collapse: collapse;
+}
+
+#credit-cards-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+padding: 10px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#credit-cards-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-credit-cards-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 350px 70px 0px;
+direction: rtl;
+}
+
+.date-of-transaction-col {
+border-bottom: 1px solid #ddd;
+}
+
+.business-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.charge-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.total-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-type-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.last-4-digits-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.date-of-transaction {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.business-name {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align:center;
+margin: 10px;
+}
+
+.charge-amount {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.total-amount {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.credit-card-transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-type {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.credit-card-transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+}
+
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.credit-cards-transactions-div  {
+padding-bottom: 40px;
+padding-left: 100px;
+margin: 0 auto; /* Center horizontally */
+overflow-y: auto; /* Add vertical scrollbar */
+scrollbar-width: thin;
+height: 67vh;
+display: block;
+}
+#credit-cards-transactions-table {
+width: 70vw;
+border-collapse: collapse;
+}
+
+#credit-cards-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding: 8px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#credit-cards-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-credit-cards-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 13px;
+color: #C6C6C6;
+margin: 40px 290px 54px 0px;
+direction: rtl;
+}
+
+.date-of-transaction-col {
+border-bottom: 1px solid #ddd;
+}
+
+.business-name-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.charge-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.total-amount-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-type-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.last-4-digits-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.date-of-transaction {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.business-name {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align:center;
+margin: 8px;
+}
+
+.charge-amount {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.total-amount {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.credit-card-transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.transaction-type {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.credit-card-transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.last-4-digits {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+}
+
+/* ----------------- Bank Transactions Table CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+.bank-transactions-div  {
+padding-top: 10px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+overflow-y: auto; /* Add vertical scrollbar */
+scrollbar-width: thin;
+height: 80vh;
+display: none;
+}
+#bank-transactions-table {
+width: 80vw;
+border-collapse: collapse;
+}
+
+#bank-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+padding: 10px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#bank-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-bank-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 16px;
+color: #C6C6C6;
+margin: 50px 400px 70px 0px;
+direction: rtl;
+}
+
+.transaction-date-col {
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-description-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.income-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.outcome-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.current-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.bank-transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-reference-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.bank-transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.account-number-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-date {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-description {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align:center;
+margin: 10px;
+}
+
+.income-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.outcome-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.current-balance {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.bank-transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.transaction-reference {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.bank-transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+
+.account-number {
+font-family: 'Gan', sans-serif;
+font-size: 18px;
+color: #4C495A;
+text-align: center;
+margin: 10px;
+}
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.bank-transactions-div  {
+padding-bottom: 40px;
+padding-left: 100px;
+margin: 0 auto; /* Center horizontally */
+overflow-y: auto; /* Add vertical scrollbar */
+scrollbar-width: thin;
+height: 67vh;
+display: none;
+}
+#bank-transactions-table {
+width: 70vw;
+border-collapse: collapse;
+}
+
+#bank-transactions-table th {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+padding: 8px;
+direction: rtl;
+color: #4C495A;
+background-color: initial;
+border-bottom: 1px solid #ddd;
+}
+
+#bank-transactions-table tr:nth-child(even) {
+background-color: #e6e6e6;
+}
+
+#empty-bank-transactions-description{
+font-family: 'Gan', sans-serif;
+font-size: 14px;
+color: #C6C6C6;
+margin: 40px 400px 54px 0px;
+direction: rtl;
+}
+
+.transaction-date-col {
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-description-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.income-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.outcome-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.current-balance-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.bank-transaction-provider-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-reference-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.bank-transaction-category-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.account-number-col {
+background-repeat: no-repeat; /* Do not repeat the background image */
+border-bottom: 1px solid #ddd;
+}
+
+.transaction-date {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.transaction-description {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.income-balance {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.outcome-balance {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.current-balance {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.bank-transaction-provider {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.transaction-reference {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.bank-transaction-category {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+
+.account-number {
+font-family: 'Gan', sans-serif;
+font-size: 15px;
+color: #4C495A;
+text-align: center;
+margin: 8px;
+}
+}
 
 /* ----------------- Footer CSS ----------------- */
 
@@ -519,4 +1210,5 @@ footer a {
 font-family: 'Montserrat', sans-serif;
 color: white;
 }
+
 

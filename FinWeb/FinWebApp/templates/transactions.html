@@ -125,7 +125,8 @@
 
     <!-- Load data into variables from View -->
     <script>
-
+        const credit_cards_transactions =   {{ credit_cards_transactions|safe }};
+        const bank_transactions =           {{ bank_transactions|safe }};
     </script>
 
 </head>
@@ -192,14 +193,86 @@
             </header>
         </div>
 
-        <!-- 1st (Vertical) -->
-        <div class="analytics-and-trends-horizontal-layout">
-            <div class="root-vertical-layout">
 
+        <!-- 1st (Vertical) -->
+        <div class="root-vertical-layout">
+            <div class="custom-textbox">
+                <label>
+                    <input id="searchbox-transactions" type="text" placeholder="חפש תנועות בנק/אשראי לפי ערך...">
+                </label>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+
+                <div class="transactions-mode-selection">
+                    <!-- selection buttons added dynamically here !-->
+                </div>
+            </div>
+
+            <div class="credit-cards-transactions-div">
+                <table id="credit-cards-transactions-table">
+                    <thead>
+                    <tr>
+                        <th>4 ספרות אחרונות</th>
+                        <th>קטגוריה</th>
+                        <th>סוג העסקה</th>
+                        <th>ספק העסקה</th>
+                        <th>סכום העסקה</th>
+                        <th>סכום חיוב</th>
+                        <th>שם בית העסק</th>
+                        <th>תאריך עסקה</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="date-of-transaction-col"></td>
+                    <td class="last-4-digits-col"></td>
+                    <td class="transaction-category-col"></td>
+                    <td class="transaction-type-col"></td>
+                    <td class="transaction-provider-col"></td>
+                    <td class="total-amount-col"></td>
+                    <td class="charge-amount-col"></td>
+                    <td class="business-name-col"></td>
+                    <td class="date-of-transaction-col"></td>
+                    </tbody>
+                </table>
+                <div>
+                    <p id="empty-credit-cards-transactions-description"></p>
+                </div>
+            </div>
+
+            <div class="bank-transactions-div">
+                <table id="bank-transactions-table">
+                    <thead>
+                    <tr>
+                        <th>מספר חשבון</th>
+                        <th>קטגוריה</th>
+                        <th>אסמכתא</th>
+                        <th>שם הבנק</th>
+                        <th>יתרה נוכחית</th>
+                        <th>סכום חיוב</th>
+                        <th>סכום זיכוי</th>
+                        <th>תיאור תנועה</th>
+                        <th>תאריך תנועה</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="date-of-transaction-col"></td>
+                    <td class="account-number-col"></td>
+                    <td class="transaction-category-col"></td>
+                    <td class="transaction-reference-col"></td>
+                    <td class="transaction-provider-col"></td>
+                    <td class="current-balance-col"></td>
+                    <td class="outcome-balance-col"></td>
+                    <td class="income-balance-col"></td>
+                    <td class="transaction-description-col"></td>
+                    <td class="transaction-date-col"></td>
+                    </tbody>
+                </table>
+                <div>
+                    <p id="empty-bank-transactions-description"></p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Indicate that the script should be executed after the document has been parsed -->
 <script defer="" src="https://unpkg.com/@teleporthq/teleport-custom-scripts"></script>

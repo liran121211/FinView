@@ -1,5 +1,6 @@
 import logging
 import os
+from INIParser.INIFileHandler import BusinessesCategoriesINI
 
 CREDIT_CARD_TRANSACTIONS_CATEGORIES = {
     '1': 'ביטוח',
@@ -46,3 +47,7 @@ FILE_HANDLER.setFormatter(FORMATTER)
 Logger = logging.getLogger(__name__)
 Logger.addHandler(FILE_HANDLER)
 Logger.setLevel(logging.DEBUG)
+
+# INI Parser instance
+BusinessesCategoriesINIParser = BusinessesCategoriesINI('BusinessesCategories.ini')
+BusinessesCategoriesINIParser.read_ini()

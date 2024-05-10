@@ -330,9 +330,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ----------------------- Credit Cards Transactions Table ----------------------- */
 document.addEventListener('DOMContentLoaded', function () {
-    // Check if user_cards is empty
+    // Check if credit_cards_transactions is empty
     const emptyCreditCardsTitle = document.querySelector('#empty-credit-cards-transactions-description');
-    if (Object.keys(user_cards).length === 0) {
+    if (Object.keys(credit_cards_transactions).length === 0) {
         emptyCreditCardsTitle.textContent = 'לא נמצאו עסקאות אשראי';
         return;
     }

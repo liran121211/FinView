@@ -69,6 +69,7 @@ class CreditCardsTransactions:
     def __init__(self):
         self.logger = Logger
         self.db = PostgreSQL_DB
+        self.ini_parser = None
 
     def add_transaction(self, record_data: Dict, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
@@ -94,7 +95,12 @@ class CreditCardsTransactions:
             return RECORD_EXIST
 
         # Generate category value for new added record.
-        record_data['transaction_category'] = Gemini_Model.find_business_category(record_data['business_name'])
+        if self.ini_parser is not None:
+            record_data['transaction_category'] = self.ini_parser.find_business_category(record_data['business_name'])
+            if record_data['transaction_category'] is None:
+                record_data['transaction_category'] = Gemini_Model.find_business_category(record_data['business_name'])
+        else:
+            record_data['transaction_category'] = Gemini_Model.find_business_category(record_data['business_name'])
 
         try:
             self.db.add_record(table_name='user_credit_card_transactions', record_data=record_data)
