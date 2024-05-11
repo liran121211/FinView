@@ -86,14 +86,34 @@ class BusinessesCategoriesINI(INIFileHandler):
 
     def get_main_category(self, ini_header: Text, input_category: Text):
         all_categories = self.get_values(ini_header=ini_header)
-        for ini_category, ini_sub_categories in all_categories.items():
-            if input_category == ini_category:
-                return input_category
+        for ini_main_category, ini_sub_categories in all_categories.items():
+            if input_category == ini_main_category:
+                return ini_main_category
             if input_category in ini_sub_categories:
-                return input_category
+                return ini_main_category
 
         return 'לא מקוטלג'
 
-x = BusinessesCategoriesINI('BusinessesCategories.ini')
-x.handler["Section1"] = {"Option1": "Value1", "Option2": "Value2"}
-x.write_ini()
+    def is_business_exist(self, input_business: Text):
+        all_businesses = self.get_values(ini_header='Predefined Businesses')
+        input_business = input_business.lower()
+        for ini_business, _ in all_businesses.items():
+            if input_business in ini_business:
+                return True
+        return False
+
+    def get_predefined_business_category(self, business_name: Text):
+        if self.is_business_exist(business_name):
+            try:
+                return self.get_values(ini_header='Predefined Businesses')[business_name][0]
+            except KeyError:
+                Logger.critical(f"Error reading from INI file, predefined business name: '{business_name}' not found.")
+                return None
+            except IndexError:
+                Logger.critical(f"Error reading from INI file, predefined business name: '{business_name}' has no category.")
+                return None
+        return None
+
+    def add_new_business_category(self, business_name: Text, category: Text):
+        self.handler["Predefined Businesses"] = {business_name: category}
+        self.write_ini()
