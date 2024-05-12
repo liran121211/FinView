@@ -1,5 +1,7 @@
 import logging
 import os
+
+from INIParser.INIFileHandler import BusinessesCategoriesINI
 from RDBMS.PostgreSQL import PostgreSQL
 from AI.Gemini import GeminiModel
 
@@ -27,6 +29,10 @@ Logger.setLevel(logging.DEBUG)
 
 # SQL instance
 PostgreSQL_DB = PostgreSQL()
+
+# INI Parser instance
+BusinessesCategoriesINIParser = BusinessesCategoriesINI('BusinessesCategories.ini')
+BusinessesCategoriesINIParser.read_ini()
 
 # Defines
 RECORD_ADDED =      1

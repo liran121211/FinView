@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-        // Select all divs with the class 'credit-card-selection-box'
+    // Select all divs with the class 'credit-card-selection-box'
     const divs = document.querySelectorAll('.mode-selection');
 
     // Add click event listener to each div
@@ -58,6 +58,54 @@ document.addEventListener('DOMContentLoaded', function () {
             } //end if|(alreadyClicked)
         }) //end addEventListener()
     }); //end forEach()
+
+
+    let table = document.getElementById("credit-cards-transactions-table");
+    let headers = table.getElementsByTagName("th");
+
+    for (let i = 0; i < headers.length; i++) {
+        headers[i].onclick = function () {
+            let colIndex = this.cellIndex;
+            sortTable(colIndex);
+        };
+    }
+
+    function sortTable(colIndex) {
+        let table, rows, switching, i, x, y, shouldSwitch;
+        const last_4_digits_idx =   0;
+        const current_amount_idx =  4;
+        const total_amount_idx =    5;
+        table = document.getElementById("credit-cards-transactions-table");
+        switching = true;
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[colIndex];
+                y = rows[i + 1].getElementsByTagName("td")[colIndex];
+
+                if (colIndex === last_4_digits_idx || colIndex === current_amount_idx || colIndex === total_amount_idx) { // Sorting by value
+                    if (parseFloat(y.innerText) > parseFloat(x.innerText)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else { // Sorting alphabetically
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
 
 }); //end DOMContentLoaded()
 
@@ -102,18 +150,19 @@ document.addEventListener('DOMContentLoaded', function () {
             tableBody.appendChild(row);
         }
     }
+
     renderTable();
 
 
     document.getElementById("searchbox-transactions").addEventListener("input", function () {
-        const last_4_digits =           0
-        const transaction_category =    1
-        const transaction_type =        2
-        const transaction_provider =    3
-        const transaction_total =       4
-        const transaction_amount =      5
-        const business_name =           6
-        const transaction_date =        7
+        const last_4_digits = 0
+        const transaction_category = 1
+        const transaction_type = 2
+        const transaction_provider = 3
+        const transaction_total = 4
+        const transaction_amount = 5
+        const business_name = 6
+        const transaction_date = 7
 
         let filterValue = this.value.toLowerCase();
         let table = document.getElementById("credit-cards-transactions-table");
@@ -125,28 +174,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Loop through all table rows, and hide those that don't match the search query
         for (let i = 1; i < rows.length; i++) { // Start from index 1 to skip the header row
-            let r_last_4_digits         = rows[i].getElementsByTagName("td")[last_4_digits];
-            let r_transaction_category  = rows[i].getElementsByTagName("td")[transaction_category];
-            let r_transaction_type      = rows[i].getElementsByTagName("td")[transaction_type];
-            let r_transaction_provider  = rows[i].getElementsByTagName("td")[transaction_provider];
-            let r_transaction_total     = rows[i].getElementsByTagName("td")[transaction_total];
-            let r_transaction_amount    = rows[i].getElementsByTagName("td")[transaction_amount];
-            let r_business_name         = rows[i].getElementsByTagName("td")[business_name];
-            let r_transaction_date      = rows[i].getElementsByTagName("td")[transaction_date];
+            let r_last_4_digits = rows[i].getElementsByTagName("td")[last_4_digits];
+            let r_transaction_category = rows[i].getElementsByTagName("td")[transaction_category];
+            let r_transaction_type = rows[i].getElementsByTagName("td")[transaction_type];
+            let r_transaction_provider = rows[i].getElementsByTagName("td")[transaction_provider];
+            let r_transaction_total = rows[i].getElementsByTagName("td")[transaction_total];
+            let r_transaction_amount = rows[i].getElementsByTagName("td")[transaction_amount];
+            let r_business_name = rows[i].getElementsByTagName("td")[business_name];
+            let r_transaction_date = rows[i].getElementsByTagName("td")[transaction_date];
             if (r_last_4_digits || r_transaction_category || r_transaction_type || r_transaction_provider || r_transaction_total || r_transaction_amount || r_business_name || r_transaction_date) {
-                if (r_last_4_digits.textContent.toLowerCase().indexOf(filterValue) > -1         ||
-                    r_transaction_category.textContent.toLowerCase().indexOf(filterValue) > -1  ||
-                    r_transaction_type.textContent.toLowerCase().indexOf(filterValue) > -1      ||
-                    r_transaction_provider.textContent.toLowerCase().indexOf(filterValue) > -1  ||
-                    r_transaction_total.textContent.toLowerCase().indexOf(filterValue) > -1     ||
-                    r_transaction_amount.textContent.toLowerCase().indexOf(filterValue) > -1    ||
-                    r_business_name.textContent.toLowerCase().indexOf(filterValue) > -1         ||
-                    r_transaction_date.textContent.toLowerCase().indexOf(filterValue) > -1)
-                {
+                if (r_last_4_digits.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_category.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_type.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_provider.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_total.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_amount.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_business_name.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_date.textContent.toLowerCase().indexOf(filterValue) > -1) {
                     rows[i].style.display = "";
-                }
-                else
-                {
+                } else {
                     rows[i].style.display = "none";
                 }
             }
@@ -196,19 +242,20 @@ document.addEventListener('DOMContentLoaded', function () {
             tableBody.appendChild(row);
         }
     }
+
     renderTable();
 
 
     document.getElementById("searchbox-transactions").addEventListener("input", function () {
-        const transaction_category =      0
-        const transaction_reference =     1
-        const account_number =            2
-        const transaction_provider =      3
-        const current_balance =           4
-        const outcome_balance =           5
-        const income_balance =            6
-        const transaction_description =   7
-        const transaction_date =          8
+        const transaction_category = 0
+        const transaction_reference = 1
+        const account_number = 2
+        const transaction_provider = 3
+        const current_balance = 4
+        const outcome_balance = 5
+        const income_balance = 6
+        const transaction_description = 7
+        const transaction_date = 8
 
         let filterValue = this.value.toLowerCase();
         let table = document.getElementById("bank-transactions-table");
@@ -220,31 +267,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Loop through all table rows, and hide those that don't match the search query
         for (let i = 1; i < rows.length; i++) { // Start from index 1 to skip the header row
-            let r_transaction_category          = rows[i].getElementsByTagName("td")[transaction_category];
-            let r_transaction_reference         = rows[i].getElementsByTagName("td")[transaction_reference];
-            let r_account_number                = rows[i].getElementsByTagName("td")[account_number];
-            let r_transaction_provider          = rows[i].getElementsByTagName("td")[transaction_provider];
-            let r_current_balance               = rows[i].getElementsByTagName("td")[current_balance];
-            let r_outcome_balance               = rows[i].getElementsByTagName("td")[outcome_balance];
-            let r_income_balance                = rows[i].getElementsByTagName("td")[income_balance];
-            let r_transaction_description       = rows[i].getElementsByTagName("td")[transaction_description];
-            let r_transaction_date              = rows[i].getElementsByTagName("td")[transaction_date];
+            let r_transaction_category = rows[i].getElementsByTagName("td")[transaction_category];
+            let r_transaction_reference = rows[i].getElementsByTagName("td")[transaction_reference];
+            let r_account_number = rows[i].getElementsByTagName("td")[account_number];
+            let r_transaction_provider = rows[i].getElementsByTagName("td")[transaction_provider];
+            let r_current_balance = rows[i].getElementsByTagName("td")[current_balance];
+            let r_outcome_balance = rows[i].getElementsByTagName("td")[outcome_balance];
+            let r_income_balance = rows[i].getElementsByTagName("td")[income_balance];
+            let r_transaction_description = rows[i].getElementsByTagName("td")[transaction_description];
+            let r_transaction_date = rows[i].getElementsByTagName("td")[transaction_date];
             if (r_transaction_category || r_transaction_reference || r_account_number || r_transaction_provider || r_current_balance || r_outcome_balance || r_income_balance || r_transaction_description || r_transaction_date) {
-                if (r_transaction_category.textContent.toLowerCase().indexOf(filterValue) > -1          ||
-                    r_transaction_reference.textContent.toLowerCase().indexOf(filterValue) > -1         ||
-                    r_account_number.textContent.toLowerCase().indexOf(filterValue) > -1                ||
-                    r_transaction_provider.textContent.toLowerCase().indexOf(filterValue) > -1          ||
-                    r_transaction_provider.textContent.toLowerCase().indexOf(filterValue) > -1          ||
-                    r_current_balance.textContent.toLowerCase().indexOf(filterValue) > -1               ||
-                    r_outcome_balance.textContent.toLowerCase().indexOf(filterValue) > -1               ||
-                    r_income_balance.textContent.toLowerCase().indexOf(filterValue) > -1                ||
-                    r_transaction_description.textContent.toLowerCase().indexOf(filterValue) > -1       ||
-                    r_transaction_date.textContent.toLowerCase().indexOf(filterValue) > -1)
-                {
+                if (r_transaction_category.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_reference.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_account_number.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_provider.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_provider.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_current_balance.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_outcome_balance.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_income_balance.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_description.textContent.toLowerCase().indexOf(filterValue) > -1 ||
+                    r_transaction_date.textContent.toLowerCase().indexOf(filterValue) > -1) {
                     rows[i].style.display = "";
-                }
-                else
-                {
+                } else {
                     rows[i].style.display = "none";
                 }
             }

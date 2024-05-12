@@ -69,7 +69,7 @@ class CreditCardsTransactions:
     def __init__(self):
         self.logger = Logger
         self.db = PostgreSQL_DB
-        self.ini_parser = None
+        self.ini_parser = BusinessesCategoriesINIParser
 
     def add_transaction(self, record_data: Dict, username: Text) -> int:
         required_columns = self.db.fetch_columns('user_credit_card_transactions')
@@ -96,7 +96,7 @@ class CreditCardsTransactions:
 
         # Generate category value for new added record.
         if self.ini_parser is not None:
-            record_data['transaction_category'] = self.ini_parser.find_business_category(record_data['business_name'])
+            record_data['transaction_category'] = self.ini_parser.get_predefined_business_category(record_data['business_name'])
             if record_data['transaction_category'] is None:
                 record_data['transaction_category'] = Gemini_Model.find_business_category(record_data['business_name'])
         else:
@@ -821,18 +821,25 @@ class Application:
             for filename in files:
                 if CalOnlineParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'Cal'
+                    return result
                 if MaxParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'Max'
+                    return result
                 if LeumiParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'Leumi'
+                    return result
                 if IsracardParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'IsraCard'
+                    return result
                 if BankLeumiParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'BankLeumi'
+                    return result
                 if BankMizrahiTefahotParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'BankMizrahiTefahot'
+                    return result
                 if HilanParser(file_path=os.path.join(root, filename)).validate_file_structure():
                     result[filename] = 'Hilan'
+                    return result
         return result
 
     @property

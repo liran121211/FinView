@@ -3297,3 +3297,7 @@
 2024-04-28 09:39:47,566 - CRITICAL - Invalid data indexes in LeumiParser: validate_file_structure().
 2024-04-28 09:39:47,567 - CRITICAL - Invalid data indexes in IsracardParser: validate_file_structure().
 2024-04-28 09:39:47,568 - CRITICAL - Invalid data indexes in BankLeumiParser: validate_file_structure().
+2024-05-11 15:25:47,651 - CRITICAL - Invalid date string in MaxParser: validate_file_structure().
+2024-05-11 15:27:21,616 - CRITICAL - Invalid date string in MaxParser: validate_file_structure().
+2024-05-12 19:12:23,454 - CRITICAL - Invalid date string in MaxParser: validate_file_structure().
+2024-05-12 19:32:59,358 - CRITICAL - Invalid date string in MaxParser: validate_file_structure().

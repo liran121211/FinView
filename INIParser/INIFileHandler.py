@@ -115,5 +115,5 @@ class BusinessesCategoriesINI(INIFileHandler):
         return None
 
     def add_new_business_category(self, business_name: Text, category: Text):
-        self.handler["Predefined Businesses"] = {business_name: category}
+        self.handler["Predefined Businesses"][business_name] = category
         self.write_ini()

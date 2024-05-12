@@ -292,34 +292,49 @@ class CalOnlineParser(Parser, ABC):
         return UNDETERMINED_PAYMENT_TYPE
 
     def validate_file_structure(self):
-        valid_statement = True
-
         try:
             if 'פירוט עסקאות לחשבו' not in self.data.columns[0]:
                 valid_statement = False
 
             date_of_transaction_idx, business_name_idx, charge_amount_idx, transaction_type_idx = 0, 1, 3, 4
             total_amount_idx, transaction_category_idx, transaction_note_idx = 2, 5, 6
-            columns_idx = 0
-            if not self.data.iat[columns_idx, date_of_transaction_idx] == 'תאריך עסקה':
-                valid_statement = False
-            if not self.data.iat[columns_idx, business_name_idx] == 'שם בית עסק':
-                valid_statement = False
-            if not self.data.iat[columns_idx, charge_amount_idx] == 'סכום חיוב':
-                valid_statement = False
-            if not self.data.iat[columns_idx, total_amount_idx] == 'סכום עסקה':
-                valid_statement = False
-            if not self.data.iat[columns_idx, transaction_type_idx] == 'סוג עסקה':
-                valid_statement = False
-            if not self.data.iat[columns_idx, transaction_category_idx] == 'ענף':
-                valid_statement = False
-            if not self.data.iat[columns_idx, transaction_note_idx] == 'הערות':
-                valid_statement = False
+            for row_idx in range(len(self.data)):
+                valid_statement = {'date_of_transaction_idx': False,
+                                   'business_name_idx': False,
+                                   'charge_amount_idx': False,
+                                   'total_amount_idx': False,
+                                   'transaction_type_idx': False,
+                                   'transaction_category_idx': False,
+                                   'transaction_note_idx': False,
+                                   }
+                try:
+                    if pd.isna(self.data.iat[row_idx, date_of_transaction_idx]) is False and self.data.iat[row_idx, date_of_transaction_idx].replace('\n', ' ') == 'תאריך עסקה':
+                        valid_statement['date_of_transaction_idx'] = True
+                    if pd.isna(self.data.iat[row_idx, business_name_idx]) is False and self.data.iat[row_idx, business_name_idx].replace('\n', ' ') == 'שם בית עסק':
+                        valid_statement['business_name_idx'] = True
+                    if pd.isna(self.data.iat[row_idx, charge_amount_idx]) is False and self.data.iat[row_idx, charge_amount_idx].replace('\n', ' ') == 'סכום חיוב':
+                        valid_statement['charge_amount_idx'] = True
+                    if pd.isna(self.data.iat[row_idx, total_amount_idx]) is False and self.data.iat[row_idx, total_amount_idx].replace('\n', ' ') == 'סכום עסקה':
+                        valid_statement['total_amount_idx'] = True
+                    if pd.isna(self.data.iat[row_idx, transaction_type_idx]) is False and self.data.iat[row_idx, transaction_type_idx].replace('\n', ' ') == 'סוג עסקה':
+                        valid_statement['transaction_type_idx'] = True
+                    if pd.isna(self.data.iat[row_idx, transaction_category_idx]) is False and self.data.iat[row_idx, transaction_category_idx].replace('\n', ' ') == 'ענף':
+                        valid_statement['transaction_category_idx'] = True
+                    if pd.isna(self.data.iat[row_idx, transaction_note_idx]) is False and self.data.iat[row_idx, transaction_note_idx].replace('\n', ' ') == 'הערות':
+                        valid_statement['transaction_note_idx'] = True
+                except AttributeError:
+                    return False
+                except IndexError:
+                    return False
+                except ValueError:
+                    return False
+
+                if False in valid_statement.values():
+                    continue
+                return True
 
         except IndexError:
             return False
-
-        return valid_statement
 
 
 class MaxParser(Parser, ABC):

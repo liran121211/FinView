@@ -1,9 +1,7 @@
-import threading
-import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Text
 from AI import Logger, BusinessesCategoriesINIParser
 import google.generativeai as genai
+
 
 class GeminiModel():
 
@@ -23,11 +21,13 @@ class GeminiModel():
             return result
         else:
             try:
-                response = self.__model.generate_content(define_role)
+                response = self.__model.generate_content(define_role).text.strip()
             except ValueError:
                 response = ' '.join([keyword.text.strip() for keyword in self.__model.generate_content(define_role).parts])
             result = self.__ini_parser.get_main_category(ini_header='Transactions Categories', input_category=response)
             self.__ini_parser.add_new_business_category(business_name=business_name, category=result)
+
+            return response
 
     def find_bank_transaction_category(self, transaction_desc: Text) -> Text:
         define_role = f"""You are a Bank Analyst,
@@ -35,7 +35,7 @@ class GeminiModel():
         Can you tell me what category the transaction: {transaction_desc}?
         Please respond with the name of the category only in Hebrew without revealing the name of the business."""
 
-        result = self.__ini_parser.get_predefined_business_category(business_name=transaction_desc)
+        result = self.__ini_parser.get_predefined_business_category(transaction_desc)
         if result is not None:
             return result
         else:
@@ -46,6 +46,6 @@ class GeminiModel():
             result = self.__ini_parser.get_main_category(ini_header='Transactions Categories', input_category=response)
             self.__ini_parser.add_new_business_category(business_name=transaction_desc, category=result)
 
+            return response
 
-x = GeminiModel()
-print(x.find_business_category('מאסטר-קארד'))
+
