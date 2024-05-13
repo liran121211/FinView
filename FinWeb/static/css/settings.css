@@ -980,7 +980,7 @@ border-color: #007bff;
 }
 
 /* ----------------- File Upload CSS ----------------- */
-.upload-files-div  {
+.upload-files-locally-div  {
 padding-top: 100px;
 padding-bottom: 50px;
 margin: 0 auto; /* Center horizontally */

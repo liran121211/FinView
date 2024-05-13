@@ -1983,7 +1983,7 @@ font-size: 14px;
 }
 /* ----------------- File Upload CSS ----------------- */
 @media only screen and (max-width: 2560px) and (max-height: 1080px) {
-.upload-files-div  {
+.upload-files-locally-div  {
 padding-top: 100px;
 padding-bottom: 50px;
 margin: 0 auto; /* Center horizontally */
@@ -2109,7 +2109,7 @@ width: 500px;
 }
 
 @media only screen and (max-width: 1280px) and (max-height: 720px) {
-.upload-files-div  {
+.upload-files-locally-div  {
 padding-top: 80px;
 padding-bottom: 40px;
 margin: 0 auto; /* Center horizontally */
@@ -2231,6 +2231,57 @@ margin-bottom: 16px; /* Margin at the bottom to separate from other content */
 display: none;
 font-size: 12px;
 width: 400px;
+}
+}
+
+/* ----------------- Get Online Data CSS ----------------- */
+@media only screen and (max-width: 2560px) and (max-height: 1080px) {
+.upload-online-data-div  {
+padding-top: 100px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+direction: rtl;
+}
+
+.online-data-container{
+width: 530px;
+background: #fff;
+border-radius: 5px;
+padding: 30px;
+box-shadow: 7px 7px 12px rgba(0,0,0,0.05);
+font-family: 'Gan', sans-serif;
+}
+.online-data-container header{
+color: #3498db;
+font-size: 27px;
+font-weight: 600;
+text-align: center;
+}
+}
+
+@media only screen and (max-width: 1280px) and (max-height: 720px) {
+.upload-online-data-div  {
+padding-top: 80px;
+padding-bottom: 40px;
+margin: 0 auto; /* Center horizontally */
+display: none;
+direction: rtl;
+}
+
+.online-data-container{
+width: 424px;
+background: #fff;
+border-radius: 4px;
+padding: 24px;
+box-shadow: 6px 6px 10px rgba(0,0,0,0.05);
+font-family: 'Gan', sans-serif;
+}
+.online-data-container header{
+color: #3498db;
+font-size: 22px;
+font-weight: 600;
+text-align: center;
 }
 }
 

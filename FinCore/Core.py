@@ -6,6 +6,7 @@ from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser, IsracardParser, \
     BankMizrahiTefahotParser, HilanParser
 from FinCore import *
+from WebDriver.CalOnlineDriver import CalOnlineDriver
 
 
 class Users:
@@ -841,6 +842,12 @@ class Application:
                     result[filename] = 'Hilan'
                     return result
         return result
+
+    def load_statements_from_web_driver(self, current_user: Text, web_provider: Text, web_username: Text, web_password: Text):
+        if web_provider == 'Cal-Online':
+            fetched_data = CalOnlineDriver(web_username=web_username, web_password=web_password).retrieve_data()
+            for index, row in fetched_data.iterrows():
+                self.__manage_credit_cards_transactions.add_transaction(record_data=row.to_dict(), username=current_user)
 
     @property
     def ask(self):

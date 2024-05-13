@@ -264,6 +264,25 @@ def settings_personal_information_post(request):
         return redirect('settings_page')
 
 
+def settings_online_web_provider_post(request):
+    if request.user.is_authenticated:
+        logged_in_user = request.user.username
+        if request.method == 'POST':
+            # JSON decoding exception
+            try:
+                web_username = request.POST.get('web_username', None)
+                web_password = request.POST.get('web_password', None)
+
+                FIN_CORE.load_statements_from_web_driver(current_user=logged_in_user, web_provider='Cal-Online', web_username=web_username, web_password=web_password)
+                return redirect('settings_page')
+
+            except Exception as e:
+                Logger.critical("An unexpected error occurred while changing portrait picture:", e)
+    else:
+        return redirect('settings_page')
+
+
+
 def settings_user_cards_post(request):
     # handle credit cards editing
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':

@@ -3309,3 +3309,64 @@ LINE 1: ...(SELECT 1 FROM user_payslips WHERE payslip_date = '06/2023')
 2024-05-12 22:45:09,331 - INFO - Successfully added a new record to PostgreSQL database.
 2024-05-12 22:45:09,336 - INFO - Successfully added a new record to PostgreSQL database.
 2024-05-12 22:47:14,149 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:01:50,007 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:06:09,797 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:45:27,288 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:45:32,349 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:47:44,216 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:49:17,649 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 20:51:23,965 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:36,916 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:41,904 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:41,926 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:46,348 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:50,085 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:50,111 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:55,785 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:59,596 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:59,617 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:51:59,638 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:04,217 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:04,237 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:08,864 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:13,347 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:13,363 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:13,376 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:13,388 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:18,877 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:22,105 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:27,257 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:31,005 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:31,026 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:31,039 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:35,242 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:39,564 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:44,907 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:50,389 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:50,410 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:50,427 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:54,505 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:52:58,924 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:04,478 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:08,784 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:12,528 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:17,591 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:23,956 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:23,962 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:28,250 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:32,124 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:36,455 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-13 20:53:40,215 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+
+2024-05-13 21:23:53,217 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 21:31:00,973 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 21:47:37,961 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-13 21:48:07,612 - INFO - Successfully connected to PostgreSQL database - localhost:5432

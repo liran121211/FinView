@@ -209,7 +209,8 @@
                         <span class="nav-span" data-div="direct-debit-subscription-div">הוראות קבע ותשלומים</span>
                         <span class="nav-span" data-div="credit-cards-transactions-div">עסקאות בכרטיסי אשראי</span>
                         <span class="nav-span" data-div="bank-transactions-div">תנועות בבנק</span>
-                        <span class="nav-span" data-div="upload-files-div">העלאת מידע</span>
+                        <span class="nav-span" data-div="upload-files-locally-div">העלאת מידע מקומית</span>
+                        <span class="nav-span" data-div="upload-online-data-div">העלאת מידע בזמן אמת</span>
                     </nav>
                     <div class="home-profile">
                         <div class="settings-side-bar-avatar-section">
@@ -424,7 +425,7 @@
                 </div>
                 <div id="direct-debit-subscription-pagination"></div>
             </div>
-            <div class="upload-files-div">
+            <div class="upload-files-locally-div">
                 <div class="upload-file-container">
                     <header>העלאת נתונים למערכת</header>
                     <form id="upload-file-form" action="#">
@@ -432,6 +433,37 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                         <p>לחץ כאן לבחירת קובץ</p>
                     </form>
+                    <section class="upload-file-progress-area"></section>
+                    <section class="uploaded-file-area"></section>
+                </div>
+                <div class="upload-file-statistics"></div>
+            </div>
+            <div class="upload-online-data-div">
+                <div class="online-data-container">
+                    <header>משיכת נתונים למערכת</header>
+                    <div class="personal-details-div">
+                        <form method="post" action="{% url 'settings_online_web_provider_post' %}">
+                            {% csrf_token %}
+                            <h3>כאל און-ליין</h3>
+                            <fieldset>
+                                <div id="personal-details-div-sub">
+                                    <label for="web_username">שם משתמש:</label>
+                                    <input type="text" id="web_username" name="web_username" value="NONE">
+                                </div>
+
+                                <div id="personal-details-div-sub">
+                                    <label for="web_password">סיסמא:</label>
+                                    <input type="text" id="web_password" name="web_password" value="NONE">
+                                </div>
+
+                                <div id="portrait-change-div-sub">
+                                    <!-- Button styled as upload button -->
+                                    <button id="portrait-change-btn">משוך מידע</button>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
                     <section class="upload-file-progress-area"></section>
                     <section class="uploaded-file-area"></section>
                 </div>
