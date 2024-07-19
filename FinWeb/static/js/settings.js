@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.nav-span').forEach(function (span) {
         span.addEventListener('click', function () {
 
-            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-locally-div', 'upload-online-data-div']
+            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-locally-div', 'online-data-div']
 
             // Iterate over each class name
             navDivClasses.forEach(function (navDivClass) {
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(data => {
                         if (!data.success) {
                             // Handle the case where the server indicates failure
-                            showFailStatus("עדכון מידע נכשל", '.settings-modification-block-fail-status');
+                            showFailStatus("עדכון מידע נכשל", "'.settings-modification-block-fail-status'");
                         } else {
                             // Handle the case where the server indicates success
                             showSuccessStatus('השינויים עודכנו בהצלחה', "'.settings-modification-block-success-status'");

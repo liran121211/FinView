@@ -107,7 +107,7 @@
     <script src="{% static 'js/settings.js' %}"></script>
 
     <!-- Remote JS Files -->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Load data into variables from View -->
     <script>
@@ -118,6 +118,7 @@
         let full_name =                     {{ full_name|safe }};
         let account_status =                {{ account_status|safe }};
         let portrait =                      {{ portrait|safe }};
+        let cal_online_driver_interval_id =  false;
     </script>
 
 </head>
@@ -210,7 +211,7 @@
                         <span class="nav-span" data-div="credit-cards-transactions-div">עסקאות בכרטיסי אשראי</span>
                         <span class="nav-span" data-div="bank-transactions-div">תנועות בבנק</span>
                         <span class="nav-span" data-div="upload-files-locally-div">העלאת מידע מקומית</span>
-                        <span class="nav-span" data-div="upload-online-data-div">העלאת מידע בזמן אמת</span>
+                        <span class="nav-span" data-div="online-data-div">העלאת מידע בזמן אמת</span>
                     </nav>
                     <div class="home-profile">
                         <div class="settings-side-bar-avatar-section">
@@ -438,40 +439,38 @@
                 </div>
                 <div class="upload-file-statistics"></div>
             </div>
-            <div class="upload-online-data-div">
+            <div class="online-data-div">
                 <div class="online-data-container">
                     <header>משיכת נתונים למערכת</header>
-                    <div class="personal-details-div">
+                    <div class="cal-online-div">
                         <form method="post" action="{% url 'settings_online_web_provider_post' %}">
                             {% csrf_token %}
                             <h3>כאל און-ליין</h3>
-                            <fieldset>
-                                <div id="personal-details-div-sub">
+                            <fieldset id="cal-online-fieldset">
+                                <div id="cal-online-div-sub">
                                     <label for="web_username">שם משתמש:</label>
                                     <input type="text" id="web_username" name="web_username" value="NONE">
                                 </div>
 
-                                <div id="personal-details-div-sub">
+                                <div id="cal-online-div-sub">
                                     <label for="web_password">סיסמא:</label>
                                     <input type="text" id="web_password" name="web_password" value="NONE">
                                 </div>
 
-                                <div id="portrait-change-div-sub">
+                                <div id="cal-online-div-sub">
                                     <!-- Button styled as upload button -->
-                                    <button id="portrait-change-btn">משוך מידע</button>
+                                    <button id="cal-online-btn" onclick="startWebProviderProcess('Start')">רענן נתונים</button>
                                 </div>
                             </fieldset>
                         </form>
-
                     </div>
-                    <section class="upload-file-progress-area"></section>
-                    <section class="uploaded-file-area"></section>
                 </div>
                 <div class="upload-file-statistics"></div>
             </div>
 
             <div class="settings-modification-block-status">
                 <div class="settings-modification-block-success-status"></div>
+                <div class="settings-modification-block-in-progress-status"></div>
                 <div class="settings-modification-block-fail-status"></div>
             </div>
         </div>

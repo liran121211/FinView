@@ -8,10 +8,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 
 from DataParser import UNDETERMINED_PAYMENT_TYPE
-from WebDriver import MAX_WAITING_TIME, LAST_4_DIGITS_IDX, CARD_TYPE_IDX, LOGIN_BUTTON_IDX, FIRST_ELEMENT_IDX, \
-    SECOND_ELEMENT_IDX
+from WebDriver import MAX_WAITING_TIME, LAST_4_DIGITS_IDX, LOGIN_BUTTON_IDX, FIRST_ELEMENT_IDX, \
+    SECOND_ELEMENT_IDX, DriverStatusesEnums
+
 
 class CalOnlineDriver:
+    # Define the class variable
+    cal_online_driver_status = ''
+
     def __init__(self, web_username: Text, web_password: Text, web_driver: Text = 'Chrome'):
         self.__username = web_username
         self.__password = web_password
@@ -36,9 +40,15 @@ class CalOnlineDriver:
 
         return None
 
+    @classmethod
+    def get_cal_online_driver_status(cls):
+        return cls.cal_online_driver_status
+
     def retrieve_data(self) -> pd.DataFrame:
+
         # Open a webpage
         self.__driver.get(self.__login_url)
+        CalOnlineDriver.cal_online_driver_status = DriverStatusesEnums.CAL_ONLINE_SERVER_CONNECTION
 
         # Wait for up to 2 seconds
         self.__driver.implicitly_wait(2)
@@ -62,6 +72,7 @@ class CalOnlineDriver:
 
         # submit form
         self.__driver.find_elements(By.TAG_NAME, 'button')[LOGIN_BUTTON_IDX].click()
+        CalOnlineDriver.cal_online_driver_status = DriverStatusesEnums.CAL_ONLINE_VERIFY_USERNAME_PASSWORD
 
         # continue to navigate between pages until transaction url reached.
         WebDriverWait(self.__driver, MAX_WAITING_TIME).until(expected_conditions.url_to_be(self.__flow_url_1))
@@ -69,6 +80,7 @@ class CalOnlineDriver:
 
         WebDriverWait(self.__driver, MAX_WAITING_TIME).until(expected_conditions.url_to_be(self.__dashboard_url))
         self.__driver.get(self.__transactions_url)
+        CalOnlineDriver.cal_online_driver_status = DriverStatusesEnums.CAL_ONLINE_RETRIEVE_DATA_TABLES
 
         WebDriverWait(self.__driver, MAX_WAITING_TIME).until(expected_conditions.url_to_be(self.__transactions_url))
 
@@ -80,6 +92,7 @@ class CalOnlineDriver:
         WebDriverWait(self.__driver, MAX_WAITING_TIME).until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'search-results')))
 
         # extract transactions rows data
+        CalOnlineDriver.cal_online_driver_status = DriverStatusesEnums.CAL_ONLINE_FETCH_DATA_TABLES
         for idx, element in enumerate(self.__driver.find_elements(By.TAG_NAME, 'li')):
             data = {
                     'date_of_transaction': pd.to_datetime(element.find_element(By.CLASS_NAME, 'trnDate').text, dayfirst=True),
@@ -94,5 +107,5 @@ class CalOnlineDriver:
 
         # finish driver process
         self.__driver.quit()
-
+        CalOnlineDriver.cal_online_driver_status = DriverStatusesEnums.CAL_ONLINE_INSERT_DATA_TO_DB
         return self.transactions_data

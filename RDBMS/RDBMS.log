@@ -3370,3 +3370,96 @@ LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
 2024-05-13 21:31:00,973 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-05-13 21:47:37,961 - INFO - Successfully connected to PostgreSQL database - localhost:5432
 2024-05-13 21:48:07,612 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 11:04:16,331 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 11:34:19,977 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:29:28,668 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:35:01,867 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:37:03,397 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:41:40,287 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:42:45,768 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:43:56,783 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:46:46,906 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:49:09,671 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:56:48,355 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:58:27,064 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 18:59:45,737 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:14:33,271 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:18:24,502 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+
+2024-05-14 19:18:36,393 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:24:12,805 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:27:06,619 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:29:45,074 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:31:37,901 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:32:53,113 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+
+2024-05-14 19:38:45,840 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:41:05,458 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+
+2024-05-14 19:47:39,771 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 19:51:30,027 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 20:10:17,563 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 20:17:44,605 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 20:18:10,357 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 20:20:22,584 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 20:24:25,137 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 21:13:19,809 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 21:16:33,380 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 21:17:28,692 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 21:18:54,429 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 21:32:27,976 - INFO - Successfully connected to PostgreSQL database - localhost:5432
+2024-05-14 21:33:31,307 - INFO - Successfully added a new record to PostgreSQL database.
+2024-05-14 21:33:35,598 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+
+2024-05-14 21:38:05,377 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+
+2024-05-14 21:52:34,202 - ERROR - invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Dev\FinView_13_01_24\FinView\FinWeb\..\RDBMS\PostgreSQL.py", line 81, in add_record
+    cursor.execute(insert_query, list(record_data.values()))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "1,095.08"
+LINE 1: ...0:00:00'::timestamp, 'AEGEAN AIRLI0000000UNLY8D', '1,095.08'...
+                                                             ^
+

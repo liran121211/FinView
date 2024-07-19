@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.nav-span').forEach(function (span) {
         span.addEventListener('click', function () {
 
-            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-locally-div', 'direct-debit-subscription-div', 'upload-online-data-div',]
+            let navDivClasses = ['personal-details-div', 'credit-cards-details-div', 'credit-cards-transactions-div', 'bank-transactions-div', 'upload-files-locally-div', 'direct-debit-subscription-div', 'online-data-div',]
 
             // Iterate over each class name
             navDivClasses.forEach(function (navDivClass) {
@@ -877,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-        // Define the options for the combo box
+    // Define the options for the combo box
     const paymentTypeCategories = ['עסקת תשלומים', 'הוראת קבע']
 
     // Select the table
@@ -1075,6 +1075,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+/* ----------------------- Get Online Data ----------------------- */
+
+function getWebProviderStatus() {
+    $.ajax({
+        url: '/settings/fetch_online_web_provider_status',  // URL to fetch dynamic string
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            web_provider: 'Cal-Online',
+        },
+        success: function (data) {
+            // Handle the case where the server indicates failure
+            showInProgressStatus(data.cal_online_driver_status, '.settings-modification-block-in-progress-status');
+
+            if (data.cal_online_driver_status === "התהליך הושלם בהצלחה")
+                startWebProviderProcess('Clear')
+        },
+        error: function (xhr, status, error) {
+            console.log("Error:", error);
+        }
+    });
+}
+
+function startWebProviderProcess(mode) {
+    if (mode === 'Clear')
+    {
+        clearInterval(cal_online_driver_interval_id);
+        document.querySelector(element).style.display = 'none';
+    }
+
+    if (mode === 'Start')
+        cal_online_driver_interval_id  = setInterval(getWebProviderStatus, 1000); // Replace myFunction with your function and 1000 with the interval duration in milliseconds
+}
+
 /* ----------------------- Misc Functions ----------------------- */
 
 // Function to get CSRF cookie value
@@ -1112,4 +1146,10 @@ function showFailStatus(message, element) {
     setTimeout(() => {
         failStatusElement.style.display = 'none';
     }, 2000);
+}
+
+function showInProgressStatus(message, element) {
+    const inProgressStatusElement = document.querySelector(element);
+    inProgressStatusElement.textContent = message;
+    inProgressStatusElement.style.display = 'block';
 }

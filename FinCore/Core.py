@@ -6,6 +6,7 @@ from psycopg2.errors import InvalidDatetimeFormat
 from DataParser.StatementParser import CalOnlineParser, MaxParser, LeumiParser, BankLeumiParser, IsracardParser, \
     BankMizrahiTefahotParser, HilanParser
 from FinCore import *
+from WebDriver import DriverStatusesEnums
 from WebDriver.CalOnlineDriver import CalOnlineDriver
 
 
@@ -848,6 +849,7 @@ class Application:
             fetched_data = CalOnlineDriver(web_username=web_username, web_password=web_password).retrieve_data()
             for index, row in fetched_data.iterrows():
                 self.__manage_credit_cards_transactions.add_transaction(record_data=row.to_dict(), username=current_user)
+                CalOnlineDriver.cal_online_driver_status = DriverStatusesEnums.CAL_ONLINE_SUCCESSFULLY_FINISHED
 
     @property
     def ask(self):

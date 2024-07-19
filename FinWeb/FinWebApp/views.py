@@ -30,6 +30,8 @@ from FinWeb.FinWebApp.models import UserFinancialInformation, UserCards, UserDir
     bank_income_by_category_query, UserPersonalInformation, spent_by_date_query, \
     spent_by_business_query, income_by_bank_query, outcome_by_bank_query, bank_outcome_by_category_query
 
+from WebDriver.CalOnlineDriver import CalOnlineDriver
+
 
 def home_view(request):
     if request.user.is_authenticated:
@@ -268,19 +270,38 @@ def settings_online_web_provider_post(request):
     if request.user.is_authenticated:
         logged_in_user = request.user.username
         if request.method == 'POST':
-            # JSON decoding exception
             try:
                 web_username = request.POST.get('web_username', None)
                 web_password = request.POST.get('web_password', None)
 
                 FIN_CORE.load_statements_from_web_driver(current_user=logged_in_user, web_provider='Cal-Online', web_username=web_username, web_password=web_password)
-                return redirect('settings_page')
 
             except Exception as e:
-                Logger.critical("An unexpected error occurred while changing portrait picture:", e)
+                Logger.critical("An unexpected error occurred while trying to fetch data from Credit Card provider...", e)
+        else:
+            return redirect('settings_page')
     else:
         return redirect('settings_page')
 
+
+def settings_online_web_provider_json(request):
+    if request.user.is_authenticated:
+
+        if request.content_type == 'text/plain' and 'web_provider' in request.GET:
+            # JSON decoding exception
+            try:
+                json_data = request.GET.get('web_provider', None)
+            except json.JSONDecodeError as e:
+                Logger.critical(e)
+                # Handle the JSON decoding error
+            else:
+                if json_data is not None:
+                    if json_data == 'Cal-Online':
+                        return JsonResponse({'cal_online_driver_status': CalOnlineDriver.get_cal_online_driver_status()})
+        else:
+            return redirect('settings_page')
+    else:
+        return redirect('settings_page')
 
 
 def settings_user_cards_post(request):

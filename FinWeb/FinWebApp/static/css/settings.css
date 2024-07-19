@@ -637,6 +637,16 @@ margin-bottom: 20px; /* Margin at the bottom to separate from other content */
 display: none;
 }
 
+.settings-modification-block-in-progress-status{
+background-color: #f7f7f7; /* Redish background color */
+border: 1px solid #black; /* Redish border color */
+color: #black; /* Dark red text color */
+padding: 10px 20px; /* Padding around the text */
+border-radius: 5px; /* Rounded corners */
+margin-bottom: 20px; /* Margin at the bottom to separate from other content */
+display: none;
+}
+
 .personal-details-div{
 display: block;
 }
@@ -716,7 +726,6 @@ font-size: 16px; /* Set font size */
 cursor: pointer; /* Add cursor on hover */
 border-radius: 4px; /* Add rounded corners */
 margin-top: 10px;
-
 }
 
 #portrait-change-btn:hover {
@@ -2236,7 +2245,7 @@ width: 400px;
 
 /* ----------------- Get Online Data CSS ----------------- */
 @media only screen and (max-width: 2560px) and (max-height: 1080px) {
-.upload-online-data-div  {
+.online-data-div  {
 padding-top: 100px;
 padding-bottom: 50px;
 margin: 0 auto; /* Center horizontally */
@@ -2252,16 +2261,70 @@ padding: 30px;
 box-shadow: 7px 7px 12px rgba(0,0,0,0.05);
 font-family: 'Gan', sans-serif;
 }
+
 .online-data-container header{
 color: #3498db;
 font-size: 27px;
 font-weight: 600;
 text-align: center;
 }
+
+.cal-online-div{
+display: block;
+padding-top: 20px;
+padding-bottom: 50px;
+margin: 0 auto; /* Center horizontally */
+}
+.cal-online-div form {
+display: flex;
+flex-direction: column; /* Stack fieldsets vertically */
+}
+
+.cal-online-div h3 {
+color: #c5c5c5;
+margin-bottom: 10px;
+font-size: 22px;
+direction: rtl;
+}
+
+.cal-online-div fieldset {
+margin-bottom: 20px; /* Add space between fieldsets */
+background-color: #f7f7f7;
+display: flex;
+direction: rtl;
+}
+
+
+.cal-online-div input {
+margin-left: 20px;
+font-size: 18px;
+color: #4C495A;
+}
+
+.cal-online-div label {
+margin-left: 50px;
+margin-bottom: 5px;
+color: #3498db;
+}
+
+#cal-online-btn {
+background-color: #94C973; /* Set button background color */
+color: white; /* Set text color */
+border: none; /* Remove border */
+padding: 10px 20px; /* Add padding */
+text-align: center; /* Center text */
+text-decoration: none; /* Remove underline */
+display:flex; /* Display as inline block */
+font-size: 16px; /* Set font size */
+cursor: pointer; /* Add cursor on hover */
+border-radius: 4px; /* Add rounded corners */
+margin-top: 10px;
+width: 110px;
+}
 }
 
 @media only screen and (max-width: 1280px) and (max-height: 720px) {
-.upload-online-data-div  {
+.online-data-div  {
 padding-top: 80px;
 padding-bottom: 40px;
 margin: 0 auto; /* Center horizontally */
@@ -2283,6 +2346,13 @@ font-size: 22px;
 font-weight: 600;
 text-align: center;
 }
+
+#cal-online-fieldset{
+display: flex;
+direction: rtl;
+flex-direction: column; /* Stack fieldsets vertically */
+}
+
 }
 
 
