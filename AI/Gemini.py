@@ -7,7 +7,7 @@ class GeminiModel():
 
     def __init__(self, model_type: Text = 'gemini-pro'):
         self.model = genai.GenerativeModel(model_type)
-        genai.configure(api_key='AIzaSyAK4fNcGCPf1aPC0R8oXDY20QoX_WO4HJ8')
+        genai.configure(api_key=HIDDEN')
 
     def find_business_category(self, business_name: Text) -> Text:
         define_role = f"""You are a Business Explorer,
